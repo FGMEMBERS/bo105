@@ -31,7 +31,10 @@ Bo 105 simulation config.
 
   <model>
    <path archive="y">Aircraft/bo105/Models/bo105.xml</path>
-   <painting>1</painting>
+   <bo105>
+    <painting>1</painting>
+    <shadow-blend>0.4</shadow-blend>
+   </bo105>
   </model>
 
   <view>

@@ -63,12 +63,18 @@
 		<type>translate</type>
 		<object-name>shadow_rotor</object-name>
 		<property>position/altitude-agl-ft</property>
-		<factor>0.2</factor>
+		<factor>0.3</factor>
 		<axis>
 			<x>0</x>
 			<y>0</y>
 			<z>-1</z>
 		</axis>
+	</animation>
+
+	<animation>
+		<type>blend</type>
+		<object-name>shadow_rotor</object-name>
+		<property>/sim/model/bo105/shadow-blend</property>
 	</animation>
 
 	<animation>
@@ -97,12 +103,18 @@
 		<type>translate</type>
 		<object-name>shadow_fuselage</object-name>
 		<property>position/altitude-agl-ft</property>
-		<factor>0.2</factor>
+		<factor>0.3</factor>
 		<axis>
 			<x>0</x>
 			<y>0</y>
 			<z>-1</z>
 		</axis>
+	</animation>
+
+	<animation>
+		<type>blend</type>
+		<object-name>shadow_fuselage</object-name>
+		<property>/sim/model/bo105/shadow-blend</property>
 	</animation>
 
 	<animation>
@@ -303,7 +315,7 @@
 		<object-name>cross</object-name>
 		<object-name>badge</object-name>
 		<condition>
-			<property>/sim/model/painting</property>
+			<property>/sim/model/bo105/painting</property>
 		</condition>
 	</animation>
 
@@ -745,6 +757,53 @@
 			<z-m>0.70</z-m>
 		</offsets>
 	</model-->
+
+	<animation>
+		<type>timed</type>
+		<object-name>blinker_off</object-name>
+		<object-name>blinker_aura</object-name>
+		<duration-sec>1.5</duration-sec>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>blinker_aura</object-name>
+		<offset-m>5.883</offset-m>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>blinker_aura</object-name>
+		<offset-m>2.008</offset-m>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>billboard</type>
+		<object-name>blinker_aura</object-name>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>blinker_aura</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>4</x-factor>
+		<y-factor>4</y-factor>
+		<z-factor>4</z-factor>
+	</animation>
 
 </PropertyList>
 <!-- N1, EGT, N2 and FF (fuel flow) -->
