@@ -32,7 +32,7 @@ Bo 105 simulation config.
    <config>
      <x-offset-m archive="y">-0.5</x-offset-m><!--right-->
      <y-offset-m archive="y">0.5</y-offset-m><!--up-->
-     <z-offset-m archive="y">-1.2</z-offset-m><!--back-->
+     <z-offset-m archive="y">-1.4</z-offset-m><!--back-->
      <pitch-offset-deg>-8</pitch-offset-deg>
    </config>
   </view>
