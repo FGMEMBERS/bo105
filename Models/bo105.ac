@@ -9,7 +9,7 @@ MATERIAL "red" rgb 0.6 0 0 amb 1 1 1 emis 0 0 0 spec 0.2 0.2 0.2 shi 10 trans 0
 OBJECT world
 kids 62
 OBJECT poly
-name "floor.001"
+name "floor_slope"
 numvert 4
 -2.247787 -0.28663 -0.724932
 -2.247787 -0.28663 0.724932
@@ -9387,9 +9387,9 @@ SURF 0x00
 mat 1
 refs 4
 8 0.0 1.0
-37 1.0 1.0
-36 1.0 0.0
 18 0.0 0.0
+36 1.0 0.0
+37 1.0 1.0
 kids 0
 OBJECT poly
 name "glass_fixed"
