@@ -8,12 +8,17 @@ Bo 105 simulation config.
 <PropertyList>
 	<sim>
 		<description>Eurocopter Bo105</description>
-                <author>Melchior Franz, Maik Justus (FDM)</author>
+		<author>Melchior Franz, Maik Justus (FDM)</author>
 		<status>beta</status>
+		<version>0.1</version>
 
 		<flight-model>yasim</flight-model>
 		<aero>bo105</aero>
 		<fuel-fraction>0.8</fuel-fraction>
+
+		<startup>
+			<splash-texture>Aircraft/bo105/bo105splash.rgb</splash-texture>
+		</startup>
 
 		<sound>
 			<path>Aircraft/bo105/bo105-sound.xml</path>
