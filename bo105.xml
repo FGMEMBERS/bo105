@@ -79,27 +79,17 @@
 </vstab>
 
 
-<gear x="-0.80" y="1.30" z="-1.22" compression="0.1" damp="4.0" spring="0.5"> <!-- left skid -->
-  <control-input axis="/controls/gear/wheel[0]/brake" control="BRAKE" split="true"/>
-  <control-input axis="/controls/gear/parking-brake" control="BRAKE" split="true"/>
-</gear>
+<!-- two contact points for left skid -->
+<gear x="-0.80" y="1.30" z="-1.22" compression="0.1" damp="4.0"
+      spring="0.5" skid="1"/>
+<gear x="-3.15" y="1.30" z="-1.22" compression="0.1" damp="4.0" 
+      spring="0.5" skid="1"/>
 
-<gear x="-3.15" y="1.30" z="-1.22" compression="0.1" damp="4.0" spring="0.5"> <!-- left skid -->
-  <control-input axis="/controls/gear/wheel[0]/brake" control="BRAKE" split="true"/>
-  <control-input axis="/controls/gear/parking-brake" control="BRAKE" split="true"/>
-</gear>
-
-<gear x="0.80" y="-1.30" z="-1.22" compression="0.1" damp="4.0" spring="0.5"> <!-- right skid -->
-  <control-input axis="/controls/gear/wheel[1]/brake" control="BRAKE" split="true"/>
-  <control-input axis="/controls/gear/parking-brake" control="BRAKE" split="true"/>
-</gear>
-
-<gear x="-3.15" y="-1.30" z="-1.22" compression="0.1" damp="4.0" spring="0.5"> <!-- right skid -->
-  <control-input axis="/controls/gear/wheel[1]/brake" control="BRAKE" split="true"/>
-  <control-input axis="/controls/gear/parking-brake" control="BRAKE" split="true"/>
-</gear>
-
-
+<!-- two contact points for right skid -->
+<gear x="0.80" y="-1.30" z="-1.22" compression="0.1" damp="4.0"
+      spring="0.5" skid="1"/>
+<gear x="-3.15" y="-1.30" z="-1.22" compression="0.1" damp="4.0" 
+      spring="0.5" skid="1"/>
 
 <tank x="-2.47" y="1.36" z=".68" capacity="75"/>
 <tank x="-2.47" y="-1.36" z=".68" capacity="75"/> 
