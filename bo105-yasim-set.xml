@@ -30,7 +30,7 @@ Bo 105 simulation config.
   <view>
    <internal archive="y">true</internal>
    <config>
-     <x-offset-m archive="y">-0.5</x-offset-m><!--right-->
+     <x-offset-m archive="y">0.45</x-offset-m><!--right-->
      <y-offset-m archive="y">0.5</y-offset-m><!--up-->
      <z-offset-m archive="y">-1.4</z-offset-m><!--back-->
      <pitch-offset-deg>-8</pitch-offset-deg>
@@ -57,10 +57,12 @@ Bo 105 simulation config.
   </flight>
   <engines>
    <engine n="0">
-    <magnetos>3</magnetos>
+    <magnetos>0</magnetos>
    </engine>
   </engines>
-  <door>1.0</door>
+  <doors>
+    <rear type="float">0.0</rear>
+  </doors>
  </controls>
 
  <!-- An autopilot on a Cub??? -->  

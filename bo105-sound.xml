@@ -23,8 +23,8 @@
 			</volume>
 			<pitch>
 				<property>/rotors/main/rpm</property>
-                               <factor>0.01</factor>
-                               <max>4.5</max>
+				<factor>0.01</factor>
+				<max>4.5</max>
 			</pitch>
 		</engine>
 
