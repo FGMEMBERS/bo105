@@ -16,7 +16,7 @@ Bo 105 simulation config.
 
   <sound>
    <audible>true</audible>
-   <path>Aircraft/c172/c172-sound.xml</path>
+   <path>Aircraft/bo105/bo105-sound.xml</path>
   </sound>
 
   <panel>
