@@ -8,6 +8,7 @@ Bo 105 simulation config.
 <PropertyList>
 	<sim>
 		<description>Eurocopter Bo105</description>
+                <author>Melchior Franz, Maik Justus (FDM)</author>
 		<status>beta</status>
 
 		<flight-model>yasim</flight-model>
