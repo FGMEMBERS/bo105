@@ -7,16 +7,108 @@
 		<z-m>-.2</z-m>
 	</offsets>
 
+	<!-- shadow -->
+	<!-- the following does for some weird reason not work. Use
+	texroteate instead. :-/ -->
+	<!--animation>
+		<type>rotate</type>
+		<object-name>shadow_rotor</object-name>
+		<property>rotors/main[0]/blade1_pos</property>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation-->
+
+	<animation>
+		<type>texrotate</type>
+		<object-name>shadow_rotor</object-name>
+		<property>rotors/main[0]/blade1_pos</property>
+		<center>
+			<x>0.818</x>
+			<y>0.168</y>
+			<z>0</z>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>shadow_rotor</object-name>
+		<property>orientation/pitch-deg</property>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>shadow_rotor</object-name>
+		<property>orientation/roll-deg</property>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>shadow_rotor</object-name>
+		<property>position/altitude-agl-ft</property>
+		<factor>0.2</factor>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>shadow_fuselage</object-name>
+		<property>orientation/pitch-deg</property>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>shadow_fuselage</object-name>
+		<property>orientation/roll-deg</property>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>shadow_fuselage</object-name>
+		<property>position/altitude-agl-ft</property>
+		<factor>0.2</factor>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>-1</z>
+		</axis>
+	</animation>
+
 	<animation>
 		<type>rotate</type>
 		<object-name>rotorhead</object-name>
 		<property>rotors/main[0]/blade1_pos</property>
-		<factor>1</factor>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center>
 		<axis>
 			<x>0.0</x>
 			<y>0.0</y>
@@ -27,12 +119,6 @@
 		<type>rotate</type>
 		<object-name>blade1</object-name>
 		<property>rotors/main[0]/blade1_pos</property>
-		<factor>1</factor>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center>
 		<axis>
 			<x>0.0</x>
 			<y>0.0</y>
@@ -43,12 +129,6 @@
 		<type>rotate</type>
 		<object-name>blade2</object-name>
 		<property>rotors/main[0]/blade1_pos</property>
-		<factor>1</factor>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center>
 		<axis>
 			<x>0.0</x>
 			<y>0.0</y>
@@ -59,12 +139,6 @@
 		<type>rotate</type>
 		<object-name>blade3</object-name>
 		<property>rotors/main[0]/blade1_pos</property>
-		<factor>1</factor>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center>
 		<axis>
 			<x>0.0</x>
 			<y>0.0</y>
@@ -75,12 +149,6 @@
 		<type>rotate</type>
 		<object-name>blade4</object-name>
 		<property>rotors/main[0]/blade1_pos</property>
-		<factor>1</factor>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>0</z-m>
-		</center>
 		<axis>
 			<x>0.0</x>
 			<y>0.0</y>
@@ -93,7 +161,6 @@
 		<type>rotate</type>
 		<object-name>blade4</object-name>
 		<property>rotors/main[0]/blade2_flap</property>
-		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
 			<y-m>0.04</y-m>
@@ -109,7 +176,6 @@
 		<type>rotate</type>
 		<object-name>blade1</object-name>
 		<property>rotors/main[0]/blade1_flap</property>
-		<factor>1</factor>
 		<center>
 			<x-m>0.4</x-m>
 			<y-m>0</y-m>
@@ -125,7 +191,6 @@
 		<type>rotate</type>
 		<object-name>blade3</object-name>
 		<property>rotors/main[0]/blade3_flap</property>
-		<factor>1</factor>
 		<center>
 			<x-m>-0.4</x-m>
 			<y-m>0</y-m>
@@ -141,7 +206,6 @@
 		<type>rotate</type>
 		<object-name>blade2</object-name>
 		<property>rotors/main[0]/blade4_flap</property>
-		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
 			<y-m>-0.04</y-m>
@@ -158,7 +222,6 @@
 		<type>rotate</type>
 		<object-name>blade4</object-name>
 		<property>rotors/main[0]/blade2_incidence</property>
-		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
 			<y-m>0.04</y-m>
@@ -174,7 +237,6 @@
 		<type>rotate</type>
 		<object-name>blade1</object-name>
 		<property>rotors/main[0]/blade1_incidence</property>
-		<factor>1</factor>
 		<center>
 			<x-m>0.4</x-m>
 			<y-m>0</y-m>
@@ -190,7 +252,6 @@
 		<type>rotate</type>
 		<object-name>blade3</object-name>
 		<property>rotors/main[0]/blade3_incidence</property>
-		<factor>1</factor>
 		<center>
 			<x-m>-0.4</x-m>
 			<y-m>0</y-m>
@@ -206,7 +267,6 @@
 		<type>rotate</type>
 		<object-name>blade2</object-name>
 		<property>rotors/main[0]/blade4_incidence</property>
-		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
 			<y-m>-0.04</y-m>
@@ -685,5 +745,6 @@
 			<z-m>0.70</z-m>
 		</offsets>
 	</model-->
+
 </PropertyList>
 <!-- N1, EGT, N2 and FF (fuel flow) -->
