@@ -6,17 +6,32 @@ remove Red Cross painting:   --prop:/sim/model/bo105/painting=0
 remove front & back doors:   --prop:/controls/doors/all=-1
 
 remove left front door:      --prop:/controls/doors/front-left=-1
-remove right front door:     --prop:/controls/doors/front-left=-1
-remove left back door:       --prop:/controls/doors/front-left=-1
-remove right back door:      --prop:/controls/doors/front-left=-1
+remove right front door:     --prop:/controls/doors/front-right=-1
+remove left back door:       --prop:/controls/doors/back-left=-1
+remove right back door:      --prop:/controls/doors/back-right=-1
 remove both rear doors:      --prop:/controls/doors/rear=-1
 
 
 The helicopter can easily be turned into a military helicopter:
-replace the line starting with 'MATERIAL "yellow"' in the file
-$FG_ROOT/Aircraft/bo105/Models/bo105.ac by this line:
+in the file $FG_ROOT/Aircraft/bo105/Models/bo105.ac replace the
+line starting with 'MATERIAL "yellow"' by the "olive" line (see
+below). Under Linux or Linux-like systems, you can simply apply
+this README as a patch instead:
 
-MATERIAL "olive" rgb 0.30 0.31 0.26 amb 1 1 1 emis 0 0 0 spec .1 .1 .1 shi 0 trans 0
+  $ patch < README
+
+and to switch back to yellow:
+
+  $ patch -R < README
 
 
-					-- Melchior FRANZ <mfranz@aon.at>
+
+--- bo105.ac	2004-03-26 16:14:53.552715568 +0100
++++ bo105.ac.mil	2004-03-26 16:16:41.522301696 +0100
+@@ -13 +13 @@
+-MATERIAL "yellow" rgb 0.7 0.6 0 amb 0.5 0.5 0.5 emis 0 0 0 spec .3 .3 .3 shi 20 trans 0
++MATERIAL "olive" rgb 0.30 0.31 0.26 amb 1 1 1 emis 0 0 0 spec .1 .1 .1 shi 0 trans 0
+
+
+
+				-- Melchior FRANZ <mfranz@aon.at>
