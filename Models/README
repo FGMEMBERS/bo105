@@ -28,6 +28,6 @@ and to switch back to yellow:
 
 --- bo105.ac	2004-05-14 15:02:20.906551016 +0200
 +++ bo105.ac.mil	2004-05-14 15:02:24.198050632 +0200
-@@ -3 +3 @@
+@@ -10 +10 @@
 -MATERIAL "yellow" rgb 0.7 0.6 0 amb 0.5 0.5 0.5 emis 0 0 0 spec .3 .3 .3 shi 20 trans 0
 +MATERIAL "olive" rgb 0.30 0.31 0.26 amb 1 1 1 emis 0 0 0 spec .1 .1 .1 shi 0 trans 0

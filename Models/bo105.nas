@@ -109,9 +109,8 @@ turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 
 # 0 off
 # 1 startup sound in progress
-# 2 shutdown sound in progress
-# 3 engine running/ready for rotor
-# 4 rotor running
+# 2 sound loop
+# 3 shutdown sound in progress
 
 print("engines off");
 engines = func {
@@ -120,21 +119,15 @@ engines = func {
 		if (s == 0) {
 			state.setValue(1);
 			print("engines started");
-			interpolate(turbine, 100, 11);
-			settimer(func { state.setValue(3) ; print("engines running") }, 11);
-		} elsif (s == 3) {
-			print("rotor started");
-			rotor.setValue(1);
-			state.setValue(4);
+			settimer(func { rotor.setValue(1) }, 3);
+			interpolate(turbine, 100, 10.5);
+			settimer(func { state.setValue(2) ; print("engines running") }, 10.5);
 		}
 	} else {
-		if (s == 4) {
-			print("rotor stopped");
+		if (s == 2) {
+			print("engines stopped");
 			rotor.setValue(0);
 			state.setValue(3);
-		} elsif (s == 3) {
-			state.setValue(2);
-			print("engines stopped");
 			interpolate(turbine, 0, 18);
 			settimer(func { state.setValue(0) ; print("engines off") }, 18);
 		}
@@ -177,5 +170,30 @@ crashhandler = func {
 
 settimer(crashhandler, 20);
 
+
+
+# manual rotor animation for flight data recorder replay ============
+rotor_step = props.globals.getNode("sim/model/bo105/rotor-step-deg");
+blade1_pos = props.globals.getNode("rotors/main/blade1_pos", 1);
+blade2_pos = props.globals.getNode("rotors/main/blade2_pos", 1);
+blade3_pos = props.globals.getNode("rotors/main/blade3_pos", 1);
+blade4_pos = props.globals.getNode("rotors/main/blade4_pos", 1);
+rotorangle = 0;
+
+rotoranim = func {
+	i = rotor_step.getValue();
+	if (i != 0.0) {
+		blade1_pos.setValue(rotorangle);
+		blade2_pos.setValue(rotorangle + 90);
+		blade3_pos.setValue(rotorangle + 180);
+		blade4_pos.setValue(rotorangle + 270);
+		rotorangle = rotorangle + i;
+		settimer(rotoranim, 0.1);
+	} else {
+		settimer(rotoranim, 5);
+	}
+}
+
+settimer(rotoranim, 5);
 
 

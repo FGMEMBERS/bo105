@@ -80,16 +80,18 @@
 		<type>translate</type>
 		<object-name>shadow_fuselage</object-name>
 		<property>position/altitude-agl-ft</property>
-		<factor>0.25</factor>
+		<factor>0.3</factor>
 		<axis>
 			<z>-1</z>
 		</axis>
 	</animation>
 
 	<animation>
-		<type>blend</type>
+		<type>select</type>
 		<object-name>shadow_fuselage</object-name>
-		<property>/sim/model/bo105/shadow-blend</property>
+		<condition>
+			<property>sim/model/bo105/shadow</property>
+		</condition>
 	</animation>
 
 <!--== rotors ==-->
@@ -131,7 +133,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>tailrotor</object-name>
+		<object-name>tailrotor_blade1</object-name>
+		<object-name>tailrotor_blade2</object-name>
 		<property>sim/model/bo105/tail-angle</property>
 		<center>
 			<x-m>2.134</x-m>
@@ -145,14 +148,16 @@
 
 	<animation>
 		<type>blend</type>
-		<object-name>tailrotor</object-name>
+		<object-name>tailrotor_blade1</object-name>
+		<object-name>tailrotor_blade2</object-name>
 		<property>rotors/tail/rpm</property>
 		<factor>0.0015</factor>
 	</animation>
 
 	<animation>
 		<type>rotate</type>
-		<object-name>tailrotor</object-name>
+		<object-name>tailrotor_blade1</object-name>
+		<object-name>tailrotor_blade2</object-name>
 		<property>rotors/tail/blade1_pos</property>
 		<center>
 			<x-m>5.894</x-m>
@@ -168,10 +173,44 @@
 
 	<animation>
 		<type>alpha-test</type>
-		<object-name>tailrotor</object-name>
+		<object-name>tailrotor_blade1</object-name>
+		<object-name>tailrotor_blade2</object-name>
 		<property>rotors/tail/rpm</property>
 		<alpha-factor>0.001</alpha-factor>
 	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>tailrotor_blade1</object-name>
+		<property>rotors/tail/blade1_incidence</property>
+		<center>
+			<x-m>5.916</x-m>
+			<y-m>-0.348</y-m>
+			<z-m>1.860</z-m>
+		</center>
+		<axis>
+			<x>-0.950</x>
+			<y>-0.071</y>
+			<z>-0.040</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>tailrotor_blade2</object-name>
+		<property>rotors/tail/blade2_incidence</property>
+		<center>
+			<x-m>5.916</x-m>
+			<y-m>-0.348</y-m>
+			<z-m>1.860</z-m>
+		</center>
+		<axis>
+			<x>0.950</x>
+			<y>0.071</y>
+			<z>0.040</z>
+		</axis>
+	</animation>
+
 
 	<!-- main rotor (always visible parts) -->
 
@@ -1686,6 +1725,15 @@
 		<axis>
 			<y>1</y>
 		</axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>wiper_L</object-name>
+		<object-name>wiper_R</object-name>
+		<condition>
+			<property>sim/model/bo105/wiper</property>
+		</condition>
 	</animation>
 </PropertyList>
 

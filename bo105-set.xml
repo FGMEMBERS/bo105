@@ -8,6 +8,7 @@ Bo 105 simulation config.
 <PropertyList>
 	<sim>
 		<description>Eurocopter Bo105</description>
+		<status>beta</status>
 
 		<flight-model>yasim</flight-model>
 		<aero>bo105</aero>
@@ -30,7 +31,6 @@ Bo 105 simulation config.
 		<model>
 			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
 			<bo105>
-				<shadow-blend type="float">0.4</shadow-blend>
 				<strobe-blend type="float">0.2</strobe-blend>
 				<beacon-blend type="float">0.2</beacon-blend>
 				<strobe-top type="bool">false</strobe-top>
@@ -39,8 +39,11 @@ Bo 105 simulation config.
 				<beacon-bottom type="bool">false</beacon-bottom>
 				<nav-lights type="bool">false</nav-lights>
 				<painting type="bool" archive="y">true</painting>
+				<shadow type="bool">true</shadow>
+				<wiper type="bool">true</wiper>
 				<tail-angle type="int" archive="y">0</tail-angle>
 				<state type="int">0</state>
+				<rotor-step-deg type="float">0.0</rotor-step-deg>
 			</bo105>
 		</model>
 
@@ -171,7 +174,7 @@ Bo 105 simulation config.
 
 			<key n="123">
 				<name>{</name>
-				<desc>Start Engines/Rotor</desc>
+				<desc>Start Engines</desc>
 				<binding>
 					<command>nasal</command>
 					<script>bo105.engines(-1)</script>
@@ -180,7 +183,7 @@ Bo 105 simulation config.
 
 			<key n="125">
 				<name>}</name>
-				<desc>Stop Rotor/Engines</desc>
+				<desc>Shutdown Engines</desc>
 				<binding>
 					<command>nasal</command>
 					<script>bo105.engines(1)</script>
@@ -194,4 +197,10 @@ Bo 105 simulation config.
 			<file>Aircraft/bo105/Models/bo105.nas</file>
 		</bo105>
 	</nasal>
+
+	<rotors>
+		<main>
+			<rpm type="double">0</rpm>
+		</main>
+	</rotors>
 </PropertyList>
