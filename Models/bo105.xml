@@ -3,7 +3,7 @@
 <PropertyList>
 	<path>bo105.ac</path>
 	<offsets>
-		<!--x-m>2.5</x-m-->
+		<x-m>2.5</x-m>
 		<z-m>-.2</z-m>
 	</offsets>
 
