@@ -87,10 +87,28 @@ Bo 105 simulation config.
     <desc>open/close rear door</desc>
     <binding n="0">
      <command>nasal</command>
-     <script>bo105.reardoor()</script>
+     <script>bo105.toggleDoor()</script>
     </binding>
    </key>
   </keyboard>
  </input>
+
+ <nasal>
+  <bo105>
+   <script><![CDATA[
+    prop = props.globals.getNode("/controls/doors/rear", 1);
+    swingTime = 2.5;
+
+    target = 1; # Start closed, so initial target is "open"
+    toggleDoor = func {
+        val = prop.getValue();
+        time = abs(val - target) * swingTime;
+        interpolate(prop, target, time);
+        target = !target;
+    }
+    print("bo105-set.xml initialized");
+   ]]></script>
+  </bo105>
+ </nasal>
 
 </PropertyList>
