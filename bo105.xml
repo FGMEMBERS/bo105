@@ -40,7 +40,7 @@
                  dst0="-1.0" dst1="1.0"/>
   <control-input axis="/controls/engines/engine[1]/throttle" control="COLLECTIVE"
                  src0="-0.0" src1="1.0"
-                 dst0="-1.0" dst1="1.0"/>
+                 dst0="1.0" dst1="-1.0"/>
   <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORENGINEON"/>
 </rotor>
 

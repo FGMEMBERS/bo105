@@ -229,14 +229,14 @@
                 <property>/rotors/tail[0]/blade1_pos</property>
                 <factor>-1</factor>
 		<center>
-			<x-m>0</x-m>
-			<y-m>5.90</y-m>
-			<z-m>1.87</z-m>
+			<x-m>0.001494</x-m>
+			<y-m>5.893747</y-m>
+			<z-m>1.860286</z-m>
 		</center>
 		<axis>
-			<x>1.0</x>
-			<y>0.0</y>
-			<z>0.0</z>
+			<x>-0.413993</x>
+			<y>-0.032110</y>
+			<z>0.004774</z>
 		</axis>
 	</animation>
 </PropertyList>
