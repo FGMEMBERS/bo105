@@ -25,6 +25,7 @@ Bo 105 simulation config.
 
   <model>
    <path archive="y">Aircraft/bo105/Models/bo105.xml</path>
+   <painting>1</painting>
   </model>
   
   <view>
@@ -78,5 +79,18 @@ Bo 105 simulation config.
      <zero-pitch-trim-full-throttle type="float">0.001</zero-pitch-trim-full-throttle>
    </config>
  </autopilot>
+
+ <input>
+  <keyboard>
+   <key n="67">
+    <name>C</name>
+    <desc>open/close rear door</desc>
+    <binding n="0">
+     <command>nasal</command>
+     <script>bo105.reardoor()</script>
+    </binding>
+   </key>
+  </keyboard>
+ </input>
 
 </PropertyList>

@@ -244,9 +244,7 @@
 		<object-name>cross</object-name>
 		<object-name>badge</object-name>
 		<condition>
-			<not>
-				<property>/sim/model/blank</property>
-			</not>
+			<property>/sim/model/painting</property>
 		</condition>
 	</animation>
 

@@ -1,9 +1,9 @@
 AC3Db
-MATERIAL "red" rgb 0.6 0 0 amb 1 1 1 emis 0 0 0 spec 0.5 0.5 0.5 shi 10 trans 0
-MATERIAL "white" rgb 1 1 .85 amb 0.6 0.6 0.6 emis 0 0 0 spec 0.2 0.2 0.2 shi 0 trans 0
+MATERIAL "red" rgb 0.6 0 0 amb 1 1 1 emis 0 0 0 spec 0.2 0.2 0.2 shi 10 trans 0
+MATERIAL "white" rgb 0.95 0.95 .8 amb 0.7 0.7 0.7 emis 0 0 0 spec 0.2 0.2 0.2 shi 0 trans 0
 MATERIAL "black" rgb 0.2 0.2 0.2 amb 0.5 0.5 0.5 emis 0 0 0 spec 1 1 1 shi 72 trans 0
 MATERIAL "glass" rgb 0.3 0.3 0.4 amb 0.5 0.5 0.5 emis 1 1 1 spec 1 1 1 shi 72 trans 0.8
-MATERIAL "RAL7013" rgb 0.26 0.26 0.22 amb 1 1 1 emis 0 0 0 spec 0 0 0 shi 0 trans 0
+MATERIAL "yellow" rgb 0.7 0.6 0 amb 0.5 0.5 0.5 emis 0 0 0 spec .3 .3 .3 shi 20 trans 0
 OBJECT world
 kids 32
 OBJECT poly
