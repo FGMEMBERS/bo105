@@ -7,6 +7,29 @@
 		<z-m>-.2</z-m>
 	</offsets>
 
+	<params>
+		<flapA>
+			<factor>0.2</factor>
+			<max-deg>0.6</max-deg>
+		</flapA>
+		<flapB>
+			<factor>0.3</factor>
+			<max-deg>0.6</max-deg>
+		</flapB>
+		<flapC>
+			<factor>0.26</factor>
+			<max-deg>0.6</max-deg>
+		</flapC>
+		<flapD>
+			<factor>0.37</factor>
+			<max-deg>0.6</max-deg>
+		</flapD>
+		<flapE>
+			<factor>0.4</factor>
+			<max-deg>0.6</max-deg>
+		</flapE>
+	</params>
+
 <!--== shadows ==-->
 
 	<animation>
@@ -60,6 +83,7 @@
 
 	<animation>
 		<type>rotate</type>
+		<name>fu_pitch</name>
 		<object-name>shadow_fuselage</object-name>
 		<property>orientation/pitch-deg</property>
 		<axis>
@@ -69,6 +93,7 @@
 
 	<animation>
 		<type>rotate</type>
+		<name>fu_roll</name>
 		<object-name>shadow_fuselage</object-name>
 		<property>orientation/roll-deg</property>
 		<axis>
@@ -78,6 +103,7 @@
 
 	<animation>
 		<type>translate</type>
+		<name>fu_trans</name>
 		<object-name>shadow_fuselage</object-name>
 		<property>position/altitude-agl-ft</property>
 		<factor>0.3</factor>
@@ -88,6 +114,7 @@
 
 	<animation>
 		<type>select</type>
+		<name>fu_select</name>
 		<object-name>shadow_fuselage</object-name>
 		<condition>
 			<property>sim/model/bo105/shadow</property>
@@ -358,8 +385,8 @@
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
 		<property>rotors/main/blade1_flap</property>
-		<factor>0.2</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapA/factor"/>
+		<max-deg alias="../../params/flapA/max-deg"/>
 		<center>
 			<x-m>0.57097</x-m>
 			<y-m>0</y-m>
@@ -377,8 +404,8 @@
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
 		<property>rotors/main/blade1_flap</property>
-		<factor>0.3</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapB/factor"/>
+		<max-deg alias="../../params/flapB/max-deg"/>
 		<center>
 			<x-m>1.42027</x-m>
 			<y-m>0</y-m>
@@ -395,8 +422,8 @@
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
 		<property>rotors/main/blade1_flap</property>
-		<factor>0.25</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapC/factor"/>
+		<max-deg alias="../../params/flapC/max-deg"/>
 		<center>
 			<x-m>2.4008</x-m>
 			<y-m>0</y-m>
@@ -412,8 +439,8 @@
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
 		<property>rotors/main/blade1_flap</property>
-		<factor>0.35</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapD/factor"/>
+		<max-deg alias="../../params/flapD/max-deg"/>
 		<center>
 			<x-m>3.2008</x-m>
 			<y-m>0</y-m>
@@ -428,8 +455,8 @@
 		<type>rotate</type>
 		<object-name>blade1e</object-name>
 		<property>rotors/main/blade1_flap</property>
-		<factor>0.5</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapE/factor"/>
+		<max-deg alias="../../params/flapE/max-deg"/>
 		<center>
 			<x-m>4.0512</x-m>
 			<y-m>0</y-m>
@@ -483,8 +510,8 @@
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
 		<property>rotors/main/blade2_flap</property>
-		<factor>0.2</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapA/factor"/>
+		<max-deg alias="../../params/flapA/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>-0.57097</y-m>
@@ -502,8 +529,8 @@
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
 		<property>rotors/main/blade2_flap</property>
-		<factor>0.3</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapB/factor"/>
+		<max-deg alias="../../params/flapB/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>-1.42027</y-m>
@@ -520,8 +547,8 @@
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
 		<property>rotors/main/blade2_flap</property>
-		<factor>0.25</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapC/factor"/>
+		<max-deg alias="../../params/flapC/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>-2.4008</y-m>
@@ -537,8 +564,8 @@
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
 		<property>rotors/main/blade2_flap</property>
-		<factor>0.35</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapD/factor"/>
+		<max-deg alias="../../params/flapD/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>-3.2008</y-m>
@@ -553,8 +580,8 @@
 		<type>rotate</type>
 		<object-name>blade2e</object-name>
 		<property>rotors/main/blade2_flap</property>
-		<factor>0.5</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapE/factor"/>
+		<max-deg alias="../../params/flapE/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>-4.0512</y-m>
@@ -608,8 +635,8 @@
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
 		<property>rotors/main/blade3_flap</property>
-		<factor>0.2</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapA/factor"/>
+		<max-deg alias="../../params/flapA/max-deg"/>
 		<center>
 			<x-m>-0.57097</x-m>
 			<y-m>0</y-m>
@@ -627,8 +654,8 @@
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
 		<property>rotors/main/blade3_flap</property>
-		<factor>0.3</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapB/factor"/>
+		<max-deg alias="../../params/flapB/max-deg"/>
 		<center>
 			<x-m>-1.42027</x-m>
 			<y-m>0</y-m>
@@ -645,8 +672,8 @@
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
 		<property>rotors/main/blade3_flap</property>
-		<factor>0.25</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapC/factor"/>
+		<max-deg alias="../../params/flapC/max-deg"/>
 		<center>
 			<x-m>-2.4008</x-m>
 			<y-m>0</y-m>
@@ -662,8 +689,8 @@
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
 		<property>rotors/main/blade3_flap</property>
-		<factor>0.35</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapD/factor"/>
+		<max-deg alias="../../params/flapD/max-deg"/>
 		<center>
 			<x-m>-3.2008</x-m>
 			<y-m>0</y-m>
@@ -678,8 +705,8 @@
 		<type>rotate</type>
 		<object-name>blade3e</object-name>
 		<property>rotors/main/blade3_flap</property>
-		<factor>0.5</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapE/factor"/>
+		<max-deg alias="../../params/flapE/max-deg"/>
 		<center>
 			<x-m>-4.0512</x-m>
 			<y-m>0</y-m>
@@ -733,8 +760,8 @@
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
 		<property>rotors/main/blade4_flap</property>
-		<factor>0.2</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapA/factor"/>
+		<max-deg alias="../../params/flapA/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>0.57097</y-m>
@@ -752,8 +779,8 @@
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
 		<property>rotors/main/blade4_flap</property>
-		<factor>0.3</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapB/factor"/>
+		<max-deg alias="../../params/flapB/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>1.42027</y-m>
@@ -770,8 +797,8 @@
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
 		<property>rotors/main/blade4_flap</property>
-		<factor>0.25</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapC/factor"/>
+		<max-deg alias="../../params/flapC/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>2.4008</y-m>
@@ -787,8 +814,8 @@
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
 		<property>rotors/main/blade4_flap</property>
-		<factor>0.35</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapD/factor"/>
+		<max-deg alias="../../params/flapD/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>3.2008</y-m>
@@ -803,8 +830,8 @@
 		<type>rotate</type>
 		<object-name>blade4e</object-name>
 		<property>rotors/main/blade4_flap</property>
-		<factor>0.5</factor>
-		<max-deg>0.6</max-deg>
+		<factor alias="../../params/flapE/factor"/>
+		<max-deg alias="../../params/flapE/max-deg"/>
 		<center>
 			<x-m>0</x-m>
 			<y-m>4.0512</y-m>
@@ -815,36 +842,15 @@
 		</axis>
 	</animation>
 
-<!--== paintings ==-->
-
-	<animation>
-		<type>select</type>
-		<object-name>cross</object-name>
-		<object-name>badge</object-name>
-		<condition>
-			<property>/sim/model/bo105/painting</property>
-		</condition>
-	</animation>
-
 <!--== doors ==-->
 
 	<animation>
 		<type>select</type>
-		<object-name>door_front_L</object-name>
-		<object-name>door_front_Li</object-name>
-		<object-name>door_front_R</object-name>
-		<object-name>door_front_Ri</object-name>
-		<object-name>door_back_L</object-name>
-		<object-name>door_back_Li</object-name>
-		<object-name>door_back_R</object-name>
-		<object-name>door_back_Ri</object-name>
-		<object-name>glass_front_L</object-name>
-		<object-name>glass_front_R</object-name>
-		<object-name>glass_back_L</object-name>
-		<object-name>glass_back_R</object-name>
+		<object-name>reardoor_L</object-name>
+		<object-name>reardoor_Li</object-name>
 		<condition>
 			<greater-than-equals>
-				<property>controls/doors/all</property>
+				<property>controls/doors/rear-left</property>
 				<value>0</value>
 			</greater-than-equals>
 		</condition>
@@ -852,13 +858,11 @@
 
 	<animation>
 		<type>select</type>
-		<object-name>reardoor_L</object-name>
-		<object-name>reardoor_Li</object-name>
 		<object-name>reardoor_R</object-name>
 		<object-name>reardoor_Ri</object-name>
 		<condition>
 			<greater-than-equals>
-				<property>controls/doors/rear</property>
+				<property>controls/doors/rear-right</property>
 				<value>0</value>
 			</greater-than-equals>
 		</condition>
@@ -868,7 +872,7 @@
 		<type>rotate</type>
 		<object-name>reardoor_L</object-name>
 		<object-name>reardoor_Li</object-name>
-		<property>controls/doors/rear</property>
+		<property>controls/doors/rear-left</property>
 		<min-deg>-170</min-deg>
 		<factor>-170</factor>
 		<center>
@@ -887,7 +891,7 @@
 		<type>rotate</type>
 		<object-name>reardoor_R</object-name>
 		<object-name>reardoor_Ri</object-name>
-		<property>controls/doors/rear</property>
+		<property>controls/doors/rear-right</property>
 		<max-deg>170</max-deg>
 		<factor>170</factor>
 		<center>
@@ -920,7 +924,7 @@
 		<object-name>door_front_L</object-name>
 		<object-name>door_front_Li</object-name>
 		<object-name>glass_front_L</object-name>
-		<property>controls/doors/rear</property>
+		<property>controls/doors/front-left</property>
 		<max-deg>170</max-deg>
 		<factor>170</factor>
 		<center>
@@ -953,7 +957,7 @@
 		<object-name>door_front_R</object-name>
 		<object-name>door_front_Ri</object-name>
 		<object-name>glass_front_R</object-name>
-		<property>controls/doors/rear</property>
+		<property>controls/doors/front-right</property>
 		<min-deg>-170</min-deg>
 		<factor>-170</factor>
 		<center>
@@ -986,7 +990,7 @@
 		<object-name>door_back_L</object-name>
 		<object-name>door_back_Li</object-name>
 		<object-name>glass_back_L</object-name>
-		<property>controls/doors/rear</property>
+		<property>controls/doors/back-left</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1013,7 +1017,7 @@
 		<object-name>door_back_L</object-name>
 		<object-name>door_back_Li</object-name>
 		<object-name>glass_back_L</object-name>
-		<property>controls/doors/rear</property>
+		<property>controls/doors/back-left</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1053,7 +1057,7 @@
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
 		<object-name>glass_back_R</object-name>
-		<property>controls/doors/rear</property>
+		<property>controls/doors/back-right</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1080,7 +1084,7 @@
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
 		<object-name>glass_back_R</object-name>
-		<property>controls/doors/rear</property>
+		<property>controls/doors/back-right</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1242,12 +1246,6 @@
 
 	<!-- Visible up to 10km (6mi) -->
 	<animation>
-		<type>range</type>
-		<min-m>0</min-m>
-		<max-m>10000</max-m>
-	</animation>
-
-	<animation>
 		<name>InstrumentGroup</name>
 		<object-name>ASI</object-name>
 		<object-name>AI</object-name>
@@ -1261,6 +1259,13 @@
 		<!--object-name>TC</object-name>
 		<object-name>VOR1</object-name>
 		<object-name>VOR2</object-name-->
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>InstrumentGroup</object-name>
+		<min-m>0</min-m>
+		<max-m>10</max-m>
 	</animation>
 
 
@@ -1735,6 +1740,49 @@
 			<property>sim/model/bo105/wiper</property>
 		</condition>
 	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>hot</object-name>
+		<condition>
+			<property>sim/model/bo105/hot</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>bounding_box</object-name>
+	</animation>
+
+<!--== material ==-->
+
+	<animation>
+		<type>material</type>
+		<object-name>emblem</object-name>
+		<texture-prop>/sim/model/bo105/material/emblem/texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<name>fuselage_material</name>
+		<object-name>fuselage</object-name>
+		<global type="bool">true</global>
+		<diffuse-red-prop>/sim/model/bo105/material/fuselage/diffuse-red</diffuse-red-prop>
+		<diffuse-green-prop>/sim/model/bo105/material/fuselage/diffuse-green</diffuse-green-prop>
+		<diffuse-blue-prop>/sim/model/bo105/material/fuselage/diffuse-blue</diffuse-blue-prop>
+		<ambient-red-prop>/sim/model/bo105/material/fuselage/ambient-red</ambient-red-prop>
+		<ambient-green-prop>/sim/model/bo105/material/fuselage/ambient-green</ambient-green-prop>
+		<ambient-blue-prop>/sim/model/bo105/material/fuselage/ambient-blue</ambient-blue-prop>
+		<specular-red-prop>/sim/model/bo105/material/fuselage/specular-red</specular-red-prop>
+		<specular-green-prop>/sim/model/bo105/material/fuselage/specular-green</specular-green-prop>
+		<specular-blue-prop>/sim/model/bo105/material/fuselage/specular-blue</specular-blue-prop>
+		<emission-red-prop>/sim/model/bo105/material/fuselage/emission-red</emission-red-prop>
+		<emission-green-prop>/sim/model/bo105/material/fuselage/emission-green</emission-green-prop>
+		<emission-blue-prop>/sim/model/bo105/material/fuselage/emission-blue</emission-blue-prop>
+		<transparency-prop>/sim/model/bo105/material/fuselage/transparency</transparency-prop>
+		<shininess-prop>/sim/model/bo105/material/fuselage/shininess</shininess-prop>
+	</animation>
+
 </PropertyList>
 
 

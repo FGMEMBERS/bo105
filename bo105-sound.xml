@@ -387,15 +387,120 @@
 		</crash>
 
 		<door>
-			<name>close doors</name>
+			<name>close right frontdoor</name>
 			<mode>once</mode>
 			<path>Sounds/door_close.wav</path>
 			<condition>
 				<equals>
-					<property>controls/doors/rear</property>
+					<property>controls/doors/front-right</property>
 					<value>0</value>
 				</equals>
 			</condition>
+			<position>
+				<x>1.0</x>
+				<y>1.5</y>
+				<z>-1.5</z>
+			</position>
+			<volume>
+				<factor>0.5</factor>
+			</volume>
+		</door>
+
+		<door>
+			<name>close left frontdoor</name>
+			<mode>once</mode>
+			<path>Sounds/door_close.wav</path>
+			<condition>
+				<equals>
+					<property>controls/doors/front-left</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<position>
+				<x>-1.0</x>
+				<y>1.5</y>
+				<z>-1.5</z>
+			</position>
+			<volume>
+				<factor>0.5</factor>
+			</volume>
+		</door>
+
+		<door>
+			<name>close right backdoor</name>
+			<mode>once</mode>
+			<path>Sounds/door_close.wav</path>
+			<condition>
+				<equals>
+					<property>controls/doors/back-right</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<position>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>-1.5</z>
+			</position>
+			<volume>
+				<factor>0.5</factor>
+			</volume>
+		</door>
+
+		<door>
+			<name>close left backdoor</name>
+			<mode>once</mode>
+			<path>Sounds/door_close.wav</path>
+			<condition>
+				<equals>
+					<property>controls/doors/back-left</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<position>
+				<x>-1.0</x>
+				<y>1.0</y>
+				<z>-1.5</z>
+			</position>
+			<volume>
+				<factor>0.5</factor>
+			</volume>
+		</door>
+
+		<door>
+			<name>close right reardoor</name>
+			<mode>once</mode>
+			<path>Sounds/door_close.wav</path>
+			<condition>
+				<equals>
+					<property>controls/doors/rear-right</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<position>
+				<x>0.0</x>
+				<y>-1.5</y>
+				<z>-1.0</z>
+			</position>
+			<volume>
+				<factor>0.5</factor>
+			</volume>
+		</door>
+
+		<door>
+			<name>close left reardoor</name>
+			<mode>once</mode>
+			<path>Sounds/door_close.wav</path>
+			<condition>
+				<equals>
+					<property>controls/doors/rear-left</property>
+					<value>0</value>
+				</equals>
+			</condition>
+			<position>
+				<x>0.0</x>
+				<y>-1.5</y>
+				<z>-1.0</z>
+			</position>
 			<volume>
 				<factor>0.5</factor>
 			</volume>

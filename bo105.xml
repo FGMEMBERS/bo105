@@ -74,6 +74,10 @@
 <gear x="-0.80" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
 <gear x="-3.15" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
 
+<!-- tail rotor protector -->
+<!--gear x="-8.03" y="+0.00" z="+0.34" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/-->
+
+
 <tank x="-2.47" y="+1.36" z=".68" capacity="75"/>
 <tank x="-2.47" y="-1.36" z=".68" capacity="75"/>
 <tank x="0" y="0" z="0" capacity="0"/>		<!-- work around bug in native_fdm.cxx:184 -->

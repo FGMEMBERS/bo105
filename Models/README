@@ -1,33 +1,51 @@
 Eurocopter BO105 CBS
 ====================
 
-remove Red Cross painting:   --prop:/sim/model/bo105/painting=0
+select model:
 
-remove front & back doors:   --prop:/controls/doors/all=-1
-
-remove left front door:      --prop:/controls/doors/front-left=-1
-remove right front door:     --prop:/controls/doors/front-right=-1
-remove left back door:       --prop:/controls/doors/back-left=-1
-remove right back door:      --prop:/controls/doors/back-right=-1
-remove both rear doors:      --prop:/controls/doors/rear=-1
-
-
-The helicopter can easily be turned into a military helicopter:
-in the file $FG_ROOT/Aircraft/bo105/Models/bo105.ac replace the
-line starting with 'MATERIAL "yellow"' by the "olive" line (see
-below). Under Linux or Linux-like systems, you can simply apply
-this README as a patch instead:
-
-  $ patch < README
-
-and to switch back to yellow:
-
-  $ patch -R < README
+  --prop:/sim/model/bo105/variant=0  (yellow, with Red Cross/Crescent symbol; default)
+  --prop:/sim/model/bo105/variant=1  (military, with Red Cross/Crescent symbol)
+  --prop:/sim/model/bo105/variant=2  (military, blank)
+  --prop:/sim/model/bo105/variant=3  (military, with HOT mounting, Austrian emblem)
+  --prop:/sim/model/bo105/variant=4  (blue, with Star-of-Life ambulance symbol)
 
 
 
---- bo105.ac	2004-05-14 15:02:20.906551016 +0200
-+++ bo105.ac.mil	2004-05-14 15:02:24.198050632 +0200
-@@ -10 +10 @@
--MATERIAL "yellow" rgb 0.7 0.6 0 amb 0.5 0.5 0.5 emis 0 0 0 spec .3 .3 .3 shi 20 trans 0
-+MATERIAL "olive" rgb 0.30 0.31 0.26 amb 1 1 1 emis 0 0 0 spec .1 .1 .1 shi 0 trans 0
+remove wipers:
+
+  --prop:/sim/model/bo105/wiper=0
+
+
+
+suggested settings for Flight Data Recorder replay:
+
+  --generic=file,in,1,/home/m/.fgfs/replay/flight_007.txt,acms
+  --fdm=acms
+
+  --aircraft=bo105
+  --prop:/controls/engines/engine/magnetos=1
+  --prop:/rotors/main/rpm=442
+  --prop:/rotors/tail/rpm=2219
+  --prop:/sim/model/bo105/shadow=0
+  --prop:/sim/model/bo105/rotor-step-deg=30
+  --prop:/sim/model/bo105/state=2
+  --prop:/sim/model/bo105/turbine-rpm-pct=100
+  --prop:/sim/model/bo105/variant=2
+
+  --timeofday=noon
+  --disable-real-weather-fetch
+
+  --prop:/environment/clouds/layer[0]/coverage="clear"
+  --prop:/environment/clouds/layer[0]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[1]/coverage="clear"
+  --prop:/environment/clouds/layer[1]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[2]/coverage="clear"
+  --prop:/environment/clouds/layer[2]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[3]/coverage="clear"
+  --prop:/environment/clouds/layer[3]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[4]/coverage="clear"
+  --prop:/environment/clouds/layer[4]/elevation-ft=-9999
+  --prop:/environment/clouds/layer[5]/coverage="clear"
+  --prop:/environment/clouds/layer[5]/elevation-ft=-9999
+
+
