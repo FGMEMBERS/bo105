@@ -1,76 +1,7 @@
 <?xml version="1.0"?>
-<!--
-************************************************************************
-Bo 105 simulation config.
-************************************************************************
--->
 
-<PropertyList>
+<PropertyList include="bo105-yasim-set.xml">
  <sim>
-
-  <description>Eurocopter Bo105</description>
-
-  <flight-model>yasim</flight-model>
-  <aero>bo105</aero>
-  <fuel-fraction>0.8</fuel-fraction>
-
-  <sound>
-   <audible>true</audible>
-   <path>Aircraft/c172/c172-sound.xml</path>
-  </sound>
-
-  <panel>
-   <visibility archive="n">false</visibility>
-  </panel>
-
-  <model>
-   <path archive="y">Aircraft/bo105/Models/bo105.xml</path>
-  </model>
-  
-  <view>
-   <internal archive="y">true</internal>
-   <config>
-     <x-offset-m archive="y">-0.5</x-offset-m><!--right-->
-     <y-offset-m archive="y">0.5</y-offset-m><!--up-->
-     <z-offset-m archive="y">-1.2</z-offset-m><!--back-->
-     <pitch-offset-deg>-8</pitch-offset-deg>
-   </config>
-  </view>
-
+  <description>Alias default bo105 for b105-yasim</description>
  </sim>
-
- <yasim>
-  <j3cub>
-   <pilot-lb>180</pilot-lb>
-  </j3cub>
- </yasim>
-
- <controls>
-  <flight>
-   <aileron-trim>0.0076</aileron-trim>   <!-- fixed -->
-   <elevator-trim>0.0000</elevator-trim> <!-- controllable -->
-   <rudder-trim>0.0020</rudder-trim>     <!-- fixed -->
-  </flight>
-  <engines>
-   <engine n="0">
-    <magnetos>3</magnetos>
-   </engine>
-  </engines>
-  <door>1.0</door>
- </controls>
-
- <!-- An autopilot on a Cub??? -->  
- <autopilot>
-   <config>
-     <min-climb-speed-kt type="float">48.0</min-climb-speed-kt>
-     <best-climb-speed-kt type="float">56.0</best-climb-speed-kt>
-     <target-climb-rate-fpm type="float">400.0</target-climb-rate-fpm>
-     <target-descent-rate-fpm type="float">1000.0</target-descent-rate-fpm>
-     <elevator-adj-factor type="float">6000.0</elevator-adj-factor>
-     <integral-contribution type="float">0.008</integral-contribution> 
-     <zero-pitch-throttle type="float">0.35</zero-pitch-throttle>
-     <zero-pitch-trim-full-throttle type="float">0.001</zero-pitch-trim-full-throttle>
-   </config>
- </autopilot>
-
 </PropertyList>
