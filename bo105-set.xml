@@ -14,7 +14,6 @@ Bo 105 simulation config.
 		<fuel-fraction>0.8</fuel-fraction>
 
 		<sound>
-			<audible>true</audible>
 			<path>Aircraft/bo105/bo105-sound.xml</path>
 		</sound>
 
