@@ -30,7 +30,6 @@ Bo 105 simulation config.
 		<model>
 			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
 			<bo105>
-				<painting type="bool">true</painting>
 				<shadow-blend type="float">0.4</shadow-blend>
 				<strobe-blend type="float">0.2</strobe-blend>
 				<beacon-blend type="float">0.2</beacon-blend>
@@ -39,7 +38,8 @@ Bo 105 simulation config.
 				<beacon-top type="bool">false</beacon-top>
 				<beacon-bottom type="bool">false</beacon-bottom>
 				<nav-lights type="bool">false</nav-lights>
-				<tail-angle type="int">0</tail-angle>
+				<painting type="bool" archive="y">true</painting>
+				<tail-angle type="int" archive="y">0</tail-angle>
 				<state type="int">0</state>
 			</bo105>
 		</model>
@@ -106,6 +106,9 @@ Bo 105 simulation config.
 			<engine n="0">
 				<magnetos>0</magnetos>
 			</engine>
+			<engine n="1">
+				<throttle>1</throttle>
+			</engine>
 		</engines>
 
 		<doors>
@@ -128,19 +131,10 @@ Bo 105 simulation config.
 		<keyboard>
 			<key n="67">
 				<name>C</name>
-				<desc>open/close rear door</desc>
+				<desc>Toggle doors</desc>
 				<binding n="0">
 					<command>nasal</command>
 					<script>bo105.toggleDoor()</script>
-				</binding>
-			</key>
-
-			<key n="125">
-				<name>}</name>
-				<desc>Stop Rotor/Engines</desc>
-				<binding>
-					<command>nasal</command>
-					<script>bo105.engines(1)</script>
 				</binding>
 			</key>
 
@@ -153,6 +147,36 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
+			<key n="125">
+				<name>}</name>
+				<desc>Stop Rotor/Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.engines(1)</script>
+				</binding>
+			</key>
+
+			<key n="360">
+				<name>PageUp</name>
+				<desc>Increase collective</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						controls.incThrottle(-0.01, -1.0)
+					</script>
+				</binding>
+			</key>
+
+			<key n="361">
+				<name>PageDown</name>
+				<desc>Lower collective</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						controls.incThrottle(0.01, 1.0)
+					</script>
+				</binding>
+			</key>
 		</keyboard>
 	</input>
 
