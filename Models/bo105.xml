@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
+<!-- z=0 at approximately 30cm above ground plate -->
 
 <PropertyList>
 	<path>bo105.ac</path>
 	<offsets>
 		<z-m>-.2</z-m>
-		<roll-deg>0</roll-deg>
-		<heading-deg>-90</heading-deg>
 	</offsets>
 
 	<animation>
 		<type>rotate</type>
 		<object-name>rotorhead</object-name>
-		<property>/rotors/main[0]/blade1_pos</property>
+		<property>rotors/main[0]/blade1_pos</property>
 		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
@@ -27,7 +26,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade1</object-name>
-		<property>/rotors/main[0]/blade1_pos</property>
+		<property>rotors/main[0]/blade1_pos</property>
 		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
@@ -43,7 +42,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade2</object-name>
-		<property>/rotors/main[0]/blade1_pos</property>
+		<property>rotors/main[0]/blade1_pos</property>
 		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
@@ -59,7 +58,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade3</object-name>
-		<property>/rotors/main[0]/blade1_pos</property>
+		<property>rotors/main[0]/blade1_pos</property>
 		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
@@ -75,7 +74,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade4</object-name>
-		<property>/rotors/main[0]/blade1_pos</property>
+		<property>rotors/main[0]/blade1_pos</property>
 		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
@@ -93,10 +92,42 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade4</object-name>
-		<property>/rotors/main[0]/blade2_flap</property>
+		<property>rotors/main[0]/blade2_flap</property>
 		<factor>1</factor>
 		<center>
-			<x-m>-0.04</x-m>
+			<x-m>0</x-m>
+			<y-m>0.04</y-m>
+			<z-m>1.7</z-m>
+		</center>
+		<axis>
+			<x>1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blade1</object-name>
+		<property>rotors/main[0]/blade1_flap</property>
+		<factor>1</factor>
+		<center>
+			<x-m>0.4</x-m>
+			<y-m>0</y-m>
+			<z-m>1.7</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>-1.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blade3</object-name>
+		<property>rotors/main[0]/blade3_flap</property>
+		<factor>1</factor>
+		<center>
+			<x-m>-0.4</x-m>
 			<y-m>0</y-m>
 			<z-m>1.7</z-m>
 		</center>
@@ -108,49 +139,17 @@
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>blade1</object-name>
-		<property>/rotors/main[0]/blade1_flap</property>
+		<object-name>blade2</object-name>
+		<property>rotors/main[0]/blade4_flap</property>
 		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
-			<y-m>0.4</y-m>
-			<z-m>1.7</z-m>
-		</center>
-		<axis>
-			<x>1.0</x>
-			<y>0.0</y>
-			<z>0.0</z>
-		</axis>
-	</animation>
-	<animation>
-		<type>rotate</type>
-		<object-name>blade3</object-name>
-		<property>/rotors/main[0]/blade3_flap</property>
-		<factor>1</factor>
-		<center>
-			<x-m>0</x-m>
-			<y-m>-0.4</y-m>
+			<y-m>-0.04</y-m>
 			<z-m>1.7</z-m>
 		</center>
 		<axis>
 			<x>-1.0</x>
 			<y>0.0</y>
-			<z>0.0</z>
-		</axis>
-	</animation>
-	<animation>
-		<type>rotate</type>
-		<object-name>blade2</object-name>
-		<property>/rotors/main[0]/blade4_flap</property>
-		<factor>1</factor>
-		<center>
-			<x-m>0.04</x-m>
-			<y-m>0</y-m>
-			<z-m>1.7</z-m>
-		</center>
-		<axis>
-			<x>0.0</x>
-			<y>-1.0</y>
 			<z>0.0</z>
 		</axis>
 	</animation>
@@ -158,27 +157,11 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade4</object-name>
-		<property>/rotors/main[0]/blade2_incidence</property>
-		<factor>1</factor>
-		<center>
-			<x-m>-0.04</x-m>
-			<y-m>0</y-m>
-			<z-m>1.7</z-m>
-		</center>
-		<axis>
-			<x>-1.0</x>
-			<y>0.0</y>
-			<z>0.0</z>
-		</axis>
-	</animation>
-	<animation>
-		<type>rotate</type>
-		<object-name>blade1</object-name>
-		<property>/rotors/main[0]/blade1_incidence</property>
+		<property>rotors/main[0]/blade2_incidence</property>
 		<factor>1</factor>
 		<center>
 			<x-m>0</x-m>
-			<y-m>0.4</y-m>
+			<y-m>0.04</y-m>
 			<z-m>1.7</z-m>
 		</center>
 		<axis>
@@ -189,33 +172,49 @@
 	</animation>
 	<animation>
 		<type>rotate</type>
-		<object-name>blade3</object-name>
-		<property>/rotors/main[0]/blade3_incidence</property>
+		<object-name>blade1</object-name>
+		<property>rotors/main[0]/blade1_incidence</property>
 		<factor>1</factor>
 		<center>
-			<x-m>0</x-m>
-			<y-m>-0.4</y-m>
-			<z-m>1.7</z-m>
-		</center>
-		<axis>
-			<x>0.0</x>
-			<y>-1.0</y>
-			<z>0.0</z>
-		</axis>
-	</animation>
-	<animation>
-		<type>rotate</type>
-		<object-name>blade2</object-name>
-		<property>/rotors/main[0]/blade4_incidence</property>
-		<factor>1</factor>
-		<center>
-			<x-m>0.04</x-m>
+			<x-m>0.4</x-m>
 			<y-m>0</y-m>
 			<z-m>1.7</z-m>
 		</center>
 		<axis>
 			<x>1.0</x>
 			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blade3</object-name>
+		<property>rotors/main[0]/blade3_incidence</property>
+		<factor>1</factor>
+		<center>
+			<x-m>-0.4</x-m>
+			<y-m>0</y-m>
+			<z-m>1.7</z-m>
+		</center>
+		<axis>
+			<x>-1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>blade2</object-name>
+		<property>rotors/main[0]/blade4_incidence</property>
+		<factor>1</factor>
+		<center>
+			<x-m>0</x-m>
+			<y-m>-0.04</y-m>
+			<z-m>1.7</z-m>
+		</center>
+		<axis>
+			<x>0.0</x>
+			<y>-1.0</y>
 			<z>0.0</z>
 		</axis>
 	</animation>
@@ -225,16 +224,16 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>tailrotor</object-name>
-		<property>/rotors/tail[0]/blade1_pos</property>
+		<property>rotors/tail[0]/blade1_pos</property>
 		<factor>-1</factor>
 		<center>
-			<x-m>0.001</x-m>
-			<y-m>5.894</y-m>
+			<x-m>5.894</x-m>
+			<y-m>-0.001</y-m>
 			<z-m>1.860</z-m>
 		</center>
 		<axis>
-			<x>-0.414</x>
-			<y>-0.032</y>
+			<x>-0.032</x>
+			<y>0.414</y>
 			<z>0.005</z>
 		</axis>
 	</animation>
@@ -250,13 +249,35 @@
 
 	<animation>
 		<type>select</type>
+		<object-name>door_front_L</object-name>
+		<object-name>door_front_Li</object-name>
+		<object-name>door_front_R</object-name>
+		<object-name>door_front_Ri</object-name>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_Li</object-name>
+		<object-name>door_back_R</object-name>
+		<object-name>door_back_Ri</object-name>
+		<object-name>glass_front_L</object-name>
+		<object-name>glass_front_R</object-name>
+		<object-name>glass_back_L</object-name>
+		<object-name>glass_back_R</object-name>
+		<condition>
+			<greater-than-equals>
+				<property>controls/doors/all</property>
+				<value>0</value>
+			</greater-than-equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
 		<object-name>reardoor_L</object-name>
 		<object-name>reardoor_Li</object-name>
 		<object-name>reardoor_R</object-name>
 		<object-name>reardoor_Ri</object-name>
 		<condition>
 			<greater-than-equals>
-				<property>/controls/doors/rear</property>
+				<property>controls/doors/rear</property>
 				<value>0</value>
 			</greater-than-equals>
 		</condition>
@@ -266,17 +287,17 @@
 		<type>rotate</type>
 		<object-name>reardoor_L</object-name>
 		<object-name>reardoor_Li</object-name>
-		<property>/controls/doors/rear</property>
+		<property>controls/doors/rear</property>
 		<min-deg>-170</min-deg>
 		<factor>-170</factor>
 		<center>
-			<x-m>0.785</x-m>
-			<y-m>1.000</y-m>
+			<x-m>1.000</x-m>
+			<y-m>-0.785</y-m>
 			<z-m>-0.032</z-m>
 		</center>
 		<axis>
-			<x>-0.019</x>
-			<y>0.141</y>
+			<x>0.141</x>
+			<y>0.019</y>
 			<z>0.238</z>
 		</axis>
 	</animation>
@@ -285,18 +306,384 @@
 		<type>rotate</type>
 		<object-name>reardoor_R</object-name>
 		<object-name>reardoor_Ri</object-name>
-		<property>/controls/doors/rear</property>
+		<property>controls/doors/rear</property>
 		<max-deg>170</max-deg>
 		<factor>170</factor>
 		<center>
-			<x-m>-0.785</x-m>
-			<y-m>1.000</y-m>
+			<x-m>1.000</x-m>
+			<y-m>0.785</y-m>
 			<z-m>-0.032</z-m>
 		</center>
 		<axis>
-			<x>0.019</x>
-			<y>0.141</y>
+			<x>0.141</x>
+			<y>-0.019</y>
 			<z>0.238</z>
 		</axis>
 	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>door_front_L</object-name>
+		<object-name>door_front_Li</object-name>
+		<object-name>glass_front_L</object-name>
+		<condition>
+			<greater-than-equals>
+				<property>controls/doors/front-left</property>
+				<value>0</value>
+			</greater-than-equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>door_front_L</object-name>
+		<object-name>door_front_Li</object-name>
+		<object-name>glass_front_L</object-name>
+		<property>controls/doors/rear</property>
+		<max-deg>170</max-deg>
+		<factor>170</factor>
+		<center>
+			<x-m>-1.858</x-m>
+			<y-m>-0.785</y-m>
+			<z-m>0.533</z-m>
+		</center>
+		<axis>
+			<x>-0.124</x>
+			<y>-0.0092</y>
+			<z>-0.319</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>door_front_R</object-name>
+		<object-name>door_front_Ri</object-name>
+		<object-name>glass_front_R</object-name>
+		<condition>
+			<greater-than-equals>
+				<property>controls/doors/front-right</property>
+				<value>0</value>
+			</greater-than-equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>door_front_R</object-name>
+		<object-name>door_front_Ri</object-name>
+		<object-name>glass_front_R</object-name>
+		<property>controls/doors/rear</property>
+		<min-deg>-170</min-deg>
+		<factor>-170</factor>
+		<center>
+			<x-m>-1.858</x-m>
+			<y-m>0.785</y-m>
+			<z-m>0.533</z-m>
+		</center>
+		<axis>
+			<x>-0.124</x>
+			<y>0.0092</y>
+			<z>-0.319</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_Li</object-name>
+		<object-name>glass_back_L</object-name>
+		<condition>
+			<greater-than-equals>
+				<property>controls/doors/back-left</property>
+				<value>0</value>
+			</greater-than-equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_Li</object-name>
+		<object-name>glass_back_L</object-name>
+		<property>controls/doors/rear</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>.1</ind>
+				<dep>.03</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>.03</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_Li</object-name>
+		<object-name>glass_back_L</object-name>
+		<property>controls/doors/rear</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>.1</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>.6</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>door_back_R</object-name>
+		<object-name>door_back_Ri</object-name>
+		<object-name>glass_back_R</object-name>
+		<condition>
+			<greater-than-equals>
+				<property>controls/doors/back-right</property>
+				<value>0</value>
+			</greater-than-equals>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>door_back_R</object-name>
+		<object-name>door_back_Ri</object-name>
+		<object-name>glass_back_R</object-name>
+		<property>controls/doors/rear</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>.1</ind>
+				<dep>.03</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>.03</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>door_back_R</object-name>
+		<object-name>door_back_Ri</object-name>
+		<object-name>glass_back_R</object-name>
+		<property>controls/doors/rear</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>.1</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>.6</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<model>
+		<name>COMP</name><!-- compass -->
+		<path>Aircraft/Instruments-3d/comp/comp.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0</y-m>
+			<z-m>0.70</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ASI</name>
+		<path>Aircraft/Instruments-3d/asi/asi.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0.10</y-m>
+			<z-m>0.55</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>AI</name>
+		<path>Aircraft/Instruments-3d/ai/ai.xml</path>
+		<offsets>
+			<!-- fix me: set back for now -->
+			<x-m>-2.232</x-m>
+			<y-m>0.20</y-m>
+			<z-m>0.55</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ALT</name>
+		<path>Aircraft/Instruments-3d/alt/alt.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0.30</y-m>
+			<z-m>0.55</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>ADF</name>
+		<path>Aircraft/Instruments-3d/adf/adf.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0.10</y-m>
+			<z-m>0.45</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>HI</name>
+		<path>Aircraft/Instruments-3d/hi/hi.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0.20</y-m>
+			<z-m>0.45</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>VSI</name>
+		<path>Aircraft/Instruments-3d/vsi/vsi.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0.30</y-m>
+			<z-m>0.45</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>CLOCK</name>
+		<path>Aircraft/Instruments-3d/clock/clock.xml</path>
+		<offsets>
+			<x-m>-2.21</x-m>
+			<y-m>0.10</y-m>
+			<z-m>0.25</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>RADIO</name>
+		<path>Aircraft/Instruments-3d/kx170b/kx170b.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0.25</y-m>
+			<z-m>0.35</z-m>
+		</offsets>
+	</model>
+
+	<!--model>
+		<name>VOR1</name>
+		<path>Aircraft/Instruments-3d/vor/vor.xml</path>
+		<offsets>
+			<x-m>-2</x-m>
+			<y-m>0.028</y-m>
+			<z-m>0.568</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>VOR2</name>
+		<path>Aircraft/Instruments-3d/vor/vor.xml</path>
+		<offsets>
+			<x-m>-2</x-m>
+			<y-m>0.028</y-m>
+			<z-m>0.477</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>TACH</name>
+		<path>Aircraft/Instruments-3d/tach/tach.xml</path>
+		<offsets>
+			<x-m>-2</x-m>
+			<y-m>0.433</y-m>
+			<z-m>0.477</z-m>
+		</offsets>
+	</model>
+
+	<model>
+		<name>TC</name>
+		<path>Aircraft/Instruments-3d/tc/tc.xml</path>
+		<offsets>
+			<x-m>-2</x-m>
+			<y-m>0.336</y-m>
+			<z-m>0.477</z-m>
+		</offsets>
+	</model-->
+
+
+	<!-- Visible up to 10km (6mi) -->
+	<animation>
+		<type>range</type>
+		<min-m>0</min-m>
+		<max-m>10000</max-m>
+	</animation>
+
+	<animation>
+		<name>InstrumentGroup</name>
+		<object-name>ASI</object-name>
+		<object-name>AI</object-name>
+		<object-name>ALT</object-name>
+		<object-name>ADF</object-name>
+		<object-name>HI</object-name>
+		<object-name>VSI</object-name>
+		<object-name>RADIO</object-name>
+		<object-name>CLOCK</object-name>
+		<!--object-name>TACH</object-name>
+		<object-name>TC</object-name>
+		<object-name>VOR1</object-name>
+		<object-name>VOR2</object-name-->
+	</animation>
+
+	<!--model>
+		<name>Cursor</name>
+		<path>Local/cursor.ac</path>
+		<offsets>
+			<x-m>-1.45</x-m>
+			<y-m>0.40</y-m>
+			<z-m>0.70</z-m>
+		</offsets>
+	</model-->
 </PropertyList>
+<!-- N1, EGT, N2 and FF (fuel flow) -->

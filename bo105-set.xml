@@ -19,6 +19,12 @@ Bo 105 simulation config.
    <path>Aircraft/bo105/bo105-sound.xml</path>
   </sound>
 
+  <systems>
+    <electrical>
+      <path>Aircraft/c172/c172-electrical.xml</path>
+    </electrical>
+  </systems>
+
   <panel>
    <visibility archive="n">false</visibility>
   </panel>
@@ -27,13 +33,13 @@ Bo 105 simulation config.
    <path archive="y">Aircraft/bo105/Models/bo105.xml</path>
    <painting>1</painting>
   </model>
-  
+
   <view>
    <internal archive="y">true</internal>
    <config>
-     <x-offset-m archive="y">0.45</x-offset-m><!--right-->
-     <y-offset-m archive="y">0.5</y-offset-m><!--up-->
-     <z-offset-m archive="y">-1.4</z-offset-m><!--back-->
+     <x-offset-m archive="y">0.38</x-offset-m><!--right-->
+     <y-offset-m archive="y">0.60</y-offset-m><!--up-->
+     <z-offset-m archive="y">-1.50</z-offset-m><!--back-->
      <pitch-offset-deg>-8</pitch-offset-deg>
    </config>
   </view>
@@ -63,6 +69,11 @@ Bo 105 simulation config.
   </engines>
   <doors>
     <rear type="float">0.0</rear>
+    <front-left type="float">0.0</front-left>
+    <front-right type="float">0.0</front-right>
+    <back-left type="float">0.0</back-left>
+    <back-right type="float">0.0</back-right>
+    <all type="float">0.0</all>
   </doors>
  </controls>
 
@@ -106,9 +117,11 @@ Bo 105 simulation config.
         interpolate(prop, target, time);
         target = !target;
     }
+
+    # the attitude indicator needs pressure
+    settimer(func { setprop("/engines/engine/rpm", 3000) }, 8);
     print("bo105-set.xml initialized");
    ]]></script>
   </bo105>
  </nasal>
-
 </PropertyList>

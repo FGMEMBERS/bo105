@@ -21,7 +21,7 @@
   mincyclicail="-8.94" maxcyclicail="8.94"
   diameter="9.98" numblades="4" weightperblade="75" relbladecenter="0.5"
   dynamic="1" rpm="442" rellenflaphinge="0.2" delta3="0"
-  translift=".1" ccw="true" delta=".25"
+  translift=".1" ccw="1" delta=".25"
   pitch_a="15.8" forceatpitch_a="5518"
   pitch_b="15.8" poweratpitch_b="530"
   flapmin="-15"
@@ -49,7 +49,7 @@
   diameter="1.91" numblades="2" weightperblade="2" relbladecenter="0.7"
   dynamic="1" rpm="2219" rellenflaphinge="0.0" delta3="1" translift="0" delta="0.5"
   pitch_a="15.8" forceatpitch_a="1500" dragfactor="2"
-  notorque="true"
+  notorque="1"
 >
   <control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
                  src0="-1.0" src1="1.0"
