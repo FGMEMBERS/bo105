@@ -39,6 +39,7 @@ Bo 105 simulation config.
 				<beacon-top type="bool">false</beacon-top>
 				<beacon-bottom type="bool">false</beacon-bottom>
 				<nav-lights type="bool">false</nav-lights>
+				<tail-angle type="int">0</tail-angle>
 				<state type="int">0</state>
 			</bo105>
 		</model>

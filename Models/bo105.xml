@@ -129,6 +129,21 @@
 	<!-- tail rotor blades -->
 
 	<animation>
+		<!-- crash handling -->
+		<type>rotate</type>
+		<object-name>tailrotor</object-name>
+		<property>sim/model/bo105/tail-angle</property>
+		<center>
+			<x-m>2.134</x-m>
+			<y-m>0</y-m>
+			<z-m>0.958</z-m>
+		</center>
+		<axis>
+			<y>1</y>
+		</axis>
+	</animation>
+
+	<animation>
 		<type>blend</type>
 		<object-name>tailrotor</object-name>
 		<property>rotors/tail/rpm</property>
@@ -1650,6 +1665,29 @@
 		</offsets>
 	</model-->
 
+<!--== crash handling ==-->
+
+	<animation>
+		<type>rotate</type>
+		<object-name>tail</object-name>
+		<object-name>tailstab_L</object-name>
+		<object-name>tailstab_R</object-name>
+		<object-name>tailrotoraxis</object-name>
+		<object-name>antenna_L</object-name>
+		<object-name>antenna_R</object-name>
+		<object-name>beacon_sock_T</object-name>
+		<object-name>strobe_off_T</object-name>
+		<object-name>protector</object-name>
+		<property>sim/model/bo105/tail-angle</property>
+		<center>
+			<x-m>2.134</x-m>
+			<y-m>0</y-m>
+			<z-m>0.958</z-m>
+		</center>
+		<axis>
+			<y>1</y>
+		</axis>
+	</animation>
 </PropertyList>
 
 

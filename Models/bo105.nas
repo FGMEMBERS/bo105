@@ -1,14 +1,14 @@
 # $Id$
 
 # the attitude indicator needs pressure
-settimer(func { setprop("/engines/engine/rpm", 3000) }, 8);
+settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
 
 
 
 # strobes ===========================================================
-strobe_switch = props.globals.getNode("/controls/lighting/strobe");
-strobe_top = props.globals.getNode("/sim/model/bo105/strobe-top");
-strobe_bottom = props.globals.getNode("/sim/model/bo105/strobe-bottom");
+strobe_switch = props.globals.getNode("controls/lighting/strobe");
+strobe_top = props.globals.getNode("sim/model/bo105/strobe-top");
+strobe_bottom = props.globals.getNode("sim/model/bo105/strobe-bottom");
 
 do_strobe_top = func {
 	if (!strobe_switch.getValue()) {
@@ -41,9 +41,9 @@ settimer(do_strobe_bottom, 7);
 
 
 # beacons ===========================================================
-beacon_switch = props.globals.getNode("/controls/lighting/beacon");
-beacon_top = props.globals.getNode("/sim/model/bo105/beacon-top");
-beacon_bottom = props.globals.getNode("/sim/model/bo105/beacon-bottom");
+beacon_switch = props.globals.getNode("controls/lighting/beacon");
+beacon_top = props.globals.getNode("sim/model/bo105/beacon-top");
+beacon_bottom = props.globals.getNode("sim/model/bo105/beacon-bottom");
 
 do_beacon_top = func {
 	if (beacon_switch.getValue()) {
@@ -70,10 +70,10 @@ settimer(do_beacon_bottom, 9);
 
 
 # nav lights ========================================================
-nav_light_switch = props.globals.getNode("/controls/lighting/nav-lights");
-visibility = props.globals.getNode("/environment/visibility-m");
-sun_angle = props.globals.getNode("/sim/time/sun-angle-rad");
-nav_lights = props.globals.getNode("/sim/model/bo105/nav-lights");
+nav_light_switch = props.globals.getNode("controls/lighting/nav-lights");
+visibility = props.globals.getNode("environment/visibility-m");
+sun_angle = props.globals.getNode("sim/time/sun-angle-rad");
+nav_lights = props.globals.getNode("sim/model/bo105/nav-lights");
 
 do_nav_lights = func {
 	if (nav_light_switch.getValue()) {
@@ -89,7 +89,7 @@ settimer(do_nav_lights, 10);
 
 
 # doors =============================================================
-door = props.globals.getNode("/controls/doors/rear", 1);
+door = props.globals.getNode("controls/doors/rear", 1);
 swingTime = 2.5;
 
 target = 1;
@@ -103,15 +103,15 @@ toggleDoor = func {
 
 
 # engines/rotor =====================================================
-rotor = props.globals.getNode("/controls/engines/engine/magnetos");
-state = props.globals.getNode("/sim/model/bo105/state");
-turbine = props.globals.getNode("/sim/model/bo105/turbine-rpm-pct", 1);
+rotor = props.globals.getNode("controls/engines/engine/magnetos");
+state = props.globals.getNode("sim/model/bo105/state");
+turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 
 # 0 off
 # 1 startup sound in progress
-# 2 shutdown sound in progress  (4)
-# 3 engine running/ready for rotor (2)
-# 4 rotor running (3)
+# 2 shutdown sound in progress
+# 3 engine running/ready for rotor
+# 4 rotor running
 
 print("engines off");
 engines = func {
@@ -140,4 +140,42 @@ engines = func {
 		}
 	}
 }
+
+
+
+# crash handler =====================================================
+crashed = props.globals.getNode("sim/crashed");
+
+crashhandler = func {
+	if (crashed.getValue()) {
+		setprop("sim/model/bo105/tail-angle", 35);
+		setprop("sim/model/bo105/shadow-blend", 1);
+		setprop("controls/doors/front_left", 0.3);
+		setprop("controls/doors/front_right", 0.6);
+		setprop("controls/doors/back_left", 0.2);
+		setprop("controls/doors/back_left", 0.4);
+		setprop("controls/doors/rear", 0.3);
+		setprop("rotors/main/rpm", 0);
+		setprop("rotors/main/blade1_flap", -60);
+		setprop("rotors/main/blade2_flap", -50);
+		setprop("rotors/main/blade3_flap", -40);
+		setprop("rotors/main/blade4_flap", -30);
+		setprop("rotors/main/blade1_incidence", -30);
+		setprop("rotors/main/blade2_incidence", -20);
+		setprop("rotors/main/blade3_incidence", -50);
+		setprop("rotors/main/blade4_incidence", -55);
+		setprop("rotors/tail/rpm", 0);
+		strobe_switch.setValue(0);
+		beacon_switch.setValue(0);
+		nav_light_switch.setValue(0);
+		rotor.setValue(0);
+		turbine.setValue(0);
+		state.setValue(0);
+	}
+	settimer(crashhandler, 0.2);
+}
+
+settimer(crashhandler, 20);
+
+
 
