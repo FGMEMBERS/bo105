@@ -40,6 +40,7 @@ Bo 105 simulation config.
 				<beacon-top type="bool">false</beacon-top>
 				<beacon-bottom type="bool">false</beacon-bottom>
 				<nav-lights type="bool">false</nav-lights>
+				<state type="int">0</state>
 			</bo105>
 		</model>
 
@@ -117,6 +118,25 @@ Bo 105 simulation config.
 					<script>bo105.toggleDoor()</script>
 				</binding>
 			</key>
+
+			<key n="125">
+				<name>}</name>
+				<desc>Stop Rotor/Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.engines(1)</script>
+				</binding>
+			</key>
+
+			<key n="123">
+				<name>{</name>
+				<desc>Start Engines/Rotor</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.engines(-1)</script>
+				</binding>
+			</key>
+
 		</keyboard>
 	</input>
 
