@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!-- z=0 at approximately 30cm above ground plate -->
 
 <PropertyList>
 	<path>bo105.ac</path>
@@ -7,19 +6,7 @@
 		<z-m>-.2</z-m>
 	</offsets>
 
-	<!-- shadow -->
-	<!-- the following does for some weird reason not work. Use
-	texroteate instead. :-/ -->
-	<!--animation>
-		<type>rotate</type>
-		<object-name>shadow_rotor</object-name>
-		<property>rotors/main[0]/blade1_pos</property>
-		<axis>
-			<x>0</x>
-			<y>0</y>
-			<z>1</z>
-		</axis>
-	</animation-->
+<!--== shadows ==-->
 
 	<animation>
 		<type>texrotate</type>
@@ -116,6 +103,8 @@
 		<object-name>shadow_fuselage</object-name>
 		<property>/sim/model/bo105/shadow-blend</property>
 	</animation>
+
+<!--== rotors ==-->
 
 	<animation>
 		<type>rotate</type>
@@ -310,6 +299,8 @@
 		</axis>
 	</animation>
 
+<!--== paintings ==-->
+
 	<animation>
 		<type>select</type>
 		<object-name>cross</object-name>
@@ -318,6 +309,8 @@
 			<property>/sim/model/bo105/painting</property>
 		</condition>
 	</animation>
+
+<!--== doors ==-->
 
 	<animation>
 		<type>select</type>
@@ -593,6 +586,8 @@
 		</axis>
 	</animation>
 
+<!--== instruments ==-->
+
 	<model>
 		<name>COMP</name><!-- compass -->
 		<path>Aircraft/Instruments-3d/comp/comp.xml</path>
@@ -748,6 +743,437 @@
 		<object-name>VOR2</object-name-->
 	</animation>
 
+
+
+<!--== lights ==-->
+
+	<!-- strobe top/tail -->
+	<animation>
+		<type>select</type>
+		<object-name>strobe_off_T</object-name>
+		<condition>
+			<not>
+				<property>/sim/model/bo105/strobe-top</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>strobe_halo_T</object-name>
+		<condition>
+			<property>/sim/model/bo105/strobe-top</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>alpha-test</type>
+		<object-name>strobe_halo_T</object-name>
+		<alpha-factor>0.001</alpha-factor>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>strobe_halo_T</object-name>
+		<offset-m>6.252</offset-m>
+		<axis>
+			<x>5.992</x>
+			<z>1.784</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>billboard</type>
+		<object-name>strobe_halo_T</object-name>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>strobe_halo_T</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>12</x-factor>
+		<y-factor>12</y-factor>
+		<z-factor>12</z-factor>
+	</animation>
+
+	<animation>
+		<type>blend</type>
+		<object-name>strobe_halo_T</object-name>
+		<property>/sim/model/bo105/strobe-blend</property>
+	</animation>
+
+
+
+	<!-- strobe bottom -->
+	<animation>
+		<type>select</type>
+		<object-name>strobe_off_B</object-name>
+		<condition>
+			<not>
+				<property>/sim/model/bo105/strobe-bottom</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>strobe_halo_Bf</object-name>
+		<object-name>strobe_halo_B</object-name>
+		<condition>
+			<property>/sim/model/bo105/strobe-bottom</property>
+		</condition>
+	</animation>
+
+	<!-- fix -->
+	<animation>
+		<type>translate</type>
+		<object-name>strobe_halo_Bf</object-name>
+		<offset-m>1.907</offset-m>
+		<axis>
+			<x>-1.787</x>
+			<z>-0.665</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>strobe_halo_Bf</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>12</x-factor>
+		<y-factor>12</y-factor>
+		<z-factor>12</z-factor>
+	</animation>
+
+	<!-- billboard -->
+	<animation>
+		<type>translate</type>
+		<object-name>strobe_halo_B</object-name>
+		<offset-m>1.913</offset-m>
+		<axis>
+			<x>-1.787</x>
+			<z>-0.683</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>billboard</type>
+		<object-name>strobe_halo_B</object-name>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>strobe_halo_B</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>12</x-factor>
+		<y-factor>12</y-factor>
+		<z-factor>12</z-factor>
+	</animation>
+
+
+
+	<!-- red beacon top/tail -->
+	<animation>
+		<type>select</type>
+		<object-name>beacon_off_T</object-name>
+		<condition>
+			<not>
+				<property>/sim/model/bo105/beacon-top</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>beacon_halo_T</object-name>
+		<condition>
+			<property>/sim/model/bo105/beacon-top</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>alpha-test</type>
+		<object-name>beacon_halo_T</object-name>
+		<alpha-factor>0.001</alpha-factor>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>beacon_halo_T</object-name>
+		<offset-m>6.216</offset-m>
+		<axis>
+			<x>5.883</x>
+			<y>0</y>
+			<z>2.008</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>billboard</type>
+		<object-name>beacon_halo_T</object-name>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>beacon_halo_T</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>4</x-factor>
+		<y-factor>4</y-factor>
+		<z-factor>4</z-factor>
+	</animation>
+
+	<animation>
+		<type>blend</type>
+		<object-name>beacon_halo_T</object-name>
+		<property>/sim/model/bo105/beacon-blend</property>
+	</animation>
+
+
+
+
+	<!-- red beacon bottom -->
+	<animation>
+		<type>select</type>
+		<object-name>beacon_off_B</object-name>
+		<condition>
+			<not>
+				<property>/sim/model/bo105/beacon-bottom</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>beacon_halo_B</object-name>
+		<object-name>beacon_halo_Bf</object-name>
+		<condition>
+			<property>/sim/model/bo105/beacon-bottom</property>
+		</condition>
+	</animation>
+
+	<!-- fix -->
+	<animation>
+		<type>translate</type>
+		<object-name>beacon_halo_Bf</object-name>
+		<offset-m>1.479</offset-m>
+		<axis>
+			<x>-1.313</x>
+			<z>-0.681</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>beacon_halo_Bf</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>4</x-factor>
+		<y-factor>4</y-factor>
+		<z-factor>4</z-factor>
+	</animation>
+
+	<!-- billboard -->
+	<animation>
+		<type>translate</type>
+		<object-name>beacon_halo_B</object-name>
+		<offset-m>1.504</offset-m>
+		<axis>
+			<x>-1.313</x>
+			<z>-0.734</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>billboard</type>
+		<object-name>beacon_halo_B</object-name>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>beacon_halo_B</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>5</x-factor>
+		<y-factor>5</y-factor>
+		<z-factor>5</z-factor>
+	</animation>
+
+
+
+	<!-- red nav light (left) -->
+	<animation>
+		<type>select</type>
+		<object-name>nav_off_L</object-name>
+		<condition>
+			<not>
+				<property>/sim/model/bo105/nav-lights</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>nav_halo_L</object-name>
+		<object-name>nav_halo_Lf</object-name>
+		<condition>
+			<property>/sim/model/bo105/nav-lights</property>
+		</condition>
+	</animation>
+
+	<!-- fix -->
+	<animation>
+		<type>translate</type>
+		<object-name>nav_halo_Lf</object-name>
+		<offset-m>1.071</offset-m>
+		<axis>
+			<x>0.680</x>
+			<y>-0.814</y>
+			<z>0.150</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>nav_halo_Lf</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>1.3</x-factor>
+		<y-factor>1.3</y-factor>
+		<z-factor>1.3</z-factor>
+	</animation>
+
+	<!-- billboard -->
+	<animation>
+		<type>translate</type>
+		<object-name>nav_halo_L</object-name>
+		<offset-m>1.071</offset-m>
+		<axis>
+			<x>0.680</x>
+			<y>-0.814</y>
+			<z>0.150</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>billboard</type>
+		<object-name>nav_halo_L</object-name>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>nav_halo_L</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>2</x-factor>
+		<y-factor>2</y-factor>
+		<z-factor>2</z-factor>
+	</animation>
+
+
+
+	<!-- cyan nav light (right) -->
+	<animation>
+		<type>select</type>
+		<object-name>nav_off_R</object-name>
+		<condition>
+			<not>
+				<property>/sim/model/bo105/nav-lights</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>nav_halo_R</object-name>
+		<object-name>nav_halo_Rf</object-name>
+		<condition>
+			<property>/sim/model/bo105/nav-lights</property>
+		</condition>
+	</animation>
+
+	<!-- fix -->
+	<animation>
+		<type>translate</type>
+		<object-name>nav_halo_Rf</object-name>
+		<offset-m>1.071</offset-m>
+		<axis>
+			<x>0.680</x>
+			<y>0.814</y>
+			<z>0.150</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>nav_halo_Rf</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>1.3</x-factor>
+		<y-factor>1.3</y-factor>
+		<z-factor>1.3</z-factor>
+	</animation>
+
+	<!-- billboard -->
+	<animation>
+		<type>translate</type>
+		<object-name>nav_halo_R</object-name>
+		<offset-m>1.071</offset-m>
+		<axis>
+			<x>0.680</x>
+			<y>0.814</y>
+			<z>0.150</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>billboard</type>
+		<object-name>nav_halo_R</object-name>
+	</animation>
+
+	<animation>
+		<type>scale</type>
+		<object-name>nav_halo_R</object-name>
+		<property>/sim/time/sun-angle-rad</property>
+		<offset>-1.4</offset>
+		<x-min>1</x-min>
+		<y-min>1</y-min>
+		<z-min>1</z-min>
+		<x-factor>2</x-factor>
+		<y-factor>2</y-factor>
+		<z-factor>2</z-factor>
+	</animation>
+
+
 	<!--model>
 		<name>Cursor</name>
 		<path>Local/cursor.ac</path>
@@ -759,51 +1185,13 @@
 	</model-->
 
 	<animation>
-		<type>timed</type>
-		<object-name>blinker_off</object-name>
-		<object-name>blinker_aura</object-name>
-		<duration-sec>1.5</duration-sec>
-	</animation>
-
-	<animation>
-		<type>translate</type>
-		<object-name>blinker_aura</object-name>
-		<offset-m>5.883</offset-m>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>translate</type>
-		<object-name>blinker_aura</object-name>
-		<offset-m>2.008</offset-m>
-		<axis>
-			<x>0</x>
-			<y>0</y>
-			<z>1</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>billboard</type>
-		<object-name>blinker_aura</object-name>
-	</animation>
-
-	<animation>
-		<type>scale</type>
-		<object-name>blinker_aura</object-name>
-		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
-		<x-factor>4</x-factor>
-		<y-factor>4</y-factor>
-		<z-factor>4</z-factor>
+		<type>select</type>
+		<object-name>rotor_disc</object-name>
+		<property>/null</property>
 	</animation>
 
 </PropertyList>
+
+
 <!-- N1, EGT, N2 and FF (fuel flow) -->
+<!-- z=0 at approximately 30cm above ground plate -->
