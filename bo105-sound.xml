@@ -12,10 +12,9 @@
 						<property>/rotors/main/rpm</property>
 						<value>.5</value>
 					</greater-than>
-					<greater-than>
-						<property>/position/altitude-agl-ft</property>
-						<value>-3</value>
-					</greater-than>
+					<not>
+						<property>/sim/crashed</property>
+					</not>
 				</and>
 			</condition>
 			<volume>
@@ -70,7 +69,14 @@
 			<name>wind</name>
 			<mode>looped</mode>
 			<path>Sounds/wind.wav</path>
-			<property>/velocities/airspeed-kt</property>
+			<condition>
+				<and>
+					<property>/velocities/airspeed-kt</property>
+					<not>
+						<property>/sim/crashed</property>
+					</not>
+				</and>
+			</condition>
 			<volume>
 				<property>/position/altitude-ft</property>
 				<factor>-0.000015</factor>
@@ -95,18 +101,7 @@
 			<name>intense ground contact</name>
 			<mode>transient</mode>
 			<path>Sounds/crash.wav</path>
-			<condition>
-				<and>
-					<less-than>
-						<property>/position/altitude-agl-ft</property>
-						<value>-2</value>
-					</less-than>
-					<greater-than>
-						<property>/sim/time/elapsed-sec</property>
-						<value>10</value>
-					</greater-than>
-				</and>
-			</condition>
+			<property>/sim/crashed</property>
 			<volume>
 				<factor>1</factor>
 			</volume>
