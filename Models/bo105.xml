@@ -1060,9 +1060,21 @@
 		</offsets>
 	</model>
 
+	<!-- top row -->
+
+	<model>
+		<name>TACH</name>
+		<path>Aircraft/bo105/Instruments/tach/tach.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0.0</y-m>
+			<z-m>0.55</z-m>
+		</offsets>
+	</model>
+
 	<model>
 		<name>ASI</name>
-		<path>Aircraft/Instruments-3d/asi/asi.xml</path>
+		<path>Aircraft/bo105/Instruments/asi/asi.xml</path>
 		<offsets>
 			<x-m>-2.23</x-m>
 			<y-m>0.10</y-m>
@@ -1091,15 +1103,7 @@
 		</offsets>
 	</model>
 
-	<model>
-		<name>TACH</name>
-		<path>Aircraft/bo105/Instruments/tach/tach.xml</path>
-		<offsets>
-			<x-m>-2.23</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.45</z-m>
-		</offsets>
-	</model>
+	<!-- 2nd row -->
 
 	<model>
 		<name>ADF</name>

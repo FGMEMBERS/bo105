@@ -2,15 +2,15 @@ AC3Db
 MATERIAL "DefaultWhite" rgb 1 1 1  amb 1 1 1  emis 0 0 0  spec 0.5 0.5 0.5 shi 64  trans 0
 MATERIAL "material" rgb 1 1 1 amb 1 1 1  emis 0.15 0.15 0.15  spec 0.5 0.5 0.5 shi 64  trans 0
 OBJECT world
-kids 3
+kids 2
 OBJECT poly
-name "TurbineNeedle"
+name "Needle"
 numvert 5
-0.001927 0.031554 -0.001291
-0.001927 0.024297 -0.001291
-0.001927 0.024297 0.001291
-0.001927 0.031554 0.001291
-0.001927 0.034314 0
+0.002518 0.031206 -0.001291
+0.002518 0.004382 -0.001291
+0.002518 0.004382 0.001291
+0.002518 0.031206 0.001291
+0.002518 0.033966 0
 numsurf 2
 SURF 0x00
 mat 1
@@ -28,7 +28,7 @@ refs 3
 kids 0
 OBJECT poly
 name "Face"
-texture "tach.rgb"
+texture "asi.rgb"
 texrep 1 1
 numvert 4
 0 0.04 -0.04
@@ -43,27 +43,4 @@ refs 4
 3 0.0 0.994140625
 2 0.0 0.0
 1 0.994140625 0.0
-kids 0
-OBJECT poly
-name "RotorNeedle"
-numvert 5
-0.003307 0.019841 -0.001291
-0.003307 -0.001473 -0.001291
-0.003307 -0.001473 0.001291
-0.003307 0.019841 0.001291
-0.003307 0.022601 0
-numsurf 2
-SURF 0x00
-mat 1
-refs 4
-0 0.0 0.0
-3 0.0 0.0
-2 0.0 0.0
-1 0.0 0.0
-SURF 0x00
-mat 1
-refs 3
-3 0.0 0.0
-0 0.0 0.0
-4 0.0 0.0
 kids 0

@@ -105,6 +105,7 @@ toggleDoor = func {
 # engines/rotor =====================================================
 rotor = props.globals.getNode("/controls/engines/engine/magnetos");
 state = props.globals.getNode("/sim/model/bo105/state");
+turbine = props.globals.getNode("/sim/model/bo105/turbine-rpm-pct", 1);
 
 # 0 off
 # 1 startup sound in progress
@@ -119,6 +120,7 @@ engines = func {
 		if (s == 0) {
 			state.setValue(1);
 			print("engines started");
+			interpolate(turbine, 100, 11);
 			settimer(func { state.setValue(3) ; print("engines running") }, 11);
 		} elsif (s == 3) {
 			print("rotor started");
@@ -133,7 +135,8 @@ engines = func {
 		} elsif (s == 3) {
 			state.setValue(2);
 			print("engines stopped");
-			settimer(func { state.setValue(0) ; print("engines off") }, 13);
+			interpolate(turbine, 0, 18);
+			settimer(func { state.setValue(0) ; print("engines off") }, 18);
 		}
 	}
 }
