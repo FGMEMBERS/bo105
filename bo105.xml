@@ -29,7 +29,7 @@
   flap0="-5"
   flap0factor="0"
   poweratpitch_0="53"
-  notorque="true"
+  notorque="false"
   dragfactor="5"
 >
   <control-input axis="/controls/flight/aileron" control="CYCLICAIL" 
@@ -45,7 +45,7 @@
 </rotor>
 
 <rotor name="tail" x="-8.60" y="-0.031" z="1.5" nx="0.07" ny="-1" nz="-0.05" fx="1" fy="0" fz="0"
-  maxcollective="15.8" mincollective="-15.8"
+  maxcollective="20" mincollective="-10"
   diameter="1.91" numblades="2" weightperblade="2" relbladecenter="0.7"
   dynamic="1" rpm="2219" rellenflaphinge="0.0" delta3="1" translift="0" delta="0.5"
   pitch_a="15.8" forceatpitch_a="1500" dragfactor="2"
