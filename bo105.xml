@@ -15,7 +15,7 @@
 </cruise>
 
 
-<rotor name="main" x="-1.21716254" y="0.0" z="5.1" nx="0" ny="0" nz="1." fx="1" fy="0" fz="0"
+<rotor name="main" x="-2.5" y="0.0" z="1.6" nx="0.05" ny="0" nz="1." fx="1" fy="0" fz="0"
   maxcollective="15.8" mincollective="-2.2"
   mincyclicele="-7.6" maxcyclicele="7.6"
   mincyclicail="-8.94" maxcyclicail="8.94"
@@ -44,7 +44,7 @@
   <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORENGINEON"/>
 </rotor>
 
-<rotor name="tail" x="-7.408" y="0.031" z="0.244" nx="0" ny="-1" nz="0." fx="1" fy="0" fz="0"
+<rotor name="tail" x="-8.60" y="-0.031" z="1.5" nx="0.07" ny="-1" nz="-0.05" fx="1" fy="0" fz="0"
   maxcollective="15.8" mincollective="-15.8"
   diameter="1.91" numblades="2" weightperblade="2" relbladecenter="0.7"
   dynamic="1" rpm="2219" rellenflaphinge="0.0" delta3="1" translift="0" delta="0.5"
@@ -79,56 +79,37 @@
 </vstab>
 
 
-<gear x="-1" y="0" z="-1.5" compression=".4"> <!-- nose -->
-  <control-input axis="/controls/flight/rudder" control="STEER"
-                 src0="-1.0" src1="1.0"
-                 dst0="-0.1" dst1="0.1"/>
-</gear>
-
-<gear x="-2.82" y="1.15" z="-1.36" compression=".3"> <!-- left main -->
+<gear x="-0.80" y="1.30" z="-1.22" compression="0.1" damp="4.0" spring="0.5"> <!-- left skid -->
   <control-input axis="/controls/gear/wheel[0]/brake" control="BRAKE" split="true"/>
   <control-input axis="/controls/gear/parking-brake" control="BRAKE" split="true"/>
 </gear>
 
-<gear x="-2.82" y="-1.15" z="-1.36" compression=".3"> <!-- left main -->
+<gear x="-3.15" y="1.30" z="-1.22" compression="0.1" damp="4.0" spring="0.5"> <!-- left skid -->
+  <control-input axis="/controls/gear/wheel[0]/brake" control="BRAKE" split="true"/>
+  <control-input axis="/controls/gear/parking-brake" control="BRAKE" split="true"/>
+</gear>
+
+<gear x="0.80" y="-1.30" z="-1.22" compression="0.1" damp="4.0" spring="0.5"> <!-- right skid -->
+  <control-input axis="/controls/gear/wheel[1]/brake" control="BRAKE" split="true"/>
+  <control-input axis="/controls/gear/parking-brake" control="BRAKE" split="true"/>
+</gear>
+
+<gear x="-3.15" y="-1.30" z="-1.22" compression="0.1" damp="4.0" spring="0.5"> <!-- right skid -->
   <control-input axis="/controls/gear/wheel[1]/brake" control="BRAKE" split="true"/>
   <control-input axis="/controls/gear/parking-brake" control="BRAKE" split="true"/>
 </gear>
 
 
 
-<gear x="-0" y="0" z="-1.5" compression=".4">
-</gear>
-
-<gear x="-4.82" y="3.15" z="-1.36" compression=".3"> <!-- left main -->
-</gear>
-
-<gear x="-4.82" y="-3.15" z="-1.36" compression=".3"> <!-- left main -->
-</gear>
-
-<gear x="10" y="0" z="-1.5" compression=".4">
-</gear>
-
-<gear x="-14.82" y="13.15" z="-1.36" compression=".3"> <!-- left main -->
-</gear>
-
-<gear x="-14.82" y="-13.15" z="-1.36" compression=".3"> <!-- left main -->
-</gear>
-
-
 <tank x="-2.47" y="1.36" z=".68" capacity="75"/>
 <tank x="-2.47" y="-1.36" z=".68" capacity="75"/> 
 
-<ballast x="-2.0" y=".33" z="1" mass="180"/> <!-- pilot -->
-<ballast x="-2.0" y="-.33" z="1" mass="180"/> <!-- passenger -->
-<ballast x="-1.0" y="-.0" z="1" mass="200"/> <!-- cockpit -->
+<ballast x="-1.0" y=".33" z="1" mass="180"/> <!-- pilot -->
+<ballast x="-1.0" y="-.33" z="1" mass="180"/> <!-- passenger -->
+<ballast x="-0.5" y="-.0" z="1" mass="200"/> <!-- cockpit -->
 
-<ballast x="-1.0" y="-.0" z="1" mass="1820"/> <!-- fuselage -->
+<ballast x="-3.0" y="-.0" z="1" mass="1820"/> <!-- fuselage -->
 
 
-<ballast x="-1.0" y="-10.33" z="1" mass="2"/> <!-- something -->
-<ballast x="-1.0" y=" 10.33" z="1" mass="2"/> <!-- something -->
-<ballast x="-12.0" y=" 0.0" z="1" mass="2"/> <!-- something -->
-<ballast x="  8.0" y=" 0.0" z="1" mass="2"/> <!-- something -->
 
 </airplane>
