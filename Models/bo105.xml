@@ -846,64 +846,12 @@
 
 	<animation>
 		<type>select</type>
-		<object-name>reardoor_L</object-name>
-		<object-name>reardoor_Li</object-name>
+		<object-name>door_front_R</object-name>
+		<object-name>door_front_Ri</object-name>
+		<object-name>glass_front_R</object-name>
 		<condition>
-			<greater-than-equals>
-				<property>controls/doors/rear-left</property>
-				<value>0</value>
-			</greater-than-equals>
+			<property>controls/doors/door[0]/enabled</property>
 		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>reardoor_R</object-name>
-		<object-name>reardoor_Ri</object-name>
-		<condition>
-			<greater-than-equals>
-				<property>controls/doors/rear-right</property>
-				<value>0</value>
-			</greater-than-equals>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>reardoor_L</object-name>
-		<object-name>reardoor_Li</object-name>
-		<property>controls/doors/rear-left</property>
-		<min-deg>-170</min-deg>
-		<factor>-170</factor>
-		<center>
-			<x-m>1.000</x-m>
-			<y-m>-0.785</y-m>
-			<z-m>-0.032</z-m>
-		</center>
-		<axis>
-			<x>0.141</x>
-			<y>0.019</y>
-			<z>0.238</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>reardoor_R</object-name>
-		<object-name>reardoor_Ri</object-name>
-		<property>controls/doors/rear-right</property>
-		<max-deg>170</max-deg>
-		<factor>170</factor>
-		<center>
-			<x-m>1.000</x-m>
-			<y-m>0.785</y-m>
-			<z-m>-0.032</z-m>
-		</center>
-		<axis>
-			<x>0.141</x>
-			<y>-0.019</y>
-			<z>0.238</z>
-		</axis>
 	</animation>
 
 	<animation>
@@ -912,43 +860,45 @@
 		<object-name>door_front_Li</object-name>
 		<object-name>glass_front_L</object-name>
 		<condition>
-			<greater-than-equals>
-				<property>controls/doors/front-left</property>
-				<value>0</value>
-			</greater-than-equals>
+			<property>controls/doors/door[1]/enabled</property>
 		</condition>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>door_front_L</object-name>
-		<object-name>door_front_Li</object-name>
-		<object-name>glass_front_L</object-name>
-		<property>controls/doors/front-left</property>
-		<max-deg>170</max-deg>
-		<factor>170</factor>
-		<center>
-			<x-m>-1.858</x-m>
-			<y-m>-0.785</y-m>
-			<z-m>0.533</z-m>
-		</center>
-		<axis>
-			<x>-0.124</x>
-			<y>-0.0092</y>
-			<z>-0.319</z>
-		</axis>
 	</animation>
 
 	<animation>
 		<type>select</type>
-		<object-name>door_front_R</object-name>
-		<object-name>door_front_Ri</object-name>
-		<object-name>glass_front_R</object-name>
+		<object-name>door_back_R</object-name>
+		<object-name>door_back_Ri</object-name>
+		<object-name>glass_back_R</object-name>
 		<condition>
-			<greater-than-equals>
-				<property>controls/doors/front-right</property>
-				<value>0</value>
-			</greater-than-equals>
+			<property>controls/doors/door[2]/enabled</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_Li</object-name>
+		<object-name>glass_back_L</object-name>
+		<condition>
+			<property>controls/doors/door[3]/enabled</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>reardoor_R</object-name>
+		<object-name>reardoor_Ri</object-name>
+		<condition>
+			<property>controls/doors/door[4]/enabled</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>reardoor_L</object-name>
+		<object-name>reardoor_Li</object-name>
+		<condition>
+			<property>controls/doors/door[5]/enabled</property>
 		</condition>
 	</animation>
 
@@ -957,7 +907,7 @@
 		<object-name>door_front_R</object-name>
 		<object-name>door_front_Ri</object-name>
 		<object-name>glass_front_R</object-name>
-		<property>controls/doors/front-right</property>
+		<property>controls/doors/door[0]/position</property>
 		<min-deg>-170</min-deg>
 		<factor>-170</factor>
 		<center>
@@ -973,83 +923,23 @@
 	</animation>
 
 	<animation>
-		<type>select</type>
-		<object-name>door_back_L</object-name>
-		<object-name>door_back_Li</object-name>
-		<object-name>glass_back_L</object-name>
-		<condition>
-			<greater-than-equals>
-				<property>controls/doors/back-left</property>
-				<value>0</value>
-			</greater-than-equals>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>translate</type>
-		<object-name>door_back_L</object-name>
-		<object-name>door_back_Li</object-name>
-		<object-name>glass_back_L</object-name>
-		<property>controls/doors/back-left</property>
-		<interpolation>
-			<entry>
-				<ind>0</ind>
-				<dep>0</dep>
-			</entry>
-			<entry>
-				<ind>.1</ind>
-				<dep>.03</dep>
-			</entry>
-			<entry>
-				<ind>1</ind>
-				<dep>.03</dep>
-			</entry>
-		</interpolation>
+		<type>rotate</type>
+		<object-name>door_front_L</object-name>
+		<object-name>door_front_Li</object-name>
+		<object-name>glass_front_L</object-name>
+		<property>controls/doors/door[1]/position</property>
+		<max-deg>170</max-deg>
+		<factor>170</factor>
+		<center>
+			<x-m>-1.858</x-m>
+			<y-m>-0.785</y-m>
+			<z-m>0.533</z-m>
+		</center>
 		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
+			<x>-0.124</x>
+			<y>-0.0092</y>
+			<z>-0.319</z>
 		</axis>
-	</animation>
-
-	<animation>
-		<type>translate</type>
-		<object-name>door_back_L</object-name>
-		<object-name>door_back_Li</object-name>
-		<object-name>glass_back_L</object-name>
-		<property>controls/doors/back-left</property>
-		<interpolation>
-			<entry>
-				<ind>0</ind>
-				<dep>0</dep>
-			</entry>
-			<entry>
-				<ind>.1</ind>
-				<dep>0</dep>
-			</entry>
-			<entry>
-				<ind>1</ind>
-				<dep>.6</dep>
-			</entry>
-		</interpolation>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>door_back_R</object-name>
-		<object-name>door_back_Ri</object-name>
-		<object-name>glass_back_R</object-name>
-		<condition>
-			<greater-than-equals>
-				<property>controls/doors/back-right</property>
-				<value>0</value>
-			</greater-than-equals>
-		</condition>
 	</animation>
 
 	<animation>
@@ -1057,7 +947,7 @@
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
 		<object-name>glass_back_R</object-name>
-		<property>controls/doors/back-right</property>
+		<property>controls/doors/door[2]/position</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1084,7 +974,7 @@
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
 		<object-name>glass_back_R</object-name>
-		<property>controls/doors/back-right</property>
+		<property>controls/doors/door[2]/position</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1103,6 +993,98 @@
 			<x>1</x>
 			<y>0</y>
 			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_Li</object-name>
+		<object-name>glass_back_L</object-name>
+		<property>controls/doors/door[3]/position</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>.1</ind>
+				<dep>.03</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>.03</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>translate</type>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_Li</object-name>
+		<object-name>glass_back_L</object-name>
+		<property>controls/doors/door[3]/position</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>.1</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>.6</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>reardoor_R</object-name>
+		<object-name>reardoor_Ri</object-name>
+		<property>controls/doors/door[4]/position</property>
+		<max-deg>170</max-deg>
+		<factor>170</factor>
+		<center>
+			<x-m>1.000</x-m>
+			<y-m>0.785</y-m>
+			<z-m>-0.032</z-m>
+		</center>
+		<axis>
+			<x>0.141</x>
+			<y>-0.019</y>
+			<z>0.238</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>reardoor_L</object-name>
+		<object-name>reardoor_Li</object-name>
+		<property>controls/doors/door[5]/position</property>
+		<min-deg>-170</min-deg>
+		<factor>-170</factor>
+		<center>
+			<x-m>1.000</x-m>
+			<y-m>-0.785</y-m>
+			<z-m>-0.032</z-m>
+		</center>
+		<axis>
+			<x>0.141</x>
+			<y>0.019</y>
+			<z>0.238</z>
 		</axis>
 	</animation>
 
@@ -1743,9 +1725,17 @@
 
 	<animation>
 		<type>select</type>
+		<object-name>gatling</object-name>
+		<condition>
+			<property>sim/model/bo105/MG[0]/enabled</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
 		<object-name>hot</object-name>
 		<condition>
-			<property>sim/model/bo105/hot</property>
+			<property>sim/model/bo105/HOT[0]/enabled</property>
 		</condition>
 	</animation>
 
@@ -1759,28 +1749,68 @@
 	<animation>
 		<type>material</type>
 		<object-name>emblem</object-name>
-		<texture-prop>/sim/model/bo105/material/emblem/texture</texture-prop>
+		<property-base>/sim/model/bo105/material/emblem</property-base>
+		<texture-prop>texture</texture-prop>
+		<transparency-prop>transparency</transparency-prop>
+		<threshold-prop>threshold</threshold-prop>
 	</animation>
 
 	<animation>
 		<type>material</type>
-		<name>fuselage_material</name>
+		<object-name>glass_fixed</object-name>
+		<global type="bool">true</global>
+		<property-base>/sim/model/bo105/material/glass</property-base>
+		<diffuse>
+			<red-prop>diffuse/red</red-prop>
+			<green-prop>diffuse/green</green-prop>
+			<blue-prop>diffuse/blue</blue-prop>
+		</diffuse>
+		<ambient>
+			<red-prop>ambient/red</red-prop>
+			<green-prop>ambient/green</green-prop>
+			<blue-prop>ambient/blue</blue-prop>
+		</ambient>
+		<specular>
+			<red-prop>specular/red</red-prop>
+			<green-prop>specular/green</green-prop>
+			<blue-prop>specular/blue</blue-prop>
+		</specular>
+		<emission>
+			<red-prop>emission/red</red-prop>
+			<green-prop>emission/green</green-prop>
+			<blue-prop>emission/blue</blue-prop>
+		</emission>
+		<transparency-prop>transparency</transparency-prop>
+		<shininess-prop>shininess</shininess-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
 		<object-name>fuselage</object-name>
 		<global type="bool">true</global>
-		<diffuse-red-prop>/sim/model/bo105/material/fuselage/diffuse-red</diffuse-red-prop>
-		<diffuse-green-prop>/sim/model/bo105/material/fuselage/diffuse-green</diffuse-green-prop>
-		<diffuse-blue-prop>/sim/model/bo105/material/fuselage/diffuse-blue</diffuse-blue-prop>
-		<ambient-red-prop>/sim/model/bo105/material/fuselage/ambient-red</ambient-red-prop>
-		<ambient-green-prop>/sim/model/bo105/material/fuselage/ambient-green</ambient-green-prop>
-		<ambient-blue-prop>/sim/model/bo105/material/fuselage/ambient-blue</ambient-blue-prop>
-		<specular-red-prop>/sim/model/bo105/material/fuselage/specular-red</specular-red-prop>
-		<specular-green-prop>/sim/model/bo105/material/fuselage/specular-green</specular-green-prop>
-		<specular-blue-prop>/sim/model/bo105/material/fuselage/specular-blue</specular-blue-prop>
-		<emission-red-prop>/sim/model/bo105/material/fuselage/emission-red</emission-red-prop>
-		<emission-green-prop>/sim/model/bo105/material/fuselage/emission-green</emission-green-prop>
-		<emission-blue-prop>/sim/model/bo105/material/fuselage/emission-blue</emission-blue-prop>
-		<transparency-prop>/sim/model/bo105/material/fuselage/transparency</transparency-prop>
-		<shininess-prop>/sim/model/bo105/material/fuselage/shininess</shininess-prop>
+		<property-base>/sim/model/bo105/material/fuselage</property-base>
+		<diffuse>
+			<red-prop>diffuse/red</red-prop>
+			<green-prop>diffuse/green</green-prop>
+			<blue-prop>diffuse/blue</blue-prop>
+		</diffuse>
+		<ambient>
+			<red-prop>ambient/red</red-prop>
+			<green-prop>ambient/green</green-prop>
+			<blue-prop>ambient/blue</blue-prop>
+		</ambient>
+		<specular>
+			<red-prop>specular/red</red-prop>
+			<green-prop>specular/green</green-prop>
+			<blue-prop>specular/blue</blue-prop>
+		</specular>
+		<emission>
+			<red-prop>emission/red</red-prop>
+			<green-prop>emission/green</green-prop>
+			<blue-prop>emission/blue</blue-prop>
+		</emission>
+		<transparency-prop>transparency</transparency-prop>
+		<shininess-prop>shininess</shininess-prop>
 	</animation>
 
 </PropertyList>

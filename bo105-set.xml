@@ -30,6 +30,11 @@ Bo 105 simulation config.
 			</electrical>
 		</systems>
 
+		<submodels>
+			<serviceable type="bool">true</serviceable>
+			<path>Aircraft/bo105/Models/submodels.xml</path>
+		</submodels>
+
 		<panel>
 			<visibility archive="n">false</visibility>
 		</panel>
@@ -37,7 +42,9 @@ Bo 105 simulation config.
 		<model>
 			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
 			<bo105>
-				<model type="int">-1</model>
+				<variant type="int">0</variant>
+				<emblem type="string"><!--set by bo105.nas--></emblem>
+				<insignia type="string">emblems/oebh.rgb</insignia>
 				<strobe-blend type="float">0.2</strobe-blend>
 				<beacon-blend type="float">0.2</beacon-blend>
 				<strobe-top type="bool">false</strobe-top>
@@ -47,30 +54,64 @@ Bo 105 simulation config.
 				<nav-lights type="bool">false</nav-lights>
 				<shadow type="bool">true</shadow>
 				<wiper type="bool">true</wiper>
-				<hot type="bool">false</hot>
 				<tail-angle type="int" archive="y">0</tail-angle>
 				<state type="int">0</state>
 				<rotor-step-deg type="float">0.0</rotor-step-deg>
 				<material>
+					<glass>
+						<diffuse>
+							<red>0.2</red>
+							<green>0.2</green>
+							<blue>0.2</blue>
+						</diffuse>
+						<ambient>
+							<red>0.2</red>
+							<green>0.2</green>
+							<blue>0.2</blue>
+						</ambient>
+						<specular>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
+						</specular>
+						<emission>
+							<red>0.0</red>
+							<green>0.0</green>
+							<blue>0.0</blue>
+						</emission>
+						<transparency>0.8</transparency>
+						<shininess>25</shininess>
+					</glass>
+
 					<fuselage>
-						<diffuse-red>0.8</diffuse-red>
-						<diffuse-green>0.7</diffuse-green>
-						<diffuse-blue>0.001</diffuse-blue>
-						<ambient-red>0.8</ambient-red>
-						<ambient-green>0.7</ambient-green>
-						<ambient-blue>0.0</ambient-blue>
-						<specular-red>0.4</specular-red>
-						<specular-green>0.2</specular-green>
-						<specular-blue>0.0</specular-blue>
-						<emission-red>0.0</emission-red>
-						<emission-green>0.0</emission-green>
-						<emission-blue>0.0</emission-blue>
+						<diffuse>
+							<red>0.8</red>
+							<green>0.7</green>
+							<blue>0.001</blue>
+						</diffuse>
+						<ambient>
+							<red>0.8</red>
+							<green>0.7</green>
+							<blue>0.0</blue>
+						</ambient>
+						<specular>
+							<red>0.4</red>
+							<green>0.2</green>
+							<blue>0.0</blue>
+						</specular>
+						<emission>
+							<red>0.0</red>
+							<green>0.0</green>
+							<blue>0.0</blue>
+						</emission>
 						<transparency>0.0</transparency>
 						<shininess>32</shininess>
 					</fuselage>
 
 					<emblem>
-						<texture>emblems/red-cross.rgb</texture>
+						<texture>empty.rgb</texture>
+						<transparency>0.0</transparency>
+						<threshold>0.1</threshold>
 					</emblem>
 				</material>
 			</bo105>
@@ -175,12 +216,36 @@ Bo 105 simulation config.
 		</engines>
 
 		<doors>
-			<front-right type="float">0.0</front-right>
-			<front-left type="float">0.0</front-left>
-			<back-right type="float">0.0</back-right>
-			<back-left type="float">0.0</back-left>
-			<rear-right type="float">0.0</rear-right>
-			<rear-left type="float">0.0</rear-left>
+			<door>
+				<name type="string">pilot's door</name>
+				<enabled type="bool">true</enabled>
+				<position type="float">0.0</position>
+			</door>
+			<door>
+				<name type="string">copilot's door</name>
+				<enabled type="bool">true</enabled>
+				<position type="float">0.0</position>
+			</door>
+			<door>
+				<name type="string">right backdoor</name>
+				<enabled type="bool">true</enabled>
+				<position type="float">0.0</position>
+			</door>
+			<door>
+				<name type="string">left backdoor</name>
+				<enabled type="bool">true</enabled>
+				<position type="float">0.0</position>
+			</door>
+			<door>
+				<name type="string">right reardoor</name>
+				<enabled type="bool">true</enabled>
+				<position type="float">0.0</position>
+			</door>
+			<door>
+				<name type="string">left reardoor</name>
+				<enabled type="bool">true</enabled>
+				<position type="float">0.0</position>
+			</door>
 		</doors>
 
 		<lighting>
@@ -192,21 +257,25 @@ Bo 105 simulation config.
 
 	<input>
 		<keyboard>
-			<key n="4">
-				<name>Ctrl-D</name>
-				<desc>Remove selected door (if open)</desc>
+			<key n="9">
+				<name>Ctrl-I</name>
+				<desc>Show configuration dialog</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.removeDoor()</script>
+					<script>bo105.showDialog()</script>
 				</binding>
 			</key>
 
 			<key n="67">
 				<name>C</name>
-				<desc>Show material dialog</desc>
+				<desc>Show material dialogs</desc>
 				<binding>
 					<command>nasal</command>
-					<script>material.showDialog("/sim/model/bo105/material/fuselage/", "Bo105")</script>
+					<script>
+						material.showDialog("/sim/model/bo105/material/fuselage/", nil, 10);
+						material.showDialog("/sim/model/bo105/material/glass/", nil, 240);
+						material.showDialog("/sim/model/bo105/material/emblem/", nil, 470);
+					</script>
 				</binding>
 			</key>
 

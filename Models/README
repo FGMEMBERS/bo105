@@ -11,6 +11,19 @@ select model:
 
 
 
+choose different medevac emblem:
+
+  --prop:/sim/model/bo105/emblem=foo.rgb
+
+
+
+choose different insignia for mil version:
+
+
+  --prop:/sim/model/bo105/insignia=bar.rgb
+
+
+
 remove wipers:
 
   --prop:/sim/model/bo105/wiper=0

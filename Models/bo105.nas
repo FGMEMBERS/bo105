@@ -1,10 +1,6 @@
 # $Id$
 # Melchior FRANZ, < mfranz # aon : at >
 
-# the attitude indicator needs pressure
-settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
-settimer(func { setprop("sim/freeze/position", 1) }, 8);
-
 
 
 # strobes ===========================================================
@@ -93,46 +89,25 @@ settimer(do_nav_lights, 10);
 # doors =============================================================
 
 door = 0;
-doors = [
-	["pilot's door", "controls/doors/front-right", 1],
-	["copilot's door", "controls/doors/front-left", 1],
-	["right backdoor", "controls/doors/back-right", 1],
-	["left backdoor", "controls/doors/back-left", 1],
-	["right rear door", "controls/doors/rear-right", 1],
-	["left rear door", "controls/doors/rear-left", 1]
-];
+doors = props.globals.getNode("controls/doors").getChildren("door");
 
 nextDoor = func {
-	if (door < 5) {
+	if (door < size(doors)) {
 		door = door + 1;
 	} else {
 		door = 0;
 	}
-	gui.popupTip("Selecting " ~ doors[door][0]);
+	gui.popupTip("Selecting " ~ doors[door].getNode("name").getValue());
 }
 
 swingTime = 2.5;
 
 toggleDoor = func {
-	doornode = props.globals.getNode(doors[door][1], 1);
-	target = doors[door][2];
-	val = doornode.getValue();
-	if (val >= 0) {
-		time = abs(val - target) * swingTime;
-		interpolate(doornode, target, time);
-		doors[door][2] = !doors[door][2];
-	}
-}
-
-removeDoor = func {
-	doornode = props.globals.getNode(doors[door][1], 1);
-	val = doornode.getValue();
-	if (val > 0.99) {
-		doornode.setValue(-1);
-	} elsif (val < 0.0) {
-		doornode.setValue(1);
-		doors[door][2] = 0;
-	}
+	position = doors[door].getNode("position");
+	target = doors[door].getNode("target");
+	time = abs(position.getValue() - target.getValue()) * swingTime;
+	interpolate(position, target.getValue(), time);
+	target.setValue(!target.getValue());
 }
 
 
@@ -169,7 +144,7 @@ engines = func {
 
 
 # crash handler =====================================================
-crashed = props.globals.getNode("sim/crashed");
+crashed = nil;
 
 crashhandler = func {
 	if (crashed.getValue()) {
@@ -201,7 +176,6 @@ crashhandler = func {
 	settimer(crashhandler, 0.2);
 }
 
-settimer(crashhandler, 20);
 
 
 
@@ -307,19 +281,29 @@ determine_emblem = func {
 }
 
 
-#	           diffuse            ambient            specular        emission           shi trans
-matlist = {
-	"mil":    [0.35, 0.36, 0.31,  0.35, 0.36, 0.31,  0.0, 0.0, 0.0,  0.02, 0.02, 0.02,  0,  0],
-	"blue":   [0.0, 0.45, 0.6,    0.0, 0.45, 0.6,    0.8, 0.8, 1.0,  0.0, 0.0, 0.0,     10, 0],
-	"yellow": [0.83, 0.62, 0.0,   0.78, 0.71, 0.0,   0.0, 0.0, 0.0,  0.05, 0.05, 0.05,  0, 0],
+matlist = { # MATERIALS
+#       fuselage   diffuse            ambient            specular           emission           shi trans
+	"mil":    [0.35, 0.36, 0.31,  0.35, 0.36, 0.31,  0.0, 0.0, 0.0,     0.02, 0.02, 0.02,  0,  0],
+	"blue":   [0.0, 0.45, 0.6,    0.0, 0.45, 0.6,    0.8, 0.8, 1.0,     0.0, 0.0, 0.0,     10, 0],
+	"yellow": [0.83, 0.62, 0.0,   0.78, 0.71, 0.0,   0.0, 0.0, 0.0,     0.05, 0.05, 0.05,  0, 0],
+	"black":  [0.3, 0.3, 0.23,    0.18, 0.18, 0.19,  0.32, 0.32, 0.32,  0.0, 0.0, 0.0,     15, 0],
+#       windows
+	"glass":  [0.2, 0.2, 0.2,     0.2, 0.2, 0.2,     1.0, 1.0, 1.0,     0.0, 0.0, 0.0,     25, 0.8],
+	"taint":  [0.0, 0.0, 0.0,     0.0, 0.0, 0.0,     0.5, 0.5, 0.5,     0.0, 0.0, 0.0,     25, 0.5],
 };
 
-varlist = [
-	["yellow", nil, 0],				# medevac
-	["mil", nil, 0],				# mil medevac
-	["mil", "empty.rgb", 0],			# generic mil
-	["mil", "emblems/oebh.rgb", 1],			# Austrian antitank (HOT mounting)
-	["blue", "emblems/star-of-life.rgb", 0],	# blue medevac (star of life)
+
+varlist = [ # VARIANTS
+#        paint     glass    emblem                     MG HOT
+	["yellow", "glass", "$med",                     0, 0],
+	["mil",    "glass", "$med",                     0, 0],
+	["mil",    "glass", "empty.rgb",                1, 0],	# GE-M134
+	["mil",    "glass", "$mil",                     0, 1],	# HOT
+	["blue",   "glass", "emblems/star-of-life.rgb", 0, 0],
+	#["black",  "taint", "empty.rgb",               1, 1],
+# LEGEND:
+#  $med ... medevac emblem (/sim/model/bo105/emblem; defaults to national RC society, depending on airport)
+#  $mil ... military insignia (/sim/model/bo105/insignia; defaults to Austrian)
 ];
 
 
@@ -329,8 +313,8 @@ apply_mat = func {
 	i = 0;
 	base = "/sim/model/bo105/material/" ~ obj ~ "/";
 	foreach (t; ["diffuse", "ambient", "specular", "emission"]) {
-		foreach (c; ["-red", "-green", "-blue"]) {
-			setprop(base ~ t ~ c, mat[i]);
+		foreach (c; ["red", "green", "blue"]) {
+			setprop(base ~ t ~ "/" ~ c, mat[i]);
 			i = i + 1;
 		}
 	}
@@ -339,32 +323,214 @@ apply_mat = func {
 }
 
 
-localsoc = nil;
-variant = nil;
+variant = -1;
 
 select_variant = func {
-	if (size(arg)) {
-		variant = arg[0];
-	} else {
-		variant = variant + 1;
-		if (variant == size(varlist)) {
-			variant = 0;
-		}
+	variant = if (size(arg) and arg[0] != nil) { arg[0] } else { variant + 1 };
+	if (variant >= size(varlist)) {
+		variant = 0;
+	}
+	e = varlist[variant][2];
+	if (e == "$med") {
+		e = getprop("sim/model/bo105/emblem");
+	} elsif (e == "$mil") {
+		e = getprop("sim/model/bo105/insignia");
+	}
+	if (!size(e)) {
+		e = "empty.rgb";
 	}
 	apply_mat("fuselage", matlist[varlist[variant][0]]);
-	e = varlist[variant][1];
-	if (e == nil) {
-		e = localsoc;
-	}
+	apply_mat("glass", matlist[varlist[variant][1]]);
 	setprop("sim/model/bo105/material/emblem/texture", e);
-	setprop("sim/model/bo105/hot", varlist[variant][2]);
+	setprop("sim/model/bo105/MG/enabled", varlist[variant][3]);
+	setprop("sim/model/bo105/HOT/enabled", varlist[variant][4]);
+
+	MG[0].getNode("trigger", 1).setValue(0);
+	MG[1].getNode("trigger", 1).setValue(0);
+	reload();
 }
 
 
+showDialog = func {
+	dialog = gui.Widget.new();
+	name = "bo105-config";
+	dialog.set("layout", "vbox");
+	dialog.set("name", name);
+
+# "window" titlebar
+	titlebar = dialog.addChild("group");
+	titlebar.set("layout", "hbox");
+	titlebar.addChild("text").set("label", "___________Bo105 configuration___________");
+	titlebar.addChild("empty").set("stretch", 1);
+
+	w = titlebar.addChild("button");
+	w.set("pref-width", 16);
+	w.set("pref-height", 16);
+	w.set("legend", "");
+	w.set("default", 1);
+	w.prop().getNode("binding[1]/command", 1).setValue("dialog-close");
+
+	checkbox = func {
+		group = dialog.addChild("group");
+		group.set("layout", "hbox");
+		group.addChild("empty").set("pref-width", 4);
+		box = group.addChild("checkbox");
+		group.addChild("empty").set("stretch", 1);
+
+		box.set("halign", "left");
+		box.set("label", arg[0]);
+		box;
+	}
+
+# doors
+	foreach (d; doors) {
+		w = checkbox(d.getNode("name").getValue());
+		w.set("property", d.getNode("enabled").getPath());
+		w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+	}
+
+# lights
+	w = checkbox("beacon");
+	w.set("property", "controls/lighting/beacon");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+	w = checkbox("strobe");
+	w.set("property", "controls/lighting/strobe");
+	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
+
+# ammunition
+	group = dialog.addChild("group");
+	group.set("layout", "hbox");
+	group.addChild("empty").set("pref-width", 4);
+
+	w = group.addChild("button");
+	w.set("halign", "left");
+	w.set("legend", "Reload");
+	w.prop().getNode("binding[0]/command", 1).setValue("nasal");
+	w.prop().getNode("binding[0]/script", 1).setValue("bo105.reload()");
+
+	w = group.addChild("text");
+	w.set("halign", "left");
+	w.set("label", "");
+	w.set("format", "%6.f Rounds");
+	w.set("property", "sim/model/bo105/MG[0]/total");
+	w.set("live", 1);
+	group.addChild("empty").set("stretch", 1);
+	
+# finale
+	dialog.addChild("empty").set("pref-height", "3");
+	fgcommand("dialog-new", dialog.prop());
+	gui.showDialog(name);
+}
+
+
+
+# toys'R'us
+trigger = props.globals.getNode("controls/gear/brake-left");
+SUB = [];	# submodels
+MG = [];
+HOT = [];
+HOTselect = 0;
+trigger_lock = 0;
+
+
+init_submodels = func {
+	for (i = 0; i < 2; i = i + 1) {
+		p = props.globals.getNode("sim/model/bo105/MG[" ~ i ~ "]", 1);
+		p.getNode("trigger", 1).setBoolValue(0);
+		append(MG, p);
+	}
+	MG[0].getNode("enabled", 1).setBoolValue(0);
+	MG[0].getNode("total", 1).setIntValue(0);
+
+	for (i = 0; i < 6; i = i + 1) {
+		p = props.globals.getNode("sim/model/bo105/HOT[" ~ i ~ "]", 1);
+		p.getNode("trigger", 1).setBoolValue(0);
+		append(HOT, p);
+	}
+	HOT[0].getNode("enabled", 1).setBoolValue(0);
+	HOT[0].getNode("total", 1).setIntValue(0);
+
+	SUB = props.globals.getNode("ai/submodels").getChildren("submodel");
+}
+
+
+recalc_ammo_loop = func {
+	n = 10 * SUB[0].getNode("count", 1).getValue();
+	n = n + 10 * SUB[1].getNode("count", 1).getValue();
+	MG[0].getNode("total").setIntValue(n);
+
+	n = 0;
+	for (i = 2; i < 2 + size(HOT); i = i + 1) {
+		n = n + SUB[i].getNode("count", 1).getValue()
+	}
+	HOT[0].getNode("total").setIntValue(n);
+	settimer(recalc_ammo_loop, 0.5);
+}
+
+
+submodel_loop = func {
+	trig = trigger.getValue();
+	if (varlist[variant][3]) {		# MG
+		MG[0].getNode("trigger").setBoolValue(trig);
+		MG[1].getNode("trigger").setBoolValue(trig);
+		settimer(submodel_loop, 0.2);
+
+	} elsif (varlist[variant][4]) {		# HOT
+		if (trig) {
+			if (!trigger_lock and (HOTselect < size(HOT))) {
+				trigger_lock = 1;
+				HOT[HOTselect].getNode("trigger").setBoolValue(1);
+				HOTselect = HOTselect + 1;
+			}
+		} else {
+			trigger_lock = 0;
+		}
+		settimer(submodel_loop, 0.2);
+
+	} else {
+		settimer(submodel_loop, 1);
+	}
+}
+
+
+reload = func {
+	# number of *tracers*, not rounds! (1:9)
+	setprop("ai/submodels/submodel[0]/count", 400);
+	setprop("ai/submodels/submodel[1]/count", 400);
+
+	HOTselect = 0;
+	for (i = 0; i < size(HOT); i = i + 1) {
+		setprop("ai/submodels/submodel[" ~ (i + 2) ~ "]/count", 1);
+		HOT[i].getNode("trigger").setBoolValue(0);
+	}
+}
+
+
+
+
 INIT = func {
-	localsoc = determine_emblem();
-	n = props.globals.getNode("sim/model/bo105/variant");
-	select_variant(if (n == nil) { 0 } else { n.getValue() });
+	crashed = props.globals.getNode("sim/crashed", 1);
+	settimer(crashhandler, 20);
+
+	# the attitude indicator needs pressure
+	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
+
+	foreach (d; doors) {
+		position = d.getNode("position").getValue();
+		target = if (position > 0.5) { 0.0 } else { 1.0 };
+		d.getNode("target", 1).setDoubleValue(target);
+	}
+	n = props.globals.getNode("sim/model/bo105/emblem");
+	e = n.getValue();
+	if (e != nil and !size(e)) {
+		n.setValue(determine_emblem());
+	}
+
+	init_submodels();
+	select_variant(getprop("sim/model/bo105/variant"));
+	recalc_ammo_loop();
+	submodel_loop();
 }
 
 settimer(INIT, 0);
