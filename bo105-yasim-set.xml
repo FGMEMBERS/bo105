@@ -37,6 +37,10 @@ Bo 105 simulation config.
    </config>
   </view>
 
+  <hud>
+   <enable3d>false</enable3d>
+  </hud>
+
  </sim>
 
  <yasim>
