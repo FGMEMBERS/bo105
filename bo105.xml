@@ -26,10 +26,12 @@
   notorque="false"
   dragfactor="5"
 >
-  <control-input axis="/controls/flight/aileron" control="CYCLICAIL" 
+  <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL" split="true"/>
+  <control-input axis="/controls/flight/aileron" control="CYCLICAIL"
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
-  <control-input axis="/controls/flight/elevator" control="CYCLICELE" 
+  <control-input axis="/controls/flight/elevator-trim" control="CYCLICELE" split="true"/>
+  <control-input axis="/controls/flight/elevator" control="CYCLICELE"
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
   <control-input axis="/controls/engines/engine[1]/throttle" control="COLLECTIVE"
@@ -55,43 +57,41 @@
 </rotor>
 
 
-
-
-
 <cockpit x="-1.88" y=".33" z="0.6"/>
 
 <fuselage ax="-.17" ay="0" az="-.51" bx="-7.16" by="0" bz=".17"
           width="1.8" taper="0.2" midpoint="0.3"/>
 
-
-
-
-
 <vstab x="-7.16" y="0" z=".17" taper=".5"
-       length="2.71" chord="1.54" sweep="20">
-  
-</vstab>
+       length="2.71" chord="1.54" sweep="20"/>
 
 
-<!-- two contact points for left skid -->
-<gear x="-0.80" y="1.30" z="-1.22" compression="0.1" damp="4.0"
-      spring="0.5" skid="1"/>
-<gear x="-3.15" y="1.30" z="-1.22" compression="0.1" damp="4.0" 
-      spring="0.5" skid="1"/>
+<!-- left skid -->
+<gear x="-0.80" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
+<gear x="-3.15" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
 
-<!-- two contact points for right skid -->
-<gear x="0.80" y="-1.30" z="-1.22" compression="0.1" damp="4.0"
-      spring="0.5" skid="1"/>
-<gear x="-3.15" y="-1.30" z="-1.22" compression="0.1" damp="4.0" 
-      spring="0.5" skid="1"/>
+<!-- right skid -->
+<gear x="-0.80" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
+<gear x="-3.15" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
 
-<tank x="-2.47" y="1.36" z=".68" capacity="75"/>
-<tank x="-2.47" y="-1.36" z=".68" capacity="75"/> 
+<tank x="-2.47" y="+1.36" z=".68" capacity="75"/>
+<tank x="-2.47" y="-1.36" z=".68" capacity="75"/>
+<tank x="0" y="0" z="0" capacity="0"/>		<!-- work around bug in native_fdm.cxx:184 -->
+<tank x="0" y="0" z="0" capacity="0"/>
 
-<ballast x="-1.0" y=".33" z="1" mass="180"/> <!-- pilot -->
-<ballast x="-1.0" y="-.33" z="1" mass="180"/> <!-- passenger -->
-<ballast x="-0.5" y="-.0" z="1" mass="200"/> <!-- cockpit -->
+<ballast x="-1.4" y="+0.0" z="0.0" mass="150"/>
+<ballast x="-2.5" y="-0.8" z="0.0" mass="150"/>
+<ballast x="-2.5" y="+0.0" z="1.0" mass="600"/>
+<ballast x="-2.5" y="+0.8" z="0.0" mass="150"/>
+<ballast x="-3.0" y="+0.0" z="0.0" mass="150"/>
 
-<ballast x="-3.0" y="-.0" z="1" mass="1820"/> <!-- fuselage -->
+<ballast x="-5.0" y="+0.0" z="1.0" mass="300"/>
+
+<weight x="-1.0" y=".33"  z="1" mass-prop="/sim/weight[0]/weight-lb"/>	<!-- pilot -->
+<weight x="-1.0" y="-.33" z="1" mass-prop="/sim/weight[1]/weight-lb"/>	<!-- co-pilot -->
+<weight x="-2.0" y=".33"  z="1" mass-prop="/sim/weight[2]/weight-lb"/>	<!-- right passenger -->
+<weight x="-2.0" y="0"    z="1" mass-prop="/sim/weight[3]/weight-lb"/>	<!-- middle passenger -->
+<weight x="-2.0" y="-.33" z="1" mass-prop="/sim/weight[4]/weight-lb"/>	<!-- left passenger -->
+<weight x="-3.5" y="0"    z="1" mass-prop="/sim/weight[5]/weight-lb"/>	<!-- patient/load -->
 
 </airplane>

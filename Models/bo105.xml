@@ -3,6 +3,7 @@
 <PropertyList>
 	<path>bo105.ac</path>
 	<offsets>
+		<!--x-m>2.5</x-m-->
 		<z-m>-.2</z-m>
 	</offsets>
 
@@ -79,7 +80,7 @@
 		<type>translate</type>
 		<object-name>shadow_fuselage</object-name>
 		<property>position/altitude-agl-ft</property>
-		<factor>0.3</factor>
+		<factor>0.25</factor>
 		<axis>
 			<z>-1</z>
 		</axis>
@@ -129,7 +130,6 @@
 	<!-- tail rotor blades -->
 
 	<animation>
-		<!-- crash handling -->
 		<type>rotate</type>
 		<object-name>tailrotor</object-name>
 		<property>sim/model/bo105/tail-angle</property>
@@ -1676,7 +1676,6 @@
 		<object-name>antenna_L</object-name>
 		<object-name>antenna_R</object-name>
 		<object-name>beacon_sock_T</object-name>
-		<object-name>strobe_off_T</object-name>
 		<object-name>protector</object-name>
 		<property>sim/model/bo105/tail-angle</property>
 		<center>

@@ -44,12 +44,12 @@ Bo 105 simulation config.
 			</bo105>
 		</model>
 
-		<view>
+		<view n="0">
 			<internal archive="y">true</internal>
 			<config>
 				<x-offset-m archive="y">0.38</x-offset-m><!--right-->
 				<y-offset-m archive="y">0.60</y-offset-m><!--up-->
-				<z-offset-m archive="y">-1.50</z-offset-m><!--back-->
+				<z-offset-m archive="y">-1.45</z-offset-m><!--back-->
 				<pitch-offset-deg>-8</pitch-offset-deg>
 			</config>
 		</view>
@@ -57,19 +57,49 @@ Bo 105 simulation config.
 		<hud>
 			<enable3d>false</enable3d>
 		</hud>
-	</sim>
 
-	<yasim>
-		<j3cub>
-			<pilot-lb>180</pilot-lb>
-		</j3cub>
-	</yasim>
+		<weight n="0">
+			<name>Pilot</name>
+			<weight-lb>180</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="1">
+			<name>Co-Pilot</name>
+			<weight-lb>180</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="2">
+			<name>Right Passenger</name>
+			<weight-lb>0</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="3">
+			<name>Middle Passenger</name>
+			<weight-lb>0</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="4">
+			<name>Left Passenger</name>
+			<weight-lb>0</weight-lb>
+			<max-lb>300</max-lb>
+		</weight>
+
+		<weight n="5">
+			<name>Load</name>
+			<weight-lb>0</weight-lb>
+			<max-lb>800</max-lb>
+		</weight>
+	</sim>
 
 	<controls>
 		<flight>
-			<aileron-trim>0.0076</aileron-trim>   <!-- fixed -->
-			<elevator-trim>0.0000</elevator-trim> <!-- controllable -->
-			<rudder-trim>0.0020</rudder-trim>     <!-- fixed -->
+			<aileron-trim>0</aileron-trim>
+			<elevator-trim>0</elevator-trim>
+			<rudder-trim>0</rudder-trim>
 		</flight>
 
 		<engines>
@@ -93,20 +123,6 @@ Bo 105 simulation config.
 			<nav-lights type="bool">true</nav-lights>
 		</lighting>
 	</controls>
-
-	<!-- An autopilot on a Cub??? -->  
-	<autopilot>
-		<config>
-			<min-climb-speed-kt type="float">48.0</min-climb-speed-kt>
-			<best-climb-speed-kt type="float">56.0</best-climb-speed-kt>
-			<target-climb-rate-fpm type="float">400.0</target-climb-rate-fpm>
-			<target-descent-rate-fpm type="float">1000.0</target-descent-rate-fpm>
-			<elevator-adj-factor type="float">6000.0</elevator-adj-factor>
-			<integral-contribution type="float">0.008</integral-contribution> 
-			<zero-pitch-throttle type="float">0.35</zero-pitch-throttle>
-			<zero-pitch-trim-full-throttle type="float">0.001</zero-pitch-trim-full-throttle>
-		</config>
-	</autopilot>
 
 	<input>
 		<keyboard>
