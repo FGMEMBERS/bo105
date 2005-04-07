@@ -98,4 +98,14 @@
 <weight x="-2.0" y="-.33" z="1" mass-prop="/sim/weight[4]/weight-lb"/>	<!-- left passenger -->
 <weight x="-3.5" y="0"    z="1" mass-prop="/sim/weight[5]/weight-lb"/>	<!-- patient/load -->
 
+<weight x="-2.93" y="0.4"   z="-0.19" size="0.25" mass-prop="/sim/model/bo105/weapons/MG[0]/weight-lb"/><!--R-->
+<weight x="-2.93" y="-0.4"  z="-0.19" size="0.25" mass-prop="/sim/model/bo105/weapons/MG[1]/weight-lb"/><!--L-->
+
+<weight x="-2.63" y="-1.58" z="-0.25" size="0.18" mass-prop="/sim/model/bo105/weapons/HOT[0]/weight-lb"/><!--OR-->
+<weight x="-2.63" y="1.58"  z="-0.25" size="0.18" mass-prop="/sim/model/bo105/weapons/HOT[1]/weight-lb"/><!--OL-->
+<weight x="-2.63" y="-1.39" z="-0.07" size="0.18" mass-prop="/sim/model/bo105/weapons/HOT[2]/weight-lb"/><!--MR-->
+<weight x="-2.63" y="1.39"  z="-0.07" size="0.18" mass-prop="/sim/model/bo105/weapons/HOT[3]/weight-lb"/><!--ML-->
+<weight x="-2.63" y="-1.21" z="0.08"  size="0.18" mass-prop="/sim/model/bo105/weapons/HOT[4]/weight-lb"/><!--IR-->
+<weight x="-2.63" y="1.21"  z="0.08"  size="0.18" mass-prop="/sim/model/bo105/weapons/HOT[5]/weight-lb"/><!--IL-->
+
 </airplane>

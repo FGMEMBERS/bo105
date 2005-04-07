@@ -40,41 +40,50 @@
 	Chamber Pressure  50,000 psi (3,515 kg/cm^2)
 	Muzzle Velocity @ 78ft  2,750 fps (838 mps)
 -->
-	<submodel>
-		<name>MG_L</name>
+	<MG>
 		<model>Aircraft/bo105/Models/tracer.xml</model>
-		<trigger>sim/model/bo105/MG[0]/trigger</trigger>
 		<speed>2750</speed>
-		<repeat>true</repeat>
 		<delay>0.3</delay>
-		<count>0</count><!-- set from bo105.nas -->
-		<x-offset>-7.4</x-offset>
-		<y-offset>-2.88</y-offset>
-		<z-offset>-1.30</z-offset>
-		<yaw-offset>0</yaw-offset>
-		<pitch-offset>0</pitch-offset>
 		<cd>0.295</cd>
 		<weight>0.0215</weight>
 		<eda>0.00049</eda>
+	</MG>
+
+	<submodel>
+		<name>MG_L</name>
+		<model alias="../../MG/model"/>
+		<trigger>sim/model/bo105/weapons/MG[0]/trigger</trigger>
+		<speed alias="../../MG/speed"/>
+		<repeat>true</repeat>
+		<delay alias="../../MG/delay"/>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset>-7.40</x-offset>
+		<y-offset>-3.00</y-offset>
+		<z-offset>-1.30</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset>-1</pitch-offset>
+		<cd alias="../../MG/cd"/>
+		<weight alias="../../MG/weight"/>
+		<eda alias="../../eda"/>
 		<life>6</life>
 	</submodel>
 
 	<submodel>
 		<name>MG_R</name>
-		<model>Aircraft/bo105/Models/tracer.xml</model>
-		<trigger>sim/model/bo105/MG[1]/trigger</trigger>
-		<speed>2750</speed>
+		<model alias="../../MG/model"/>
+		<trigger>sim/model/bo105/weapons/MG[1]/trigger</trigger>
+		<speed alias="../../MG/speed"/>
 		<repeat>true</repeat>
-		<delay>0.3</delay>
+		<delay alias="../../MG/delay"/>
 		<count>0</count><!-- set from bo105.nas -->
-		<x-offset>-7.4</x-offset>
-		<y-offset>2.88</y-offset>
+		<x-offset>-7.40</x-offset>
+		<y-offset>3.00</y-offset>
 		<z-offset>-1.30</z-offset>
 		<yaw-offset>0</yaw-offset>
-		<pitch-offset>0</pitch-offset>
-		<cd>0.295</cd>
-		<weight>0.0215</weight>
-		<eda>0.00049</eda>
+		<pitch-offset>-1</pitch-offset>
+		<cd alias="../../MG/cd"/>
+		<weight alias="../../MG/weight"/>
+		<eda alias="../../eda"/>
 		<life>6</life>
 	</submodel>
 
@@ -100,29 +109,9 @@
 	</hot>
 
 	<submodel>
-		<name>HOT_OL</name>
-		<model alias="../../hot/model"/>
-		<trigger>sim/model/bo105/HOT[0]/trigger</trigger>
-		<speed alias="../../hot/speed"/>
-		<repeat>false</repeat>
-		<delay>0.1</delay>
-		<count>0</count><!-- set from bo105.nas -->
-		<x-offset alias="../../hot/x"/>
-		<y-offset>-5.18</y-offset>
-		<z-offset>-1.45</z-offset>
-		<yaw-offset>0</yaw-offset>
-		<pitch-offset alias="../../hot/pitch"/>
-		<cd alias="../../hot/cd"/>
-		<weight alias="../../hot/weight"/>
-		<eda alias="../../hot/eda"/>
-		<life alias="../../hot/life"/>
-		<aero-stabilised>true</aero-stabilised>
-	</submodel>
-
-	<submodel>
 		<name>HOT_OR</name>
 		<model alias="../../hot/model"/>
-		<trigger>sim/model/bo105/HOT[1]/trigger</trigger>
+		<trigger>sim/model/bo105/weapons/HOT[0]/trigger</trigger>
 		<speed alias="../../hot/speed"/>
 		<repeat>false</repeat>
 		<delay>0.1</delay>
@@ -140,16 +129,16 @@
 	</submodel>
 
 	<submodel>
-		<name>HOT_ML</name>
+		<name>HOT_OL</name>
 		<model alias="../../hot/model"/>
-		<trigger>sim/model/bo105/HOT[2]/trigger</trigger>
+		<trigger>sim/model/bo105/weapons/HOT[1]/trigger</trigger>
 		<speed alias="../../hot/speed"/>
 		<repeat>false</repeat>
 		<delay>0.1</delay>
 		<count>0</count><!-- set from bo105.nas -->
 		<x-offset alias="../../hot/x"/>
-		<y-offset>-4.55</y-offset>
-		<z-offset>-0.9</z-offset>
+		<y-offset>-5.18</y-offset>
+		<z-offset>-1.45</z-offset>
 		<yaw-offset>0</yaw-offset>
 		<pitch-offset alias="../../hot/pitch"/>
 		<cd alias="../../hot/cd"/>
@@ -162,7 +151,7 @@
 	<submodel>
 		<name>HOT_MR</name>
 		<model alias="../../hot/model"/>
-		<trigger>sim/model/bo105/HOT[3]/trigger</trigger>
+		<trigger>sim/model/bo105/weapons/HOT[2]/trigger</trigger>
 		<speed alias="../../hot/speed"/>
 		<repeat>false</repeat>
 		<delay>0.1</delay>
@@ -180,16 +169,16 @@
 	</submodel>
 
 	<submodel>
-		<name>HOT_IL</name>
+		<name>HOT_ML</name>
 		<model alias="../../hot/model"/>
-		<trigger>sim/model/bo105/HOT[4]/trigger</trigger>
+		<trigger>sim/model/bo105/weapons/HOT[3]/trigger</trigger>
 		<speed alias="../../hot/speed"/>
 		<repeat>false</repeat>
 		<delay>0.1</delay>
 		<count>0</count><!-- set from bo105.nas -->
 		<x-offset alias="../../hot/x"/>
-		<y-offset>-3.92</y-offset>
-		<z-offset>-0.35</z-offset>
+		<y-offset>-4.55</y-offset>
+		<z-offset>-0.9</z-offset>
 		<yaw-offset>0</yaw-offset>
 		<pitch-offset alias="../../hot/pitch"/>
 		<cd alias="../../hot/cd"/>
@@ -202,13 +191,33 @@
 	<submodel>
 		<name>HOT_IR</name>
 		<model alias="../../hot/model"/>
-		<trigger>sim/model/bo105/HOT[5]/trigger</trigger>
+		<trigger>sim/model/bo105/weapons/HOT[4]/trigger</trigger>
 		<speed alias="../../hot/speed"/>
 		<repeat>false</repeat>
 		<delay>0.1</delay>
 		<count>0</count><!-- set from bo105.nas -->
 		<x-offset alias="../../hot/x"/>
 		<y-offset>3.92</y-offset>
+		<z-offset>-0.35</z-offset>
+		<yaw-offset>0</yaw-offset>
+		<pitch-offset alias="../../hot/pitch"/>
+		<cd alias="../../hot/cd"/>
+		<weight alias="../../hot/weight"/>
+		<eda alias="../../hot/eda"/>
+		<life alias="../../hot/life"/>
+		<aero-stabilised>true</aero-stabilised>
+	</submodel>
+
+	<submodel>
+		<name>HOT_IL</name>
+		<model alias="../../hot/model"/>
+		<trigger>sim/model/bo105/weapons/HOT[5]/trigger</trigger>
+		<speed alias="../../hot/speed"/>
+		<repeat>false</repeat>
+		<delay>0.1</delay>
+		<count>0</count><!-- set from bo105.nas -->
+		<x-offset alias="../../hot/x"/>
+		<y-offset>-3.92</y-offset>
 		<z-offset>-0.35</z-offset>
 		<yaw-offset>0</yaw-offset>
 		<pitch-offset alias="../../hot/pitch"/>

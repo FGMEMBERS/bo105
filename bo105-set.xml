@@ -45,18 +45,11 @@ Bo 105 simulation config.
 				<variant type="int">0</variant>
 				<emblem type="string"><!--set by bo105.nas--></emblem>
 				<insignia type="string">emblems/oebh.rgb</insignia>
-				<strobe-blend type="float">0.2</strobe-blend>
-				<beacon-blend type="float">0.2</beacon-blend>
-				<strobe-top type="bool">false</strobe-top>
-				<strobe-bottom type="bool">false</strobe-bottom>
-				<beacon-top type="bool">false</beacon-top>
-				<beacon-bottom type="bool">false</beacon-bottom>
-				<nav-lights type="bool">false</nav-lights>
 				<shadow type="bool">true</shadow>
 				<wiper type="bool">true</wiper>
 				<tail-angle type="int" archive="y">0</tail-angle>
 				<state type="int">0</state>
-				<rotor-step-deg type="float">0.0</rotor-step-deg>
+				<rotor-step-deg type="float">-1.0</rotor-step-deg>
 				<material>
 					<glass>
 						<diffuse>
@@ -64,21 +57,25 @@ Bo 105 simulation config.
 							<green>0.2</green>
 							<blue>0.2</blue>
 						</diffuse>
+
 						<ambient>
 							<red>0.2</red>
 							<green>0.2</green>
 							<blue>0.2</blue>
 						</ambient>
+
 						<specular>
 							<red>1.0</red>
 							<green>1.0</green>
 							<blue>1.0</blue>
 						</specular>
+
 						<emission>
 							<red>0.0</red>
 							<green>0.0</green>
 							<blue>0.0</blue>
 						</emission>
+
 						<transparency>0.8</transparency>
 						<shininess>25</shininess>
 					</glass>
@@ -89,21 +86,25 @@ Bo 105 simulation config.
 							<green>0.7</green>
 							<blue>0.001</blue>
 						</diffuse>
+
 						<ambient>
 							<red>0.8</red>
 							<green>0.7</green>
 							<blue>0.0</blue>
 						</ambient>
+
 						<specular>
 							<red>0.4</red>
 							<green>0.2</green>
 							<blue>0.0</blue>
 						</specular>
+
 						<emission>
 							<red>0.0</red>
 							<green>0.0</green>
 							<blue>0.0</blue>
 						</emission>
+
 						<transparency>0.0</transparency>
 						<shininess>32</shininess>
 					</fuselage>
@@ -114,6 +115,32 @@ Bo 105 simulation config.
 						<threshold>0.1</threshold>
 					</emblem>
 				</material>
+
+				<doors>
+					<door>
+						<name type="string">pilot's door</name>
+					</door>
+
+					<door>
+						<name type="string">copilot's door</name>
+					</door>
+
+					<door>
+						<name type="string">right backdoor</name>
+					</door>
+
+					<door>
+						<name type="string">left backdoor</name>
+					</door>
+
+					<door>
+						<name type="string">right reardoor</name>
+					</door>
+
+					<door>
+						<name type="string">left reardoor</name>
+					</door>
+				</doors>
 			</bo105>
 		</model>
 
@@ -215,39 +242,6 @@ Bo 105 simulation config.
 			</engine>
 		</engines>
 
-		<doors>
-			<door>
-				<name type="string">pilot's door</name>
-				<enabled type="bool">true</enabled>
-				<position type="float">0.0</position>
-			</door>
-			<door>
-				<name type="string">copilot's door</name>
-				<enabled type="bool">true</enabled>
-				<position type="float">0.0</position>
-			</door>
-			<door>
-				<name type="string">right backdoor</name>
-				<enabled type="bool">true</enabled>
-				<position type="float">0.0</position>
-			</door>
-			<door>
-				<name type="string">left backdoor</name>
-				<enabled type="bool">true</enabled>
-				<position type="float">0.0</position>
-			</door>
-			<door>
-				<name type="string">right reardoor</name>
-				<enabled type="bool">true</enabled>
-				<position type="float">0.0</position>
-			</door>
-			<door>
-				<name type="string">left reardoor</name>
-				<enabled type="bool">true</enabled>
-				<position type="float">0.0</position>
-			</door>
-		</doors>
-
 		<lighting>
 			<strobe type="bool">true</strobe>
 			<beacon type="bool">true</beacon>
@@ -284,7 +278,7 @@ Bo 105 simulation config.
 				<desc>Select next door</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.nextDoor()</script>
+					<script>bo105.next_door()</script>
 				</binding>
 			</key>
 
@@ -302,7 +296,7 @@ Bo 105 simulation config.
 				<desc>Open/close selected door</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.toggleDoor()</script>
+					<script>bo105.toggle_door()</script>
 				</binding>
 			</key>
 

@@ -850,7 +850,7 @@
 		<object-name>door_front_Ri</object-name>
 		<object-name>glass_front_R</object-name>
 		<condition>
-			<property>controls/doors/door[0]/enabled</property>
+			<property>sim/model/bo105/doors/door[0]/enabled</property>
 		</condition>
 	</animation>
 
@@ -860,7 +860,7 @@
 		<object-name>door_front_Li</object-name>
 		<object-name>glass_front_L</object-name>
 		<condition>
-			<property>controls/doors/door[1]/enabled</property>
+			<property>sim/model/bo105/doors/door[1]/enabled</property>
 		</condition>
 	</animation>
 
@@ -870,7 +870,7 @@
 		<object-name>door_back_Ri</object-name>
 		<object-name>glass_back_R</object-name>
 		<condition>
-			<property>controls/doors/door[2]/enabled</property>
+			<property>sim/model/bo105/doors/door[2]/enabled</property>
 		</condition>
 	</animation>
 
@@ -880,7 +880,7 @@
 		<object-name>door_back_Li</object-name>
 		<object-name>glass_back_L</object-name>
 		<condition>
-			<property>controls/doors/door[3]/enabled</property>
+			<property>sim/model/bo105/doors/door[3]/enabled</property>
 		</condition>
 	</animation>
 
@@ -889,7 +889,7 @@
 		<object-name>reardoor_R</object-name>
 		<object-name>reardoor_Ri</object-name>
 		<condition>
-			<property>controls/doors/door[4]/enabled</property>
+			<property>sim/model/bo105/doors/door[4]/enabled</property>
 		</condition>
 	</animation>
 
@@ -898,7 +898,7 @@
 		<object-name>reardoor_L</object-name>
 		<object-name>reardoor_Li</object-name>
 		<condition>
-			<property>controls/doors/door[5]/enabled</property>
+			<property>sim/model/bo105/doors/door[5]/enabled</property>
 		</condition>
 	</animation>
 
@@ -907,7 +907,7 @@
 		<object-name>door_front_R</object-name>
 		<object-name>door_front_Ri</object-name>
 		<object-name>glass_front_R</object-name>
-		<property>controls/doors/door[0]/position</property>
+		<property>sim/model/bo105/doors/door[0]/position-norm</property>
 		<min-deg>-170</min-deg>
 		<factor>-170</factor>
 		<center>
@@ -927,7 +927,7 @@
 		<object-name>door_front_L</object-name>
 		<object-name>door_front_Li</object-name>
 		<object-name>glass_front_L</object-name>
-		<property>controls/doors/door[1]/position</property>
+		<property>sim/model/bo105/doors/door[1]/position-norm</property>
 		<max-deg>170</max-deg>
 		<factor>170</factor>
 		<center>
@@ -947,7 +947,7 @@
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
 		<object-name>glass_back_R</object-name>
-		<property>controls/doors/door[2]/position</property>
+		<property>sim/model/bo105/doors/door[2]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -974,7 +974,7 @@
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
 		<object-name>glass_back_R</object-name>
-		<property>controls/doors/door[2]/position</property>
+		<property>sim/model/bo105/doors/door[2]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1001,7 +1001,7 @@
 		<object-name>door_back_L</object-name>
 		<object-name>door_back_Li</object-name>
 		<object-name>glass_back_L</object-name>
-		<property>controls/doors/door[3]/position</property>
+		<property>sim/model/bo105/doors/door[3]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1028,7 +1028,7 @@
 		<object-name>door_back_L</object-name>
 		<object-name>door_back_Li</object-name>
 		<object-name>glass_back_L</object-name>
-		<property>controls/doors/door[3]/position</property>
+		<property>sim/model/bo105/doors/door[3]/position-norm</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -1054,7 +1054,7 @@
 		<type>rotate</type>
 		<object-name>reardoor_R</object-name>
 		<object-name>reardoor_Ri</object-name>
-		<property>controls/doors/door[4]/position</property>
+		<property>sim/model/bo105/doors/door[4]/position-norm</property>
 		<max-deg>170</max-deg>
 		<factor>170</factor>
 		<center>
@@ -1073,7 +1073,7 @@
 		<type>rotate</type>
 		<object-name>reardoor_L</object-name>
 		<object-name>reardoor_Li</object-name>
-		<property>controls/doors/door[5]/position</property>
+		<property>sim/model/bo105/doors/door[5]/position-norm</property>
 		<min-deg>-170</min-deg>
 		<factor>-170</factor>
 		<center>
@@ -1260,7 +1260,7 @@
 		<object-name>strobe_off_T</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/strobe-top</property>
+				<property>/sim/model/bo105/lighting/strobe-top/state</property>
 			</not>
 		</condition>
 	</animation>
@@ -1269,7 +1269,7 @@
 		<type>select</type>
 		<object-name>strobe_halo_T</object-name>
 		<condition>
-			<property>/sim/model/bo105/strobe-top</property>
+			<property>/sim/model/bo105/lighting/strobe-top/state</property>
 		</condition>
 	</animation>
 
@@ -1310,7 +1310,7 @@
 	<animation>
 		<type>blend</type>
 		<object-name>strobe_halo_T</object-name>
-		<property>/sim/model/bo105/strobe-blend</property>
+		<offset>0.2</offset>
 	</animation>
 
 
@@ -1321,7 +1321,7 @@
 		<object-name>strobe_off_B</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/strobe-bottom</property>
+				<property>/sim/model/bo105/lighting/strobe-bottom/state</property>
 			</not>
 		</condition>
 	</animation>
@@ -1331,7 +1331,7 @@
 		<object-name>strobe_halo_Bf</object-name>
 		<object-name>strobe_halo_B</object-name>
 		<condition>
-			<property>/sim/model/bo105/strobe-bottom</property>
+			<property>/sim/model/bo105/lighting/strobe-bottom/state</property>
 		</condition>
 	</animation>
 
@@ -1396,7 +1396,7 @@
 		<object-name>beacon_off_T</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/beacon-top</property>
+				<property>/sim/model/bo105/lighting/beacon-top/state</property>
 			</not>
 		</condition>
 	</animation>
@@ -1405,7 +1405,7 @@
 		<type>select</type>
 		<object-name>beacon_halo_T</object-name>
 		<condition>
-			<property>/sim/model/bo105/beacon-top</property>
+			<property>/sim/model/bo105/lighting/beacon-top/state</property>
 		</condition>
 	</animation>
 
@@ -1447,7 +1447,7 @@
 	<animation>
 		<type>blend</type>
 		<object-name>beacon_halo_T</object-name>
-		<property>/sim/model/bo105/beacon-blend</property>
+		<offset>0.2</offset>
 	</animation>
 
 
@@ -1459,7 +1459,7 @@
 		<object-name>beacon_off_B</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/beacon-bottom</property>
+				<property>/sim/model/bo105/lighting/beacon-bottom/state</property>
 			</not>
 		</condition>
 	</animation>
@@ -1469,7 +1469,7 @@
 		<object-name>beacon_halo_B</object-name>
 		<object-name>beacon_halo_Bf</object-name>
 		<condition>
-			<property>/sim/model/bo105/beacon-bottom</property>
+			<property>/sim/model/bo105/lighting/beacon-bottom/state</property>
 		</condition>
 	</animation>
 
@@ -1534,7 +1534,7 @@
 		<object-name>nav_off_L</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/nav-lights</property>
+				<property>/sim/model/bo105/lighting/nav-lights</property>
 			</not>
 		</condition>
 	</animation>
@@ -1544,7 +1544,7 @@
 		<object-name>nav_halo_L</object-name>
 		<object-name>nav_halo_Lf</object-name>
 		<condition>
-			<property>/sim/model/bo105/nav-lights</property>
+			<property>/sim/model/bo105/lighting/nav-lights</property>
 		</condition>
 	</animation>
 
@@ -1611,7 +1611,7 @@
 		<object-name>nav_off_R</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/nav-lights</property>
+				<property>/sim/model/bo105/lighting/nav-lights</property>
 			</not>
 		</condition>
 	</animation>
@@ -1621,7 +1621,7 @@
 		<object-name>nav_halo_R</object-name>
 		<object-name>nav_halo_Rf</object-name>
 		<condition>
-			<property>/sim/model/bo105/nav-lights</property>
+			<property>/sim/model/bo105/lighting/nav-lights</property>
 		</condition>
 	</animation>
 
@@ -1726,8 +1726,10 @@
 	<animation>
 		<type>select</type>
 		<object-name>gatling</object-name>
+		<object-name>barrel_L</object-name>
+		<object-name>barrel_R</object-name>
 		<condition>
-			<property>sim/model/bo105/MG[0]/enabled</property>
+			<property>sim/model/bo105/weapons/MG[0]/enabled</property>
 		</condition>
 	</animation>
 
@@ -1735,8 +1737,44 @@
 		<type>select</type>
 		<object-name>hot</object-name>
 		<condition>
-			<property>sim/model/bo105/HOT[0]/enabled</property>
+			<property>sim/model/bo105/weapons/HOT[0]/enabled</property>
 		</condition>
+	</animation>
+
+	<animation>
+		<type>spin</type>
+		<object-name>barrel_R</object-name>
+		<property>/sim/time/elapsed-sec</property>
+		<factor>5.55555</factor>
+		<condition>
+			<property>sim/model/bo105/weapons/MG[0]/trigger</property>
+		</condition>
+		<center>
+			<x-m>-0.1878</x-m>
+			<y-m>0.8792</y-m>
+			<z-m>-0.1944</z-m>
+		</center>
+		<axis>
+			<x>1.0</x>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>spin</type>
+		<object-name>barrel_L</object-name>
+		<property>/sim/time/elapsed-sec</property>
+		<factor>5.55555</factor>
+		<condition>
+			<property>sim/model/bo105/weapons/MG[1]/trigger</property>
+		</condition>
+		<center>
+			<x-m>-0.1878</x-m>
+			<y-m>-0.8792</y-m>
+			<z-m>-0.1944</z-m>
+		</center>
+		<axis>
+			<x>1.0</x>
+		</axis>
 	</animation>
 
 	<animation>
