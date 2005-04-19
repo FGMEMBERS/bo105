@@ -2,6 +2,7 @@
 # Melchior FRANZ, < mfranz # aon : at >
 
 optarg = aircraft.optarg;
+makeNode = aircraft.makeNode;
 
 
 # strobes ===========================================================
@@ -46,8 +47,17 @@ init_doors = func {
 }
 settimer(init_doors, 0);
 
-next_door = func {
-	active_door = if (active_door + 1 < size(doors)) { active_door + 1 } else { 0 };
+next_door = func { select_door(active_door + 1) }
+
+previous_door = func { select_door(active_door - 1) }
+
+select_door = func {
+	active_door = arg[0];
+	if (active_door < 0) {
+		active_door = size(doors) - 1;
+	} elsif (active_door >= size(doors)) {
+		active_door = 0;
+	}
 	gui.popupTip("Selecting " ~ doors[active_door].node.getNode("name").getValue());
 }
 
@@ -264,9 +274,7 @@ varlist = [ # VARIANTS
 ];
 
 
-apply_mat = func {
-	obj = arg[0];
-	mat = arg[1];
+apply_mat = func(obj, mat) {
 	i = 0;
 	base = "/sim/model/bo105/material/" ~ obj ~ "/";
 	foreach (t; ["diffuse", "ambient", "emission", "specular"]) {
@@ -280,14 +288,29 @@ apply_mat = func {
 }
 
 
-variant = -1;
+variant = nil;
 
-select_variant = func {
-	variant = optarg(arg, 0, variant + 1);
+next_variant = func {
+	variant = variant + 1;
 	if (variant >= size(varlist)) {
 		variant = 0;
 	}
-	e = varlist[variant][2];
+	select_variant(variant);
+}
+
+
+previous_variant = func {
+	variant = variant - 1;
+	if (variant < 0) {
+		variant = size(varlist) - 1;
+	}
+	select_variant(variant);
+}
+
+
+select_variant = func {
+	v = varlist[arg[0]];
+	e = v[2];
 	if (e == "$med") {
 		e = getprop("sim/model/bo105/emblem");
 	} elsif (e == "$mil") {
@@ -296,8 +319,8 @@ select_variant = func {
 	if (!size(e)) {
 		e = "empty.rgb";
 	}
-	apply_mat("fuselage", matlist[varlist[variant][0]]);
-	apply_mat("glass", matlist[varlist[variant][1]]);
+	apply_mat("fuselage", matlist[v[0]]);
+	apply_mat("glass", matlist[v[1]]);
 	setprop("sim/model/bo105/material/emblem/texture", e);
 
 	if (weapons != nil) {
@@ -305,9 +328,9 @@ select_variant = func {
 		weapons = nil;
 	}
 
-	if (varlist[variant][3]) {
+	if (v[3]) {
 		weapons = MG;
-	} elsif (varlist[variant][4]) {
+	} elsif (v[4]) {
 		weapons = HOT;
 	}
 
@@ -332,7 +355,7 @@ select_variant = func {
 weapon = {
 	new : func {
 		m = { parents : [weapon] };
-		m.node = aircraft.makeNode(arg[0]);
+		m.node = makeNode(arg[0]);
 		m.enabledN = m.node.getNode("enabled", 1);
 		m.enabledN.setBoolValue(0);
 
@@ -351,7 +374,7 @@ weapon = {
 		m.ratio = optarg(arg, 5, 1);
 
 		if (size(arg) > 6 and arg[6] != nil) {
-			m.weightN = aircraft.makeNode(arg[6]);
+			m.weightN = makeNode(arg[6]);
 		} else {
 			m.weightN = m.node.getNode("weight-lb", 1);
 		}
@@ -431,17 +454,17 @@ init_weapons = func {
 	MG = weapon_system.new("M134", "rounds (7.62 mm)");
 	# propellant: 2.98 g + bullet: 9.75 g  ->  0.0127 kg
 	# M134 minigun: 18.8 kg + M27 armament subsystem: ??  ->
-	MG.add(weapon.new("sim/model/bo105/weapons/MG[0]", 0, 4000, 0.0127, 40, 10));
-	MG.add(weapon.new("sim/model/bo105/weapons/MG[1]", 1, 4000, 0.0127, 40, 10));
+	MG.add(weapon.new("sim/model/bo105/weapons/MG[0]", 0, 4000, 0.0127, 100, 10));
+	MG.add(weapon.new("sim/model/bo105/weapons/MG[1]", 1, 4000, 0.0127, 100, 10));
 
 	HOT = weapon_system.new("HOT", "missiles");
 	# 24 kg; missile + tube: 32 kg
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[0]", 2, 1, 24, 10));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[1]", 3, 1, 24, 10));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[2]", 4, 1, 24, 10));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[3]", 5, 1, 24, 10));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[4]", 6, 1, 24, 10));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[5]", 7, 1, 24, 10));
+	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[0]", 2, 1, 24, 20));
+	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[1]", 3, 1, 24, 20));
+	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[2]", 4, 1, 24, 20));
+	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[3]", 5, 1, 24, 20));
+	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[4]", 6, 1, 24, 20));
+	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[5]", 7, 1, 24, 20));
 	HOT.fire = func {
 		if (arg[0]) {
 			if (!me.lock and (me.select < size(me.weapons))) {
@@ -460,6 +483,12 @@ init_weapons = func {
 }
 
 
+reload = func {
+	if (weapons != nil) {
+		weapons.reload();
+	}
+}
+
 
 ammo = props.globals.getNode("sim/model/bo105/weapons/ammunition", 1);
 
@@ -474,7 +503,7 @@ recalc_ammo_loop = func {
 
 
 
-# config dialog =====================================================
+# dialogs ===========================================================
 dialog = nil;
 
 showDialog = func {
@@ -493,6 +522,11 @@ showDialog = func {
 	titlebar.set("layout", "hbox");
 	titlebar.addChild("text").set("label", "____________Bo105 configuration____________");
 	titlebar.addChild("empty").set("stretch", 1);
+
+	color = dialog.prop().getNode("color", 1);
+	color.getNode("red", 1).setValue(0.6);
+	color.getNode("green", 1).setValue(0.65);
+	color.getNode("blue", 1).setValue(0.55);
 
 	w = titlebar.addChild("button");
 	w.set("pref-width", 16);
@@ -542,7 +576,7 @@ showDialog = func {
 	w.set("pref-width", 64);
 	w.set("pref-height", 24);
 	w.prop().getNode("binding[0]/command", 1).setValue("nasal");
-	w.prop().getNode("binding[0]/script", 1).setValue("bo105.weapons.reload()");
+	w.prop().getNode("binding[0]/script", 1).setValue("bo105.reload()");
 
 	w = group.addChild("text");
 	w.set("halign", "left");
@@ -560,6 +594,7 @@ showDialog = func {
 
 
 
+
 # main() ============================================================
 INIT = func {
 	# the attitude indicator needs pressure
@@ -573,7 +608,11 @@ INIT = func {
 
 	init_rotoranim();
 	init_weapons();
-	select_variant(getprop("sim/model/bo105/variant"));
+	variant = getprop("sim/model/bo105/variant");
+	if (variant == nil) {
+		variant = 0;
+	}
+	select_variant(variant);
 }
 
 settimer(INIT, 0);

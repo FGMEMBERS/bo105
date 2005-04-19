@@ -224,6 +224,38 @@ Bo 105 simulation config.
 			<weight-lb>0</weight-lb>
 			<max-lb>800</max-lb>
 		</weight>
+
+		<help>
+			<title>Bo105</title>
+			<key>
+				<name>{ }</name>
+				<desc>shutdown/start turbines</desc>
+			</key>
+			<key>
+				<name>c/C</name>
+				<desc>switch to next/previous variant</desc>
+			</key>
+			<key>
+				<name>Ctrl-C</name>
+				<desc>open material dialogs</desc>
+			</key>
+			<key>
+				<name>d/D</name>
+				<desc>select next/previous door</desc>
+			</key>
+			<key>
+				<name>Ctrl-D</name>
+				<desc>open/close selected door</desc>
+			</key>
+			<key>
+				<name>,</name>
+				<desc>fire machine guns/missiles</desc>
+			</key>
+			<key>
+				<name>Tab</name>
+				<desc>open/close Bo105 config dialog</desc>
+			</key>
+		</help>
 	</sim>
 
 	<controls>
@@ -251,17 +283,8 @@ Bo 105 simulation config.
 
 	<input>
 		<keyboard>
-			<key n="9">
-				<name>Ctrl-I</name>
-				<desc>Show configuration dialog</desc>
-				<binding>
-					<command>nasal</command>
-					<script>bo105.showDialog()</script>
-				</binding>
-			</key>
-
-			<key n="67">
-				<name>C</name>
+			<key n="3">
+				<name>Ctrl-C</name>
 				<desc>Show material dialogs</desc>
 				<binding>
 					<command>nasal</command>
@@ -273,26 +296,8 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
-			<key n="68">
-				<name>D</name>
-				<desc>Select next door</desc>
-				<binding>
-					<command>nasal</command>
-					<script>bo105.next_door()</script>
-				</binding>
-			</key>
-
-			<key n="99">
-				<name>c</name>
-				<desc>Cycle variants</desc>
-				<binding>
-					<command>nasal</command>
-					<script>bo105.select_variant()</script>
-				</binding>
-			</key>
-
-			<key n="100">
-				<name>d</name>
+			<key n="4">
+				<name>Ctrl-D</name>
 				<desc>Open/close selected door</desc>
 				<binding>
 					<command>nasal</command>
@@ -300,18 +305,63 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
-			<key n="123">
-				<name>{</name>
-				<desc>Start Engines</desc>
+			<key n="9">
+				<name>Ctrl-I</name>
+				<desc>Show configuration dialog</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.engines(-1)</script>
+					<script>bo105.showDialog()</script>
+				</binding>
+			</key>
+
+			<key n="67">
+				<name>C</name>
+				<desc>Select previous variant</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.previous_variant()</script>
+				</binding>
+			</key>
+
+			<key n="68">
+				<name>D</name>
+				<desc>Select previous door</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.previous_door()</script>
+				</binding>
+			</key>
+
+			<key n="99">
+				<name>c</name>
+				<desc>Select next variant</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.next_variant()</script>
+				</binding>
+			</key>
+
+			<key n="100">
+				<name>d</name>
+				<desc>Select next door</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.next_door()</script>
+				</binding>
+			</key>
+
+			<key n="123">
+				<name>{</name>
+				<desc>Shutdown Engines</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.engines(0)</script>
 				</binding>
 			</key>
 
 			<key n="125">
 				<name>}</name>
-				<desc>Shutdown Engines</desc>
+				<desc>Start Engines</desc>
 				<binding>
 					<command>nasal</command>
 					<script>bo105.engines(1)</script>
