@@ -42,6 +42,7 @@ Bo 105 simulation config.
 		<model>
 			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
 			<bo105>
+				<reset type="int">1</reset>
 				<variant type="int">0</variant>
 				<emblem type="string"><!--set by bo105.nas--></emblem>
 				<insignia type="string">emblems/oebh.rgb</insignia>

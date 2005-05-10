@@ -99,39 +99,33 @@ engines = func {
 
 
 # crash handler =====================================================
-crashed = props.globals.getNode("sim/crashed", 1);
-
-crash_loop = func {
-	if (crashed.getValue()) {
-		setprop("sim/model/bo105/tail-angle", 35);
-		setprop("sim/model/bo105/shadow", 0);
-		setprop("controls/doors/door[0]/position-norm", 0.2);
-		setprop("controls/doors/door[1]/position-norm", 0.9);
-		setprop("controls/doors/door[2]/position-norm", 0.2);
-		setprop("controls/doors/door[3]/position-norm", 0.6);
-		setprop("controls/doors/door[4]/position-norm", 0.1);
-		setprop("controls/doors/door[5]/position-norm", 0.05);
-		setprop("rotors/main/rpm", 0);
-		setprop("rotors/main/blade1_flap", -60);
-		setprop("rotors/main/blade2_flap", -50);
-		setprop("rotors/main/blade3_flap", -40);
-		setprop("rotors/main/blade4_flap", -30);
-		setprop("rotors/main/blade1_incidence", -30);
-		setprop("rotors/main/blade2_incidence", -20);
-		setprop("rotors/main/blade3_incidence", -50);
-		setprop("rotors/main/blade4_incidence", -55);
-		setprop("rotors/tail/rpm", 0);
-		strobe_switch.setValue(0);
-		beacon_switch.setValue(0);
-		nav_light_switch.setValue(0);
-		rotor.setValue(0);
-		turbine.setValue(0);
-		state.setValue(0);
-	}
-	settimer(crash_loop, 0.2);
+crash = func {
+	setprop("sim/model/bo105/tail-angle", 35);
+	setprop("sim/model/bo105/shadow", 0);
+	setprop("controls/doors/door[0]/position-norm", 0.2);
+	setprop("controls/doors/door[1]/position-norm", 0.9);
+	setprop("controls/doors/door[2]/position-norm", 0.2);
+	setprop("controls/doors/door[3]/position-norm", 0.6);
+	setprop("controls/doors/door[4]/position-norm", 0.1);
+	setprop("controls/doors/door[5]/position-norm", 0.05);
+	setprop("rotors/main/rpm", 0);
+	setprop("rotors/main/blade1_flap", -60);
+	setprop("rotors/main/blade2_flap", -50);
+	setprop("rotors/main/blade3_flap", -40);
+	setprop("rotors/main/blade4_flap", -30);
+	setprop("rotors/main/blade1_incidence", -30);
+	setprop("rotors/main/blade2_incidence", -20);
+	setprop("rotors/main/blade3_incidence", -50);
+	setprop("rotors/main/blade4_incidence", -55);
+	setprop("rotors/tail/rpm", 0);
+	strobe_switch.setValue(0);
+	beacon_switch.setValue(0);
+	nav_light_switch.setValue(0);
+	rotor.setValue(0);
+	turbine.setValue(0);
+	state.setValue(0);
 }
 
-settimer(crash_loop, 0);
 
 
 
@@ -150,7 +144,7 @@ rotoranim_loop = func {
 		blade2_pos.setValue(rotorangle + 90);
 		blade3_pos.setValue(rotorangle + 180);
 		blade4_pos.setValue(rotorangle + 270);
-		rotorangle = rotorangle + i;
+		rotorangle += i;
 		settimer(rotoranim_loop, 0.1);
 	}
 }
@@ -280,7 +274,7 @@ apply_mat = func(obj, mat) {
 	foreach (t; ["diffuse", "ambient", "emission", "specular"]) {
 		foreach (c; ["red", "green", "blue"]) {
 			setprop(base ~ t ~ "/" ~ c, mat[i]);
-			i = i + 1;
+			i += 1;
 		}
 	}
 	setprop(base ~ "shininess", mat[i]);
@@ -291,7 +285,7 @@ apply_mat = func(obj, mat) {
 variant = nil;
 
 next_variant = func {
-	variant = variant + 1;
+	variant += 1;
 	if (variant >= size(varlist)) {
 		variant = 0;
 	}
@@ -300,7 +294,7 @@ next_variant = func {
 
 
 previous_variant = func {
-	variant = variant - 1;
+	variant -= 1;
 	if (variant < 0) {
 		variant = size(varlist) - 1;
 	}
@@ -424,7 +418,7 @@ weapon_system = {
 	add      : func { append(me.weapons, arg[0]) },
 	reload   : func { me.lock = me.select = 0; foreach (w; me.weapons) { w.reload() } },
 	fire     : func { foreach (w; me.weapons) { w.fire(arg[0]) } },
-	getammo  : func { n = 0; foreach (w; me.weapons) { n = n + w.getammo() }; n },
+	getammo  : func { n = 0; foreach (w; me.weapons) { n += w.getammo() }; n },
 	ammodesc : func { me.ammunition_type },
 	disable  : func { me.enabled = 0; foreach (w; me.weapons) { w.enable(0); } },
 	enable   : func {
@@ -474,7 +468,7 @@ init_weapons = func {
 				weight = wp.weightN.getValue();
 				wp.weightN.setValue(weight + 300);	# shake the bo
 				settimer(func { wp.weightN.setValue(weight) }, 0.3);
-				me.select = me.select + 1;
+				me.select += 1;
 			}
 		} else {
 			me.lock = 0;
@@ -523,16 +517,14 @@ showDialog = func {
 	titlebar.addChild("text").set("label", "____________Bo105 configuration____________");
 	titlebar.addChild("empty").set("stretch", 1);
 
-	color = dialog.prop().getNode("color", 1);
-	color.getNode("red", 1).setValue(0.6);
-	color.getNode("green", 1).setValue(0.65);
-	color.getNode("blue", 1).setValue(0.55);
+	dialog.setColor(0.6, 0.65, 0.55, 0.85);
 
 	w = titlebar.addChild("button");
 	w.set("pref-width", 16);
 	w.set("pref-height", 16);
 	w.set("legend", "");
 	w.set("default", 1);
+	w.set("border", 1);
 	w.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	w.prop().getNode("binding[0]/script", 1).setValue("bo105.dialog = nil");
 	w.prop().getNode("binding[1]/command", 1).setValue("dialog-close");
@@ -596,6 +588,31 @@ showDialog = func {
 
 
 # main() ============================================================
+crashed = props.globals.getNode("sim/crashed", 1);
+reset = props.globals.getNode("sim/model/bo105/reset");
+
+main_loop = func {
+	if (crashed.getValue()) {
+		crash();
+	} elsif (reset.getValue()) {
+		REINIT();
+	}
+	settimer(main_loop, 0.2);
+}
+
+
+REINIT = func {
+	print("REINITIALIZING BO105");
+	reset.setIntValue(0);
+	n = props.globals.getNode("sim/model/bo105/emblem");
+	e = n.getValue();
+	if (e != nil and !size(e)) {
+		n.setValue(determine_emblem());
+	}
+	select_variant(variant);
+}
+
+
 INIT = func {
 	# the attitude indicator needs pressure
 	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
@@ -613,6 +630,8 @@ INIT = func {
 		variant = 0;
 	}
 	select_variant(variant);
+	reset.setIntValue(0);
+	settimer(main_loop, 0);
 }
 
 settimer(INIT, 0);
