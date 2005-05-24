@@ -278,7 +278,7 @@ apply_mat = func(obj, mat) {
 		}
 	}
 	setprop(base ~ "shininess", mat[i]);
-	setprop(base ~ "transparency", mat[i + 1]);
+	setprop(base ~ "transparency/alpha", 1.0 - mat[i + 1]);
 }
 
 

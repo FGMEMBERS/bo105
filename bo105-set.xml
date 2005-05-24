@@ -77,7 +77,10 @@ Bo 105 simulation config.
 							<blue>0.0</blue>
 						</emission>
 
-						<transparency>0.8</transparency>
+						<transparency>
+							<alpha>0.2</alpha>
+						</transparency>
+
 						<shininess>25</shininess>
 					</glass>
 
@@ -106,13 +109,20 @@ Bo 105 simulation config.
 							<blue>0.0</blue>
 						</emission>
 
-						<transparency>0.0</transparency>
+						<transparency>
+							<alpha>1.0</alpha>
+						</transparency>
+
 						<shininess>32</shininess>
 					</fuselage>
 
 					<emblem>
 						<texture>empty.rgb</texture>
-						<transparency>0.0</transparency>
+
+						<transparency>
+							<alpha>1.0</alpha>
+						</transparency>
+
 						<threshold>0.1</threshold>
 					</emblem>
 				</material>
