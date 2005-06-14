@@ -24,12 +24,6 @@ Bo 105 simulation config.
 			<path>Aircraft/bo105/bo105-sound.xml</path>
 		</sound>
 
-		<systems>
-			<electrical>
-				<path>Aircraft/Generic/generic-electrical.xml</path>
-			</electrical>
-		</systems>
-
 		<submodels>
 			<serviceable type="bool">true</serviceable>
 			<path>Aircraft/bo105/Models/submodels.xml</path>
