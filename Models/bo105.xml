@@ -34,16 +34,6 @@
 
 	<animation>
 		<type>select</type>
-		<object-name>noshadow.rotor_disc_T</object-name>
-		<condition>
-			<not>
-				<property>/sim/rendering/shadows-ac</property>
-			</not>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
 		<object-name>shadow_fuselage</object-name>
 		<condition>
 			<not>
