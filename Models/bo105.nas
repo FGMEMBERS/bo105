@@ -244,7 +244,7 @@ matlist = { # MATERIALS
 #       fuselage   diffuse            ambient            emission           specular           shi trans
 	"mil":    [0.35, 0.36, 0.31,  0.35, 0.36, 0.31,  0.02, 0.02, 0.02,  0.0, 0.0, 0.0,     0,  0],
 	"blue":   [0.0, 0.45, 0.6,    0.0, 0.45, 0.6,    0.0, 0.0, 0.0,     0.8, 0.8, 1.0,     10, 0],
-	"yellow": [0.83, 0.62, 0.0,   0.78, 0.71, 0.0,   0.05, 0.05, 0.05,  0.0, 0.0, 0.0,     0,  0],
+	"yellow": [0.83, 0.62, 0.0,   0.78, 0.71, 0.0,   0.0, 0.0, 0.0,     0.0, 0.0, 0.0,     0,  0],
 	"black":  [0.3, 0.3, 0.23,    0.18, 0.18, 0.19,  0.0, 0.0, 0.0,     0.32, 0.32, 0.32,  15, 0],
 	"orange": [0.65, 0.3, 0,      0.65, 0.3, 0.0,    0.0, 0.0, 0.0,     0.66, 0.4, 0.0,    10, 0],
 #       windows
@@ -380,7 +380,7 @@ weapon = {
 	getammo : func { me.update(); me.countN.getValue() },
 	getweight:func { me.update(); me.weightN.getValue() },
 
-	fire    : func { me.triggerN.setBoolValue(arg[0]); if (arg[0]) { me._loop_() } },	# FIXME
+	fire    : func { me.triggerN.setBoolValue(arg[0]); if (arg[0]) { me._loop_() } },
 	reload  : func { me.triggerN.setBoolValue(0); me.setammo(me.capacity); me },
 
 	update  : func {
@@ -602,7 +602,6 @@ main_loop = func {
 
 
 REINIT = func {
-	print("REINITIALIZING BO105");
 	reset.setIntValue(0);
 	n = props.globals.getNode("sim/model/bo105/emblem");
 	e = n.getValue();
