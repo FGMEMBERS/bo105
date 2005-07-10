@@ -32149,7 +32149,7 @@ refs 4
 99 0 0
 kids 0
 OBJECT poly
-name "noshadow.rotor_disc_M"
+name "rotor_disc_M"
 texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 66
@@ -32830,7 +32830,7 @@ refs 4
 63 0.890625 0.814453
 kids 0
 OBJECT poly
-name "noshadow.rotor_disc_T"
+name "rotor_disc_T"
 texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 34

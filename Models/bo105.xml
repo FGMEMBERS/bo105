@@ -148,8 +148,13 @@
 	<!-- tail rotor disc -->
 
 	<animation>
+		<type>noshadow</type>
+		<object-name>rotor_disc_T</object-name>
+	</animation>
+
+	<animation>
 		<type>material</type>
-		<object-name>noshadow.rotor_disc_T</object-name>
+		<object-name>rotor_disc_T</object-name>
 		<transparency>
 			<alpha-prop>rotors/tail/rpm</alpha-prop>
 			<factor>0.0015</factor>
@@ -161,7 +166,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>noshadow.rotor_disc_T</object-name>
+		<object-name>rotor_disc_T</object-name>
 		<property>rotors/tail/blade1_pos</property>
 		<center>
 			<x-m>5.894</x-m>
@@ -271,8 +276,13 @@
 	<!-- main rotor disc -->
 
 	<animation>
+		<type>noshadow</type>
+		<object-name>rotor_disc_M</object-name>
+	</animation>
+
+	<animation>
 		<type>material</type>
-		<object-name>noshadow.rotor_disc_M</object-name>
+		<object-name>rotor_disc_M</object-name>
 		<transparency>
 			<alpha-prop>rotors/main/rpm</alpha-prop>
 			<factor>0.004</factor>
@@ -284,7 +294,7 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>noshadow.rotor_disc_M</object-name>
+		<object-name>rotor_disc_M</object-name>
 		<property>rotors/main/blade1_pos</property>
 		<axis>
 			<z>1</z>
