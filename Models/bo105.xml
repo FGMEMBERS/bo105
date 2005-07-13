@@ -33,6 +33,23 @@
 <!--== shadows ==-->
 
 	<animation>
+		<type>noshadow</type>
+		<object-name>rotor_disc_M</object-name>
+		<object-name>rotor_disc_T</object-name>
+		<object-name>glass_back_L</object-name>
+		<object-name>glass_back_R</object-name>
+		<object-name>glass_front_L</object-name>
+		<object-name>glass_front_R</object-name>
+		<object-name>glass_fixed</object-name>
+		<object-name>strobe_halo_Bf</object-name>
+		<object-name>strobe_halo_B</object-name>
+		<object-name>beacon_halo_B</object-name>
+		<object-name>beacon_halo_Bf</object-name>
+		<object-name>strobe_halo_T</object-name>
+		<object-name>beacon_halo_T</object-name>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>shadow_fuselage</object-name>
 		<condition>
@@ -146,11 +163,6 @@
 <!--== rotors ==-->
 
 	<!-- tail rotor disc -->
-
-	<animation>
-		<type>noshadow</type>
-		<object-name>rotor_disc_T</object-name>
-	</animation>
 
 	<animation>
 		<type>material</type>
@@ -274,11 +286,6 @@
 	</animation>
 
 	<!-- main rotor disc -->
-
-	<animation>
-		<type>noshadow</type>
-		<object-name>rotor_disc_M</object-name>
-	</animation>
 
 	<animation>
 		<type>material</type>
