@@ -50,6 +50,11 @@
 	</animation>
 
 	<animation>
+		<type>noshadow</type>
+		<object-name>emblem</object-name>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>shadow_fuselage</object-name>
 		<condition>
