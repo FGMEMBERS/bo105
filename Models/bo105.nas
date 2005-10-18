@@ -102,12 +102,12 @@ engines = func {
 crash = func {
 	setprop("sim/model/bo105/tail-angle", 35);
 	setprop("sim/model/bo105/shadow", 0);
-	setprop("controls/doors/door[0]/position-norm", 0.2);
-	setprop("controls/doors/door[1]/position-norm", 0.9);
-	setprop("controls/doors/door[2]/position-norm", 0.2);
-	setprop("controls/doors/door[3]/position-norm", 0.6);
-	setprop("controls/doors/door[4]/position-norm", 0.1);
-	setprop("controls/doors/door[5]/position-norm", 0.05);
+	setprop("sim/model/bo105/doors/door[0]/position-norm", 0.2);
+	setprop("sim/model/bo105/doors/door[1]/position-norm", 0.9);
+	setprop("sim/model/bo105/doors/door[2]/position-norm", 0.2);
+	setprop("sim/model/bo105/doors/door[3]/position-norm", 0.6);
+	setprop("sim/model/bo105/doors/door[4]/position-norm", 0.1);
+	setprop("sim/model/bo105/doors/door[5]/position-norm", 0.05);
 	setprop("rotors/main/rpm", 0);
 	setprop("rotors/main/blade1_flap", -60);
 	setprop("rotors/main/blade2_flap", -50);

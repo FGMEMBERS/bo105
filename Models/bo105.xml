@@ -34,8 +34,6 @@
 
 	<animation>
 		<type>noshadow</type>
-		<object-name>rotor_disc_M</object-name>
-		<object-name>rotor_disc_T</object-name>
 		<object-name>glass_back_L</object-name>
 		<object-name>glass_back_R</object-name>
 		<object-name>glass_front_L</object-name>
@@ -197,6 +195,11 @@
 		</axis>
 	</animation>
 
+	<animation>
+		<type>noshadow</type>
+		<object-name>rotor_disc_T</object-name>
+	</animation>
+
 	<!-- tail rotor blades -->
 
 	<animation>
@@ -311,6 +314,11 @@
 		<axis>
 			<z>1</z>
 		</axis>
+	</animation>
+
+	<animation>
+		<type>noshadow</type>
+		<object-name>rotor_disc_M</object-name>
 	</animation>
 
 	<!-- main rotor blades -->
