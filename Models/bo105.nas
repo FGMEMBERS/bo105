@@ -162,7 +162,7 @@ determine_emblem = func {
 	# Use the appropriate internationally acknowleged protective Red Cross/Crescent
 	# symbol, depending on the starting airport. (http://www.ifrc.org/ADDRESS/directory.asp)
 	# As soon as the decision for a third protective emblem has been made, I'll add that.
-	# For now there's only the Star-of-Live for these cases.
+	# For now there's only the Star-of-Life for these cases.
 	# This information is from official sources. I'm open for corrections, but don't
 	# bother me with politics, or I'll punish your country with a "Red Pretzel" emblem!)
 
@@ -514,16 +514,18 @@ showDialog = func {
 	# "window" titlebar
 	titlebar = dialog.addChild("group");
 	titlebar.set("layout", "hbox");
-	titlebar.addChild("text").set("label", "____________Bo105 configuration____________");
+	titlebar.addChild("empty").set("stretch", 1);
+	titlebar.addChild("text").set("label", "Bo105 configuration");
 	titlebar.addChild("empty").set("stretch", 1);
 
-	dialog.setColor(0.6, 0.65, 0.55, 0.85);
+	dialog.addChild("hrule").addChild("dummy");
 
 	w = titlebar.addChild("button");
 	w.set("pref-width", 16);
 	w.set("pref-height", 16);
 	w.set("legend", "");
 	w.set("default", 1);
+	w.set("keynum", 27);
 	w.set("border", 1);
 	w.prop().getNode("binding[0]/command", 1).setValue("nasal");
 	w.prop().getNode("binding[0]/script", 1).setValue("bo105.dialog = nil");
@@ -573,6 +575,7 @@ showDialog = func {
 	w = group.addChild("text");
 	w.set("halign", "left");
 	w.set("label", "X");
+	w.set("pref-width", 200);
 	w.set("property", "sim/model/bo105/weapons/ammunition");
 	w.set("live", 1);
 
