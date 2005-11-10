@@ -107,7 +107,7 @@ set_torque = func {
 	# yes, it's only faked for now  :-)
 	f = 0.075;				# low pass coeff
 	r = rotor_rpm.getValue() / 442;		# rotor norm
-	n = 22 * r + (1 - collective.getValue()) * r * 94;
+	n = 17 * r + (1 - collective.getValue()) * r * 94;
 	torque.setValue(torque_val = n * f + torque_val * (1 - f));
 }
 
