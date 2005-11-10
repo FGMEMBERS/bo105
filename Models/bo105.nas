@@ -68,9 +68,13 @@ toggle_door = func {
 
 
 # engines/rotor =====================================================
-rotor = props.globals.getNode("controls/engines/engine/magnetos");
 state = props.globals.getNode("sim/model/bo105/state");
+rotor = props.globals.getNode("controls/engines/engine/magnetos");
+rotor_rpm = props.globals.getNode("rotors/main/rpm");
+collective = props.globals.getNode("controls/engines/engine/throttle");
 turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
+torque = props.globals.getNode("sim/model/bo105/torque-pct", 1);
+
 
 # 0 off
 # 1 startup sound in progress
@@ -83,7 +87,7 @@ engines = func {
 		if (s == 0) {
 			state.setValue(1);				# engines started
 			settimer(func { rotor.setValue(1) }, 3);
-			interpolate(turbine, 100, 10.5);
+			interpolate(turbine, 100, 25);
 			settimer(func { state.setValue(2) }, 10.5);	# -> engines running
 		}
 	} else {
@@ -94,6 +98,17 @@ engines = func {
 			settimer(func { state.setValue(0) }, 25);	# -> engines off
 		}
 	}
+}
+
+
+torque_val = 0;
+
+set_torque = func {
+	# yes, it's only faked for now  :-)
+	f = 0.075;				# low pass coeff
+	r = rotor_rpm.getValue() / 442;		# rotor norm
+	n = 22 * r + (1 - collective.getValue()) * r * 94;
+	torque.setValue(torque_val = n * f + torque_val * (1 - f));
 }
 
 
@@ -123,6 +138,7 @@ crash = func {
 	nav_light_switch.setValue(0);
 	rotor.setValue(0);
 	turbine.setValue(0);
+	torque.setValue(torqueval = 0);
 	state.setValue(0);
 }
 
@@ -599,8 +615,10 @@ main_loop = func {
 		crash();
 	} elsif (reset.getValue()) {
 		REINIT();
+	} else {
+		set_torque();
 	}
-	settimer(main_loop, 0.2);
+	settimer(main_loop, 0.05);
 }
 
 
