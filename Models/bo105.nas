@@ -107,7 +107,7 @@ set_torque = func {
 	# yes, it's only faked for now  :-)
 	f = 0.075;				# low pass coeff
 	r = rotor_rpm.getValue() / 442;		# rotor norm
-	n = 17 * r + (1 - collective.getValue()) * r * 94;
+	n = r * (17 + (1 - collective.getValue()) * 94);
 	torque.setValue(torque_val = n * f + torque_val * (1 - f));
 }
 
@@ -526,6 +526,8 @@ showDialog = func {
 	dialog = gui.Widget.new();
 	dialog.set("layout", "vbox");
 	dialog.set("name", name);
+	dialog.set("x", -40);
+	dialog.set("y", -40);
 
 	# "window" titlebar
 	titlebar = dialog.addChild("group");
