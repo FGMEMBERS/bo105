@@ -243,20 +243,20 @@ Bo 105 simulation config.
 				<desc>shutdown/start turbines</desc>
 			</key>
 			<key>
-				<name>c/C</name>
-				<desc>switch to next/previous variant</desc>
-			</key>
-			<key>
-				<name>Ctrl-C</name>
-				<desc>open material dialogs</desc>
-			</key>
-			<key>
 				<name>d/D</name>
 				<desc>select next/previous door</desc>
 			</key>
 			<key>
 				<name>Ctrl-D</name>
 				<desc>open/close selected door</desc>
+			</key>
+			<key>
+				<name>y/Y</name>
+				<desc>switch to next/previous variant</desc>
+			</key>
+			<key>
+				<name>Ctrl-Y</name>
+				<desc>open material dialogs</desc>
 			</key>
 			<key>
 				<name>,</name>
@@ -294,19 +294,6 @@ Bo 105 simulation config.
 
 	<input>
 		<keyboard>
-			<key n="3">
-				<name>Ctrl-C</name>
-				<desc>Show material dialogs</desc>
-				<binding>
-					<command>nasal</command>
-					<script>
-						material.showDialog("/sim/model/bo105/material/fuselage/", nil, 10);
-						material.showDialog("/sim/model/bo105/material/glass/", nil, 240);
-						material.showDialog("/sim/model/bo105/material/emblem/", nil, 470);
-					</script>
-				</binding>
-			</key>
-
 			<key n="4">
 				<name>Ctrl-D</name>
 				<desc>Open/close selected door</desc>
@@ -325,12 +312,16 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
-			<key n="67">
-				<name>C</name>
-				<desc>Select previous variant</desc>
+			<key n="25">
+				<name>Ctrl-Y</name>
+				<desc>Show material dialogs</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.previous_variant()</script>
+					<script>
+						material.showDialog("/sim/model/bo105/material/fuselage/", nil, 10);
+						material.showDialog("/sim/model/bo105/material/glass/", nil, 240);
+						material.showDialog("/sim/model/bo105/material/emblem/", nil, 470);
+					</script>
 				</binding>
 			</key>
 
@@ -343,12 +334,12 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
-			<key n="99">
-				<name>c</name>
-				<desc>Select next variant</desc>
+			<key n="89">
+				<name>Y</name>
+				<desc>Select previous variant</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.next_variant()</script>
+					<script>bo105.previous_variant()</script>
 				</binding>
 			</key>
 
@@ -358,6 +349,15 @@ Bo 105 simulation config.
 				<binding>
 					<command>nasal</command>
 					<script>bo105.next_door()</script>
+				</binding>
+			</key>
+
+			<key n="121">
+				<name>y</name>
+				<desc>Select next variant</desc>
+				<binding>
+					<command>nasal</command>
+					<script>bo105.next_variant()</script>
 				</binding>
 			</key>
 
