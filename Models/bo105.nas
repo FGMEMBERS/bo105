@@ -286,7 +286,7 @@ varlist = [ # VARIANTS
 
 apply_mat = func(obj, mat) {
 	i = 0;
-	base = "/sim/model/bo105/material/" ~ obj ~ "/";
+	base = "sim/model/bo105/material/" ~ obj ~ "/";
 	foreach (t; ["diffuse", "ambient", "emission", "specular"]) {
 		foreach (c; ["red", "green", "blue"]) {
 			setprop(base ~ t ~ "/" ~ c, mat[i]);
@@ -375,7 +375,7 @@ weapon = {
 		m.countN = m.node.getNode("count", 1);
 		m.countN.setIntValue(0);
 
-		m.sm_countN = props.globals.getNode("/ai/submodels/submodel[" ~ arg[1] ~ "]/count", 1);
+		m.sm_countN = props.globals.getNode("ai/submodels/submodel[" ~ arg[1] ~ "]/count", 1);
 		m.sm_countN.setValue(0);
 
 		m.capacity = arg[2];
