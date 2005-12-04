@@ -842,7 +842,15 @@
 		<object-name>door_front_Ri</object-name>
 		<object-name>glass_front_R</object-name>
 		<condition>
-			<property>sim/model/bo105/doors/door[0]/enabled</property>
+			<or>
+				<property>sim/model/bo105/doors/door[0]/enabled</property>
+				<not>
+					<equals>
+						<property>/sim/aircraft</property>
+						<value>bo105</value>
+					</equals>
+				</not>
+			</or>
 		</condition>
 	</animation>
 
@@ -852,7 +860,15 @@
 		<object-name>door_front_Li</object-name>
 		<object-name>glass_front_L</object-name>
 		<condition>
-			<property>sim/model/bo105/doors/door[1]/enabled</property>
+			<or>
+				<property>sim/model/bo105/doors/door[1]/enabled</property>
+				<not>
+					<equals>
+						<property>/sim/aircraft</property>
+						<value>bo105</value>
+					</equals>
+				</not>
+			</or>
 		</condition>
 	</animation>
 
@@ -862,7 +878,15 @@
 		<object-name>door_back_Ri</object-name>
 		<object-name>glass_back_R</object-name>
 		<condition>
-			<property>sim/model/bo105/doors/door[2]/enabled</property>
+			<or>
+				<property>sim/model/bo105/doors/door[2]/enabled</property>
+				<not>
+					<equals>
+						<property>/sim/aircraft</property>
+						<value>bo105</value>
+					</equals>
+				</not>
+			</or>
 		</condition>
 	</animation>
 
@@ -872,7 +896,15 @@
 		<object-name>door_back_Li</object-name>
 		<object-name>glass_back_L</object-name>
 		<condition>
-			<property>sim/model/bo105/doors/door[3]/enabled</property>
+			<or>
+				<property>sim/model/bo105/doors/door[3]/enabled</property>
+				<not>
+					<equals>
+						<property>/sim/aircraft</property>
+						<value>bo105</value>
+					</equals>
+				</not>
+			</or>
 		</condition>
 	</animation>
 
@@ -881,7 +913,15 @@
 		<object-name>reardoor_R</object-name>
 		<object-name>reardoor_Ri</object-name>
 		<condition>
-			<property>sim/model/bo105/doors/door[4]/enabled</property>
+			<or>
+				<property>sim/model/bo105/doors/door[4]/enabled</property>
+				<not>
+					<equals>
+						<property>/sim/aircraft</property>
+						<value>bo105</value>
+					</equals>
+				</not>
+			</or>
 		</condition>
 	</animation>
 
@@ -890,7 +930,15 @@
 		<object-name>reardoor_L</object-name>
 		<object-name>reardoor_Li</object-name>
 		<condition>
-			<property>sim/model/bo105/doors/door[5]/enabled</property>
+			<or>
+				<property>sim/model/bo105/doors/door[5]/enabled</property>
+				<not>
+					<equals>
+						<property>/sim/aircraft</property>
+						<value>bo105</value>
+					</equals>
+				</not>
+			</or>
 		</condition>
 	</animation>
 

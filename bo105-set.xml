@@ -125,37 +125,31 @@ Bo 105 simulation config.
 					<door>
 						<position-norm type="double">0.0</position-norm>
 						<name type="string">pilot's door</name>
-						<enabled type="bool">true</enabled>
 					</door>
 
 					<door>
 						<position-norm type="double">0.0</position-norm>
 						<name type="string">copilot's door</name>
-						<enabled type="bool">true</enabled>
 					</door>
 
 					<door>
 						<position-norm type="double">0.0</position-norm>
 						<name type="string">right backdoor</name>
-						<enabled type="bool">true</enabled>
 					</door>
 
 					<door>
 						<position-norm type="double">0.0</position-norm>
 						<name type="string">left backdoor</name>
-						<enabled type="bool">true</enabled>
 					</door>
 
 					<door>
 						<position-norm type="double">0.0</position-norm>
 						<name type="string">right reardoor</name>
-						<enabled type="bool">true</enabled>
 					</door>
 
 					<door>
 						<position-norm type="double">0.0</position-norm>
 						<name type="string">left reardoor</name>
-						<enabled type="bool">true</enabled>
 					</door>
 				</doors>
 			</bo105>
