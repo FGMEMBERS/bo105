@@ -1788,6 +1788,12 @@
 	<animation>
 		<type>material</type>
 		<object-name>glass_fixed</object-name>
+		<condition>
+			<equals>
+				<property>/sim/aircraft</property>
+				<value>bo105</value>
+			</equals>
+		</condition>
 		<global type="bool">true</global>
 		<property-base>/sim/model/bo105/material/glass</property-base>
 		<diffuse>
@@ -1819,6 +1825,12 @@
 	<animation>
 		<type>material</type>
 		<object-name>fuselage</object-name>
+		<condition>
+			<equals>
+				<property>/sim/aircraft</property>
+				<value>bo105</value>
+			</equals>
+		</condition>
 		<global type="bool">true</global>
 		<property-base>/sim/model/bo105/material/fuselage</property-base>
 		<diffuse>
