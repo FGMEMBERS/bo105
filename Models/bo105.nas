@@ -177,15 +177,11 @@ init_rotoranim = func {
 determine_emblem = func {
 	# Use the appropriate internationally acknowleged protective Red Cross/Crescent
 	# symbol, depending on the starting airport. (http://www.ifrc.org/ADDRESS/directory.asp)
-	# As soon as the decision for a third protective emblem has been made, I'll add that.
-	# For now there's only the Star-of-Life for these cases.
-	# This information is from official sources. I'm open for corrections, but don't
-	# bother me with politics, or I'll punish your country with a "Red Pretzel" emblem!)
 
 	C = 1;	# Red Cross
 	L = 2;	# Rec Crescent (opening left)
 	R = 3;	# Red Crescent (opening right)
-	V = 4;	# Red Chevron/Crystal/Diamond (decision pending; no texture yet)
+	Y = 4;	# Red Crystal
 	X = 5;	# StarOfLife
 
 	emblem = [
@@ -193,7 +189,7 @@ determine_emblem = func {
 		["Red Cross", "emblems/red-cross.rgb"],
 		["Red Crescent", "emblems/red-crescent-l.rgb"],
 		["Red Crescent", "emblems/red-crescent-r.rgb"],
-		["Red Chevron", "empty.rgb"],
+		["Red Crystal", "emblems/red-crystal.rgb"],
 		["Star of Life", "emblems/star-of-life.rgb"],
 	];
 
