@@ -185,11 +185,11 @@ determine_emblem = func {
 	X = 5;	# StarOfLife
 
 	emblem = [
-		["<none>", "empty.rgb"],
-		["Red Cross", "emblems/red-cross.rgb"],
+		["<none>",       "empty.rgb"],
+		["Red Cross",    "emblems/red-cross.rgb"],
 		["Red Crescent", "emblems/red-crescent-l.rgb"],
 		["Red Crescent", "emblems/red-crescent-r.rgb"],
-		["Red Crystal", "emblems/red-crystal.rgb"],
+		["Red Crystal",  "emblems/red-crystal.rgb"],
 		["Star of Life", "emblems/star-of-life.rgb"],
 	];
 
@@ -204,7 +204,7 @@ determine_emblem = func {
 		["HE",	R, "Egypt"],
 		["HL",	R, "Libyan Arab Jamahiriya"],
 		["HS",	R, "Sudan"],
-		["LL",	X, "Israel"],		# observer; admission pending (no symbol yet; probably V)
+		["LL",	X, "Israel"],		# observer; admission pending (no symbol yet; probably Y)
 		["LO",	C, "Austria"],
 		["LT",	L, "Turkey"],
 		["LV",	2, "Palestine"],	# observer; admission pending (L or R?)
