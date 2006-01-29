@@ -605,23 +605,14 @@ showDialog = func {
 
 
 # main() ============================================================
-crashed = props.globals.getNode("sim/crashed", 1);
-reset = props.globals.getNode("sim/model/bo105/reset");
 
 main_loop = func {
-	if (crashed.getValue()) {
-		crash();
-	} elsif (reset.getValue()) {
-		REINIT();
-	} else {
-		set_torque();
-	}
+	set_torque();
 	settimer(main_loop, 0.05);
 }
 
 
 REINIT = func {
-	reset.setIntValue(0);
 	n = props.globals.getNode("sim/model/bo105/emblem");
 	e = n.getValue();
 	if (e != nil and !size(e)) {
@@ -648,8 +639,11 @@ INIT = func {
 		variant = 0;
 	}
 	select_variant(variant);
-	reset.setIntValue(0);
-	settimer(main_loop, 0);
+
+	setlistener("sim/crashed", func { if (cmdarg().getBoolValue()) { crash() }});
+	setlistener("sim/signals/reinit", REINIT);
+
+	main_loop();
 }
 
 settimer(INIT, 0);
