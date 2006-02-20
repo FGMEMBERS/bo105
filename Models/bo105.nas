@@ -359,9 +359,9 @@ select_variant = func {
 #	[, <submodel-factor>	# one reported submodel counts for how many items
 #	[, <weight-prop>]]);	# where to put the calculated weight
 weapon = {
-	new : func {
+	new : func(prop, ndx, cap, dropw, basew, fac = 1, wprop = nil) {
 		m = { parents : [weapon] };
-		m.node = makeNode(arg[0]);
+		m.node = makeNode(prop);
 		m.enabledN = m.node.getNode("enabled", 1);
 		m.enabledN.setBoolValue(0);
 
@@ -371,29 +371,28 @@ weapon = {
 		m.countN = m.node.getNode("count", 1);
 		m.countN.setIntValue(0);
 
-		m.sm_countN = props.globals.getNode("ai/submodels/submodel[" ~ arg[1] ~ "]/count", 1);
+		m.sm_countN = props.globals.getNode("ai/submodels/submodel[" ~ ndx ~ "]/count", 1);
 		m.sm_countN.setValue(0);
 
-		m.capacity = arg[2];
-		m.dropweight = arg[3] * 2.2046226;	# kg2lbs
-		m.baseweight = arg[4] * 2.2046226;
-		m.ratio = optarg(arg, 5, 1);
+		m.capacity = cap;
+		m.dropweight = dropw * 2.2046226;	# kg2lbs
+		m.baseweight = basew * 2.2046226;
+		m.ratio = fac;
 
-		if (size(arg) > 6 and arg[6] != nil) {
-			m.weightN = makeNode(arg[6]);
+		if (wprop != nil) {
+			m.weightN = makeNode(wprop);
 		} else {
 			m.weightN = m.node.getNode("weight-lb", 1);
 		}
 		return m;
 	},
-	enable  : func { me.triggerN.setBoolValue(0); me.enabledN.setBoolValue(arg[0]); me.update(); me },
+	enable  : func { me.fire(0); me.enabledN.setBoolValue(arg[0]); me.update(); me },
 
 	setammo : func { me.sm_countN.setValue(arg[0] / me.ratio); me.update(); me },
-	getammo : func { me.update(); me.countN.getValue() },
-	getweight:func { me.update(); me.weightN.getValue() },
+	getammo : func { me.countN.getValue() },
+	getweight:func { me.weightN.getValue() },
 
-	fire    : func { me.triggerN.setBoolValue(arg[0]); if (arg[0]) { me._loop_() } },
-	reload  : func { me.triggerN.setBoolValue(0); me.setammo(me.capacity); me },
+	reload  : func { me.fire(0); me.setammo(me.capacity); me },
 
 	update  : func {
 		if (me.enabledN.getValue()) {
@@ -405,9 +404,16 @@ weapon = {
 		}
 	},
 
+	fire    : func(t) {
+		me.triggerN.setBoolValue(t);
+		if (t) {
+			me._loop_();
+		}
+	},
+
 	_loop_  : func {
 		me.update();
-		if (me.triggerN.getValue() and me.enabledN.getValue() and me.countN.getValue()) {
+		if (me.triggerN.getBoolValue() and me.enabledN.getValue() and me.countN.getValue()) {
 			settimer(func { me._loop_() }, 1);
 		}
 	},
@@ -416,40 +422,30 @@ weapon = {
 
 # "name", <ammo-desc>
 weapon_system = {
-	new : func {
+	new : func(name, adesc) {
 		m = { parents : [weapon_system] };
-		m.name = arg[0];
-		m.ammunition_type = arg[1];
-		m.triggerN = props.globals.getNode("controls/gear/brake-left");
+		m.name = name;
+		m.ammunition_type = adesc;
 		m.weapons = [];
 		m.enabled = 0;
-		me.lock = 0;
 		me.select = 0;
 		return m;
 	},
 	add      : func { append(me.weapons, arg[0]) },
-	reload   : func { me.lock = me.select = 0; foreach (w; me.weapons) { w.reload() } },
+	reload   : func { me.select = 0; foreach (w; me.weapons) { w.reload() } },
 	fire     : func { foreach (w; me.weapons) { w.fire(arg[0]) } },
 	getammo  : func { n = 0; foreach (w; me.weapons) { n += w.getammo() }; n },
 	ammodesc : func { me.ammunition_type },
 	disable  : func { me.enabled = 0; foreach (w; me.weapons) { w.enable(0); } },
 	enable   : func {
-		me.lock = me.select = 0;
+		me.select = 0;
 		foreach (w; me.weapons) {
 			w.enable(1);
 			w.reload();
 		}
 		me.enabled = 1;
-		me._loop_();
-	},
-	_loop_   : func {
-		me.fire(me.triggerN.getValue());
-		if (me.enabled) {
-			settimer(func { me._loop_() }, 0.2);
-		}
 	},
 };
-
 
 
 weapons = nil;
@@ -473,37 +469,33 @@ init_weapons = func {
 	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[5]", 7, 1, 24, 20));
 	HOT.fire = func {
 		if (arg[0]) {
-			if (!me.lock and (me.select < size(me.weapons))) {
+			if (me.select < size(me.weapons)) {
 				wp = me.weapons[me.select];
-				me.lock = 1;
 				wp.fire(1);
 				weight = wp.weightN.getValue();
 				wp.weightN.setValue(weight + 300);	# shake the bo
 				settimer(func { wp.weightN.setValue(weight) }, 0.3);
 				me.select += 1;
 			}
-		} else {
-			me.lock = 0;
 		}
 	};
 }
 
 
+TRIGGER = -1;
+setlistener("controls/gear/brake-left", func {
+	if (weapons != nil) {
+		var t = cmdarg().getBoolValue();
+		if (t != TRIGGER) {
+			weapons.fire(TRIGGER = t);
+		}
+	}
+});
+
+
 reload = func {
 	if (weapons != nil) {
 		weapons.reload();
-	}
-}
-
-
-ammo = props.globals.getNode("sim/model/bo105/weapons/ammunition", 1);
-
-recalc_ammo_loop = func {
-	if (weapons != nil) {
-		ammo.setValue(weapons.getammo() ~ " " ~ weapons.ammodesc());
-		settimer(recalc_ammo_loop, 0.5);
-	} else {
-		ammo.setValue("");
 	}
 }
 
@@ -519,6 +511,7 @@ showDialog = func {
 		dialog = nil;
 		return;
 	}
+
 	dialog = gui.Widget.new();
 	dialog.set("layout", "vbox");
 	dialog.set("name", name);
@@ -598,7 +591,22 @@ showDialog = func {
 	# finale
 	dialog.addChild("empty").set("pref-height", "3");
 	fgcommand("dialog-new", dialog.prop());
+	recalc_ammo_loop();
 	gui.showDialog(name);
+}
+
+
+ammoN = props.globals.getNode("sim/model/bo105/weapons/ammunition", 1);
+
+recalc_ammo_loop = func {
+	if (weapons != nil) {
+		ammoN.setValue(weapons.getammo() ~ " " ~ weapons.ammodesc());
+	} else {
+		ammoN.setValue("");
+	}
+	if (dialog != nil) {
+		settimer(recalc_ammo_loop, 0.2);
+	}
 }
 
 
@@ -641,7 +649,8 @@ INIT = func {
 	select_variant(variant);
 
 	setlistener("sim/crashed", func { if (cmdarg().getBoolValue()) { crash() }});
-	setlistener("sim/signals/reinit", REINIT);
+	#setlistener("/sim/freeze/replay-state", func { print("replay " ~ ["off", "on"][cmdarg().getValue()])});
+	setlistener("/sim/signals/reinit", REINIT);
 
 	main_loop();
 }
