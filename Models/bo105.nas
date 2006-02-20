@@ -115,31 +115,52 @@ set_torque = func {
 
 # crash handler =====================================================
 crash = func {
-	setprop("sim/model/bo105/tail-angle", 35);
-	setprop("sim/model/bo105/shadow", 0);
-	setprop("sim/model/bo105/doors/door[0]/position-norm", 0.2);
-	setprop("sim/model/bo105/doors/door[1]/position-norm", 0.9);
-	setprop("sim/model/bo105/doors/door[2]/position-norm", 0.2);
-	setprop("sim/model/bo105/doors/door[3]/position-norm", 0.6);
-	setprop("sim/model/bo105/doors/door[4]/position-norm", 0.1);
-	setprop("sim/model/bo105/doors/door[5]/position-norm", 0.05);
-	setprop("rotors/main/rpm", 0);
-	setprop("rotors/main/blade1_flap", -60);
-	setprop("rotors/main/blade2_flap", -50);
-	setprop("rotors/main/blade3_flap", -40);
-	setprop("rotors/main/blade4_flap", -30);
-	setprop("rotors/main/blade1_incidence", -30);
-	setprop("rotors/main/blade2_incidence", -20);
-	setprop("rotors/main/blade3_incidence", -50);
-	setprop("rotors/main/blade4_incidence", -55);
-	setprop("rotors/tail/rpm", 0);
-	strobe_switch.setValue(0);
-	beacon_switch.setValue(0);
-	nav_light_switch.setValue(0);
-	rotor.setValue(0);
-	turbine.setValue(0);
-	torque.setValue(torqueval = 0);
-	state.setValue(0);
+	if (arg[0]) {
+		# crash
+		setprop("sim/model/bo105/tail-angle", 35);
+		setprop("sim/model/bo105/shadow", 0);
+		setprop("sim/model/bo105/doors/door[0]/position-norm", 0.2);
+		setprop("sim/model/bo105/doors/door[1]/position-norm", 0.9);
+		setprop("sim/model/bo105/doors/door[2]/position-norm", 0.2);
+		setprop("sim/model/bo105/doors/door[3]/position-norm", 0.6);
+		setprop("sim/model/bo105/doors/door[4]/position-norm", 0.1);
+		setprop("sim/model/bo105/doors/door[5]/position-norm", 0.05);
+		setprop("rotors/main/rpm", 0);
+		setprop("rotors/main/blade1_flap", -60);
+		setprop("rotors/main/blade2_flap", -50);
+		setprop("rotors/main/blade3_flap", -40);
+		setprop("rotors/main/blade4_flap", -30);
+		setprop("rotors/main/blade1_incidence", -30);
+		setprop("rotors/main/blade2_incidence", -20);
+		setprop("rotors/main/blade3_incidence", -50);
+		setprop("rotors/main/blade4_incidence", -55);
+		setprop("rotors/tail/rpm", 0);
+		strobe_switch.setValue(0);
+		beacon_switch.setValue(0);
+		nav_light_switch.setValue(0);
+		rotor.setValue(0);
+		turbine.setValue(0);
+		torque.setValue(torqueval = 0);
+		state.setValue(0);
+	} else {
+		# uncrash (for replay)
+		setprop("sim/model/bo105/tail-angle", 0);
+		setprop("sim/model/bo105/shadow", 1);
+		foreach (d; doors) {
+			d.setpos(0);
+		}
+		setprop("rotors/tail/rpm", 2219);
+		setprop("rotors/main/rpm", 442);
+		for (i = 1; i < 5; i += 1) {
+			setprop("rotors/main/blade" ~ i ~ "_flap", 0);
+			setprop("rotors/main/blade" ~ i ~ "_incidence", 0);
+		}
+		strobe_switch.setValue(1);
+		beacon_switch.setValue(1);
+		rotor.setValue(1);
+		turbine.setValue(100);
+		state.setValue(2);
+	}
 }
 
 
@@ -620,13 +641,17 @@ main_loop = func {
 }
 
 
+CRASHED = 0;
+
 REINIT = func {
+	#cprint("32;1", "reinit " ~ cmdarg().getValue());
 	n = props.globals.getNode("sim/model/bo105/emblem");
 	e = n.getValue();
 	if (e != nil and !size(e)) {
 		n.setValue(determine_emblem());
 	}
 	select_variant(variant);
+	CRASHED = 0;
 }
 
 
@@ -648,9 +673,20 @@ INIT = func {
 	}
 	select_variant(variant);
 
-	setlistener("sim/crashed", func { if (cmdarg().getBoolValue()) { crash() }});
-	#setlistener("/sim/freeze/replay-state", func { print("replay " ~ ["off", "on"][cmdarg().getValue()])});
 	setlistener("/sim/signals/reinit", REINIT);
+
+	setlistener("sim/crashed", func {
+		#cprint("31;1", "crashed " ~ cmdarg().getValue());
+		if (cmdarg().getBoolValue()) {
+			crash(CRASHED = 1);
+		}
+	});
+	setlistener("/sim/freeze/replay-state", func {
+		#cprint("33;1", "replay " ~ cmdarg().getValue());
+		if (CRASHED) {
+			crash(!cmdarg().getBoolValue())
+		}
+	});
 
 	main_loop();
 }
