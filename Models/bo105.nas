@@ -1,6 +1,9 @@
 # $Id$
 # Melchior FRANZ, < mfranz # aon : at >
 
+if (!contains(globals, "cprint")) {
+	globals.cprint = func {};
+}
 optarg = aircraft.optarg;
 makeNode = aircraft.makeNode;
 
@@ -114,6 +117,7 @@ set_torque = func {
 
 
 # crash handler =====================================================
+var load = nil;
 crash = func {
 	if (arg[0]) {
 		# crash
@@ -142,6 +146,23 @@ crash = func {
 		turbine.setValue(0);
 		torque.setValue(torqueval = 0);
 		state.setValue(0);
+		var n = props.globals.getNode("models", 1);
+		for (var i = 0; 42; i += 1) {
+			if (n.getChild("model", i, 0) == nil) {
+				n = n.getChild("model", i, 1);
+				n.setValues({
+					"path": "Models/Fauna/cow.ac",
+					"longitude-deg": getprop("position/longitude-deg"),
+					"latitude-deg": getprop("position/latitude-deg"),
+					"elevation-ft": getprop("position/ground-elev-ft"),
+					"heading-deg": getprop("orientation/heading-deg"),
+					#"pitch-deg": getprop("orientation/pitch-deg"),
+					#"roll-deg": getprop("orientation/roll-deg"),
+				});
+				load = n;
+				break;
+			}
+		}
 	} else {
 		# uncrash (for replay)
 		setprop("sim/model/bo105/tail-angle", 0);
@@ -294,7 +315,7 @@ varlist = [ # VARIANTS
 	["mil",    "glass", "$med",                             0, 0],
 	["mil",    "glass", "$mil",                             1, 0],	# GE-M134
 	["mil",    "glass", "$mil",                             0, 1],	# HOT
-	#["black",  "taint", "../../../Models/Fauna/cow.rgb",   1, 1],	# ;-)
+	#["black",  "taint", "../../../Models/Fauna/cow.rgb",    1, 1],	# ;-)
 # LEGEND:
 #  $med ... medevac emblem (/sim/model/bo105/emblem; defaults to national RC society, depending on airport)
 #  $mil ... military insignia (/sim/model/bo105/insignia; defaults to Austrian)
@@ -504,13 +525,18 @@ init_weapons = func {
 
 
 TRIGGER = -1;
-setlistener("controls/gear/brake-left", func {
+setlistener("controls/armament/trigger", func {
 	if (weapons != nil) {
 		var t = cmdarg().getBoolValue();
 		if (t != TRIGGER) {
 			weapons.fire(TRIGGER = t);
 		}
 	}
+});
+
+
+setlistener("controls/gear/brake-left", func {
+	setprop("controls/armament/trigger", cmdarg().getBoolValue());
 });
 
 
@@ -644,7 +670,7 @@ main_loop = func {
 CRASHED = 0;
 
 REINIT = func {
-	#cprint("32;1", "reinit " ~ cmdarg().getValue());
+	cprint("32;1", "reinit " ~ cmdarg().getValue());
 	n = props.globals.getNode("sim/model/bo105/emblem");
 	e = n.getValue();
 	if (e != nil and !size(e)) {
@@ -652,6 +678,12 @@ REINIT = func {
 	}
 	select_variant(variant);
 	CRASHED = 0;
+
+	if (load != nil) {
+		load.getNode("load", 1);
+		load.removeChildren("load");
+		load = nil;
+	}
 }
 
 
@@ -676,13 +708,13 @@ INIT = func {
 	setlistener("/sim/signals/reinit", REINIT);
 
 	setlistener("sim/crashed", func {
-		#cprint("31;1", "crashed " ~ cmdarg().getValue());
+		cprint("31;1", "crashed " ~ cmdarg().getValue());
 		if (cmdarg().getBoolValue()) {
 			crash(CRASHED = 1);
 		}
 	});
 	setlistener("/sim/freeze/replay-state", func {
-		#cprint("33;1", "replay " ~ cmdarg().getValue());
+		cprint("33;1", "replay " ~ cmdarg().getValue());
 		if (CRASHED) {
 			crash(!cmdarg().getBoolValue())
 		}
