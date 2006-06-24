@@ -1318,6 +1318,17 @@
 	</model>
 
 	<model>
+		<name>GSDI</name>
+		<desc>Ground Speed Drift Indicator</desc>
+		<path>Aircraft/bo105/Instruments/gsdi/gsdi.xml</path>
+		<offsets>
+			<x-m>-2.21</x-m>
+			<y-m>0.30</y-m>
+			<z-m>0.35</z-m>
+		</offsets>
+	</model>
+
+	<!--model>
 		<name>RADIO</name>
 		<path>Aircraft/Instruments-3d/kx170b/kx170b.xml</path>
 		<offsets>
@@ -1325,7 +1336,17 @@
 			<y-m>0.25</y-m>
 			<z-m>0.35</z-m>
 		</offsets>
-	</model>
+	</model-->
+
+	<!--model>
+		<name>hud</name>
+		<path>Aircraft/Instruments-3d/hud/hud.xml</path>
+		<offsets>
+			<x-m>-2.23</x-m>
+			<y-m>0.50</y-m>
+			<z-m>0.80</z-m>
+		</offsets>
+	</model-->
 
 	<!--model>
 		<name>VOR1</name>
@@ -1368,9 +1389,11 @@
 		<object-name>ADF</object-name>
 		<object-name>HI</object-name>
 		<object-name>VSI</object-name>
-		<object-name>RADIO</object-name>
+		<!--object-name>RADIO</object-name-->
 		<object-name>CLOCK</object-name>
+		<object-name>GSDA</object-name>
 		<!--object-name>TC</object-name>
+		<object-name>hud</object-name>
 		<object-name>VOR1</object-name>
 		<object-name>VOR2</object-name-->
 	</animation>
