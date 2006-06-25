@@ -20,6 +20,10 @@ Bo 105 simulation config.
 			<splash-texture>Aircraft/bo105/bo105splash.rgb</splash-texture>
 		</startup>
 
+		<instrumentation>
+			<path>Aircraft/bo105/Instruments/instrumentation.xml</path>
+		</instrumentation>
+
 		<sound>
 			<path>Aircraft/bo105/bo105-sound.xml</path>
 		</sound>
@@ -194,6 +198,34 @@ Bo 105 simulation config.
 			</config>
 		</view>
 
+		<view n="6">
+			<name>Belly View</name>
+			<type>lookfrom</type>
+			<internal archive="y">true</internal>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<x-offset-m archive="y">0</x-offset-m>    <!-- right? -->
+				<y-offset-m archive="y">-1</y-offset-m>   <!-- up -->
+				<z-offset-m archive="y">3.5</z-offset-m>  <!-- back -->
+				<pitch-offset-deg>0</pitch-offset-deg>
+				<ground-level-nearplane-m type="double">0.05f</ground-level-nearplane-m>
+				<default-field-of-view-deg type="double">55.0</default-field-of-view-deg>
+				<default-pitch-deg type="double">-15</default-pitch-deg>
+				<default-heading-deg type="double">0</default-heading-deg>
+				<front-direction-deg type="double">0</front-direction-deg>
+				<front-left-direction-deg type="double">45</front-left-direction-deg>
+				<left-direction-deg type="double">90</left-direction-deg>
+				<back-left-direction-deg type="double">135</back-left-direction-deg>
+				<back-direction-deg type="double">180</back-direction-deg>
+				<back-right-direction-deg type="double">225</back-right-direction-deg>
+				<right-direction-deg type="double">270</right-direction-deg>
+				<front-right-direction-deg type="double">315</front-right-direction-deg>
+				<default-field-of-view-deg>55</default-field-of-view-deg>
+			</config>
+		</view>
+
+		<number-views type="int" archive="y">7</number-views>
 
 		<hud>
 			<enable3d>false</enable3d>
@@ -290,6 +322,12 @@ Bo 105 simulation config.
 			<nav-lights type="bool">true</nav-lights>
 		</lighting>
 	</controls>
+
+	<instrumentation>
+		<gsdi>
+			<serviceable type="bool">true</serviceable>
+		</gsdi>
+	</instrumentation>
 
 	<input>
 		<keyboard>
