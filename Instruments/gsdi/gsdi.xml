@@ -5,7 +5,7 @@
 	<animation>
 		<type>translate</type>
 		<object-name>uneedle</object-name>
-		<property>velocities/uBody-fps</property>
+		<property>velocities/uDrift-fps</property>
 		<factor>0.002</factor>
 		<min-m>-0.03</min-m>
 		<max-m>0.03</max-m>
@@ -19,7 +19,7 @@
 	<animation>
 		<type>translate</type>
 		<object-name>vneedle</object-name>
-		<property>velocities/vBody-fps</property>
+		<property>velocities/vDrift-fps</property>
 		<factor>0.002</factor>
 		<min-m>-0.03</min-m>
 		<max-m>0.03</max-m>
