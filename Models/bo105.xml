@@ -1391,7 +1391,7 @@
 		<object-name>VSI</object-name>
 		<!--object-name>RADIO</object-name-->
 		<object-name>CLOCK</object-name>
-		<object-name>GSDA</object-name>
+		<object-name>GSDI</object-name>
 		<!--object-name>TC</object-name>
 		<object-name>hud</object-name>
 		<object-name>VOR1</object-name>
