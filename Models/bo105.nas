@@ -118,52 +118,6 @@ set_torque = func {
 
 
 
-# GSDA/GSDI ... Ground Speed Drift Angle Indicator
-
-vel_uN = nil;
-vel_vN = nil;
-drift_uN = nil;
-drift_vN = nil;
-drift_speedN = nil;
-drift_dirN = nil;
-wind_fromN = nil;
-wind_speedN = nil;
-hdgN = nil;
-
-
-gsdi_loop = func {
-	var wspd = wind_speedN.getValue() / 0.5924838; # kts -> fps
-	var whdg = (hdgN.getValue() - wind_fromN.getValue()) * math.pi / 180.0 ;
-	var wu = wspd * math.cos(whdg);
-	var wv = wspd * math.sin(whdg);
-	var u = vel_uN.getValue() - wu;	# fwd
-	var v = vel_vN.getValue() + wv;	# left (?)
-	drift_uN.setValue(u);
-	drift_vN.setValue(v);
-
-	drift_speedN.setDoubleValue(math.sqrt(u * u + v * v) * 0.5924838); # fps -> kts
-	drift_dirN.setDoubleValue(math.atan2(v, u) * 180.0 / math.pi);
-	settimer(gsdi_loop, 0);
-}
-
-settimer(func {
-	vel_uN = props.globals.getNode("velocities/uBody-fps", 1);
-	vel_vN = props.globals.getNode("velocities/vBody-fps", 1);
-	drift_uN = props.globals.getNode("velocities/uDrift-fps", 1);
-	drift_vN = props.globals.getNode("velocities/vDrift-fps", 1);
-	drift_speedN = props.globals.getNode("velocities/drift-kts", 1);
-	drift_dirN = props.globals.getNode("orientation/drift-deg", 1);
-
-	wind_fromN = props.globals.getNode("/environment/wind-from-heading-deg", 1);
-	wind_speedN = props.globals.getNode("/environment/wind-speed-kt", 1);
-	hdgN = props.globals.getNode("orientation/heading-deg", 1);
-	gsdi_loop();
-}, 0);
-
-
-
-
-
 
 # crash handler =====================================================
 var load = nil;
