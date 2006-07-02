@@ -366,7 +366,7 @@
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
 		<property>rotors/main/blade1_pos</property>
-		<offset-deg>90</offset-deg>
+		<offset-deg>0</offset-deg>
 		<axis>
 			<x>0</x>
 			<y>0</y>
@@ -506,7 +506,7 @@
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
 		<property>rotors/main/blade2_pos</property>
-		<offset-deg>180</offset-deg>
+		<offset-deg>90</offset-deg>
 		<axis>
 			<x>0</x>
 			<y>0</y>
@@ -646,7 +646,7 @@
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
 		<property>rotors/main/blade3_pos</property>
-		<offset-deg>270</offset-deg>
+		<offset-deg>180</offset-deg>
 		<axis>
 			<x>0</x>
 			<y>0</y>
@@ -786,7 +786,7 @@
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
 		<property>rotors/main/blade4_pos</property>
-		<offset-deg>0</offset-deg>
+		<offset-deg>270</offset-deg>
 		<axis>
 			<x>0</x>
 			<y>0</y>
