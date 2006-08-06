@@ -282,6 +282,14 @@ Bo 105 simulation config.
 				<desc>open/close selected door</desc>
 			</key>
 			<key>
+				<name>n</name>
+				<desc>apply rotor brake</desc>
+			</key>
+			<key>
+				<name>N</name>
+				<desc>toggle rotor brake</desc>
+			</key>
+			<key>
 				<name>y/Y</name>
 				<desc>switch to next/previous variant</desc>
 			</key>
@@ -371,6 +379,18 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
+			<key n="78">
+				<name>N</name>
+				<desc>Toggle rotor brake</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						var p = "/controls/rotor/brake";
+						setprop(p, !getprop(p));
+					</script>
+				</binding>
+			</key>
+
 			<key n="89">
 				<name>Y</name>
 				<desc>Select previous variant</desc>
@@ -387,6 +407,21 @@ Bo 105 simulation config.
 					<command>nasal</command>
 					<script>bo105.next_door()</script>
 				</binding>
+			</key>
+
+			<key n="110">
+				<name>n</name>
+				<desc>Apply rotor brake</desc>
+				<binding>
+					<command>nasal</command>
+					<script>interpolate("/controls/rotor/brake", 1.0, 2)</script>
+				</binding>
+				<mod-up>
+					<binding>
+						<command>nasal</command>
+						<script>interpolate("/controls/rotor/brake", 0.0, 2)</script>
+					</binding>
+				</mod-up>
 			</key>
 
 			<key n="121">
