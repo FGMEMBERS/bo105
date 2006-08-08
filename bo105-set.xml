@@ -17,7 +17,7 @@ Bo 105 simulation config.
 		<fuel-fraction>0.8</fuel-fraction>
 
 		<startup>
-			<splash-texture>Aircraft/bo105/bo105splash.rgb</splash-texture>
+			<splash-texture>Aircraft/bo105/splash.rgb</splash-texture>
 		</startup>
 
 		<instrumentation>
@@ -25,7 +25,7 @@ Bo 105 simulation config.
 		</instrumentation>
 
 		<sound>
-			<path>Aircraft/bo105/bo105-sound.xml</path>
+			<path>Aircraft/bo105/Sounds/sound.xml</path>
 		</sound>
 
 		<submodels>
@@ -41,10 +41,11 @@ Bo 105 simulation config.
 			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
 			<bo105>
 				<variant type="int">0</variant>
-				<emblem type="string"><!--set by bo105.nas--></emblem>
-				<insignia type="string">emblems/oebh.rgb</insignia>
+				<emblem type="string"><!-- country specific by default; see bo105.nas --></emblem>
+				<insignia type="string">Emblems/oebh.rgb</insignia>
 				<shadow type="bool">true</shadow>
 				<wiper type="bool">true</wiper>
+				<wire-cutter type="bool">true</wire-cutter>
 				<tail-angle type="int" archive="y">0</tail-angle>
 				<state type="int">0</state>
 				<rotor-step-deg type="float">-1.0</rotor-step-deg>
@@ -396,7 +397,7 @@ Bo 105 simulation config.
 				<desc>Select previous variant</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.previous_variant()</script>
+					<script>bo105.variant.previous()</script>
 				</binding>
 			</key>
 
@@ -429,7 +430,7 @@ Bo 105 simulation config.
 				<desc>Select next variant</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.next_variant()</script>
+					<script>bo105.variant.next()</script>
 				</binding>
 			</key>
 

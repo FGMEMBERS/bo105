@@ -113,8 +113,7 @@
 	<animation>
 		<type>translate</type>
 		<object-name>shadow_rotor</object-name>
-		<property>position/altitude-agl-ft</property>
-		<factor>0.3</factor>
+		<property>position/gear-agl-m</property>
 		<axis>
 			<x>0</x>
 			<y>0</y>
@@ -160,8 +159,7 @@
 		<type>translate</type>
 		<name>fu_trans</name>
 		<object-name>shadow_fuselage</object-name>
-		<property>position/altitude-agl-ft</property>
-		<factor>0.3</factor>
+		<property>position/gear-agl-m</property>
 		<axis>
 			<x>0</x>
 			<y>0</y>
@@ -1862,11 +1860,19 @@
 
 	<animation>
 		<type>select</type>
+		<object-name>wire_cutter</object-name>
+		<condition>
+			<property>sim/model/bo105/wire-cutter</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
 		<object-name>gatling</object-name>
 		<object-name>barrel_L</object-name>
 		<object-name>barrel_R</object-name>
 		<condition>
-			<property>sim/model/bo105/weapons/MG[0]/enabled</property>
+			<property>sim/model/bo105/miniguns</property>
 		</condition>
 	</animation>
 
@@ -1874,7 +1880,7 @@
 		<type>select</type>
 		<object-name>hot</object-name>
 		<condition>
-			<property>sim/model/bo105/weapons/HOT[0]/enabled</property>
+			<property>sim/model/bo105/missiles</property>
 		</condition>
 	</animation>
 
@@ -2012,5 +2018,4 @@
 </PropertyList>
 
 
-<!-- N1, EGT, N2 and FF (fuel flow) -->
 <!-- z=0 at approximately 30cm above ground plate -->

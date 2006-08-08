@@ -8,6 +8,25 @@ optarg = aircraft.optarg;
 makeNode = aircraft.makeNode;
 
 
+
+sort = func(l) {
+	while (1) {
+		var n = 0;
+		for (var i = 0; i < size(l) - 1; i += 1) {
+			if (cmp(l[i], l[i + 1]) > 0) {
+				var t = l[i + 1];
+				l[i + 1] = l[i];
+				l[i] = t;
+				n += 1;
+			}
+		}
+		if (!n) {
+			return l;
+		}
+	}
+}
+
+
 # strobes ===========================================================
 strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
 aircraft.light.new("sim/model/bo105/lighting/strobe-top", 0.05, 1.00, strobe_switch);
@@ -231,11 +250,11 @@ determine_emblem = func {
 
 	emblem = [
 		["<none>",       "empty.rgb"],
-		["Red Cross",    "emblems/red-cross.rgb"],
-		["Red Crescent", "emblems/red-crescent-l.rgb"],
-		["Red Crescent", "emblems/red-crescent-r.rgb"],
-		["Red Crystal",  "emblems/red-crystal.rgb"],
-		["Star of Life", "emblems/star-of-life.rgb"],
+		["Red Cross",    "Emblems/red-cross.rgb"],
+		["Red Crescent", "Emblems/red-crescent-l.rgb"],
+		["Red Crescent", "Emblems/red-crescent-r.rgb"],
+		["Red Crystal",  "Emblems/red-crystal.rgb"],
+		["Star of Life", "Emblems/star-of-life.rgb"],
 	];
 
 	icao = [
@@ -296,100 +315,73 @@ determine_emblem = func {
 
 
 
-# material ==========================================================
-matlist = { # MATERIALS
-#       fuselage   diffuse            ambient            emission           specular           shi trans
-	"mil":    [0.35, 0.36, 0.31,  0.35, 0.36, 0.31,  0.02, 0.02, 0.02,  0.0, 0.0, 0.0,     0,  0],
-	"blue":   [0.0, 0.45, 0.6,    0.0, 0.45, 0.6,    0.0, 0.0, 0.0,     0.8, 0.8, 1.0,     10, 0],
-	"yellow": [0.81, 0.7, 0.0,    0.72, 0.64, 0.0,   0.1, 0.1, 0.0,     0.0, 0.0, 0.0,     0,  0],
-	"black":  [0.3, 0.3, 0.23,    0.18, 0.18, 0.19,  0.0, 0.0, 0.0,     0.32, 0.32, 0.32,  15, 0],
-	"orange": [0.65, 0.3, 0,      0.65, 0.3, 0.0,    0.0, 0.0, 0.0,     0.66, 0.4, 0.0,    10, 0],
-#       windows
-	"glass":  [0.2, 0.2, 0.2,     0.2, 0.2, 0.2,     0.0, 0.0, 0.0,     1.0, 1.0, 1.0,     25, 0.8],
-	"taint":  [0.0, 0.0, 0.0,     0.0, 0.0, 0.0,     0.0, 0.0, 0.0,     0.5, 0.5, 0.5,     25, 0.5],
-};
+Variant = {
+	new : func {
+		var m = { parents : [Variant] };
+		m.emblem_medevac = determine_emblem();
+		m.emblem_military = getprop("sim/model/bo105/insignia");
+		m.list = m.scan();
+		m.index = getprop("sim/model/bo105/variant");
+		m.reset();
+		return m;
+	},
+	next : func {
+		me.index += 1;
+		if (me.index >= size(me.list)) {
+			me.index = 0;
+		}
+		me.load(me.list[me.index]);
+	},
+	previous : func {
+		me.index -= 1;
+		if (me.index < 0) {
+			me.index = size(me.list) - 1;
+		}
+		me.load(me.list[me.index]);
+	},
+	scan : func {
+		var dir = "Aircraft/bo105/Models/Variants";
+		var lst = [];
+		foreach (var f; directory(getprop("/sim/fg-root") ~ "/" ~ dir)) {
+			if (substr(f, size(f) - 4) == ".xml") {
+				append(lst, dir ~ "/" ~ f);
+			}
+		}
+		return sort(lst);
+	},
+	reset : func {
+		me.load(me.list[me.index]);
+	},
+	load : func(file) {
+		fgcommand("loadxml", props.Node.new({"filename": file, "targetnode": "sim/model/bo105"}));
+		var emblem = getprop("/sim/model/bo105/emblem");
+		if (emblem == "$MED") {
+			emblem = me.emblem_medevac;
+		} elsif (emblem == "$MIL") {
+			emblem = me.emblem_military;
+		} elsif (emblem == "") {
+			emblem = "empty.rgb";
+		}
+		setprop("sim/model/bo105/material/emblem/texture", emblem);
 
+		if (weapons != nil) {
+			weapons.disable();
+			weapons = nil;
+		}
 
-varlist = [ # VARIANTS
-#        paint     glass    emblem                             MG HOT
-	["yellow", "glass", "$med",                             0, 0],
-	["blue",   "glass", "emblems/star-of-life.rgb",         0, 0],
-	["orange", "glass", "empty.rgb",                        0, 0],
-	["mil",    "glass", "$med",                             0, 0],
-	["mil",    "glass", "$mil",                             1, 0],	# GE-M134
-	["mil",    "glass", "$mil",                             0, 1],	# HOT
-	#["black",  "taint", "../../../Models/Fauna/cow.rgb",    1, 1],	# ;-)
-# LEGEND:
-#  $med ... medevac emblem (/sim/model/bo105/emblem; defaults to national RC society, depending on airport)
-#  $mil ... military insignia (/sim/model/bo105/insignia; defaults to Austrian)
-];
+		if (getprop("sim/model/bo105/missiles")) {
+			weapons = HOT;
+		} elsif (getprop("sim/model/bo105/miniguns")) {
+			weapons = MG;
+		}
 
-
-apply_mat = func(obj, mat) {
-	i = 0;
-	base = "sim/model/bo105/material/" ~ obj ~ "/";
-	foreach (t; ["diffuse", "ambient", "emission", "specular"]) {
-		foreach (c; ["red", "green", "blue"]) {
-			setprop(base ~ t ~ "/" ~ c, mat[i]);
-			i += 1;
+		if (weapons != nil) {
+			weapons.enable();
+			recalc_ammo_loop();
 		}
 	}
-	setprop(base ~ "shininess", mat[i]);
-	setprop(base ~ "transparency/alpha", 1.0 - mat[i + 1]);
-}
+};
 
-
-variant = nil;
-
-next_variant = func {
-	variant += 1;
-	if (variant >= size(varlist)) {
-		variant = 0;
-	}
-	select_variant(variant);
-}
-
-
-previous_variant = func {
-	variant -= 1;
-	if (variant < 0) {
-		variant = size(varlist) - 1;
-	}
-	select_variant(variant);
-}
-
-
-select_variant = func {
-	v = varlist[arg[0]];
-	e = v[2];
-	if (e == "$med") {
-		e = getprop("sim/model/bo105/emblem");
-	} elsif (e == "$mil") {
-		e = getprop("sim/model/bo105/insignia");
-	}
-	if (!size(e)) {
-		e = "empty.rgb";
-	}
-	apply_mat("fuselage", matlist[v[0]]);
-	apply_mat("glass", matlist[v[1]]);
-	setprop("sim/model/bo105/material/emblem/texture", e);
-
-	if (weapons != nil) {
-		weapons.disable();
-		weapons = nil;
-	}
-
-	if (v[3]) {
-		weapons = MG;
-	} elsif (v[4]) {
-		weapons = HOT;
-	}
-
-	if (weapons != nil) {
-		weapons.enable();
-		recalc_ammo_loop();
-	}
-}
 
 
 
@@ -674,12 +666,7 @@ CRASHED = 0;
 
 REINIT = func {
 	cprint("32;1", "reinit " ~ cmdarg().getValue());
-	n = props.globals.getNode("sim/model/bo105/emblem");
-	e = n.getValue();
-	if (e != nil and !size(e)) {
-		n.setValue(determine_emblem());
-	}
-	select_variant(variant);
+	variant.reset();
 	CRASHED = 0;
 
 	if (load != nil) {
@@ -690,23 +677,17 @@ REINIT = func {
 }
 
 
+
+var variant = nil;
+
 INIT = func {
+	variant = Variant.new();
+
 	# the attitude indicator needs pressure
 	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
 
-	n = props.globals.getNode("sim/model/bo105/emblem");
-	e = n.getValue();
-	if (e != nil and !size(e)) {
-		n.setValue(determine_emblem());
-	}
-
 	init_rotoranim();
 	init_weapons();
-	variant = getprop("sim/model/bo105/variant");
-	if (variant == nil) {
-		variant = 0;
-	}
-	select_variant(variant);
 
 	setlistener("/sim/signals/reinit", REINIT);
 
