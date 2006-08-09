@@ -322,6 +322,9 @@ Variant = {
 		m.emblem_military = getprop("sim/model/bo105/insignia");
 		m.list = m.scan();
 		m.index = getprop("sim/model/bo105/variant");
+		if (m.index >= size(m.list)) {
+			m.index = 0;
+		}
 		m.reset();
 		return m;
 	},
@@ -330,14 +333,14 @@ Variant = {
 		if (me.index >= size(me.list)) {
 			me.index = 0;
 		}
-		me.load(me.list[me.index]);
+		me.reset();
 	},
 	previous : func {
 		me.index -= 1;
 		if (me.index < 0) {
 			me.index = size(me.list) - 1;
 		}
-		me.load(me.list[me.index]);
+		me.reset();
 	},
 	scan : func {
 		var dir = "Aircraft/bo105/Models/Variants";
@@ -379,6 +382,7 @@ Variant = {
 			weapons.enable();
 			recalc_ammo_loop();
 		}
+		setprop("/sim/model/bo105/variant", me.index);
 	}
 };
 
@@ -662,51 +666,47 @@ main_loop = func {
 }
 
 
-CRASHED = 0;
-
-REINIT = func {
-	cprint("32;1", "reinit " ~ cmdarg().getValue());
-	variant.reset();
-	CRASHED = 0;
-
-	if (load != nil) {
-		load.getNode("load", 1);
-		load.removeChildren("load");
-		load = nil;
-	}
-}
-
-
-
+var CRASHED = 0;
 var variant = nil;
 
-INIT = func {
-	variant = Variant.new();
 
-	# the attitude indicator needs pressure
-	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
-
+# initialization
+settimer (func {
 	init_rotoranim();
 	init_weapons();
 
-	setlistener("/sim/signals/reinit", REINIT);
+	variant = Variant.new();
+
+	setlistener("/sim/signals/reinit", func {
+		cprint("32;1", "reinit ", cmdarg().getValue());
+		variant.reset();
+		CRASHED = 0;
+
+		if (load != nil) {
+			load.getNode("load", 1);
+			load.removeChildren("load");
+			load = nil;
+		}
+	});
 
 	setlistener("sim/crashed", func {
-		cprint("31;1", "crashed " ~ cmdarg().getValue());
+		cprint("31;1", "crashed ", cmdarg().getValue());
 		if (cmdarg().getBoolValue()) {
 			crash(CRASHED = 1);
 		}
 	});
+
 	setlistener("/sim/freeze/replay-state", func {
-		cprint("33;1", "replay " ~ cmdarg().getValue());
+		cprint("33;1", "replay ", cmdarg().getValue());
 		if (CRASHED) {
 			crash(!cmdarg().getBoolValue())
 		}
 	});
 
-	main_loop();
-}
+	# the attitude indicator needs pressure
+	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
 
-settimer(INIT, 0);
+	main_loop();
+}, 0);
 
 
