@@ -93,9 +93,10 @@ toggle_door = func {
 state = props.globals.getNode("sim/model/bo105/state");
 rotor = props.globals.getNode("controls/engines/engine/magnetos");
 rotor_rpm = props.globals.getNode("rotors/main/rpm");
+torque = props.globals.getNode("rotors/main/torque", 1);
 collective = props.globals.getNode("controls/engines/engine/throttle");
 turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
-torque = props.globals.getNode("sim/model/bo105/torque-pct", 1);
+torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
 
 
 # 0 off
@@ -128,11 +129,19 @@ engines = func {
 torque_val = 0;
 
 set_torque = func {
-	# yes, it's only faked for now  :-)
-	f = 0.075;				# low pass coeff
-	r = rotor_rpm.getValue() / 442;		# rotor norm
-	n = r * (17 + (1 - collective.getValue()) * 94);
-	torque.setValue(torque_val = n * f + torque_val * (1 - f));
+	var f = 0.075;				# low pass coeff
+	if (new_fdm) {
+		var t = torque.getValue();
+		if (t != nil) {
+			torque_val = t * f + torque_val * (1 - f);
+			torque_pct.setDoubleValue(torque_val / 120);
+		}
+	} else {
+		# yes, it's only faked for now  :-)
+		var r = rotor_rpm.getValue() / 442;		# rotor norm
+		var n = r * (17 + (1 - collective.getValue()) * 94);
+		torque_pct.setValue(torque_val = n * f + torque_val * (1 - f));
+	}
 }
 
 
@@ -166,7 +175,7 @@ crash = func {
 		nav_light_switch.setValue(0);
 		rotor.setValue(0);
 		turbine.setValue(0);
-		torque.setValue(torqueval = 0);
+		torque_pct.setValue(torqueval = 0);
 		state.setValue(0);
 		var n = props.globals.getNode("models", 1);
 		for (var i = 0; 42; i += 1) {
@@ -242,13 +251,13 @@ determine_emblem = func {
 	# Use the appropriate internationally acknowleged protective Red Cross/Crescent
 	# symbol, depending on the starting airport. (http://www.ifrc.org/ADDRESS/directory.asp)
 
-	C = 1;	# Red Cross
-	L = 2;	# Rec Crescent (opening left)
-	R = 3;	# Red Crescent (opening right)
-	Y = 4;	# Red Crystal
-	X = 5;	# StarOfLife
+	var C = 1;	# Red Cross
+	var L = 2;	# Rec Crescent (opening left)
+	var R = 3;	# Red Crescent (opening right)
+	var Y = 4;	# Red Crystal
+	var X = 5;	# StarOfLife
 
-	emblem = [
+	var emblem = [
 		["<none>",       "empty.rgb"],
 		["Red Cross",    "Emblems/red-cross.rgb"],
 		["Red Crescent", "Emblems/red-crescent-l.rgb"],
@@ -257,7 +266,7 @@ determine_emblem = func {
 		["Star of Life", "Emblems/star-of-life.rgb"],
 	];
 
-	icao = [
+	var icao = [
 		["",	C, "<default>"],
 		["DA",	R, "Algeria"],
 		["DT",	L, "Tunisia"],
@@ -297,11 +306,11 @@ determine_emblem = func {
 		["WM",	R, "Malaysia"],
 	];
 
-	apt = getprop("/sim/presets/airport-id");
-	country = nil;
-	maxlen = -1;
+	var apt = getprop("/sim/presets/airport-id");
+	var country = nil;
+	var maxlen = -1;
 
-	foreach (entry; icao) {
+	foreach (var entry; icao) {
 		if (substr(apt, 0, size(entry[0])) == entry[0]) {
 			if (size(entry[0]) > maxlen) {
 				maxlen = size(entry[0]);
@@ -383,7 +392,7 @@ Variant = {
 			recalc_ammo_loop();
 		}
 		setprop("/sim/model/bo105/variant", me.index);
-	}
+	},
 };
 
 
@@ -668,10 +677,17 @@ main_loop = func {
 
 var CRASHED = 0;
 var variant = nil;
+var new_fdm = nil;
+
 
 
 # initialization
-settimer (func {
+settimer(func {
+	settimer(func {
+		new_fdm = getprop("rotors/main/torque");
+		cprint("32;1", new_fdm ? "new FDM" : "old FDM");
+	}, 3);
+
 	init_rotoranim();
 	init_weapons();
 
