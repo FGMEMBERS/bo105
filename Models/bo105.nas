@@ -684,7 +684,7 @@ var new_fdm = nil;
 # initialization
 settimer(func {
 	settimer(func {
-		new_fdm = getprop("rotors/main/torque");
+		new_fdm = getprop("rotors/main/torque") != nil;
 		cprint("32;1", new_fdm ? "new FDM" : "old FDM");
 	}, 3);
 
