@@ -41,6 +41,7 @@ Bo 105 simulation config.
 			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
 			<bo105>
 				<variant type="int" userarchive="y">0</variant>
+				<managed-view type="bool" userarchive="y">true</managed-view>
 				<emblem type="string"><!-- country specific by default; see bo105.nas --></emblem>
 				<insignia type="string">Emblems/oebh.rgb</insignia>
 				<shadow type="bool">true</shadow>
@@ -423,6 +424,20 @@ Bo 105 simulation config.
 						<script>interpolate("/controls/rotor/brake", 0.0, 2)</script>
 					</binding>
 				</mod-up>
+			</key>
+
+			<key n="118">
+				<name>v</name>
+				<desc>Toggle managed cockpit view</desc>
+				<mod-alt>
+					<binding>
+						<command>nasal</command>
+						<script>
+							var p = "sim/model/bo105/managed-view";
+							setprop(p, !getprop(p));
+						</script>
+					</binding>
+				</mod-alt>
 			</key>
 
 			<key n="121">

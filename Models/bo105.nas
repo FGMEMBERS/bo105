@@ -28,22 +28,22 @@ sort = func(l) {
 
 
 # strobes ===========================================================
-strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
+var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
 aircraft.light.new("sim/model/bo105/lighting/strobe-top", 0.05, 1.00, strobe_switch);
 aircraft.light.new("sim/model/bo105/lighting/strobe-bottom", 0.05, 1.03, strobe_switch);
 
 # beacons ===========================================================
-beacon_switch = props.globals.getNode("controls/lighting/beacon", 1);
+var beacon_switch = props.globals.getNode("controls/lighting/beacon", 1);
 aircraft.light.new("sim/model/bo105/lighting/beacon-top", 0.62, 0.62, beacon_switch);
 aircraft.light.new("sim/model/bo105/lighting/beacon-bottom", 0.63, 0.63, beacon_switch);
 
 
 
 # nav lights ========================================================
-nav_light_switch = props.globals.getNode("controls/lighting/nav-lights", 1);
-visibility = props.globals.getNode("environment/visibility-m", 1);
-sun_angle = props.globals.getNode("sim/time/sun-angle-rad", 1);
-nav_lights = props.globals.getNode("sim/model/bo105/lighting/nav-lights", 1);
+var nav_light_switch = props.globals.getNode("controls/lighting/nav-lights", 1);
+var visibility = props.globals.getNode("environment/visibility-m", 1);
+var sun_angle = props.globals.getNode("sim/time/sun-angle-rad", 1);
+var nav_lights = props.globals.getNode("sim/model/bo105/lighting/nav-lights", 1);
 
 nav_light_loop = func {
 	if (nav_light_switch.getValue()) {
@@ -59,8 +59,8 @@ settimer(nav_light_loop, 0);
 
 
 # doors =============================================================
-active_door = 0;
-doors = [];
+var active_door = 0;
+var doors = [];
 
 init_doors = func {
 	foreach (d; props.globals.getNode("sim/model/bo105/doors").getChildren("door")) {
@@ -90,13 +90,13 @@ toggle_door = func {
 
 
 # engines/rotor =====================================================
-state = props.globals.getNode("sim/model/bo105/state");
-rotor = props.globals.getNode("controls/engines/engine/magnetos");
-rotor_rpm = props.globals.getNode("rotors/main/rpm");
-torque = props.globals.getNode("rotors/main/torque", 1);
-collective = props.globals.getNode("controls/engines/engine/throttle");
-turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
-torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
+var state = props.globals.getNode("sim/model/bo105/state");
+var rotor = props.globals.getNode("controls/engines/engine/magnetos");
+var rotor_rpm = props.globals.getNode("rotors/main/rpm");
+var torque = props.globals.getNode("rotors/main/torque", 1);
+var collective = props.globals.getNode("controls/engines/engine/throttle");
+var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
+var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
 
 
 # 0 off
@@ -126,7 +126,7 @@ engines = func {
 
 
 # torquemeter
-torque_val = 0;
+var torque_val = 0;
 
 set_torque = func {
 	var f = 0.075;				# low pass coeff
@@ -134,7 +134,7 @@ set_torque = func {
 		var t = torque.getValue();
 		if (t != nil) {
 			torque_val = t * f + torque_val * (1 - f);
-			torque_pct.setDoubleValue(torque_val / 120);
+			torque_pct.setDoubleValue(torque_val / 105);
 		}
 	} else {
 		# yes, it's only faked for now  :-)
@@ -219,12 +219,12 @@ crash = func {
 
 
 # "manual" rotor animation for flight data recorder replay ============
-rotor_step = props.globals.getNode("sim/model/bo105/rotor-step-deg");
-blade1_pos = props.globals.getNode("rotors/main/blade1_pos", 1);
-blade2_pos = props.globals.getNode("rotors/main/blade2_pos", 1);
-blade3_pos = props.globals.getNode("rotors/main/blade3_pos", 1);
-blade4_pos = props.globals.getNode("rotors/main/blade4_pos", 1);
-rotorangle = 0;
+var rotor_step = props.globals.getNode("sim/model/bo105/rotor-step-deg");
+var blade1_pos = props.globals.getNode("rotors/main/blade1_pos", 1);
+var blade2_pos = props.globals.getNode("rotors/main/blade2_pos", 1);
+var blade3_pos = props.globals.getNode("rotors/main/blade3_pos", 1);
+var blade4_pos = props.globals.getNode("rotors/main/blade4_pos", 1);
+var rotorangle = 0;
 
 rotoranim_loop = func {
 	i = rotor_step.getValue();
@@ -498,9 +498,9 @@ weapon_system = {
 };
 
 
-weapons = nil;
-MG = nil;
-HOT = nil;
+var weapons = nil;
+var MG = nil;
+var HOT = nil;
 
 init_weapons = func {
 	MG = weapon_system.new("M134", "rounds (7.62 mm)");
@@ -532,7 +532,7 @@ init_weapons = func {
 }
 
 
-TRIGGER = -1;
+var TRIGGER = -1;
 setlistener("controls/armament/trigger", func {
 	if (weapons != nil) {
 		var t = cmdarg().getBoolValue();
@@ -557,7 +557,7 @@ reload = func {
 
 
 # dialogs ===========================================================
-dialog = nil;
+var dialog = nil;
 
 showDialog = func {
 	name = "bo105-config";
@@ -651,7 +651,7 @@ showDialog = func {
 }
 
 
-ammoN = props.globals.getNode("sim/model/bo105/weapons/ammunition", 1);
+var ammoN = props.globals.getNode("sim/model/bo105/weapons/ammunition", 1);
 
 recalc_ammo_loop = func {
 	if (weapons != nil) {
@@ -666,12 +666,72 @@ recalc_ammo_loop = func {
 
 
 
+# view management ===================================================
+
+var cockpit_view = nil;
+setlistener("/sim/current-view/view-number", func { cockpit_view = (cmdarg().getValue() == 0) }, 1);
+
+var managed_view = nil;
+setlistener("/sim/model/bo105/managed-view", func { managed_view = cmdarg().getBoolValue() }, 1);
+
+var headingN = props.globals.getNode("orientation/heading-deg");
+var pitchN = props.globals.getNode("orientation/pitch-deg");
+var rollN = props.globals.getNode("orientation/roll-deg");
+
+
+ViewAxis = {
+	new : func(prop) {
+		var m = { parents : [ViewAxis] };
+		m.prop = props.globals.getNode(prop, 0);
+		m.applied_offset = 0;
+		return m;
+	},
+	input : func {
+		die("ViewAxis.input() is pure virtual")
+	},
+	apply : func {
+		var v = me.prop.getValue() - me.applied_offset;
+		me.applied_offset = me.input();
+		me.prop.setDoubleValue(v + me.applied_offset);
+	},
+};
+
+var heading_axis = ViewAxis.new("sim/current-view/goal-heading-offset-deg");
+var pitch_axis = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
+var roll_axis = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
+
+
+heading_axis.input = func { rollN.getValue() * -0.5 }
+roll_axis.input = func { rollN.getValue() * -0.4 }
+pitch_axis.input = func {
+	var pitch = pitchN.getValue();
+	var roll = rollN.getValue();
+	if (roll >= 0) {
+		return pitch * -0.6 + roll * 0.1;
+	} else {
+		return pitch * -0.6 + roll * -0.3;
+	}
+}
+
+
+manage_view = func {
+	if (cockpit_view and managed_view) {
+		heading_axis.apply();
+		pitch_axis.apply();
+		roll_axis.apply();
+	}
+}
+
+
+
+
 
 # main() ============================================================
 
 main_loop = func {
 	set_torque();
-	settimer(main_loop, 0.05);
+	manage_view();
+	settimer(main_loop, 0);
 }
 
 
