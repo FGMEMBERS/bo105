@@ -292,6 +292,10 @@ Bo 105 simulation config.
 				<desc>toggle rotor brake</desc>
 			</key>
 			<key>
+				<name>Alt-v</name>
+				<desc>toggle automatic cockpit view adjustment</desc>
+			</key>
+			<key>
 				<name>y/Y</name>
 				<desc>switch to next/previous variant</desc>
 			</key>
