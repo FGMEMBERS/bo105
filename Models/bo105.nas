@@ -683,11 +683,14 @@ ViewAxis = {
 	new : func(prop) {
 		var m = { parents : [ViewAxis] };
 		m.prop = props.globals.getNode(prop, 0);
-		m.applied_offset = 0;
+		m.reset();
 		return m;
 	},
+	reset : func {
+		me.applied_offset = 0;
+	},
 	input : func {
-		die("ViewAxis.input() is pure virtual")
+		die("ViewAxis.input() is pure virtual");
 	},
 	apply : func {
 		var v = me.prop.getValue() - me.applied_offset;
@@ -696,32 +699,40 @@ ViewAxis = {
 	},
 };
 
-var heading_axis = ViewAxis.new("sim/current-view/goal-heading-offset-deg");
-var pitch_axis = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
-var roll_axis = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
 
+ViewManager = {
+	new : func {
+		var m = { parents : [ViewManager] };
+		m.heading = ViewAxis.new("sim/current-view/goal-heading-offset-deg");
+		m.pitch = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
+		m.roll = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
 
-heading_axis.input = func { rollN.getValue() * -0.5 }
-roll_axis.input = func { rollN.getValue() * -0.4 }
-pitch_axis.input = func {
-	var pitch = pitchN.getValue();
-	var roll = rollN.getValue();
-	if (roll >= 0) {
-		return pitch * -0.6 + roll * 0.1;
-	} else {
-		return pitch * -0.6 + roll * -0.3;
-	}
-}
+		m.heading.input = func { rollN.getValue() * -0.5 }
+		m.roll.input = func { rollN.getValue() * -0.4 }
+		m.pitch.input = func {
+			var pitch = pitchN.getValue();
+			var roll = rollN.getValue();
+			if (roll >= 0) {
+				return pitch * -0.6 + roll * 0.1;
+			} else {
+				return pitch * -0.6 + roll * -0.3;
+			}
+		}
 
-
-manage_view = func {
-	if (cockpit_view and managed_view) {
-		heading_axis.apply();
-		pitch_axis.apply();
-		roll_axis.apply();
-	}
-}
-
+		m.reset();
+		return m;
+	},
+	reset : func {
+		me.heading.reset();
+		me.pitch.reset();
+		me.roll.reset();
+	},
+	apply : func {
+		me.heading.apply();
+		me.pitch.apply();
+		me.roll.apply();
+	},
+};
 
 
 
@@ -730,15 +741,18 @@ manage_view = func {
 
 main_loop = func {
 	set_torque();
-	manage_view();
+
+	if (cockpit_view and managed_view){
+		view_manager.apply();
+	}
 	settimer(main_loop, 0);
 }
 
 
 var CRASHED = 0;
 var variant = nil;
+var view_manager = nil;
 var new_fdm = nil;
-
 
 
 # initialization
@@ -746,16 +760,18 @@ settimer(func {
 	settimer(func {
 		new_fdm = getprop("rotors/main/torque") != nil;
 		cprint("32;1", new_fdm ? "new FDM" : "old FDM");
-	}, 3);
+	}, 5);
 
 	init_rotoranim();
 	init_weapons();
 
 	variant = Variant.new();
+	view_manager = ViewManager.new();
 
 	setlistener("/sim/signals/reinit", func {
 		cprint("32;1", "reinit ", cmdarg().getValue());
 		variant.reset();
+		view_manager.reset();
 		CRASHED = 0;
 
 		if (load != nil) {
