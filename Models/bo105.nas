@@ -677,6 +677,7 @@ setlistener("/sim/model/bo105/managed-view", func { managed_view = cmdarg().getB
 var headingN = props.globals.getNode("orientation/heading-deg");
 var pitchN = props.globals.getNode("orientation/pitch-deg");
 var rollN = props.globals.getNode("orientation/roll-deg");
+var speedN = props.globals.getNode("velocities/airspeed-kt");
 
 
 ViewAxis = {
@@ -712,10 +713,14 @@ ViewManager = {
 		m.pitch.input = func {
 			var pitch = pitchN.getValue();
 			var roll = rollN.getValue();
+			var s = 1.0 - speedN.getValue() / 140;
+			if (s < 0) {
+				s = 0;
+			}
 			if (roll >= 0) {
-				return pitch * -0.6 + roll * 0.1;
+				return pitch * s * -0.6 + roll * 0.1;
 			} else {
-				return pitch * -0.6 + roll * -0.3;
+				return pitch * s * -0.6 + roll * -0.3;
 			}
 		}
 
@@ -742,7 +747,7 @@ ViewManager = {
 main_loop = func {
 	set_torque();
 
-	if (cockpit_view and managed_view){
+	if (cockpit_view and managed_view) {
 		view_manager.apply();
 	}
 	settimer(main_loop, 0);
