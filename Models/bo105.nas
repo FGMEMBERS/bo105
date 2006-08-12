@@ -711,9 +711,9 @@ ViewManager = {
 		m.pitch = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
 		m.roll = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
 
-		m.heading.input = func { -30 * sin(me.roll) * cos(me.pitch) }
-		m.pitch.input = func { -30 * sin(me.pitch) * me.speed + 15 * abs(sin(me.roll)) }
-		m.roll.input = func { -20 * sin(me.roll) * cos(me.pitch) }
+		m.heading.input = func { -40 * sin(me.roll) * cos(me.pitch) * (me.roll > 0 ? 0.5 : 1.0) }
+		m.pitch.input = func { -50 * sin(me.pitch) * me.speed + 15 * abs(sin(me.roll)) }
+		m.roll.input = func { -10 * sin(me.roll) * cos(me.pitch) }
 
 		m.reset();
 		return m;
