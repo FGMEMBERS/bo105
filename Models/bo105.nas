@@ -4,9 +4,12 @@
 if (!contains(globals, "cprint")) {
 	globals.cprint = func {};
 }
+
 optarg = aircraft.optarg;
 makeNode = aircraft.makeNode;
 
+sin = func(a) { math.sin(a * math.pi / 180.0) }
+cos = func(a) { math.cos(a * math.pi / 180.0) }
 
 
 sort = func(l) {
@@ -708,21 +711,9 @@ ViewManager = {
 		m.pitch = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
 		m.roll = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
 
-		m.heading.input = func { rollN.getValue() * -0.5 }
-		m.roll.input = func { rollN.getValue() * -0.4 }
-		m.pitch.input = func {
-			var pitch = pitchN.getValue();
-			var roll = rollN.getValue();
-			var s = 1.0 - speedN.getValue() / 140;
-			if (s < 0) {
-				s = 0;
-			}
-			if (roll >= 0) {
-				return pitch * s * -0.6 + roll * 0.1;
-			} else {
-				return pitch * s * -0.6 + roll * -0.3;
-			}
-		}
+		m.heading.input = func { -30 * sin(me.roll) * cos(me.pitch) }
+		m.pitch.input = func { -30 * sin(me.pitch) * me.speed + 15 * abs(sin(me.roll)) }
+		m.roll.input = func { -20 * sin(me.roll) * cos(me.pitch) }
 
 		m.reset();
 		return m;
@@ -733,12 +724,18 @@ ViewManager = {
 		me.roll.reset();
 	},
 	apply : func {
+		ViewAxis.roll = rollN.getValue();
+		ViewAxis.pitch = pitchN.getValue();
+		ViewAxis.speed = 0.5 - speedN.getValue() / 140;
+		if (ViewAxis.speed < 0) {
+			ViewAxis.speed = 0;
+		}
+
 		me.heading.apply();
 		me.pitch.apply();
 		me.roll.apply();
 	},
 };
-
 
 
 
