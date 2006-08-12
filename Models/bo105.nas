@@ -10,6 +10,7 @@ makeNode = aircraft.makeNode;
 
 sin = func(a) { math.sin(a * math.pi / 180.0) }
 cos = func(a) { math.cos(a * math.pi / 180.0) }
+pow = func(v, w) { math.exp(math.ln(v) * w) }
 
 
 sort = func(l) {
@@ -711,8 +712,15 @@ ViewManager = {
 		m.pitch = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
 		m.roll = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
 
-		m.heading.input = func { -40 * sin(me.roll) * cos(me.pitch) * (me.roll > 0 ? 0.5 : 1.0) }
-		m.pitch.input = func { -50 * sin(me.pitch) * me.speed + 15 * abs(sin(me.roll)) }
+		m.heading.input = func {
+			var f = sin(me.roll) * cos(me.pitch);
+			var p = pow(abs(f), 2.5);
+			if (f < 0) {
+				p = -p;
+			}
+			return -40 * p * (me.roll > 0 ? 0.5 : 1.0);
+		}
+		m.pitch.input = func { -55 * sin(me.pitch) * me.speed + 15 * abs(sin(me.roll)) }
 		m.roll.input = func { -10 * sin(me.roll) * cos(me.pitch) }
 
 		m.reset();
