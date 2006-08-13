@@ -10,7 +10,9 @@ makeNode = aircraft.makeNode;
 
 sin = func(a) { math.sin(a * math.pi / 180.0) }
 cos = func(a) { math.cos(a * math.pi / 180.0) }
+pow = func(v, w) { math.exp(math.ln(v) * w) }
 npow = func(v, w) { math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) }
+clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
 
 
 sort = func(l) {
@@ -715,9 +717,10 @@ ViewManager = {
 		m.pitch = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
 		m.roll = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
 
-		m.heading.input = func { -40 * npow(sin(me.roll) * cos(me.pitch), 2.5) * (me.roll > 0 ? 0.5 : 1.0) }
-		m.pitch.input = func { -55 * sin(me.pitch) * me.speed + 15 * abs(sin(me.roll)) }
-		m.roll.input = func { -10 * sin(me.roll) * cos(me.pitch) }
+		m.heading.input = func { (me.roll < 0 ? -50 : -25) * npow(sin(me.roll) * cos(me.pitch), 2) }
+		m.pitch.input = func { (me.pitch < 0 ? -35 : -40) * sin(me.pitch) * me.speed
+				- 35 * cos(me.roll * 0.5) + 35 }
+		m.roll.input = func { -20 * sin(me.roll) * cos(me.pitch) * me.speed }
 
 		m.reset();
 		return m;
@@ -730,10 +733,7 @@ ViewManager = {
 	apply : func {
 		ViewAxis.roll = rollN.getValue();
 		ViewAxis.pitch = pitchN.getValue();
-		ViewAxis.speed = 0.5 - speedN.getValue() / 140;
-		if (ViewAxis.speed < 0) {
-			ViewAxis.speed = 0;
-		}
+		ViewAxis.speed = pow(1 - clamp(speedN.getValue(), 0, 140) / 140, 2);
 
 		me.heading.apply();
 		me.pitch.apply();
@@ -754,6 +754,7 @@ view.resetView = func {
 		view_manager.add_offsets();
 	}
 }
+
 
 
 # main() ============================================================
