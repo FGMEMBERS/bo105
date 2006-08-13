@@ -702,6 +702,9 @@ ViewAxis = {
 		me.applied_offset = me.input();
 		me.prop.setDoubleValue(v + me.applied_offset);
 	},
+	add_offset : func {
+		me.prop.setValue(me.prop.getValue() + me.applied_offset);
+	},
 };
 
 
@@ -736,8 +739,21 @@ ViewManager = {
 		me.pitch.apply();
 		me.roll.apply();
 	},
+	add_offsets : func {
+		me.heading.add_offset();
+		me.pitch.add_offset();
+		me.roll.add_offset();
+	},
 };
 
+
+var original_resetView = view.resetView;
+view.resetView = func {
+	original_resetView();
+	if (cockpit_view and managed_view) {
+		view_manager.add_offsets();
+	}
+}
 
 
 # main() ============================================================
