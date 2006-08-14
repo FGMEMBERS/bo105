@@ -140,7 +140,7 @@ set_torque = func {
 		var t = torque.getValue();
 		if (t != nil) {
 			torque_val = t * f + torque_val * (1 - f);
-			torque_pct.setDoubleValue(torque_val / 105);
+			torque_pct.setDoubleValue(torque_val / 120);
 		}
 	} else {
 		# yes, it's only faked for now  :-)
@@ -705,7 +705,7 @@ ViewAxis = {
 		me.prop.setDoubleValue(v + me.applied_offset);
 	},
 	add_offset : func {
-		me.prop.setValue(me.prop.getValue() + me.applied_offset);
+		me.prop.setDoubleValue(me.prop.getValue() + me.applied_offset);
 	},
 };
 
@@ -814,6 +814,15 @@ settimer(func {
 			crash(!cmdarg().getBoolValue())
 		}
 	});
+
+	setlistener("sim/signals/exit", func {
+		cprint("31;1", "exit");
+		setprop("sim/model/bo105/lateral-trim", getprop("controls/flight/aileron-trim"));
+		setprop("sim/model/bo105/longitudinal-trim", getprop("controls/flight/elevator-trim"));
+	});
+
+	setprop("controls/flight/aileron-trim", getprop("sim/model/bo105/lateral-trim"));
+	setprop("controls/flight/elevator-trim", getprop("sim/model/bo105/longitudinal-trim"));
 
 	# the attitude indicator needs pressure
 	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);

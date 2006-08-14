@@ -42,6 +42,9 @@ Bo 105 simulation config.
 			<bo105>
 				<variant type="int" userarchive="y">0</variant>
 				<managed-view type="bool" userarchive="y">true</managed-view>
+				<lateral-trim type="double" userarchive="y">0</lateral-trim>
+				<longitudinal-trim type="double" userarchive="y">0</longitudinal-trim>
+
 				<emblem type="string"><!-- country specific by default; see bo105.nas --></emblem>
 				<insignia type="string">Emblems/oebh.rgb</insignia>
 				<shadow type="bool">true</shadow>
@@ -50,6 +53,7 @@ Bo 105 simulation config.
 				<tail-angle type="int" archive="y">0</tail-angle>
 				<state type="int">0</state>
 				<rotor-step-deg type="float">-1.0</rotor-step-deg>
+
 				<material>
 					<glass>
 						<diffuse>
@@ -315,12 +319,6 @@ Bo 105 simulation config.
 	</sim>
 
 	<controls>
-		<flight>
-			<aileron-trim>0</aileron-trim>
-			<elevator-trim>0</elevator-trim>
-			<rudder-trim>0</rudder-trim>
-		</flight>
-
 		<engines>
 			<engine n="0">
 				<magnetos>0</magnetos>
