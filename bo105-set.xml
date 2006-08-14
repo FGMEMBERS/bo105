@@ -167,8 +167,8 @@ Bo 105 simulation config.
 		<view n="0">
 			<internal archive="y">true</internal>
 			<config>
-				<x-offset-m archive="y">0.38</x-offset-m><!--right-->
-				<y-offset-m archive="y">0.60</y-offset-m><!--up-->
+				<x-offset-m archive="y">0.37</x-offset-m><!--right-->
+				<y-offset-m archive="y">0.68</y-offset-m><!--up-->
 				<z-offset-m archive="y">1.0</z-offset-m><!--back-->
 				<pitch-offset-deg>-8</pitch-offset-deg>
 			</config>
