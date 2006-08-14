@@ -42,8 +42,8 @@ Bo 105 simulation config.
 			<bo105>
 				<variant type="int" userarchive="y">0</variant>
 				<managed-view type="bool" userarchive="y">true</managed-view>
-				<lateral-trim type="double" userarchive="y">0</lateral-trim>
-				<longitudinal-trim type="double" userarchive="y">0</longitudinal-trim>
+				<!--lateral-trim type="double" userarchive="y">0</lateral-trim>
+				<longitudinal-trim type="double" userarchive="y">0</longitudinal-trim-->
 
 				<emblem type="string"><!-- country specific by default; see bo105.nas --></emblem>
 				<insignia type="string">Emblems/oebh.rgb</insignia>
@@ -167,7 +167,7 @@ Bo 105 simulation config.
 		<view n="0">
 			<internal archive="y">true</internal>
 			<config>
-				<x-offset-m archive="y">0.37</x-offset-m><!--right-->
+				<x-offset-m archive="y">0.38</x-offset-m><!--right-->
 				<y-offset-m archive="y">0.68</y-offset-m><!--up-->
 				<z-offset-m archive="y">1.0</z-offset-m><!--back-->
 				<pitch-offset-deg>-8</pitch-offset-deg>

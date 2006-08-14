@@ -815,14 +815,14 @@ settimer(func {
 		}
 	});
 
-	setlistener("sim/signals/exit", func {
-		cprint("31;1", "exit");
-		setprop("sim/model/bo105/lateral-trim", getprop("controls/flight/aileron-trim"));
-		setprop("sim/model/bo105/longitudinal-trim", getprop("controls/flight/elevator-trim"));
-	});
+#	setlistener("sim/signals/exit", func {
+#		cprint("31;1", "exit");
+#		setprop("sim/model/bo105/lateral-trim", getprop("controls/flight/aileron-trim"));
+#		setprop("sim/model/bo105/longitudinal-trim", getprop("controls/flight/elevator-trim"));
+#	});
 
-	setprop("controls/flight/aileron-trim", getprop("sim/model/bo105/lateral-trim"));
-	setprop("controls/flight/elevator-trim", getprop("sim/model/bo105/longitudinal-trim"));
+#	setprop("controls/flight/aileron-trim", getprop("sim/model/bo105/lateral-trim"));
+#	setprop("controls/flight/elevator-trim", getprop("sim/model/bo105/longitudinal-trim"));
 
 	# the attitude indicator needs pressure
 	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
