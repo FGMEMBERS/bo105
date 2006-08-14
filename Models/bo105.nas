@@ -136,17 +136,10 @@ var torque_val = 0;
 
 set_torque = func {
 	var f = 0.075;				# low pass coeff
-	if (new_fdm) {
-		var t = torque.getValue();
-		if (t != nil) {
-			torque_val = t * f + torque_val * (1 - f);
-			torque_pct.setDoubleValue(torque_val / 120);
-		}
-	} else {
-		# yes, it's only faked for now  :-)
-		var r = rotor_rpm.getValue() / 442;		# rotor norm
-		var n = r * (17 + (1 - collective.getValue()) * 94);
-		torque_pct.setValue(torque_val = n * f + torque_val * (1 - f));
+	var t = torque.getValue();
+	if (t != nil) {
+		torque_val = t * f + torque_val * (1 - f);
+		torque_pct.setDoubleValue(torque_val / 120);
 	}
 }
 
@@ -772,16 +765,10 @@ main_loop = func {
 var CRASHED = 0;
 var variant = nil;
 var view_manager = nil;
-var new_fdm = nil;
 
 
 # initialization
 settimer(func {
-	settimer(func {
-		new_fdm = getprop("rotors/main/torque") != nil;
-		cprint("32;1", new_fdm ? "new FDM" : "old FDM");
-	}, 5);
-
 	init_rotoranim();
 	init_weapons();
 
