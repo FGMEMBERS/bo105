@@ -11,25 +11,30 @@
 	<params>
 		<flapA>
 			<factor>0.2</factor>
-			<max-deg>0.6</max-deg>
+			<max-deg>99</max-deg>
 		</flapA>
 		<flapB>
 			<factor>0.3</factor>
-			<max-deg>0.6</max-deg>
+			<max-deg>99</max-deg>
 		</flapB>
 		<flapC>
 			<factor>0.26</factor>
-			<max-deg>0.6</max-deg>
+			<max-deg>99</max-deg>
 		</flapC>
 		<flapD>
 			<factor>0.37</factor>
-			<max-deg>0.6</max-deg>
+			<max-deg>99</max-deg>
 		</flapD>
 		<flapE>
 			<factor>0.4</factor>
-			<max-deg>0.6</max-deg>
+			<max-deg>99</max-deg>
 		</flapE>
 	</params>
+
+	<animation>
+		<type>select</type>
+		<object-name>bounding_box</object-name>
+	</animation>
 
 <!--== shadows ==-->
 
@@ -1910,6 +1915,8 @@
 		</axis>
 	</animation>
 
+<!--== variant addons ==-->
+
 	<animation>
 		<type>select</type>
 		<object-name>wiper_L</object-name>
@@ -1983,11 +1990,6 @@
 			<y>0</y>
 			<z>0</z>
 		</axis>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>bounding_box</object-name>
 	</animation>
 
 <!--== material ==-->
