@@ -712,7 +712,7 @@ ViewManager = {
 
 		m.heading.input = func { (me.roll < 0 ? -50 : -25) * npow(sin(me.roll) * cos(me.pitch), 2) }
 		m.pitch.input = func { (me.pitch < 0 ? -35 : -40) * sin(me.pitch) * me.speed
-				- 35 * cos(me.roll * 0.5) + 35 }
+				+ 15 * sin(me.roll) * sin(me.roll) }
 		m.roll.input = func { -20 * sin(me.roll) * cos(me.pitch) * me.speed }
 
 		m.reset();
