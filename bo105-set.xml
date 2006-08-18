@@ -273,23 +273,6 @@ Bo 105 simulation config.
 			<max-lb>800</max-lb>
 		</weight>
 
-		<menubar>
-			<default>
-				<menu n="1">
-					<item n="100">
-						<label>Toggle dynamic cockpit view</label>
-						<binding>
-							<command>nasal</command>
-							<script>
-								var p = "/sim/model/bo105/managed-view";
-								setprop(p, !getprop(p));
-							</script>
-						</binding>
-					</item>
-				</menu>
-			</default>
-		</menubar>
-
 		<help>
 			<title>Bo105</title>
 			<key>
@@ -446,15 +429,12 @@ Bo 105 simulation config.
 			</key>
 
 			<key n="118">
-				<name>v</name>
-				<desc>Toggle managed cockpit view</desc>
+				<name>Alt-v</name>
+				<desc>Toggle dynamic cockpit view</desc>
 				<mod-alt>
 					<binding>
-						<command>nasal</command>
-						<script>
-							var p = "sim/model/bo105/managed-view";
-							setprop(p, !getprop(p));
-						</script>
+						<command>property-toggle</command>
+						<property>/sim/view/dynamic/enabled</property>
 					</binding>
 				</mod-alt>
 			</key>

@@ -667,97 +667,91 @@ recalc_ammo_loop = func {
 
 # view management ===================================================
 
-var cockpit_view = nil;
-setlistener("/sim/current-view/view-number", func { cockpit_view = (cmdarg().getValue() == 0) }, 1);
 
-var managed_view = nil;
-setlistener("/sim/model/bo105/managed-view", func { managed_view = cmdarg().getBoolValue() }, 1);
-
-var headingN = props.globals.getNode("orientation/heading-deg");
-var pitchN = props.globals.getNode("orientation/pitch-deg");
-var rollN = props.globals.getNode("orientation/roll-deg");
-var speedN = props.globals.getNode("velocities/airspeed-kt");
-
-
-ViewAxis = {
-	new : func(prop) {
-		var m = { parents : [ViewAxis] };
-		m.prop = props.globals.getNode(prop, 0);
-		m.reset();
-		return m;
-	},
-	reset : func {
-		me.applied_offset = 0;
-	},
-	input : func {
-		die("ViewAxis.input() is pure virtual");
-	},
-	apply : func {
-		var v = me.prop.getValue() - me.applied_offset;
-		me.applied_offset = me.input();
-		me.prop.setDoubleValue(v + me.applied_offset);
-	},
-	add_offset : func {
-		me.prop.setDoubleValue(me.prop.getValue() + me.applied_offset);
-	},
-};
-
+ViewAxis = dynamic_view.ViewAxis;
 
 ViewManager = {
 	new : func {
 		var m = { parents : [ViewManager] };
-		m.heading = ViewAxis.new("sim/current-view/goal-heading-offset-deg");
-		m.pitch = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
-		m.roll = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
+		m.pitchN = props.globals.getNode("orientation/pitch-deg");
+		m.rollN = props.globals.getNode("orientation/roll-deg");
+		m.speedN = props.globals.getNode("velocities/airspeed-kt");
 
-		m.heading.input = func { (me.roll < 0 ? -50 : -25) * npow(sin(me.roll) * cos(me.pitch), 2) }
-		m.pitch.input = func { (me.pitch < 0 ? -35 : -40) * sin(me.pitch) * me.speed
-				+ 15 * sin(me.roll) * sin(me.roll) }
-		m.roll.input = func { -20 * sin(me.roll) * cos(me.pitch) * me.speed }
+		m.heading_axis = ViewAxis.new("sim/current-view/goal-heading-offset-deg");
+		m.pitch_axis = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
+		m.roll_axis = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
 
 		m.reset();
 		return m;
 	},
 	reset : func {
-		me.heading.reset();
-		me.pitch.reset();
-		me.roll.reset();
+		me.lookat_active = 0;
+		me.heading_axis.reset();
+		me.pitch_axis.reset();
+		me.roll_axis.reset();
+	},
+	add_offset : func {
+		me.heading_axis.add_offset();
+		me.pitch_axis.add_offset();
+		me.roll_axis.add_offset();
 	},
 	apply : func {
-		ViewAxis.roll = rollN.getValue();
-		ViewAxis.pitch = pitchN.getValue();
-		ViewAxis.speed = pow(1 - clamp(speedN.getValue(), 0, 140) / 140, 2);
+		if (me.lookat_active) {
+			me.heading_axis.prop.setValue(me.lookat_heading);
+			me.pitch_axis.prop.setValue(me.lookat_pitch);
+			return;
+		}
 
-		me.heading.apply();
-		me.pitch.apply();
-		me.roll.apply();
+		var roll = me.rollN.getValue();
+		var pitch = me.pitchN.getValue();
+		var speed = pow(1 - clamp(me.speedN.getValue(), 0, 140) / 140, 2);
+
+		me.heading_axis.apply(
+			(roll < 0 ? -50 : -25) * npow(sin(roll) * cos(pitch), 2)
+		);
+		me.pitch_axis.apply(
+			(pitch < 0 ? -35 : -40) * sin(pitch) * speed + 15 * sin(roll) * sin(roll)
+		);
+		me.roll_axis.apply(
+			-20 * sin(roll) * cos(pitch) * speed
+		);
 	},
-	add_offsets : func {
-		me.heading.add_offset();
-		me.pitch.add_offset();
-		me.roll.add_offset();
+	lookat : func(h = nil, p = nil) {
+		if (h == nil) {
+			view.resetView();
+			me.lookat_active = 0;
+			return;
+		}
+		me.lookat_heading = h;
+		me.lookat_pitch = p;
+		me.lookat_active = 1;
 	},
 };
 
 
-var original_resetView = view.resetView;
-view.resetView = func {
-	original_resetView();
-	if (cockpit_view and managed_view) {
-		view_manager.add_offsets();
+var flap_mode = 0;
+controls.flapsDown = func(v) {
+	if (!flap_mode) {
+		if (v < 0) {
+			flap_mode = 1;
+			view_manager.lookat(10, -12);
+		} elsif (v > 0) {
+			flap_mode = 2;
+		}
+	} else {
+		if (flap_mode == 1) {
+			view_manager.lookat();
+		} else {
+		}
+		flap_mode = 0;
 	}
 }
-
 
 
 # main() ============================================================
 
 main_loop = func {
 	set_torque();
-
-	if (cockpit_view and managed_view) {
-		view_manager.apply();
-	}
 	settimer(main_loop, 0);
 }
 
@@ -773,7 +767,7 @@ settimer(func {
 	init_weapons();
 
 	variant = Variant.new();
-	view_manager = ViewManager.new();
+	settimer(func { dynamic_view.register(view_manager = ViewManager.new()) }, 4);
 
 	setlistener("/sim/signals/reinit", func {
 		cprint("32;1", "reinit ", cmdarg().getValue());
@@ -801,15 +795,6 @@ settimer(func {
 			crash(!cmdarg().getBoolValue())
 		}
 	});
-
-#	setlistener("sim/signals/exit", func {
-#		cprint("31;1", "exit");
-#		setprop("sim/model/bo105/lateral-trim", getprop("controls/flight/aileron-trim"));
-#		setprop("sim/model/bo105/longitudinal-trim", getprop("controls/flight/elevator-trim"));
-#	});
-
-#	setprop("controls/flight/aileron-trim", getprop("sim/model/bo105/lateral-trim"));
-#	setprop("controls/flight/elevator-trim", getprop("sim/model/bo105/longitudinal-trim"));
 
 	# the attitude indicator needs pressure
 	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
