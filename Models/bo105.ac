@@ -22,7 +22,7 @@ OBJECT world
 kids 114
 OBJECT poly
 name "shadow_fuselage"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 73
 0.417928 -0.792587 -0.800302
@@ -429,7 +429,7 @@ refs 4
 kids 0
 OBJECT poly
 name "shadow_rotor"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 -5.051777 -1.083716 -5.06569
@@ -3765,7 +3765,7 @@ refs 4
 kids 0
 OBJECT poly
 name "emblem"
-texture "red-cross.rgb"
+texture "empty.rgb"
 texrep 1.0 1.0
 numvert 50
 -1.124915 -0.66938 0.240826
@@ -17419,7 +17419,7 @@ refs 4
 kids 0
 OBJECT poly
 name "nav_halo_Lf"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 0.021989 0
@@ -17442,7 +17442,7 @@ refs 3
 kids 0
 OBJECT poly
 name "nav_halo_Rf"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 -0.021989 0
@@ -24837,7 +24837,7 @@ refs 4
 kids 0
 OBJECT poly
 name "strobe_halo_Bf"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021978 -0.000703 0.021989
@@ -27692,7 +27692,7 @@ refs 3
 kids 0
 OBJECT poly
 name "strobe_halo_B"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 0.021989 0
@@ -27715,7 +27715,7 @@ refs 3
 kids 0
 OBJECT poly
 name "strobe_halo_T"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 0.021989 0
@@ -27738,7 +27738,7 @@ refs 3
 kids 0
 OBJECT poly
 name "nav_halo_L"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 0.021989 0
@@ -27761,7 +27761,7 @@ refs 3
 kids 0
 OBJECT poly
 name "nav_halo_R"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 0.021989 0
@@ -27784,7 +27784,7 @@ refs 3
 kids 0
 OBJECT poly
 name "beacon_halo_B"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 0.021989 0
@@ -27807,7 +27807,7 @@ refs 3
 kids 0
 OBJECT poly
 name "beacon_halo_Bf"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 0 0.021989
@@ -27830,7 +27830,7 @@ refs 3
 kids 0
 OBJECT poly
 name "beacon_halo_T"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 4
 0.021989 0.021989 0
@@ -31922,7 +31922,7 @@ refs 3
 kids 0
 OBJECT poly
 name "rotor_disc_M"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 66
 3.130723 1.770822 -3.81278
@@ -32603,7 +32603,7 @@ refs 4
 kids 0
 OBJECT poly
 name "rotor_disc_T"
-texture "bo105-1.png"
+texture "bo105-1.rgb"
 texrep 1.0 1.0
 numvert 34
 6.688254 2.448761 0.251085
