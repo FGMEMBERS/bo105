@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-	<desc>Military MedEvac with Red Cross/Crescent/Chevron emblem</desc>
+	<desc>Military MedEvac with Red Cross/Crescent/Crystal emblem</desc>
 
 	<livery type="string">livery.rgb</livery>
 	<emblem type="string">$MED</emblem>

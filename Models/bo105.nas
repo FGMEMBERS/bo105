@@ -13,6 +13,7 @@ cos = func(a) { math.cos(a * math.pi / 180.0) }
 pow = func(v, w) { math.exp(math.ln(v) * w) }
 npow = func(v, w) { math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) }
 clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
+normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
 
 
 sort = func(l) {
@@ -704,16 +705,17 @@ ViewManager = {
 
 		var roll = me.rollN.getValue();
 		var pitch = me.pitchN.getValue();
-		var speed = pow(1 - clamp(me.speedN.getValue(), 0, 140) / 140, 2);
+		var speed = 1 - normatan(me.speedN.getValue() / 20);
 
-		me.heading_axis.apply(
-			(roll < 0 ? -50 : -25) * npow(sin(roll) * cos(pitch), 2)
+		me.heading_axis.apply(							# view heading due to ...
+			(roll < 0 ? -50 : -25) * npow(sin(roll) * cos(pitch), 2)	#    roll
 		);
-		me.pitch_axis.apply(
-			(pitch < 0 ? -35 : -40) * sin(pitch) * speed + 15 * sin(roll) * sin(roll)
+		me.pitch_axis.apply(							# view pitch due to ...
+			(pitch < 0 ? -35 : -40) * sin(pitch) * speed			#    pitch
+			+ 15 * sin(roll) * sin(roll)					#    roll
 		);
-		me.roll_axis.apply(
-			-20 * sin(roll) * cos(pitch) * speed
+		me.roll_axis.apply(							# view roll due to ...
+			-20 * sin(roll) * cos(pitch) * speed				#    roll
 		);
 	},
 	lookat : func(h = nil, p = nil) {
@@ -790,7 +792,7 @@ settimer(func {
 	});
 
 	setlistener("/sim/freeze/replay-state", func {
-		cprint("33;1", "replay ", cmdarg().getValue());
+		cprint("33;1", cmdarg().getValue() ? "replay" : "pause");
 		if (CRASHED) {
 			crash(!cmdarg().getBoolValue())
 		}
