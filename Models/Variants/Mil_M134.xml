@@ -1,46 +1,47 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-	<desc>Orange civilian</desc>
+	<desc type="string">Military with M134 Gatling style "Miniguns"</desc>
+	<index type="int">50</index>
 
 	<livery type="string">livery.rgb</livery>
-	<emblem type="string">empty.rgb</emblem>
+	<emblem type="string">$MIL</emblem>
 	<wiper type="bool">true</wiper>
-	<wire-cutter type="bool">false</wire-cutter>
-	<miniguns type="bool">false</miniguns>
+	<wire-cutter type="bool">true</wire-cutter>
+	<miniguns type="bool">true</miniguns>
 	<missiles type="bool">false</missiles>
 
 	<material>
 		<fuselage>
 			<diffuse>
-				<red>0.65</red>
-				<green>0.3</green>
-				<blue>0.0</blue>
+				<red>0.35</red>
+				<green>0.36</green>
+				<blue>0.31</blue>
 			</diffuse>
 
 			<ambient>
-				<red>0.65</red>
-				<green>0.3</green>
-				<blue>0.0</blue>
+				<red>0.35</red>
+				<green>0.36</green>
+				<blue>0.31</blue>
 			</ambient>
 
 			<specular>
-				<red>0.66</red>
-				<green>0.4</green>
+				<red>0.0</red>
+				<green>0.0</green>
 				<blue>0.0</blue>
 			</specular>
 
 			<emission>
-				<red>0.0</red>
-				<green>0.0</green>
-				<blue>0.0</blue>
+				<red>0.02</red>
+				<green>0.02</green>
+				<blue>0.02</blue>
 			</emission>
 
 			<transparency>
 				<alpha>1.0</alpha>
 			</transparency>
 
-			<shininess>10</shininess>
+			<shininess>0</shininess>
 		</fuselage>
 
 		<glass>

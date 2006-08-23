@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-	<desc>Military MedEvac with Red Cross/Crescent/Crystal emblem</desc>
+	<desc type="string">Military anti-tank with HOT missiles</desc>
+	<index type="int">60</index>
 
 	<livery type="string">livery.rgb</livery>
-	<emblem type="string">$MED</emblem>
+	<emblem type="string">$MIL</emblem>
 	<wiper type="bool">true</wiper>
 	<wire-cutter type="bool">true</wire-cutter>
 	<miniguns type="bool">false</miniguns>
-	<missiles type="bool">false</missiles>
+	<missiles type="bool">true</missiles>
 
 	<material>
 		<fuselage>

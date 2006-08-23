@@ -178,7 +178,7 @@ crash = func {
 		torque_pct.setValue(torqueval = 0);
 		state.setValue(0);
 		var n = props.globals.getNode("models", 1);
-		for (var i = 0; 42; i += 1) {
+		for (var i = 0; 1; i += 1) {
 			if (n.getChild("model", i, 0) == nil) {
 				n = n.getChild("model", i, 1);
 				n.setValues({
@@ -318,7 +318,7 @@ determine_emblem = func {
 			}
 		}
 	}
-	print(apt ~ "/" ~ country[2] ~ " >> " ~ emblem[country[1]][0]);
+	printlog("info", "bo105: ", apt ~ "/" ~ country[2] ~ " >> " ~ emblem[country[1]][0]);
 	return emblem[country[1]][1];
 }
 
@@ -327,46 +327,66 @@ determine_emblem = func {
 Variant = {
 	new : func {
 		var m = { parents : [Variant] };
+		m.self = props.globals.getNode("sim/model/bo105", 1);
 		m.emblem_medevac = determine_emblem();
-		m.emblem_military = getprop("sim/model/bo105/insignia");
-		m.list = m.scan();
-		m.index = getprop("sim/model/bo105/variant");
-		if (m.index >= size(m.list)) {
+		m.emblem_military = m.self.getNode("insignia", 1).getValue();
+		m.variantN = m.self.getNode("variants", 1);
+		m.scan();
+		m.list = m.variantN.getChildren("variant");
+
+		m.index = m.self.getNode("variant", 1).getValue();
+		if (m.index < 0 or m.index >= size(m.list)) {
 			m.index = 0;
 		}
-		m.reset();
+		m.set(m.index);
 		return m;
+	},
+	scan : func {
+		me.variantN.removeChildren("variant");
+		var dir = "Aircraft/bo105/Models/Variants";
+		foreach (var f; directory(getprop("/sim/fg-root") ~ "/" ~ dir)) {
+			if (substr(f, size(f) - 4) != ".xml") {
+				continue;
+			}
+			var tmp = me.self.getNode("tmp", 1);
+			printlog("info", "bo105: loading ", dir ~ "/" ~ f);
+			me.load(dir ~ "/" ~ f);
+			var index = tmp.getNode("index");
+			if (index != nil) {
+				index = index.getValue();
+			}
+			printlog("info", "       #", index, " -- ", tmp.getNode("desc", 1).getValue());
+			if (index == nil) {
+				for (index = 1000; 1; index += 1) {
+					if (me.variantN.getChild("variant", index, 0) == nil) {
+						break;
+					}
+				}
+			}
+			props.copy(tmp, me.variantN.getChild("variant", index, 1));
+		}
+		me.self.removeChildren("tmp");
 	},
 	next : func {
 		me.index += 1;
 		if (me.index >= size(me.list)) {
 			me.index = 0;
 		}
-		me.reset();
+		me.set();
 	},
 	previous : func {
 		me.index -= 1;
 		if (me.index < 0) {
 			me.index = size(me.list) - 1;
 		}
-		me.reset();
-	},
-	scan : func {
-		var dir = "Aircraft/bo105/Models/Variants";
-		var lst = [];
-		foreach (var f; directory(getprop("/sim/fg-root") ~ "/" ~ dir)) {
-			if (substr(f, size(f) - 4) == ".xml") {
-				append(lst, dir ~ "/" ~ f);
-			}
-		}
-		return sort(lst);
-	},
-	reset : func {
-		me.load(me.list[me.index]);
+		me.set();
 	},
 	load : func(file) {
-		fgcommand("loadxml", props.Node.new({"filename": file, "targetnode": "sim/model/bo105"}));
-		var emblem = getprop("/sim/model/bo105/emblem");
+		fgcommand("loadxml", props.Node.new({"filename": file, "targetnode": "sim/model/bo105/tmp"}));
+	},
+	set : func {
+		props.copy(me.list[me.index], me.self);
+		var emblem = me.self.getNode("emblem", 1).getValue();
 		if (emblem == "$MED") {
 			emblem = me.emblem_medevac;
 		} elsif (emblem == "$MIL") {
@@ -374,16 +394,16 @@ Variant = {
 		} elsif (emblem == "") {
 			emblem = "empty.rgb";
 		}
-		setprop("sim/model/bo105/material/emblem/texture", emblem);
+		me.self.getNode("material/emblem/texture", 1).setValue(emblem);
 
 		if (weapons != nil) {
 			weapons.disable();
 			weapons = nil;
 		}
 
-		if (getprop("sim/model/bo105/missiles")) {
+		if (me.self.getNode("missiles", 1).getBoolValue()) {
 			weapons = HOT;
-		} elsif (getprop("sim/model/bo105/miniguns")) {
+		} elsif (me.self.getNode("miniguns", 1).getBoolValue()) {
 			weapons = MG;
 		}
 
@@ -391,7 +411,7 @@ Variant = {
 			weapons.enable();
 			recalc_ammo_loop();
 		}
-		setprop("/sim/model/bo105/variant", me.index);
+		me.self.getNode("variant", 1).setIntValue(me.index);
 	},
 };
 
@@ -674,9 +694,9 @@ ViewAxis = dynamic_view.ViewAxis;
 ViewManager = {
 	new : func {
 		var m = { parents : [ViewManager] };
-		m.pitchN = props.globals.getNode("orientation/pitch-deg");
-		m.rollN = props.globals.getNode("orientation/roll-deg");
-		m.speedN = props.globals.getNode("velocities/airspeed-kt");
+		m.pitchN = props.globals.getNode("orientation/pitch-deg", 1);
+		m.rollN = props.globals.getNode("orientation/roll-deg", 1);
+		m.speedN = props.globals.getNode("velocities/airspeed-kt", 1);
 
 		m.heading_axis = ViewAxis.new("sim/current-view/goal-heading-offset-deg");
 		m.pitch_axis = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
