@@ -2156,6 +2156,7 @@
 			<alpha-prop>transparency/alpha</alpha-prop>
 		</transparency>
 		<shininess-prop>shininess</shininess-prop>
+		<texture-prop>texture</texture-prop>
 	</animation>
 </PropertyList>
 
