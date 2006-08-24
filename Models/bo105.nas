@@ -617,34 +617,6 @@ reload = func {
 
 
 
-# dialogs ===========================================================
-Dialog = {
-	new : func(prop, path) {
-		var m = { parents : [Dialog] };
-		m.path = path;
-		m.prop = isa(props.Node, prop) ? prop : props.globals.getNode(prop, 1);
-		m.state = 0;
-		return m;
-	},
-	open : func {
-		gui.loadXMLDialog(me.prop, me.path);
-		fgcommand("dialog-show", me.prop);
-		me.state = 1;
-	},
-	close : func {
-		fgcommand("dialog-close", me.prop);
-		me.state = 0;
-	},
-	toggle : func {
-		me.state ? me.close() : me.open();
-	},
-	is_open : func {
-		me.state;
-	},
-};
-
-
-
 # view management ===================================================
 
 ViewAxis = dynamic_view.ViewAxis;
@@ -745,7 +717,8 @@ var config_dialog = nil;
 
 # initialization
 settimer(func {
-	config_dialog = Dialog.new("/sim/gui/dialogs/bo105/config/dialog", "Aircraft/bo105/Dialogs/config.xml");
+	config_dialog = gui.Dialog.new("/sim/gui/dialogs/bo105/config/dialog",
+			"Aircraft/bo105/Dialogs/config.xml");
 
 	init_rotoranim();
 	init_weapons();
