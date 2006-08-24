@@ -4,7 +4,6 @@
 	<desc type="string">Military with M134 Gatling style "Miniguns"</desc>
 	<index type="int">50</index>
 
-	<livery type="string">livery.rgb</livery>
 	<emblem type="string">$MIL</emblem>
 	<wiper type="bool">true</wiper>
 	<wire-cutter type="bool">true</wire-cutter>
@@ -13,6 +12,8 @@
 
 	<material>
 		<fuselage>
+			<texture type="string">livery.rgb</texture>
+
 			<diffuse>
 				<red>0.35</red>
 				<green>0.36</green>

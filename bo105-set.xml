@@ -41,10 +41,6 @@ Bo 105 simulation config.
 			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
 			<bo105>
 				<variant type="int" userarchive="y">0</variant>
-				<managed-view type="bool" userarchive="y">true</managed-view>
-				<!--lateral-trim type="double" userarchive="y">0</lateral-trim>
-				<longitudinal-trim type="double" userarchive="y">0</longitudinal-trim-->
-
 				<emblem type="string"><!-- country specific by default; see bo105.nas --></emblem>
 				<insignia type="string">Emblems/oebh.rgb</insignia>
 				<shadow type="bool">true</shadow>
@@ -348,7 +344,7 @@ Bo 105 simulation config.
 				<desc>Open/close selected door</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.toggle_door()</script>
+					<script>bo105.doors.toggle()</script>
 				</binding>
 			</key>
 
@@ -357,7 +353,7 @@ Bo 105 simulation config.
 				<desc>Show configuration dialog</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.showDialog()</script>
+					<script>bo105.config_dialog.toggle()</script>
 				</binding>
 			</key>
 
@@ -379,7 +375,7 @@ Bo 105 simulation config.
 				<desc>Select previous door</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.previous_door()</script>
+					<script>bo105.doors.previous()</script>
 				</binding>
 			</key>
 
@@ -409,7 +405,7 @@ Bo 105 simulation config.
 				<desc>Select next door</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.next_door()</script>
+					<script>bo105.doors.next()</script>
 				</binding>
 			</key>
 

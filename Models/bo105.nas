@@ -66,33 +66,41 @@ settimer(nav_light_loop, 0);
 
 
 # doors =============================================================
-var active_door = 0;
-var doors = [];
+Doors = {
+	new : func {
+		var m = { parents : [Doors] };
+		m.active = 0;
+		m.list = [];
+		foreach (var d; props.globals.getNode("sim/model/bo105/doors").getChildren("door")) {
+			append(m.list, aircraft.door.new(d, 2.5));
+		}
+		return m;
+	},
+	next : func {
+		me.select(me.active + 1);
+	},
+	previous : func {
+		me.select(me.active - 1);
+	},
+	select : func(which) {
+		me.active = which;
+		if (me.active < 0) {
+			me.active = size(me.list) - 1;
+		} elsif (me.active >= size(me.list)) {
+			me.active = 0;
+		}
+		gui.popupTip("Selecting " ~ me.list[me.active].node.getNode("name").getValue());
+	},
+	toggle : func {
+		me.list[me.active].toggle();
+	},
+	reset : func {
+		foreach (var d; me.list) {
+			d.setpos(0);
+		}
+	},
+};
 
-init_doors = func {
-	foreach (d; props.globals.getNode("sim/model/bo105/doors").getChildren("door")) {
-		append(doors, aircraft.door.new(d, 2.5));
-	}
-}
-settimer(init_doors, 0);
-
-next_door = func { select_door(active_door + 1) }
-
-previous_door = func { select_door(active_door - 1) }
-
-select_door = func {
-	active_door = arg[0];
-	if (active_door < 0) {
-		active_door = size(doors) - 1;
-	} elsif (active_door >= size(doors)) {
-		active_door = 0;
-	}
-	gui.popupTip("Selecting " ~ doors[active_door].node.getNode("name").getValue());
-}
-
-toggle_door = func {
-	doors[active_door].toggle();
-}
 
 
 
@@ -198,9 +206,7 @@ crash = func {
 		# uncrash (for replay)
 		setprop("sim/model/bo105/tail-angle", 0);
 		setprop("sim/model/bo105/shadow", 1);
-		foreach (d; doors) {
-			d.setpos(0);
-		}
+		doors.reset();
 		setprop("rotors/tail/rpm", 2219);
 		setprop("rotors/main/rpm", 442);
 		for (i = 1; i < 5; i += 1) {
@@ -331,18 +337,14 @@ Variant = {
 		m.emblem_medevac = determine_emblem();
 		m.emblem_military = m.self.getNode("insignia", 1).getValue();
 		m.variantN = m.self.getNode("variants", 1);
-		m.scan();
-		m.list = m.variantN.getChildren("variant");
-
+		m.list = [];
 		m.index = m.self.getNode("variant", 1).getValue();
-		if (m.index < 0 or m.index >= size(m.list)) {
-			m.index = 0;
-		}
-		m.set(m.index);
+		m.scan();
 		return m;
 	},
 	scan : func {
 		me.variantN.removeChildren("variant");
+		me.list = nil;
 		var dir = "Aircraft/bo105/Models/Variants";
 		foreach (var f; directory(getprop("/sim/fg-root") ~ "/" ~ dir)) {
 			if (substr(f, size(f) - 4) != ".xml") {
@@ -356,7 +358,7 @@ Variant = {
 				index = index.getValue();
 			}
 			printlog("info", "       #", index, " -- ", tmp.getNode("desc", 1).getValue());
-			if (index == nil) {
+			if (index == nil or index < 0) {
 				for (index = 1000; 1; index += 1) {
 					if (me.variantN.getChild("variant", index, 0) == nil) {
 						break;
@@ -364,27 +366,32 @@ Variant = {
 				}
 			}
 			props.copy(tmp, me.variantN.getChild("variant", index, 1));
+			tmp.removeChildren();
 		}
-		me.self.removeChildren("tmp");
+		me.list = me.variantN.getChildren("variant");
+		if (me.index < 0 or me.index >= size(me.list)) {
+			me.index = 0;
+		}
+		me.reset();
 	},
 	next : func {
 		me.index += 1;
 		if (me.index >= size(me.list)) {
 			me.index = 0;
 		}
-		me.set();
+		me.reset();
 	},
 	previous : func {
 		me.index -= 1;
 		if (me.index < 0) {
 			me.index = size(me.list) - 1;
 		}
-		me.set();
+		me.reset();
 	},
 	load : func(file) {
 		fgcommand("loadxml", props.Node.new({"filename": file, "targetnode": "sim/model/bo105/tmp"}));
 	},
-	set : func {
+	reset : func {
 		props.copy(me.list[me.index], me.self);
 		var emblem = me.self.getNode("emblem", 1).getValue();
 		if (emblem == "$MED") {
@@ -409,7 +416,6 @@ Variant = {
 
 		if (weapons != nil) {
 			weapons.enable();
-			recalc_ammo_loop();
 		}
 		me.self.getNode("variant", 1).setIntValue(me.index);
 	},
@@ -428,9 +434,9 @@ Variant = {
 #	<base-weight>		# remaining empty weight
 #	[, <submodel-factor>	# one reported submodel counts for how many items
 #	[, <weight-prop>]]);	# where to put the calculated weight
-weapon = {
+Weapon = {
 	new : func(prop, ndx, cap, dropw, basew, fac = 1, wprop = nil) {
-		m = { parents : [weapon] };
+		m = { parents : [Weapon] };
 		m.node = makeNode(prop);
 		m.enabledN = m.node.getNode("enabled", 1);
 		m.enabledN.setBoolValue(0);
@@ -456,15 +462,29 @@ weapon = {
 		}
 		return m;
 	},
-	enable  : func { me.fire(0); me.enabledN.setBoolValue(arg[0]); me.update(); me },
-
-	setammo : func { me.sm_countN.setValue(arg[0] / me.ratio); me.update(); me },
-	getammo : func { me.countN.getValue() },
-	getweight:func { me.weightN.getValue() },
-
-	reload  : func { me.fire(0); me.setammo(me.capacity); me },
-
-	update  : func {
+	enable : func {
+		me.fire(0);
+		me.enabledN.setBoolValue(arg[0]);
+		me.update();
+		me;
+	},
+	setammo : func {
+		me.sm_countN.setValue(arg[0] / me.ratio);
+		me.update();
+		me;
+	},
+	getammo : func {
+		me.countN.getValue();
+	},
+	getweight : func {
+		me.weightN.getValue();
+	},
+	reload : func {
+		me.fire(0);
+		me.setammo(me.capacity);
+		me;
+	},
+	update : func {
 		if (me.enabledN.getValue()) {
 			me.countN.setValue(me.sm_countN.getValue() * me.ratio);
 			me.weightN.setValue(me.baseweight + me.countN.getValue() * me.dropweight);
@@ -473,14 +493,12 @@ weapon = {
 			me.weightN.setValue(0);
 		}
 	},
-
-	fire    : func(t) {
+	fire : func(t) {
 		me.triggerN.setBoolValue(t);
 		if (t) {
 			me._loop_();
 		}
 	},
-
 	_loop_  : func {
 		me.update();
 		if (me.triggerN.getBoolValue() and me.enabledN.getValue() and me.countN.getValue()) {
@@ -491,23 +509,47 @@ weapon = {
 
 
 # "name", <ammo-desc>
-weapon_system = {
+WeaponSystem = {
 	new : func(name, adesc) {
-		m = { parents : [weapon_system] };
+		m = { parents : [WeaponSystem] };
 		m.name = name;
 		m.ammunition_type = adesc;
 		m.weapons = [];
 		m.enabled = 0;
-		me.select = 0;
+		m.select = 0;
 		return m;
 	},
-	add      : func { append(me.weapons, arg[0]) },
-	reload   : func { me.select = 0; foreach (w; me.weapons) { w.reload() } },
-	fire     : func { foreach (w; me.weapons) { w.fire(arg[0]) } },
-	getammo  : func { n = 0; foreach (w; me.weapons) { n += w.getammo() }; n },
-	ammodesc : func { me.ammunition_type },
-	disable  : func { me.enabled = 0; foreach (w; me.weapons) { w.enable(0); } },
-	enable   : func {
+	add : func {
+		append(me.weapons, arg[0]);
+	},
+	reload : func {
+		me.select = 0;
+		foreach (w; me.weapons) {
+			w.reload();
+		}
+	},
+	fire : func {
+		foreach (w; me.weapons) {
+			w.fire(arg[0]);
+		}
+	},
+	getammo : func {
+		n = 0;
+		foreach (w; me.weapons) {
+			n += w.getammo();
+		}
+		return n;
+	},
+	ammodesc : func {
+		me.ammunition_type;
+	},
+	disable : func {
+		me.enabled = 0;
+		foreach (w; me.weapons) {
+			w.enable(0);
+		}
+	},
+	enable : func {
 		me.select = 0;
 		foreach (w; me.weapons) {
 			w.enable(1);
@@ -523,32 +565,31 @@ var MG = nil;
 var HOT = nil;
 
 init_weapons = func {
-	MG = weapon_system.new("M134", "rounds (7.62 mm)");
+	MG = WeaponSystem.new("M134", "rounds (7.62 mm)");
 	# propellant: 2.98 g + bullet: 9.75 g  ->  0.0127 kg
 	# M134 minigun: 18.8 kg + M27 armament subsystem: ??  ->
-	MG.add(weapon.new("sim/model/bo105/weapons/MG[0]", 0, 4000, 0.0127, 100, 10));
-	MG.add(weapon.new("sim/model/bo105/weapons/MG[1]", 1, 4000, 0.0127, 100, 10));
+	MG.add(Weapon.new("sim/model/bo105/weapons/MG[0]", 0, 4000, 0.0127, 100, 10));
+	MG.add(Weapon.new("sim/model/bo105/weapons/MG[1]", 1, 4000, 0.0127, 100, 10));
 
-	HOT = weapon_system.new("HOT", "missiles");
+	HOT = WeaponSystem.new("HOT", "missiles");
 	# 24 kg; missile + tube: 32 kg
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[0]", 2, 1, 24, 20));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[1]", 3, 1, 24, 20));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[2]", 4, 1, 24, 20));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[3]", 5, 1, 24, 20));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[4]", 6, 1, 24, 20));
-	HOT.add(weapon.new("sim/model/bo105/weapons/HOT[5]", 7, 1, 24, 20));
-	HOT.fire = func {
-		if (arg[0]) {
-			if (me.select < size(me.weapons)) {
-				wp = me.weapons[me.select];
-				wp.fire(1);
-				weight = wp.weightN.getValue();
-				wp.weightN.setValue(weight + 300);	# shake the bo
-				settimer(func { wp.weightN.setValue(weight) }, 0.3);
-				me.select += 1;
-			}
+	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[0]", 2, 1, 24, 20));
+	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[1]", 3, 1, 24, 20));
+	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[2]", 4, 1, 24, 20));
+	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[3]", 5, 1, 24, 20));
+	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[4]", 6, 1, 24, 20));
+	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[5]", 7, 1, 24, 20));
+	HOT.fire = func(trigger) {
+		if (!trigger or me.select >= size(me.weapons)) {
+			return;
 		}
-	};
+		wp = me.weapons[me.select];
+		wp.fire(1);
+		weight = wp.weightN.getValue();
+		wp.weightN.setValue(weight + 300);	# shake the bo
+		settimer(func { wp.weightN.setValue(weight) }, 0.3);
+		me.select += 1;
+	}
 }
 
 
@@ -577,117 +618,34 @@ reload = func {
 
 
 # dialogs ===========================================================
-var dialog = nil;
-
-showDialog = func {
-	name = "bo105-config";
-	if (dialog != nil) {
-		fgcommand("dialog-close", props.Node.new({ "dialog-name" : name }));
-		dialog = nil;
-		return;
-	}
-
-	dialog = gui.Widget.new();
-	dialog.set("layout", "vbox");
-	dialog.set("name", name);
-	dialog.set("x", -40);
-	dialog.set("y", -40);
-
-	# "window" titlebar
-	titlebar = dialog.addChild("group");
-	titlebar.set("layout", "hbox");
-	titlebar.addChild("empty").set("stretch", 1);
-	titlebar.addChild("text").set("label", "Bo105 configuration");
-	titlebar.addChild("empty").set("stretch", 1);
-
-	dialog.addChild("hrule").addChild("dummy");
-
-	w = titlebar.addChild("button");
-	w.set("pref-width", 16);
-	w.set("pref-height", 16);
-	w.set("legend", "");
-	w.set("default", 1);
-	w.set("keynum", 27);
-	w.set("border", 1);
-	w.prop().getNode("binding[0]/command", 1).setValue("nasal");
-	w.prop().getNode("binding[0]/script", 1).setValue("bo105.dialog = nil");
-	w.prop().getNode("binding[1]/command", 1).setValue("dialog-close");
-
-	checkbox = func {
-		group = dialog.addChild("group");
-		group.set("layout", "hbox");
-		group.addChild("empty").set("pref-width", 4);
-		box = group.addChild("checkbox");
-		group.addChild("empty").set("stretch", 1);
-
-		box.set("halign", "left");
-		box.set("label", arg[0]);
-		box;
-	}
-
-	# doors
-	foreach (d; doors) {
-		w = checkbox(d.node.getNode("name").getValue());
-		w.set("property", d.node.getNode("enabled").getPath());
-		w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
-	}
-
-	# lights
-	w = checkbox("beacons");
-	w.set("property", "controls/lighting/beacon");
-	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
-
-	w = checkbox("strobes");
-	w.set("property", "controls/lighting/strobe");
-	w.prop().getNode("binding[0]/command", 1).setValue("dialog-apply");
-
-	# ammunition
-	group = dialog.addChild("group");
-	group.set("layout", "hbox");
-	group.addChild("empty").set("pref-width", 4);
-
-	w = group.addChild("button");
-	w.set("halign", "left");
-	w.set("legend", "Reload");
-	w.set("pref-width", 64);
-	w.set("pref-height", 24);
-	w.prop().getNode("binding[0]/command", 1).setValue("nasal");
-	w.prop().getNode("binding[0]/script", 1).setValue("bo105.reload()");
-
-	w = group.addChild("text");
-	w.set("halign", "left");
-	w.set("label", "X");
-	w.set("pref-width", 200);
-	w.set("property", "sim/model/bo105/weapons/ammunition");
-	w.set("live", 1);
-
-	group.addChild("empty").set("stretch", 1);
-
-	# finale
-	dialog.addChild("empty").set("pref-height", "3");
-	fgcommand("dialog-new", dialog.prop());
-	recalc_ammo_loop();
-	gui.showDialog(name);
-}
-
-
-var ammoN = props.globals.getNode("sim/model/bo105/weapons/ammunition", 1);
-
-recalc_ammo_loop = func {
-	if (weapons != nil) {
-		ammoN.setValue(weapons.getammo() ~ " " ~ weapons.ammodesc());
-	} else {
-		ammoN.setValue("");
-	}
-	if (dialog != nil) {
-		settimer(recalc_ammo_loop, 0.2);
-	}
-}
+Dialog = {
+	new : func(prop, path) {
+		var m = { parents : [Dialog] };
+		m.path = path;
+		m.prop = isa(props.Node, prop) ? prop : props.globals.getNode(prop, 1);
+		m.state = 0;
+		return m;
+	},
+	open : func {
+		gui.loadXMLDialog(me.prop, me.path);
+		fgcommand("dialog-show", me.prop);
+		me.state = 1;
+	},
+	close : func {
+		fgcommand("dialog-close", me.prop);
+		me.state = 0;
+	},
+	toggle : func {
+		me.state ? me.close() : me.open();
+	},
+	is_open : func {
+		me.state;
+	},
+};
 
 
 
 # view management ===================================================
-
 
 ViewAxis = dynamic_view.ViewAxis;
 
@@ -780,20 +738,26 @@ main_loop = func {
 
 var CRASHED = 0;
 var variant = nil;
+var doors = nil;
 var view_manager = nil;
+var config_dialog = nil;
 
 
 # initialization
 settimer(func {
+	config_dialog = Dialog.new("/sim/gui/dialogs/bo105/config/dialog", "Aircraft/bo105/Dialogs/config.xml");
+
 	init_rotoranim();
 	init_weapons();
 
+	doors = Doors.new();
 	variant = Variant.new();
+
 	settimer(func { dynamic_view.register(view_manager = ViewManager.new()) }, 4);
 
 	setlistener("/sim/signals/reinit", func {
 		cprint("32;1", "reinit ", cmdarg().getValue());
-		variant.reset();
+		variant.scan();
 		view_manager.reset();
 		CRASHED = 0;
 

@@ -4,7 +4,6 @@
 	<desc type="string">Orange civilian</desc>
 	<index type="int">30</index>
 
-	<livery type="string">livery.rgb</livery>
 	<emblem type="string">empty.rgb</emblem>
 	<wiper type="bool">true</wiper>
 	<wire-cutter type="bool">false</wire-cutter>
@@ -13,6 +12,8 @@
 
 	<material>
 		<fuselage>
+			<texture type="string">livery.rgb</texture>
+
 			<diffuse>
 				<red>0.65</red>
 				<green>0.3</green>

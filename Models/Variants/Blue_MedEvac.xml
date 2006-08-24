@@ -4,7 +4,6 @@
 	<desc type="string">Blue MedEvac with Star Of Life emblem</desc>
 	<index type="int">20</index>
 
-	<livery type="string">livery.rgb</livery>
 	<emblem type="string">Emblems/star-of-life.rgb</emblem>
 	<wiper type="bool">true</wiper>
 	<wire-cutter type="bool">false</wire-cutter>
@@ -13,6 +12,8 @@
 
 	<material>
 		<fuselage>
+			<texture type="string">livery.rgb</texture>
+
 			<diffuse>
 				<red>0.0</red>
 				<green>0.45</green>
