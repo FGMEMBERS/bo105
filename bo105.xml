@@ -9,12 +9,13 @@
 </cruise>
 
 
+
 <rotor name="main" x="-2.55" y="0.0" z="1.55" nx="0.05" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="1"
-  maxcollective="15.8" mincollective="-0.2"
-  mincyclicele="-10.5" maxcyclicele="4.7"
-  mincyclicail="-5.65" maxcyclicail="4.23"
+  maxcollective="15.8" mincollective="0.2"
+  mincyclicele="-4.7" maxcyclicele="10.5"
+  mincyclicail="-4.23" maxcyclicail="5.65"
   diameter="9.98" numblades="4" weightperblade="75" relbladecenter="0.5"
-  dynamic="1" rpm="442" rellenflaphinge="0.2" delta3="0"
+  dynamic="1" rpm="442" rellenflaphinge="0.18" delta3="0"
   delta=".25"
   pitch_a="10"
   pitch_b="15"
@@ -23,35 +24,28 @@
   flap0="-5"
   flap0factor="0"
   notorque="0"
-  dragfactor="0"
+  dragfactor="0.30"
   translift_ve="20"
   translift_maxfactor="1.3"
   ground_effect_constant="0.1"
-  vortex_state_lift_factor="0.4"
-  vortex_state_c1="0.1"
-  vortex_state_c2="0"
-  vortex_state_c3="0"
-  vortex_state_e1="1"
-  vortex_state_e2="1"
-  vortex_state_e3="1"
-  lift_factor="1"
   twist="-8.5"
   taper="1"
   chord="0.27"
-  number_of_segments="10"
+  number_of_segments="8"
+  number_of_parts="8"
   rel_len_where_incidence_is_measured="0.7"
-
-  airfoil_lift_coefficient="2.0"
-  airfoil_drag_coefficient0="0.0075"
-  airfoil_drag_coefficient1="0.2"
-
   rel_len_blade_start="0.076"
 
-  incidence_stall_zero_speed="23"
-  incidence_stall_half_sonic_speed="19"
-  lift_factor_stall="0.28"
-  stall_change_over="7.5"
-  drag_factor_stall="1.5"
+  airfoil_lift_coefficient="3.85"
+  airfoil_drag_coefficient0="0.0075"
+  airfoil_drag_coefficient1="0.25"
+  incidence_stall_zero_speed="15"
+  incidence_stall_half_sonic_speed="14.5"
+  lift_factor_stall="0.18"
+  stall_change_over="5.5"
+  drag_factor_stall="2.0"
+  cyclic_factor="0.8"
+  rotor_correction_factor="0.7"
 >
   <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL" split="true"/>
   <control-input axis="/controls/flight/aileron" control="CYCLICAIL"
@@ -71,19 +65,23 @@
   maxcollective="20" mincollective="-10"
   diameter="1.91" numblades="2" weightperblade="2" relbladecenter="0.7"
   dynamic="1" rpm="2219" rellenflaphinge="0.0" delta3="1" translift="0" delta="0.5"
-  pitch_a="10" forceatpitch_a="600" dragfactor="0"
-  pitch_b="10" poweratpitch_b="48"
-  poweratpitch_0="2"
+  pitch_a="10"
+  pitch_b="15"
+  airfoil_lift_coefficient="6.4"
+  airfoil_drag_coefficient0="0.0035"
+  airfoil_drag_coefficient1="0.10"
   notorque="0"
   taper="1"
-  chord="0.185"
-  number_of_segments="10"
+  chord="0.205"
+  number_of_segments="5"
+  number_of_parts="4"
   rel_len_blade_start="0.33"
-  incidence_stall_zero_speed="25"
-  incidence_stall_half_sonic_speed="22"
-  lift_factor_stall="0.28"
-  stall_change_over="5"
+  incidence_stall_zero_speed="9"
+  incidence_stall_half_sonic_speed="18"
+  lift_factor_stall="0.18"
+  stall_change_over="5.5"
   drag_factor_stall="8"
+  rotor_correction_factor="0.9"
 >
   <control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
                  src0="-1.0" src1="1.0"
@@ -97,11 +95,12 @@
 <rotorgear
   max_power_engine="626"
   max_power_rotor_brake="100"
-  engine_prop_factor="0.02"
-  engine_accell_limit="4.5"
+  rotorgear_friction="1.4"
+  engine_prop_factor="0.005"
+  engine_accel_limit="4"
 
-  yasimdragfactor="14"
-  yasimliftfactor="267"
+  yasimdragfactor="19.5"
+  yasimliftfactor="245"
 >
   <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>
   <control-input axis="/controls/rotor/brake" control="ROTORBRAKE"
@@ -112,7 +111,7 @@
 
 <cockpit x="-1.88" y=".33" z="0.6"/>
 
-<fuselage ax="-.55" ay="0" az="-.07" bx="-4.05" by="0" bz="-.07"
+<fuselage ax="-.25" ay="0" az="-.07" bx="-4.05" by="0" bz="-.07"
           width="1.92" taper="0.95" midpoint="0.5"/>
 
 <fuselage ax="-4.05" ay="0" az="-.38" bx="-7.60" by="0" bz=".51"
@@ -131,10 +130,9 @@
   <stall aoa="16" width="4" peak="1.5"/>
 </vstab>
 
-<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="1.0" length="1.20" chord="0.36" sweep="0">
-  <stall aoa="16" width="4" peak="1.5"/>
+<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="0.5" length="1.20" chord="0.36" sweep="0">
+  <stall aoa="0" width="0" peak="1.5"/>
 </hstab>
-
 
 <!-- left skid -->
 <gear x="-0.80" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
@@ -155,7 +153,7 @@
 
 <ballast x="-1.4" y="+0.0" z="0.0" mass="150"/>
 <ballast x="-2.5" y="-0.8" z="0.0" mass="150"/>
-<ballast x="-2.5" y="+0.0" z="1.0" mass="600"/>
+<ballast x="-1.5" y="+0.0" z="1.0" mass="600"/>
 <ballast x="-2.5" y="+0.8" z="0.0" mass="150"/>
 <ballast x="-3.0" y="+0.0" z="0.0" mass="150"/>
 
