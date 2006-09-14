@@ -108,7 +108,7 @@ Doors = {
 var state = props.globals.getNode("sim/model/bo105/state");
 var rotor = props.globals.getNode("controls/engines/engine/magnetos");
 var rotor_rpm = props.globals.getNode("rotors/main/rpm");
-var torque = props.globals.getNode("rotors/main/torque", 1);
+var torque = props.globals.getNode("rotors/gear/total-torque", 1);
 var collective = props.globals.getNode("controls/engines/engine/throttle");
 var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
@@ -148,7 +148,7 @@ set_torque = func {
 	var t = torque.getValue();
 	if (t != nil) {
 		torque_val = t * f + torque_val * (1 - f);
-		torque_pct.setDoubleValue(torque_val / 120);
+		torque_pct.setDoubleValue(torque_val / 5300);
 	}
 }
 
