@@ -295,8 +295,35 @@
 			</volume>
 			<pitch>
 				<property>rotors/main/rpm</property>
-				<offset>-0.2</offset>
 				<factor>0.003</factor>
+				<offset>-0.2</offset>
+				<max>1.2</max>
+			</pitch>
+		</rotor>
+
+		<rotor>
+			<name>stall</name>
+			<mode>looped</mode>
+			<path>Aircraft/bo105/Sounds/rotor_stall.wav</path>
+			<condition>
+				<and>
+					<greater-than>
+						<property>rotors/main/rpm</property>
+						<value>50</value>
+					</greater-than>
+					<not>
+						<property>sim/crashed</property>
+					</not>
+				</and>
+			</condition>
+			<volume>
+				<property>rotors/main/stall</property>
+				<factor>220</factor>
+			</volume>
+			<pitch>
+				<property>rotors/main/rpm</property>
+				<factor>0.003</factor>
+				<offset>-0.2</offset>
 				<max>1.2</max>
 			</pitch>
 		</rotor>
