@@ -295,9 +295,9 @@
 			</volume>
 			<pitch>
 				<property>rotors/main/rpm</property>
-				<factor>0.003</factor>
+				<factor>0.00254</factor>
 				<offset>-0.2</offset>
-				<max>1.2</max>
+				<max>1.5</max>
 			</pitch>
 		</rotor>
 
@@ -317,14 +317,14 @@
 				</and>
 			</condition>
 			<volume>
-				<property>rotors/main/stall</property>
+				<property>rotors/main/stall-filtered</property>
 				<factor>220</factor>
 			</volume>
 			<pitch>
 				<property>rotors/main/rpm</property>
-				<factor>0.003</factor>
-				<offset>-0.2</offset>
-				<max>1.2</max>
+				<factor>0.002262</factor>
+				<offset>0</offset>
+				<max>1.75</max>
 			</pitch>
 		</rotor>
 

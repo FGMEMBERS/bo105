@@ -28,9 +28,6 @@
 				<command>nasal</command>
 				<script>bo105.config_dialog.close()</script>
 			</binding>
-			<binding>
-				<command>dialog-close</command>
-			</binding>
 		</button>
 	</group>
 
@@ -40,11 +37,7 @@
 		<open>
 			var ammoN = props.globals.getNode("sim/model/bo105/weapons/ammunition", 1);
 			loop = func {
-				if (bo105.weapons != nil) {
-					ammoN.setValue(bo105.weapons.getammo() ~ " " ~ bo105.weapons.ammodesc());
-				} else {
-					ammoN.setValue("");
-				}
+				ammoN.setValue(bo105.get_ammunition());
 				if (open) {
 					settimer(loop, 0.2);
 				}

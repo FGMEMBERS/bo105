@@ -112,6 +112,8 @@ var torque = props.globals.getNode("rotors/gear/total-torque", 1);
 var collective = props.globals.getNode("controls/engines/engine/throttle");
 var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
+var stall = props.globals.getNode("rotors/main/stall", 1);
+var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
 
 
 # 0 off
@@ -154,6 +156,23 @@ set_torque = func {
 
 
 
+# stall sound
+var stall_val = 0;
+
+set_stall = func {
+	var f = 0.275;				# low pass coeff
+	var s = stall.getValue();
+	if (s != nil) {
+		if (s < stall_val) {
+			stall_val = s * f + stall_val * (1 - f);
+		} else {
+			stall_val = s;
+		}
+		stall_filtered.setDoubleValue(stall_val);
+	}
+}
+
+
 
 # crash handler =====================================================
 var load = nil;
@@ -184,6 +203,7 @@ crash = func {
 		rotor.setValue(0);
 		turbine.setValue(0);
 		torque_pct.setValue(torqueval = 0);
+		stall_filtered.setValue(0);
 		state.setValue(0);
 		var n = props.globals.getNode("models", 1);
 		for (var i = 0; 1; i += 1) {
@@ -359,7 +379,7 @@ Variant = {
 			}
 			printlog("info", "       #", index, " -- ", tmp.getNode("desc", 1).getValue());
 			if (index == nil or index < 0) {
-				for (index = 1000; 1; index += 1) {
+				for (index = 1000; 693; index += 1) {
 					if (me.variantN.getChild("variant", index, 0) == nil) {
 						break;
 					}
@@ -593,6 +613,12 @@ init_weapons = func {
 }
 
 
+# called from Dialogs/config.xml
+get_ammunition = func {
+	weapons != nil ? weapons.getammo() ~ " " ~ weapons.ammodesc() : "";
+}
+
+
 var TRIGGER = -1;
 setlistener("controls/armament/trigger", func {
 	if (weapons != nil) {
@@ -704,6 +730,7 @@ controls.flapsDown = func(v) {
 
 main_loop = func {
 	set_torque();
+	set_stall();
 	settimer(main_loop, 0);
 }
 
