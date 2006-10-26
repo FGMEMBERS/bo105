@@ -146,9 +146,10 @@ engines = func {
 
 # torquemeter
 var torque_val = 0;
+torque.setDoubleValue(0);
 
 set_torque = func {
-	var f = 0.075;						# low pass coeff
+	var f = 0.1;						# low pass coeff
 	var t = torque.getValue();
 	torque_val = t * f + torque_val * (1 - f);
 	torque_pct.setDoubleValue(torque_val / 5300);
@@ -158,6 +159,7 @@ set_torque = func {
 
 # stall sound
 var stall_val = 0;
+stall.setDoubleValue(0);
 
 set_stall = func {
 	var s = stall.getValue();
