@@ -114,6 +114,8 @@ var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
 var stall = props.globals.getNode("rotors/main/stall", 1);
 var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
+var dt = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
+var throttle = props.globals.getNode("/controls/engines/engine/throttle", 1);
 
 
 # 0 off
@@ -146,12 +148,10 @@ engines = func {
 var torque_val = 0;
 
 set_torque = func {
-	var f = 0.075;				# low pass coeff
+	var f = 0.075;						# low pass coeff
 	var t = torque.getValue();
-	if (t != nil) {
-		torque_val = t * f + torque_val * (1 - f);
-		torque_pct.setDoubleValue(torque_val / 5300);
-	}
+	torque_val = t * f + torque_val * (1 - f);
+	torque_pct.setDoubleValue(torque_val / 5300);
 }
 
 
@@ -160,16 +160,16 @@ set_torque = func {
 var stall_val = 0;
 
 set_stall = func {
-	var f = 0.275;				# low pass coeff
 	var s = stall.getValue();
-	if (s != nil) {
-		if (s < stall_val) {
-			stall_val = s * f + stall_val * (1 - f);
-		} else {
-			stall_val = s;
-		}
-		stall_filtered.setDoubleValue(stall_val);
+	if (s < stall_val) {
+		var delta_time = dt.getValue();
+		var f = delta_time / (0.3 + delta_time);	# low pass coeff
+		stall_val = s * f + stall_val * (1 - f);
+	} else {
+		stall_val = s;
 	}
+	var t = throttle.getValue();
+	stall_filtered.setDoubleValue(stall_val + 0.006 * (1 - t));
 }
 
 
