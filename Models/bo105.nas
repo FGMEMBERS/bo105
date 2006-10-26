@@ -202,8 +202,8 @@ crash = func {
 		nav_light_switch.setValue(0);
 		rotor.setValue(0);
 		turbine.setValue(0);
-		torque_pct.setValue(torqueval = 0);
-		stall_filtered.setValue(0);
+		torque_pct.setValue(torque_val = 0);
+		stall_filtered.setValue(stall_val = 0);
 		state.setValue(0);
 		var n = props.globals.getNode("models", 1);
 		for (var i = 0; 1; i += 1) {
@@ -743,7 +743,7 @@ var config_dialog = nil;
 
 
 # initialization
-settimer(func {
+setlistener("/sim/signals/fdm-initialized", func {
 	config_dialog = gui.Dialog.new("/sim/gui/dialogs/bo105/config/dialog",
 			"Aircraft/bo105/Dialogs/config.xml");
 
@@ -786,6 +786,6 @@ settimer(func {
 	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
 
 	main_loop();
-}, 0);
+});
 
 
