@@ -78,7 +78,7 @@
 	<animation>
 		<type>texrotate</type>
 		<object-name>shadow_rotor</object-name>
-		<property>rotors/main/blade1_pos</property>
+		<property>rotors/main/blade[0]/position-deg</property>
 		<center>
 			<x>0.818</x>
 			<y>0.168</y>
@@ -198,7 +198,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>rotor_disc_T</object-name>
-		<property>rotors/tail/blade1_pos</property>
+		<property>rotors/tail/blade[0]/position-deg</property>
 		<center>
 			<x-m>5.894</x-m>
 			<y-m>-0.001</y-m>
@@ -250,7 +250,7 @@
 		<type>rotate</type>
 		<object-name>tailrotor_blade1</object-name>
 		<object-name>tailrotor_blade2</object-name>
-		<property>rotors/tail/blade1_pos</property>
+		<property>rotors/tail/blade[0]/position-deg</property>
 		<center>
 			<x-m>5.894</x-m>
 			<y-m>-0.001</y-m>
@@ -266,7 +266,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>tailrotor_blade1</object-name>
-		<property>rotors/tail/blade1_incidence</property>
+		<property>rotors/tail/blade[0]/incidence-deg</property>
 		<center>
 			<x-m>5.916</x-m>
 			<y-m>-0.348</y-m>
@@ -282,7 +282,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>tailrotor_blade2</object-name>
-		<property>rotors/tail/blade2_incidence</property>
+		<property>rotors/tail/blade[1]/incidence-deg</property>
 		<center>
 			<x-m>5.916</x-m>
 			<y-m>-0.348</y-m>
@@ -382,7 +382,7 @@
 		<object-name>bladelever2</object-name>
 		<object-name>bladelever3</object-name>
 		<object-name>bladelever4</object-name>
-		<property>rotors/main/blade1_pos</property>
+		<property>rotors/main/blade[0]/position-deg</property>
 		<axis>
 			<x>0</x>
 			<y>0</y>
@@ -439,7 +439,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>rotor_disc_M</object-name>
-		<property>rotors/main/blade1_pos</property>
+		<property>rotors/main/blade[0]/position-deg</property>
 		<axis>
 			<x>0</x>
 			<y>0</y>
@@ -475,7 +475,7 @@
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
-		<property>rotors/main/blade1_pos</property>
+		<property>rotors/main/blade[0]/position-deg</property>
 		<offset-deg>0</offset-deg>
 		<axis>
 			<x>0</x>
@@ -492,7 +492,7 @@
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
-		<property>rotors/main/blade1_incidence</property>
+		<property>rotors/main/blade[0]/incidence-deg</property>
 		<center>
 			<x-m>0.4</x-m>
 			<y-m>0</y-m>
@@ -512,7 +512,7 @@
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
-		<property>rotors/main/blade1_flap</property>
+		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
 			<x-m>0.57097</x-m>
@@ -532,7 +532,7 @@
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
-		<property>rotors/main/blade1_flap</property>
+		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
 			<x-m>1.42027</x-m>
@@ -551,7 +551,7 @@
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
-		<property>rotors/main/blade1_flap</property>
+		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
 			<x-m>2.4008</x-m>
@@ -569,7 +569,7 @@
 		<type>rotate</type>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
-		<property>rotors/main/blade1_flap</property>
+		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
 			<x-m>3.2008</x-m>
@@ -586,7 +586,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade1e</object-name>
-		<property>rotors/main/blade1_flap</property>
+		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
 			<x-m>4.0512</x-m>
@@ -610,7 +610,7 @@
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
-		<property>rotors/main/blade2_pos</property>
+		<property>rotors/main/blade[1]/position-deg</property>
 		<offset-deg>90</offset-deg>
 		<axis>
 			<x>0</x>
@@ -627,7 +627,7 @@
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
-		<property>rotors/main/blade2_incidence</property>
+		<property>rotors/main/blade[1]/incidence-deg</property>
 		<center>
 			<x-m>0</x-m>
 			<y-m>0.04</y-m>
@@ -647,7 +647,7 @@
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
-		<property>rotors/main/blade2_flap</property>
+		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -667,7 +667,7 @@
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
-		<property>rotors/main/blade2_flap</property>
+		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -686,7 +686,7 @@
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
-		<property>rotors/main/blade2_flap</property>
+		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -704,7 +704,7 @@
 		<type>rotate</type>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
-		<property>rotors/main/blade2_flap</property>
+		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -721,7 +721,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade2e</object-name>
-		<property>rotors/main/blade2_flap</property>
+		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -745,7 +745,7 @@
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
-		<property>rotors/main/blade3_pos</property>
+		<property>rotors/main/blade[2]/position-deg</property>
 		<offset-deg>180</offset-deg>
 		<axis>
 			<x>0</x>
@@ -762,7 +762,7 @@
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
-		<property>rotors/main/blade3_incidence</property>
+		<property>rotors/main/blade[2]/incidence-deg</property>
 		<center>
 			<x-m>-0.4</x-m>
 			<y-m>0</y-m>
@@ -782,7 +782,7 @@
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
-		<property>rotors/main/blade3_flap</property>
+		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
 			<x-m>-0.57097</x-m>
@@ -802,7 +802,7 @@
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
-		<property>rotors/main/blade3_flap</property>
+		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
 			<x-m>-1.42027</x-m>
@@ -821,7 +821,7 @@
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
-		<property>rotors/main/blade3_flap</property>
+		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
 			<x-m>-2.4008</x-m>
@@ -839,7 +839,7 @@
 		<type>rotate</type>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
-		<property>rotors/main/blade3_flap</property>
+		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
 			<x-m>-3.2008</x-m>
@@ -856,7 +856,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade3e</object-name>
-		<property>rotors/main/blade3_flap</property>
+		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
 			<x-m>-4.0512</x-m>
@@ -880,7 +880,7 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
-		<property>rotors/main/blade4_pos</property>
+		<property>rotors/main/blade[3]/position-deg</property>
 		<offset-deg>270</offset-deg>
 		<axis>
 			<x>0</x>
@@ -897,7 +897,7 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
-		<property>rotors/main/blade4_incidence</property>
+		<property>rotors/main/blade[3]/incidence-deg</property>
 		<center>
 			<x-m>0</x-m>
 			<y-m>-0.04</y-m>
@@ -917,7 +917,7 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
-		<property>rotors/main/blade4_flap</property>
+		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -937,7 +937,7 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
-		<property>rotors/main/blade4_flap</property>
+		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -956,7 +956,7 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
-		<property>rotors/main/blade4_flap</property>
+		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -974,7 +974,7 @@
 		<type>rotate</type>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
-		<property>rotors/main/blade4_flap</property>
+		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
 			<x-m>0</x-m>
@@ -991,7 +991,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade4e</object-name>
-		<property>rotors/main/blade4_flap</property>
+		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
 			<x-m>0</x-m>

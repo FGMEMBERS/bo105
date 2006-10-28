@@ -114,8 +114,6 @@ var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
 var stall = props.globals.getNode("rotors/main/stall", 1);
 var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
-var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
-var throttle = props.globals.getNode("/controls/engines/engine/throttle", 1);
 
 
 # 0 off
@@ -168,8 +166,8 @@ set_stall = func(dt) {
 	} else {
 		stall_val = s;
 	}
-	var t = throttle.getValue();
-	stall_filtered.setDoubleValue(stall_val + 0.006 * (1 - t));
+	var c = collective.getValue();
+	stall_filtered.setDoubleValue(stall_val + 0.006 * (1 - c));
 }
 
 
@@ -188,14 +186,14 @@ crash = func {
 		setprop("sim/model/bo105/doors/door[4]/position-norm", 0.1);
 		setprop("sim/model/bo105/doors/door[5]/position-norm", 0.05);
 		setprop("rotors/main/rpm", 0);
-		setprop("rotors/main/blade1_flap", -60);
-		setprop("rotors/main/blade2_flap", -50);
-		setprop("rotors/main/blade3_flap", -40);
-		setprop("rotors/main/blade4_flap", -30);
-		setprop("rotors/main/blade1_incidence", -30);
-		setprop("rotors/main/blade2_incidence", -20);
-		setprop("rotors/main/blade3_incidence", -50);
-		setprop("rotors/main/blade4_incidence", -55);
+		setprop("rotors/main/blade[0]/flap-deg", -60);
+		setprop("rotors/main/blade[1]/flap-deg", -50);
+		setprop("rotors/main/blade[2]/flap-deg", -40);
+		setprop("rotors/main/blade[3]/flap-deg", -30);
+		setprop("rotors/main/blade[0]/incidence-deg", -30);
+		setprop("rotors/main/blade[1]/incidence-deg", -20);
+		setprop("rotors/main/blade[2]/incidence-deg", -50);
+		setprop("rotors/main/blade[3]/incidence-deg", -55);
 		setprop("rotors/tail/rpm", 0);
 		strobe_switch.setValue(0);
 		beacon_switch.setValue(0);
@@ -229,9 +227,9 @@ crash = func {
 		doors.reset();
 		setprop("rotors/tail/rpm", 2219);
 		setprop("rotors/main/rpm", 442);
-		for (i = 1; i < 5; i += 1) {
-			setprop("rotors/main/blade" ~ i ~ "_flap", 0);
-			setprop("rotors/main/blade" ~ i ~ "_incidence", 0);
+		for (i = 0; i < 4; i += 1) {
+			setprop("rotors/main/blade[" ~ i ~ "]/flap-deg", 0);
+			setprop("rotors/main/blade[" ~ i ~ "]/incidence-deg", 0);
 		}
 		strobe_switch.setValue(1);
 		beacon_switch.setValue(1);
@@ -246,10 +244,10 @@ crash = func {
 
 # "manual" rotor animation for flight data recorder replay ============
 var rotor_step = props.globals.getNode("sim/model/bo105/rotor-step-deg");
-var blade1_pos = props.globals.getNode("rotors/main/blade1_pos", 1);
-var blade2_pos = props.globals.getNode("rotors/main/blade2_pos", 1);
-var blade3_pos = props.globals.getNode("rotors/main/blade3_pos", 1);
-var blade4_pos = props.globals.getNode("rotors/main/blade4_pos", 1);
+var blade1_pos = props.globals.getNode("rotors/main/blade[0]/position-deg", 1);
+var blade2_pos = props.globals.getNode("rotors/main/blade[1]/position-deg", 1);
+var blade3_pos = props.globals.getNode("rotors/main/blade[2]/position-deg", 1);
+var blade4_pos = props.globals.getNode("rotors/main/blade[3]/position-deg", 1);
 var rotorangle = 0;
 
 rotoranim_loop = func {
@@ -727,6 +725,7 @@ controls.flapsDown = func(v) {
 
 
 # main() ============================================================
+var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
 
 main_loop = func {
 	var dt = delta_time.getValue();

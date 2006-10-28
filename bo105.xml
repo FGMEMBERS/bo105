@@ -142,7 +142,7 @@
 <gear x="-0.80" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
 <gear x="-3.15" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
 
-<!-- tail rotor protector -->
+<!-- tail skid -->
 <gear x="-8.03" y="+0.00" z="+0.34" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
 
 
