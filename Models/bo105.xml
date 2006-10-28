@@ -2001,6 +2001,26 @@
 		</axis>
 	</animation>
 
+<!--== LOD ==-->
+
+	<animation>
+		<type>select</type>
+		<object-name>Hspider_i</object-name>
+		<condition>
+			<not>
+				<property>sim/current-view/view-number</property>
+			</not>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>Lspider_i</object-name>
+		<condition>
+			<property>sim/current-view/view-number</property>
+		</condition>
+	</animation>
+
 <!--== variant addons ==-->
 
 	<animation>
