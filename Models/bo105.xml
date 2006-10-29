@@ -395,7 +395,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>rotor_disc_M</object-name>
-		<property>rotors/main/roll</property>
+		<property>rotors/main/roll-deg</property>
 		<axis>
 			<x>1</x>
 			<y>0</y>
@@ -411,7 +411,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>rotor_disc_M</object-name>
-		<property>rotors/main/yaw</property>
+		<property>rotors/main/yaw-deg</property>
 		<axis>
 			<x>0</x>
 			<y>-1</y>
@@ -2005,6 +2005,7 @@
 
 	<animation>
 		<type>select</type>
+		<name>high-resolution-LOD</name>
 		<object-name>Hspider_i</object-name>
 		<condition>
 			<not>
@@ -2015,6 +2016,7 @@
 
 	<animation>
 		<type>select</type>
+		<name>low-resolution-LOD</name>
 		<object-name>Lspider_i</object-name>
 		<condition>
 			<property>sim/current-view/view-number</property>
