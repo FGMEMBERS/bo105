@@ -689,7 +689,7 @@ ViewManager = {
 			+ 15 * sin(roll) * sin(roll)					#    roll
 		);
 		me.roll_axis.apply(							# view roll due to ...
-			-20 * sin(roll) * cos(pitch) * speed				#    roll
+			-15 * sin(roll) * cos(pitch) * speed				#    roll
 		);
 	},
 	lookat : func(h = nil, p = nil) {

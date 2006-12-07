@@ -6,7 +6,7 @@
 
 	<offsets>
 		<x-m>2.5</x-m>
-		<z-m>-.2</z-m>
+		<z-m>-0.2</z-m>
 		<pitch-deg>1.8</pitch-deg>
 	</offsets>
 
@@ -1476,6 +1476,9 @@
 			<y-m>0.30</y-m>
 			<z-m>0.35</z-m>
 		</offsets>
+		<condition>
+			<property>instrumentation/gsdi/enabled</property>
+		</condition>
 	</model>
 
 	<!--model>
