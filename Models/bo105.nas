@@ -643,66 +643,22 @@ reload = func {
 
 # view management ===================================================
 
-ViewAxis = dynamic_view.ViewAxis;
-
-ViewManager = {
-	new : func {
-		var m = { parents : [ViewManager] };
-		m.pitchN = props.globals.getNode("orientation/pitch-deg", 1);
-		m.rollN = props.globals.getNode("orientation/roll-deg", 1);
-		m.speedN = props.globals.getNode("velocities/airspeed-kt", 1);
-
-		m.heading_axis = ViewAxis.new("sim/current-view/goal-heading-offset-deg");
-		m.pitch_axis = ViewAxis.new("sim/current-view/goal-pitch-offset-deg");
-		m.roll_axis = ViewAxis.new("sim/current-view/goal-roll-offset-deg");
-
-		m.reset();
-		return m;
-	},
-	reset : func {
-		me.lookat_active = 0;
-		me.heading_axis.reset();
-		me.pitch_axis.reset();
-		me.roll_axis.reset();
-	},
-	add_offset : func {
-		me.heading_axis.add_offset();
-		me.pitch_axis.add_offset();
-		me.roll_axis.add_offset();
-	},
-	apply : func {
-		if (me.lookat_active) {
-			me.heading_axis.prop.setValue(me.lookat_heading);
-			me.pitch_axis.prop.setValue(me.lookat_pitch);
-			return;
-		}
-
-		var roll = me.rollN.getValue();
-		var pitch = me.pitchN.getValue();
-		var speed = 1 - normatan(me.speedN.getValue() / 20);
-
-		me.heading_axis.apply(							# view heading due to ...
-			(roll < 0 ? -50 : -25) * npow(sin(roll) * cos(pitch), 2)	#    roll
-		);
-		me.pitch_axis.apply(							# view pitch due to ...
-			(pitch < 0 ? -35 : -40) * sin(pitch) * speed			#    pitch
-			+ 15 * sin(roll) * sin(roll)					#    roll
-		);
-		me.roll_axis.apply(							# view roll due to ...
-			-15 * sin(roll) * cos(pitch) * speed				#    roll
-		);
-	},
-	lookat : func(h = nil, p = nil) {
-		if (h == nil) {
-			view.resetView();
-			me.lookat_active = 0;
-			return;
-		}
-		me.lookat_heading = h;
-		me.lookat_pitch = p;
-		me.lookat_active = 1;
-	},
-};
+init_view_manager = func {
+	var vm = dynamic_view.view_manager;
+	vm.calc = func {
+		me.lowspeed = 1 - normatan(me.speedN.getValue() / 20);
+	}
+	vm.calc_heading = func {							# heading change due to
+		(me.roll < 0 ? -50 : -30) * npow(sin(me.roll) * cos(me.pitch), 2)	#    roll
+	}
+	vm.calc_pitch = func {								# pitch change due to
+		(me.pitch < 0 ? -35 : -40) * sin(me.pitch) * me.lowspeed		#    pitch
+		+ 15 * sin(me.roll) * sin(me.roll)					#    roll
+	}
+	vm.calc_roll = func {								# roll change due to
+		-15 * sin(me.roll) * cos(me.pitch) * me.lowspeed			#    roll
+	}
+}
 
 
 var flap_mode = 0;
@@ -710,13 +666,13 @@ controls.flapsDown = func(v) {
 	if (!flap_mode) {
 		if (v < 0) {
 			flap_mode = 1;
-			view_manager.lookat(10, -12);
+			dynamic_view.view_manager.lookat(10, -12);
 		} elsif (v > 0) {
 			flap_mode = 2;
 		}
 	} else {
 		if (flap_mode == 1) {
-			view_manager.lookat();
+			dynamic_view.view_manager.lookat();
 		} else {
 		}
 		flap_mode = 0;
@@ -738,7 +694,6 @@ main_loop = func {
 var CRASHED = 0;
 var variant = nil;
 var doors = nil;
-var view_manager = nil;
 var config_dialog = nil;
 
 
@@ -749,16 +704,15 @@ setlistener("/sim/signals/fdm-initialized", func {
 
 	init_rotoranim();
 	init_weapons();
+	init_view_manager();
 
 	doors = Doors.new();
 	variant = Variant.new();
 
-	settimer(func { dynamic_view.register(view_manager = ViewManager.new()) }, 4);
-
 	setlistener("/sim/signals/reinit", func {
 		cprint("32;1", "reinit ", cmdarg().getValue());
 		variant.scan();
-		view_manager.reset();
+		dynamic_view.view_manager.reset();
 		CRASHED = 0;
 
 		if (load != nil) {
