@@ -643,8 +643,6 @@ reload = func {
 
 # view management ===================================================
 
-var drift_angle = props.globals.getNode("/instrumentation/gsdi/drift-angle-deg", 1);
-
 var flap_mode = 0;
 controls.flapsDown = func(v) {
 	if (!flap_mode) {
@@ -654,10 +652,14 @@ controls.flapsDown = func(v) {
 		} elsif (v > 0) {
 			flap_mode = 2;
 		}
-	} elsif (flap_mode == 2) {
-		flap_mode = 3;
+
 	} else {
-		dynamic_view.lookat(nil, nil);
+		if (flap_mode == 1) {
+			dynamic_view.lookat(nil, nil);
+		} else {
+			var p = "/sim/view/dynamic/enabled";
+			setprop(p, !getprop(p));
+		}
 		flap_mode = 0;
 	}
 }
@@ -678,10 +680,6 @@ dynamic_view.register(func {
 
 	me.roll_offset =								# roll change due to
 		-15 * sin(me.roll) * cos(me.pitch) * lowspeed;				#    roll
-
-	if (flap_mode >= 2) {
-		me.lookat(drift_angle.getValue() * (lowspeed - 1), 0);
-	}
 });
 
 
