@@ -643,41 +643,47 @@ reload = func {
 
 # view management ===================================================
 
-init_view_manager = func {
-	var vm = dynamic_view.view_manager;
-	vm.calc = func {
-		me.lowspeed = 1 - normatan(me.speedN.getValue() / 20);
-	}
-	vm.calc_heading = func {							# heading change due to
-		(me.roll < 0 ? -50 : -30) * npow(sin(me.roll) * cos(me.pitch), 2)	#    roll
-	}
-	vm.calc_pitch = func {								# pitch change due to
-		(me.pitch < 0 ? -35 : -40) * sin(me.pitch) * me.lowspeed		#    pitch
-		+ 15 * sin(me.roll) * sin(me.roll)					#    roll
-	}
-	vm.calc_roll = func {								# roll change due to
-		-15 * sin(me.roll) * cos(me.pitch) * me.lowspeed			#    roll
-	}
-}
-
+var drift_angle = props.globals.getNode("/instrumentation/gsdi/drift-angle-deg", 1);
 
 var flap_mode = 0;
 controls.flapsDown = func(v) {
 	if (!flap_mode) {
 		if (v < 0) {
 			flap_mode = 1;
-			dynamic_view.view_manager.lookat(10, -12);
+			dynamic_view.lookat(10, -12);
 		} elsif (v > 0) {
 			flap_mode = 2;
 		}
+	} elsif (flap_mode == 2) {
+		flap_mode = 3;
 	} else {
-		if (flap_mode == 1) {
-			dynamic_view.view_manager.lookat();
-		} else {
-		}
+		dynamic_view.lookat(nil, nil);
 		flap_mode = 0;
 	}
 }
+
+
+# register function that may set me.heading_offset, me_pitch_offset, and me.roll_offset
+# and do other nice things in the ViewManager's main loop
+#
+dynamic_view.register(func {
+	var lowspeed = 1 - normatan(me.speedN.getValue() / 20);
+
+	me.heading_offset =								# heading change due to
+		(me.roll < 0 ? -50 : -30) * npow(sin(me.roll) * cos(me.pitch), 2);	#    roll
+
+	me.pitch_offset =								# pitch change due to
+		(me.pitch < 0 ? -35 : -40) * sin(me.pitch) * lowspeed			#    pitch
+		+ 15 * sin(me.roll) * sin(me.roll);					#    roll
+
+	me.roll_offset =								# roll change due to
+		-15 * sin(me.roll) * cos(me.pitch) * lowspeed;				#    roll
+
+	if (flap_mode >= 2) {
+		me.lookat(drift_angle.getValue() * (lowspeed - 1), 0);
+	}
+});
+
 
 
 # main() ============================================================
@@ -704,7 +710,6 @@ setlistener("/sim/signals/fdm-initialized", func {
 
 	init_rotoranim();
 	init_weapons();
-	init_view_manager();
 
 	doors = Doors.new();
 	variant = Variant.new();
@@ -712,7 +717,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 	setlistener("/sim/signals/reinit", func {
 		cprint("32;1", "reinit ", cmdarg().getValue());
 		variant.scan();
-		dynamic_view.view_manager.reset();
+		dynamic_view.reset();
 		CRASHED = 0;
 
 		if (load != nil) {
