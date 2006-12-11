@@ -34,6 +34,7 @@ sort = func(l) {
 }
 
 
+
 # strobes ===========================================================
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
 aircraft.light.new("sim/model/bo105/lighting/strobe-top", [0.05, 1.00], strobe_switch);
@@ -122,7 +123,7 @@ var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
 # 3 shutdown sound in progress
 
 engines = func {
-	s = state.getValue();
+	var s = state.getValue();
 	if (arg[0] == 1) {
 		if (s == 0) {
 			state.setValue(1);				# engines started
@@ -203,23 +204,23 @@ crash = func {
 		torque_pct.setValue(torque_val = 0);
 		stall_filtered.setValue(stall_val = 0);
 		state.setValue(0);
-		var n = props.globals.getNode("models", 1);
-		for (var i = 0; 1; i += 1) {
-			if (n.getChild("model", i, 0) == nil) {
-				n = n.getChild("model", i, 1);
-				n.setValues({
-					"path": "Models/Fauna/cow.ac",
-					"longitude-deg": getprop("position/longitude-deg"),
-					"latitude-deg": getprop("position/latitude-deg"),
-					"elevation-ft": getprop("position/ground-elev-ft"),
-					"heading-deg": getprop("orientation/heading-deg"),
-					#"pitch-deg": getprop("orientation/pitch-deg"),
-					#"roll-deg": getprop("orientation/roll-deg"),
-				});
-				load = n;
-				break;
-			}
-		}
+#		var n = props.globals.getNode("models", 1);
+#		for (var i = 0; 1; i += 1) {
+#			if (n.getChild("model", i, 0) == nil) {
+#				n = n.getChild("model", i, 1);
+#				n.setValues({
+#					"path": "Models/Fauna/cow.ac",
+#					"longitude-deg": getprop("position/longitude-deg"),
+#					"latitude-deg": getprop("position/latitude-deg"),
+#					"elevation-ft": getprop("position/ground-elev-ft"),
+#					"heading-deg": getprop("orientation/heading-deg"),
+#					#"pitch-deg": getprop("orientation/pitch-deg"),
+#					#"roll-deg": getprop("orientation/roll-deg"),
+#				});
+#				load = n;
+#				break;
+#			}
+#		}
 	} else {
 		# uncrash (for replay)
 		setprop("sim/model/bo105/tail-angle", 0);
@@ -651,21 +652,20 @@ controls.flapsDown = func(v) {
 			dynamic_view.lookat(10, -12);
 		} elsif (v > 0) {
 			flap_mode = 2;
+			var p = "/sim/view/dynamic/enabled";
+			setprop(p, !getprop(p));
 		}
 
 	} else {
 		if (flap_mode == 1) {
 			dynamic_view.lookat(nil, nil);
-		} else {
-			var p = "/sim/view/dynamic/enabled";
-			setprop(p, !getprop(p));
 		}
 		flap_mode = 0;
 	}
 }
 
 
-# register function that may set me.heading_offset, me_pitch_offset, and me.roll_offset
+# register function that may set me.heading_offset, me.pitch_offset, and me.roll_offset
 # and do other nice things in the ViewManager's main loop
 #
 dynamic_view.register(func {
@@ -684,10 +684,15 @@ dynamic_view.register(func {
 
 
 
+
 # main() ============================================================
 var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
+var adf_rotation = props.globals.getNode("/instrumentation/adf/rotation-deg", 1);
+var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indicated-heading-deg", 1);
 
 main_loop = func {
+	adf_rotation.setDoubleValue(hi_heading.getValue());
+
 	var dt = delta_time.getValue();
 	set_torque(dt);
 	set_stall(dt);
@@ -718,11 +723,11 @@ setlistener("/sim/signals/fdm-initialized", func {
 		dynamic_view.reset();
 		CRASHED = 0;
 
-		if (load != nil) {
-			load.getNode("load", 1);
-			load.removeChildren("load");
-			load = nil;
-		}
+#		if (load != nil) {
+#			load.getNode("load", 1);
+#			load.removeChildren("load");
+#			load = nil;
+#		}
 	});
 
 	setlistener("sim/crashed", func {
