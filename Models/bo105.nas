@@ -110,7 +110,7 @@ var state = props.globals.getNode("sim/model/bo105/state");
 var rotor = props.globals.getNode("controls/engines/engine/magnetos");
 var rotor_rpm = props.globals.getNode("rotors/main/rpm");
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
-var collective = props.globals.getNode("controls/engines/engine/throttle");
+var collective = props.globals.getNode("controls/engines/engine[1]/throttle");
 var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
 var stall = props.globals.getNode("rotors/main/stall", 1);
@@ -174,7 +174,7 @@ set_stall = func(dt) {
 
 
 # crash handler =====================================================
-var load = nil;
+#var load = nil;
 crash = func {
 	if (arg[0]) {
 		# crash
@@ -719,6 +719,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 
 	setlistener("/sim/signals/reinit", func {
 		cprint("32;1", "reinit ", cmdarg().getValue());
+		collective.setDoubleValue(1);
 		variant.scan();
 		dynamic_view.reset();
 		CRASHED = 0;
