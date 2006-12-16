@@ -204,23 +204,7 @@ crash = func {
 		torque_pct.setValue(torque_val = 0);
 		stall_filtered.setValue(stall_val = 0);
 		state.setValue(0);
-#		var n = props.globals.getNode("models", 1);
-#		for (var i = 0; 1; i += 1) {
-#			if (n.getChild("model", i, 0) == nil) {
-#				n = n.getChild("model", i, 1);
-#				n.setValues({
-#					"path": "Models/Fauna/cow.ac",
-#					"longitude-deg": getprop("position/longitude-deg"),
-#					"latitude-deg": getprop("position/latitude-deg"),
-#					"elevation-ft": getprop("position/ground-elev-ft"),
-#					"heading-deg": getprop("orientation/heading-deg"),
-#					#"pitch-deg": getprop("orientation/pitch-deg"),
-#					#"roll-deg": getprop("orientation/roll-deg"),
-#				});
-#				load = n;
-#				break;
-#			}
-#		}
+
 	} else {
 		# uncrash (for replay)
 		setprop("sim/model/bo105/tail-angle", 0);
@@ -723,12 +707,6 @@ setlistener("/sim/signals/fdm-initialized", func {
 		variant.scan();
 		dynamic_view.reset();
 		CRASHED = 0;
-
-#		if (load != nil) {
-#			load.getNode("load", 1);
-#			load.removeChildren("load");
-#			load = nil;
-#		}
 	});
 
 	setlistener("sim/crashed", func {

@@ -145,11 +145,13 @@
 		<layout>hbox</layout>
 		<empty><pref-width>4</pref-width></empty>
 		<checkbox>
+			<name>beacon-checkbox</name>
 			<halign>left</halign>
 			<label>beacons</label>
 			<property>/controls/lighting/beacon</property>
 			<live>1</live>
 			<binding>
+				<object-name>beacon-checkbox</object-name>
 				<command>dialog-apply</command>
 			</binding>
 		</checkbox>
@@ -160,11 +162,13 @@
 		<layout>hbox</layout>
 		<empty><pref-width>4</pref-width></empty>
 		<checkbox>
+			<name>strobe-checkbox</name>
 			<halign>left</halign>
 			<label>strobes</label>
 			<property>/controls/lighting/strobe</property>
 			<live>1</live>
 			<binding>
+				<object-name>strobe-checkbox</object-name>
 				<command>dialog-apply</command>
 			</binding>
 		</checkbox>

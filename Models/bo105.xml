@@ -2103,6 +2103,128 @@
 		</axis>
 	</animation>
 
+
+<!--== controls ==-->
+
+	<!-- Stick: right: 4.23 deg, left: -5.65 deg, push: 5.5 deg, pull: -10.5 deg -->
+
+	<animation>
+		<type>rotate</type>
+		<object-name>stick_R</object-name>
+		<property>/controls/flight/elevator</property>
+		<factor>8</factor>
+		<offset-deg>-2.5</offset-deg>
+		<center>
+			<x-m>-2.15</x-m>
+			<y-m>0.4</y-m>
+			<z-m>-0.28</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>stick_R</object-name>
+		<property>/controls/flight/aileron</property>
+		<factor>4.94</factor>
+		<offset>-0.71</offset>
+		<center>
+			<x-m>-2.15</x-m>
+			<y-m>0.4</y-m>
+			<z-m>-0.28</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>stick_L</object-name>
+		<property>/controls/flight/elevator</property>
+		<factor>8</factor>
+		<offset-deg>-2.5</offset-deg>
+		<center>
+			<x-m>-2.15</x-m>
+			<y-m>-0.4</y-m>
+			<z-m>-0.28</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>stick_L</object-name>
+		<property>/controls/flight/aileron</property>
+		<factor>4.94</factor>
+		<offset>-0.71</offset>
+		<center>
+			<x-m>-2.15</x-m>
+			<y-m>-0.4</y-m>
+			<z-m>-0.28</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>stick_L</object-name>
+		<object-name>stick_R</object-name>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>l_pedal_L</object-name>
+		<object-name>l_pedal_R</object-name>
+		<property>/controls/flight/rudder</property>
+		<factor>15</factor>
+		<offset>0</offset>
+		<center>
+			<x-m>-2.42</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.30</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>r_pedal_L</object-name>
+		<object-name>r_pedal_R</object-name>
+		<property>/controls/flight/rudder</property>
+		<factor>15</factor>
+		<offset>0</offset>
+		<center>
+			<x-m>-2.42</x-m>
+			<y-m>0</y-m>
+			<z-m>-0.30</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+
 <!--== material ==-->
 
 	<animation>
