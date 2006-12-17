@@ -2191,12 +2191,12 @@
 		<object-name>l_pedal_L</object-name>
 		<object-name>l_pedal_R</object-name>
 		<property>/controls/flight/rudder</property>
-		<factor>15</factor>
+		<factor>20</factor>
 		<offset>0</offset>
 		<center>
 			<x-m>-2.42</x-m>
 			<y-m>0</y-m>
-			<z-m>-0.30</z-m>
+			<z-m>-0.26</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -2210,12 +2210,12 @@
 		<object-name>r_pedal_L</object-name>
 		<object-name>r_pedal_R</object-name>
 		<property>/controls/flight/rudder</property>
-		<factor>15</factor>
+		<factor>20</factor>
 		<offset>0</offset>
 		<center>
 			<x-m>-2.42</x-m>
 			<y-m>0</y-m>
-			<z-m>-0.30</z-m>
+			<z-m>-0.26</z-m>
 		</center>
 		<axis>
 			<x>0</x>

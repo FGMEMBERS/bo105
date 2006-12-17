@@ -656,10 +656,10 @@ dynamic_view.register(func {
 	var lowspeed = 1 - normatan(me.speedN.getValue() / 20);
 
 	me.heading_offset =								# heading change due to
-		(me.roll < 0 ? -50 : -30) * npow(sin(me.roll) * cos(me.pitch), 2);	#    roll
+		(me.roll < 0 ? -50 : -30) * npow(sin(me.roll) * cos(me.pitch), 2);	#    roll left/right
 
 	me.pitch_offset =								# pitch change due to
-		(me.pitch < 0 ? -35 : -40) * sin(me.pitch) * lowspeed			#    pitch
+		(me.pitch < 0 ? -50 : -40) * sin(me.pitch) * lowspeed			#    pitch down/up
 		+ 15 * sin(me.roll) * sin(me.roll);					#    roll
 
 	me.roll_offset =								# roll change due to
