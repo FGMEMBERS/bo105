@@ -2111,13 +2111,16 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>stick_R</object-name>
+		<object-name>stick_grip_R</object-name>
+		<object-name>stick_ring_R</object-name>
+		<object-name>stick_button_R</object-name>
 		<property>/controls/flight/elevator</property>
 		<factor>8</factor>
 		<offset-deg>-2.5</offset-deg>
 		<center>
-			<x-m>-2.15</x-m>
+			<x-m>-2.20</x-m>
 			<y-m>0.4</y-m>
-			<z-m>-0.28</z-m>
+			<z-m>-0.25</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -2129,13 +2132,16 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>stick_R</object-name>
+		<object-name>stick_grip_R</object-name>
+		<object-name>stick_ring_R</object-name>
+		<object-name>stick_button_R</object-name>
 		<property>/controls/flight/aileron</property>
 		<factor>4.94</factor>
 		<offset>-0.71</offset>
 		<center>
-			<x-m>-2.15</x-m>
+			<x-m>-2.20</x-m>
 			<y-m>0.4</y-m>
-			<z-m>-0.28</z-m>
+			<z-m>-0.25</z-m>
 		</center>
 		<axis>
 			<x>-1</x>
@@ -2147,13 +2153,16 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>stick_L</object-name>
+		<object-name>stick_grip_L</object-name>
+		<object-name>stick_ring_L</object-name>
+		<object-name>stick_button_L</object-name>
 		<property>/controls/flight/elevator</property>
 		<factor>8</factor>
 		<offset-deg>-2.5</offset-deg>
 		<center>
-			<x-m>-2.15</x-m>
+			<x-m>-2.20</x-m>
 			<y-m>-0.4</y-m>
-			<z-m>-0.28</z-m>
+			<z-m>-0.25</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -2165,13 +2174,16 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>stick_L</object-name>
+		<object-name>stick_grip_L</object-name>
+		<object-name>stick_ring_L</object-name>
+		<object-name>stick_button_L</object-name>
 		<property>/controls/flight/aileron</property>
 		<factor>4.94</factor>
 		<offset>-0.71</offset>
 		<center>
-			<x-m>-2.15</x-m>
+			<x-m>-2.20</x-m>
 			<y-m>-0.4</y-m>
-			<z-m>-0.28</z-m>
+			<z-m>-0.25</z-m>
 		</center>
 		<axis>
 			<x>-1</x>
@@ -2180,11 +2192,11 @@
 		</axis>
 	</animation>
 
-	<animation>
+	<!--animation>
 		<type>select</type>
 		<object-name>stick_L</object-name>
 		<object-name>stick_R</object-name>
-	</animation>
+	</animation-->
 
 	<animation>
 		<type>rotate</type>
@@ -2194,7 +2206,7 @@
 		<factor>20</factor>
 		<offset>0</offset>
 		<center>
-			<x-m>-2.42</x-m>
+			<x-m>-2.47</x-m>
 			<y-m>0</y-m>
 			<z-m>-0.26</z-m>
 		</center>
@@ -2213,7 +2225,7 @@
 		<factor>20</factor>
 		<offset>0</offset>
 		<center>
-			<x-m>-2.42</x-m>
+			<x-m>-2.47</x-m>
 			<y-m>0</y-m>
 			<z-m>-0.26</z-m>
 		</center>
