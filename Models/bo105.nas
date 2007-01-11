@@ -110,7 +110,7 @@ var state = props.globals.getNode("sim/model/bo105/state");
 var rotor = props.globals.getNode("controls/engines/engine/magnetos");
 var rotor_rpm = props.globals.getNode("rotors/main/rpm");
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
-var collective = props.globals.getNode("controls/engines/engine[1]/throttle");
+var collective = props.globals.getNode("controls/engines/engine[0]/throttle");
 var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
 var stall = props.globals.getNode("rotors/main/stall", 1);
@@ -123,6 +123,7 @@ var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
 # 3 shutdown sound in progress
 
 engines = func {
+	CRASHED and return;
 	var s = state.getValue();
 	if (arg[0] == 1) {
 		if (s == 0) {
@@ -700,6 +701,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 
 	doors = Doors.new();
 	variant = Variant.new();
+	collective.setDoubleValue(1);
 
 	setlistener("/sim/signals/reinit", func {
 		cprint("32;1", "reinit ", cmdarg().getValue());

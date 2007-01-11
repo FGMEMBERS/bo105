@@ -5,7 +5,7 @@
 </approach>
 
 <cruise speed="123" alt="0">
-  <control-setting axis="/controls/engines/engine[1]/throttle" value="1.0"/>
+  <control-setting axis="/controls/engines/engine[0]/throttle" value="1.0"/>
 </cruise>
 
 
@@ -55,7 +55,7 @@
   <control-input axis="/controls/flight/elevator" control="CYCLICELE"
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
-  <control-input axis="/controls/engines/engine[1]/throttle" control="COLLECTIVE"
+  <control-input axis="/controls/engines/engine[0]/throttle" control="COLLECTIVE"
                  src0="0.0" src1="1.0"
                  dst0="1.0" dst1="-1.0"/>
 </rotor>
@@ -86,7 +86,7 @@
   <control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
-  <control-input axis="/controls/engines/engine[1]/throttle" control="COLLECTIVE"
+  <control-input axis="/controls/engines/engine[0]/throttle" control="COLLECTIVE"
                  src0="0.1" src1="1.0"
                  dst0=".0007" dst1="-.00055"/>
 </rotor>

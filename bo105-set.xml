@@ -321,9 +321,6 @@ Bo 105 simulation config.
 			<engine n="0">
 				<magnetos>0</magnetos>
 			</engine>
-			<engine n="1">
-				<throttle>1</throttle>
-			</engine>
 		</engines>
 
 		<lighting>
