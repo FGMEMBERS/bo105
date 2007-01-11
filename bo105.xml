@@ -5,7 +5,7 @@
 </approach>
 
 <cruise speed="123" alt="0">
-  <control-setting axis="/controls/engines/engine[0]/throttle" value="1.0"/>
+  <control-setting axis="/controls/engines/engine[1]/throttle" value="1.0"/>
 </cruise>
 
 
@@ -87,8 +87,8 @@
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
   <control-input axis="/controls/engines/engine[1]/throttle" control="COLLECTIVE"
-                 src0="0.0" src1="1.0"
-                 dst0=".00000000000000000065" dst1=".00000000000000000065"/>
+                 src0="0.1" src1="1.0"
+                 dst0=".0007" dst1="-.00055"/>
 </rotor>
 
 
@@ -97,8 +97,7 @@
   max-power-rotor-brake="100"
   rotorgear-friction="1.4"
   engine-prop-factor="0.005"
-  engine-accel-limit="4"
-
+  engine-accel-limit="20"
   yasimdragfactor="19.5"
   yasimliftfactor="245"
 >
@@ -135,12 +134,12 @@
 </hstab>
 
 <!-- left skid -->
-<gear x="-0.80" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
-<gear x="-3.15" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
+<gear x="-0.80" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-3.15" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
 
 <!-- right skid -->
-<gear x="-0.80" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
-<gear x="-3.15" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="1" dfric="1"/>
+<gear x="-0.80" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-3.15" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
 
 <!-- tail skid -->
 <gear x="-8.03" y="+0.00" z="+0.34" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
