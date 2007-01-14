@@ -97,7 +97,7 @@
   max-power-rotor-brake="100"
   rotorgear-friction="1.4"
   engine-prop-factor="0.005"
-  engine-accel-limit="20"
+  engine-accel-limit="4"
   yasimdragfactor="19.5"
   yasimliftfactor="245"
 >
@@ -151,9 +151,9 @@
 <tank x="0" y="0" z="0" capacity="0"/>
 
 <ballast x="-1.4" y="+0.0" z="0.0" mass="150"/>
-<ballast x="-2.5" y="-0.8" z="0.0" mass="150"/>
+<ballast x="-2.5" y="-1.8" z="0.0" mass="200"/>
 <ballast x="-1.5" y="+0.0" z="1.0" mass="600"/>
-<ballast x="-2.5" y="+0.8" z="0.0" mass="150"/>
+<ballast x="-2.5" y="+1.8" z="0.0" mass="200"/>
 <ballast x="-3.0" y="+0.0" z="0.0" mass="150"/>
 
 <ballast x="-5.0" y="+0.0" z="1.0" mass="300"/>
