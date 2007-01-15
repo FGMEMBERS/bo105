@@ -603,6 +603,11 @@ get_ammunition = func {
 }
 
 
+controls.applyBrakes = func(v) {
+	setprop("controls/armament/trigger", v);
+}
+
+
 var TRIGGER = -1;
 setlistener("controls/armament/trigger", func {
 	if (weapons != nil) {
@@ -611,11 +616,6 @@ setlistener("controls/armament/trigger", func {
 			weapons.fire(TRIGGER = t);
 		}
 	}
-});
-
-
-setlistener("controls/gear/brake-left", func {
-	setprop("controls/armament/trigger", cmdarg().getBoolValue());
 });
 
 
