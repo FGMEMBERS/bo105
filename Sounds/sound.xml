@@ -369,6 +369,94 @@
 			<max-dist>10.0</max-dist>
 		</contact>
 
+		<slide>
+			<name>skid sliding</name>
+			<mode>looped</mode>
+			<path>Sounds/rumble.wav</path>
+			<condition>
+				<property>gear/gear[0]/wow</property>
+			</condition>
+			<volume>
+				<property>gear/gear[0]/compression-norm</property>
+				<factor>1</factor>
+			</volume>
+			<volume>
+				<property>gear/gear[0]/rollspeed-ms</property>
+				<factor>3</factor>
+			</volume>
+			<pitch>
+				<type>sqrt</type>
+				<property>gear/gear[0]/rollspeed-ms</property>
+				<factor>0.3</factor>
+			</pitch>
+		</slide>
+
+		<slide>
+			<name>skid sliding</name>
+			<mode>looped</mode>
+			<path>Sounds/rumble.wav</path>
+			<condition>
+				<property>gear/gear[1]/wow</property>
+			</condition>
+			<volume>
+				<property>gear/gear[1]/compression-norm</property>
+				<factor>1</factor>
+			</volume>
+			<volume>
+				<property>gear/gear[1]/rollspeed-ms</property>
+				<factor>3</factor>
+			</volume>
+			<pitch>
+				<type>sqrt</type>
+				<property>gear/gear[1]/rollspeed-ms</property>
+				<factor>0.3</factor>
+			</pitch>
+		</slide>
+
+		<slide>
+			<name>skid sliding</name>
+			<mode>looped</mode>
+			<path>Sounds/rumble.wav</path>
+			<condition>
+				<property>gear/gear[2]/wow</property>
+			</condition>
+			<volume>
+				<property>gear/gear[2]/compression-norm</property>
+				<factor>1</factor>
+			</volume>
+			<volume>
+				<property>gear/gear[2]/rollspeed-ms</property>
+				<factor>3</factor>
+			</volume>
+			<pitch>
+				<type>sqrt</type>
+				<property>gear/gear[2]/rollspeed-ms</property>
+				<factor>0.3</factor>
+			</pitch>
+		</slide>
+
+		<slide>
+			<name>skid sliding</name>
+			<mode>looped</mode>
+			<path>Sounds/rumble.wav</path>
+			<condition>
+				<property>gear/gear[3]/wow</property>
+			</condition>
+			<volume>
+				<property>gear/gear[3]/compression-norm</property>
+				<factor>1</factor>
+			</volume>
+			<volume>
+				<property>gear/gear[3]/rollspeed-ms</property>
+				<factor>3</factor>
+			</volume>
+			<pitch>
+				<type>sqrt</type>
+				<property>gear/gear[3]/rollspeed-ms</property>
+				<factor>0.3</factor>
+			</pitch>
+		</slide>
+
 		<wind>
 			<name>wind</name>
 			<mode>looped</mode>
