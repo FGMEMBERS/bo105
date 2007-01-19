@@ -51,6 +51,11 @@
 		<number>0</number>
 	</gsdi>
 
+	<gsdi>	<!-- for skid slide sound calculation; always serviceable -->
+		<name>drift</name>
+		<number>0</number>
+	</gsdi>
+
 	<marker-beacon>
 		<name>marker-beacon</name>
 		<number>0</number>

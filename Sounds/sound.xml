@@ -442,10 +442,10 @@
 				<property>gear/gear[0]/wow</property>
 			</condition>
 			<volume>
-				<property>sim/sound/slide/volume</property>
+				<property>sim/sound/slide[0]/volume</property>
 			</volume>
 			<pitch>
-				<property>sim/sound/slide/pitch</property>
+				<property>sim/sound/slide[0]/pitch</property>
 			</pitch>
 		</slide>
 
@@ -457,10 +457,10 @@
 				<property>gear/gear[1]/wow</property>
 			</condition>
 			<volume>
-				<property>sim/sound/slide/volume</property>
+				<property>sim/sound/slide[1]/volume</property>
 			</volume>
 			<pitch>
-				<property>sim/sound/slide/pitch</property>
+				<property>sim/sound/slide[1]/pitch</property>
 			</pitch>
 		</slide>
 
@@ -472,10 +472,10 @@
 				<property>gear/gear[2]/wow</property>
 			</condition>
 			<volume>
-				<property>sim/sound/slide/volume</property>
+				<property>sim/sound/slide[2]/volume</property>
 			</volume>
 			<pitch>
-				<property>sim/sound/slide/pitch</property>
+				<property>sim/sound/slide[2]/pitch</property>
 			</pitch>
 		</slide>
 
@@ -487,10 +487,10 @@
 				<property>gear/gear[3]/wow</property>
 			</condition>
 			<volume>
-				<property>sim/sound/slide/volume</property>
+				<property>sim/sound/slide[3]/volume</property>
 			</volume>
 			<pitch>
-				<property>sim/sound/slide/pitch</property>
+				<property>sim/sound/slide[3]/pitch</property>
 			</pitch>
 		</slide>
 

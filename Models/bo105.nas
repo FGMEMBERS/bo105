@@ -156,6 +156,9 @@ update_torque = func(dt) {
 
 
 
+
+# sound =============================================================
+
 # stall sound
 var stall_val = 0;
 stall.setDoubleValue(0);
@@ -174,22 +177,48 @@ update_stall = func(dt) {
 
 
 
-# slide sound volume
-var drift_speed = props.globals.getNode("/instrumentation/gsdi/drift-speed-kt", 1);
-var friction = props.globals.getNode("/gear/gear/ground-friction-factor", 1);
-var compression = props.globals.getNode("/gear/gear[0]/compression-norm", 1);
-friction.setDoubleValue(0);
-compression.setDoubleValue(0);
-var slide_volume = props.globals.getNode("/sim/sound/slide/volume", 1);
-var slide_pitch = props.globals.getNode("/sim/sound/slide/pitch", 1);
+# skid slide sound
+Skid = {
+	new : func(n) {
+		var m = { parents : [Skid] };
+		var soundN = props.globals.getNode("sim/sound", 1).getChild("slide", n, 1);
+		var gearN = props.globals.getNode("gear", 1).getChild("gear", n, 1);
+
+		m.compressionN = gearN.getNode("compression-norm", 1);
+		m.frictionN = gearN.getNode("ground-friction-factor", 1);
+		m.volumeN = soundN.getNode("volume", 1);
+		m.pitchN = soundN.getNode("pitch", 1);
+
+		m.compressionN.setDoubleValue(0);
+		m.frictionN.setDoubleValue(0);
+		m.volumeN.setDoubleValue(0);
+		m.pitchN.setDoubleValue(0);
+		m.self = n;
+		return m;
+	},
+	update : func(drift_speed) {
+		me.pitchN.setDoubleValue(drift_speed * 0.3);
+
+		var d = normatan(10 * drift_speed);
+		var f = clamp((me.frictionN.getValue() - 0.85) * 6.6667);
+		var c = clamp(me.compressionN.getValue() * 2);
+		me.volumeN.setDoubleValue(d * f * c * 2);
+		#cprint("33;1", sprintf("D=%0.3f  F=%0.3f  C=%0.3f  >>  %0.3f", d, f, c, d * f * c));
+	},
+};
+
+var skid = [];
+for (var i = 0; i < 4; i += 1) {
+	append(skid, Skid.new(i));
+}
+
+var drift_speed = props.globals.getNode("/instrumentation/drift/drift-speed-kt", 1);
 
 update_slide = func {
-	var drift = normatan(10 * drift_speed.getValue());
-	var fric = clamp((friction.getValue() - 0.85) * 6.6667);
-	var compr = clamp(compression.getValue() * 2);
-	#cprint("33;1", sprintf("D=%0.3f  F=%0.3f  C=%0.2f  R=%0.2f", drift, fric, compr, drift * fric * compr));
-	slide_volume.setDoubleValue(drift * fric * compr * 2);
-	slide_pitch.setDoubleValue(drift_speed.getValue());
+	var drift = drift_speed.getValue();
+	forindex (var i; skid) {
+		skid[i].update(drift);
+	}
 }
 
 

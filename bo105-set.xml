@@ -334,6 +334,11 @@ Bo 105 simulation config.
 			<serviceable type="bool">true</serviceable>
 			<enabled type="bool">true</enabled>
 		</gsdi>
+
+		<drift>	<!-- for skid slide sound calculation -->
+			<serviceable type="bool">true</serviceable>
+			<enabled type="bool">true</enabled>
+		</drift>
 	</instrumentation>
 
 	<input>
