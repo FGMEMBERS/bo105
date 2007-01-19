@@ -10,7 +10,6 @@ Bo 105 simulation config.
 		<description>Eurocopter Bo105</description>
 		<author>Melchior Franz, Maik Justus (FDM)</author>
 		<status>beta</status>
-		<aircraft-version>0.1</aircraft-version>
 
 		<flight-model>yasim</flight-model>
 		<aero>bo105</aero>

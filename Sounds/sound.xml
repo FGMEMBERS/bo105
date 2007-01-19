@@ -355,9 +355,74 @@
 			<path>Sounds/helicopter-skid.wav</path>
 			<condition>
 				<property>gear/gear[0]/wow</property>
+			</condition>
+			<volume>
+				<factor>0.8</factor>
+			</volume>
+			<pitch>
+				<factor>0.01</factor>
+			</pitch>
+			<reference-dist>5.0</reference-dist>
+			<max-dist>10.0</max-dist>
+		</contact>
+
+		<contact>
+			<name>ground contact</name>
+			<mode>once</mode>
+			<path>Sounds/helicopter-skid.wav</path>
+			<condition>
 				<property>gear/gear[1]/wow</property>
+			</condition>
+			<volume>
+				<factor>0.8</factor>
+			</volume>
+			<pitch>
+				<factor>0.01</factor>
+			</pitch>
+			<reference-dist>5.0</reference-dist>
+			<max-dist>10.0</max-dist>
+		</contact>
+
+		<contact>
+			<name>ground contact</name>
+			<mode>once</mode>
+			<path>Sounds/helicopter-skid.wav</path>
+			<condition>
 				<property>gear/gear[2]/wow</property>
+			</condition>
+			<volume>
+				<factor>0.8</factor>
+			</volume>
+			<pitch>
+				<factor>0.01</factor>
+			</pitch>
+			<reference-dist>5.0</reference-dist>
+			<max-dist>10.0</max-dist>
+		</contact>
+
+		<contact>
+			<name>ground contact</name>
+			<mode>once</mode>
+			<path>Sounds/helicopter-skid.wav</path>
+			<condition>
 				<property>gear/gear[3]/wow</property>
+			</condition>
+			<volume>
+				<factor>0.8</factor>
+			</volume>
+			<pitch>
+				<factor>0.01</factor>
+			</pitch>
+			<reference-dist>5.0</reference-dist>
+			<max-dist>10.0</max-dist>
+		</contact>
+
+		<contact>
+			<name>ground contact</name>
+			<mode>once</mode>
+			<path>Sounds/helicopter-skid.wav</path>
+			<condition>
+				<property>gear/gear[4]/wow</property>
 			</condition>
 			<volume>
 				<factor>0.8</factor>
@@ -377,17 +442,10 @@
 				<property>gear/gear[0]/wow</property>
 			</condition>
 			<volume>
-				<property>gear/gear[0]/compression-norm</property>
-				<factor>1</factor>
-			</volume>
-			<volume>
-				<property>gear/gear[0]/rollspeed-ms</property>
-				<factor>3</factor>
+				<property>sim/sound/slide/volume</property>
 			</volume>
 			<pitch>
-				<type>sqrt</type>
-				<property>gear/gear[0]/rollspeed-ms</property>
-				<factor>0.3</factor>
+				<property>sim/sound/slide/pitch</property>
 			</pitch>
 		</slide>
 
@@ -399,17 +457,10 @@
 				<property>gear/gear[1]/wow</property>
 			</condition>
 			<volume>
-				<property>gear/gear[1]/compression-norm</property>
-				<factor>1</factor>
-			</volume>
-			<volume>
-				<property>gear/gear[1]/rollspeed-ms</property>
-				<factor>3</factor>
+				<property>sim/sound/slide/volume</property>
 			</volume>
 			<pitch>
-				<type>sqrt</type>
-				<property>gear/gear[1]/rollspeed-ms</property>
-				<factor>0.3</factor>
+				<property>sim/sound/slide/pitch</property>
 			</pitch>
 		</slide>
 
@@ -421,17 +472,10 @@
 				<property>gear/gear[2]/wow</property>
 			</condition>
 			<volume>
-				<property>gear/gear[2]/compression-norm</property>
-				<factor>1</factor>
-			</volume>
-			<volume>
-				<property>gear/gear[2]/rollspeed-ms</property>
-				<factor>3</factor>
+				<property>sim/sound/slide/volume</property>
 			</volume>
 			<pitch>
-				<type>sqrt</type>
-				<property>gear/gear[2]/rollspeed-ms</property>
-				<factor>0.3</factor>
+				<property>sim/sound/slide/pitch</property>
 			</pitch>
 		</slide>
 
@@ -443,17 +487,10 @@
 				<property>gear/gear[3]/wow</property>
 			</condition>
 			<volume>
-				<property>gear/gear[3]/compression-norm</property>
-				<factor>1</factor>
-			</volume>
-			<volume>
-				<property>gear/gear[3]/rollspeed-ms</property>
-				<factor>3</factor>
+				<property>sim/sound/slide/volume</property>
 			</volume>
 			<pitch>
-				<type>sqrt</type>
-				<property>gear/gear[3]/rollspeed-ms</property>
-				<factor>0.3</factor>
+				<property>sim/sound/slide/pitch</property>
 			</pitch>
 		</slide>
 

@@ -12,7 +12,7 @@ sin = func(a) { math.sin(a * math.pi / 180.0) }
 cos = func(a) { math.cos(a * math.pi / 180.0) }
 pow = func(v, w) { math.exp(math.ln(v) * w) }
 npow = func(v, w) { math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) }
-clamp = func(v, min, max) { v < min ? min : v > max ? max : v }
+clamp = func(v, min = 0, max = 1) { v < min ? min : v > max ? max : v }
 normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
 
 
@@ -148,7 +148,7 @@ engines = func {
 var torque_val = 0;
 torque.setDoubleValue(0);
 
-set_torque = func(dt) {
+update_torque = func(dt) {
 	var f = dt / (0.2 + dt);
 	torque_val = torque.getValue() * f + torque_val * (1 - f);
 	torque_pct.setDoubleValue(torque_val / 5300);
@@ -160,7 +160,7 @@ set_torque = func(dt) {
 var stall_val = 0;
 stall.setDoubleValue(0);
 
-set_stall = func(dt) {
+update_stall = func(dt) {
 	var s = stall.getValue();
 	if (s < stall_val) {
 		var f = dt / (0.3 + dt);
@@ -170,6 +170,26 @@ set_stall = func(dt) {
 	}
 	var c = collective.getValue();
 	stall_filtered.setDoubleValue(stall_val + 0.006 * (1 - c));
+}
+
+
+
+# slide sound volume
+var drift_speed = props.globals.getNode("/instrumentation/gsdi/drift-speed-kt", 1);
+var friction = props.globals.getNode("/gear/gear/ground-friction-factor", 1);
+var compression = props.globals.getNode("/gear/gear[0]/compression-norm", 1);
+friction.setDoubleValue(0);
+compression.setDoubleValue(0);
+var slide_volume = props.globals.getNode("/sim/sound/slide/volume", 1);
+var slide_pitch = props.globals.getNode("/sim/sound/slide/pitch", 1);
+
+update_slide = func {
+	var drift = normatan(10 * drift_speed.getValue());
+	var fric = clamp((friction.getValue() - 0.85) * 6.6667);
+	var compr = clamp(compression.getValue() * 2);
+	#cprint("33;1", sprintf("D=%0.3f  F=%0.3f  C=%0.2f  R=%0.2f", drift, fric, compr, drift * fric * compr));
+	slide_volume.setDoubleValue(drift * fric * compr * 2);
+	slide_pitch.setDoubleValue(drift_speed.getValue());
 }
 
 
@@ -679,8 +699,9 @@ main_loop = func {
 	adf_rotation.setDoubleValue(hi_heading.getValue());
 
 	var dt = delta_time.getValue();
-	set_torque(dt);
-	set_stall(dt);
+	update_torque(dt);
+	update_stall(dt);
+	update_slide();
 	settimer(main_loop, 0);
 }
 
