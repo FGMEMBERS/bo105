@@ -743,6 +743,12 @@ var config_dialog = nil;
 
 # initialization
 setlistener("/sim/signals/fdm-initialized", func {
+	# delete two old entries in autosave.xml
+	props.globals.getNode("/sim/model/bo105/variant", 1).setAttribute("userarchive", 0);
+	props.globals.getNode("/sim/model/bo105", 1).setAttribute("userarchive", 0);
+	# and use new mechanism instead
+	aircraft.data.add("/sim/model/bo105/variant");
+
 	config_dialog = gui.Dialog.new("/sim/gui/dialogs/bo105/config/dialog",
 			"Aircraft/bo105/Dialogs/config.xml");
 
