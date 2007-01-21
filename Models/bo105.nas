@@ -760,7 +760,8 @@ setlistener("/sim/signals/fdm-initialized", func {
 	collective.setDoubleValue(1);
 
 	setlistener("/sim/signals/reinit", func {
-		cprint("32;1", "reinit ", cmdarg().getValue());
+		cmdarg().getBoolValue() and return;
+		cprint("32;1", "reinit");
 		collective.setDoubleValue(1);
 		variant.scan();
 		dynamic_view.reset();
