@@ -127,6 +127,7 @@ engines = func {
 	var s = state.getValue();
 	if (arg[0] == 1) {
 		if (s == 0) {
+			hobbs_turbines.start();
 			state.setValue(1);				# engines started
 			settimer(func { rotor.setValue(1) }, 3);
 			interpolate(turbine, 100, 25);
@@ -134,6 +135,7 @@ engines = func {
 		}
 	} else {
 		if (s == 2) {
+			hobbs_turbines.stop();
 			rotor.setValue(0);				# engines stopped
 			state.setValue(3);
 			interpolate(turbine, 0, 18);
@@ -739,6 +741,8 @@ var CRASHED = 0;
 var variant = nil;
 var doors = nil;
 var config_dialog = nil;
+var hobbs_turbines = aircraft.timer.new("/sim/time/hobbs/turbines", 10);
+aircraft.timer.new("/sim/time/hobbs/helicopter", 10).start(); # anonymous timer
 
 
 # initialization
