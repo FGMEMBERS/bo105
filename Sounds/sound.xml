@@ -439,7 +439,12 @@
 			<mode>looped</mode>
 			<path>Sounds/rumble.wav</path>
 			<condition>
-				<property>gear/gear[0]/wow</property>
+				<and>
+					<property>gear/gear[0]/wow</property>
+					<not>
+						<property>sim/crashed</property>
+					</not>
+				</and>
 			</condition>
 			<volume>
 				<property>sim/sound/slide[0]/volume</property>
@@ -454,7 +459,12 @@
 			<mode>looped</mode>
 			<path>Sounds/rumble.wav</path>
 			<condition>
-				<property>gear/gear[1]/wow</property>
+				<and>
+					<property>gear/gear[1]/wow</property>
+					<not>
+						<property>sim/crashed</property>
+					</not>
+				</and>
 			</condition>
 			<volume>
 				<property>sim/sound/slide[1]/volume</property>
@@ -469,7 +479,12 @@
 			<mode>looped</mode>
 			<path>Sounds/rumble.wav</path>
 			<condition>
-				<property>gear/gear[2]/wow</property>
+				<and>
+					<property>gear/gear[2]/wow</property>
+					<not>
+						<property>sim/crashed</property>
+					</not>
+				</and>
 			</condition>
 			<volume>
 				<property>sim/sound/slide[2]/volume</property>
@@ -484,7 +499,12 @@
 			<mode>looped</mode>
 			<path>Sounds/rumble.wav</path>
 			<condition>
-				<property>gear/gear[3]/wow</property>
+				<and>
+					<property>gear/gear[3]/wow</property>
+					<not>
+						<property>sim/crashed</property>
+					</not>
+				</and>
 			</condition>
 			<volume>
 				<property>sim/sound/slide[3]/volume</property>
