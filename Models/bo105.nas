@@ -35,6 +35,10 @@ sort = func(l) {
 
 
 
+# timers ============================================================
+var turbine_timer = aircraft.timer.new("/sim/time/hobbs/turbines", 10);
+aircraft.timer.new("/sim/time/hobbs/helicopter", nil).start();
+
 # strobes ===========================================================
 var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
 aircraft.light.new("sim/model/bo105/lighting/strobe-top", [0.05, 1.00], strobe_switch);
@@ -44,7 +48,6 @@ aircraft.light.new("sim/model/bo105/lighting/strobe-bottom", [0.05, 1.03], strob
 var beacon_switch = props.globals.getNode("controls/lighting/beacon", 1);
 aircraft.light.new("sim/model/bo105/lighting/beacon-top", [0.62, 0.62], beacon_switch);
 aircraft.light.new("sim/model/bo105/lighting/beacon-bottom", [0.63, 0.63], beacon_switch);
-
 
 
 # nav lights ========================================================
@@ -741,8 +744,6 @@ var CRASHED = 0;
 var variant = nil;
 var doors = nil;
 var config_dialog = nil;
-var turbine_timer = aircraft.timer.new("/sim/time/hobbs/turbines", 10);
-aircraft.timer.new("/sim/time/hobbs/helicopter", 10).start(); # anonymous timer
 
 
 # initialization
@@ -766,6 +767,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 	setlistener("/sim/signals/reinit", func {
 		cmdarg().getBoolValue() and return;
 		cprint("32;1", "reinit");
+		turbine_timer.stop();
 		collective.setDoubleValue(1);
 		variant.scan();
 		dynamic_view.reset();
@@ -774,6 +776,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 
 	setlistener("sim/crashed", func {
 		cprint("31;1", "crashed ", cmdarg().getValue());
+		turbine_timer.stop();
 		if (cmdarg().getBoolValue()) {
 			crash(CRASHED = 1);
 		}
