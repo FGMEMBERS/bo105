@@ -34,6 +34,13 @@ sort = func(l) {
 }
 
 
+# delete two old entries in autosave.xml
+props.globals.getNode("/sim/model/bo105/variant", 1).setAttribute("userarchive", 0);
+props.globals.getNode("/sim/model/bo105", 1).setAttribute("userarchive", 0);
+
+
+# config file entries ===============================================
+aircraft.data.add("/sim/model/bo105/variant");
 
 # timers ============================================================
 var turbine_timer = aircraft.timer.new("/sim/time/hobbs/turbines", 10);
@@ -190,25 +197,30 @@ Skid = {
 		var gearN = props.globals.getNode("gear", 1).getChild("gear", n, 1);
 
 		m.compressionN = gearN.getNode("compression-norm", 1);
+		m.rollspeedN = gearN.getNode("rollspeed-ms", 1);
 		m.frictionN = gearN.getNode("ground-friction-factor", 1);
 		m.volumeN = soundN.getNode("volume", 1);
 		m.pitchN = soundN.getNode("pitch", 1);
 
 		m.compressionN.setDoubleValue(0);
+		m.rollspeedN.setDoubleValue(0);
 		m.frictionN.setDoubleValue(0);
 		m.volumeN.setDoubleValue(0);
 		m.pitchN.setDoubleValue(0);
 		m.self = n;
 		return m;
 	},
-	update : func(drift_speed) {
-		me.pitchN.setDoubleValue(drift_speed * 0.3);
+	update : func {
+		var rollspeed = abs(me.rollspeedN.getValue());
+		me.pitchN.setDoubleValue(rollspeed * 0.6);
 
-		var d = normatan(10 * drift_speed);
+		var s = normatan(20 * rollspeed);
 		var f = clamp((me.frictionN.getValue() - 0.85) * 6.6667);
 		var c = clamp(me.compressionN.getValue() * 2);
-		me.volumeN.setDoubleValue(d * f * c * 2);
-		#cprint("33;1", sprintf("D=%0.3f  F=%0.3f  C=%0.3f  >>  %0.3f", d, f, c, d * f * c));
+		me.volumeN.setDoubleValue(s * f * c * 2);
+		#if (!me.self) {
+		#	cprint("33;1", sprintf("S=%0.3f  F=%0.3f  C=%0.3f  >>  %0.3f", s, f, c, s * f * c));
+		#}
 	},
 };
 
@@ -217,12 +229,9 @@ for (var i = 0; i < 4; i += 1) {
 	append(skid, Skid.new(i));
 }
 
-var drift_speed = props.globals.getNode("/instrumentation/drift/drift-speed-kt", 1);
-
 update_slide = func {
-	var drift = drift_speed.getValue();
 	forindex (var i; skid) {
-		skid[i].update(drift);
+		skid[i].update();
 	}
 }
 
@@ -708,13 +717,13 @@ controls.flapsDown = func(v) {
 # and do other nice things in the ViewManager's main loop
 #
 dynamic_view.register(func {
-	var lowspeed = 1 - normatan(me.speedN.getValue() / 20);
+	var lowspeed = 1 - normatan(me.speedN.getValue() / 50);
 
 	me.heading_offset =								# heading change due to
 		(me.roll < 0 ? -50 : -30) * npow(sin(me.roll) * cos(me.pitch), 2);	#    roll left/right
 
 	me.pitch_offset =								# pitch change due to
-		(me.pitch < 0 ? -50 : -40) * sin(me.pitch) * lowspeed			#    pitch down/up
+		(me.pitch < 0 ? -50 : -50) * sin(me.pitch) * lowspeed			#    pitch down/up
 		+ 15 * sin(me.roll) * sin(me.roll);					#    roll
 
 	me.roll_offset =								# roll change due to
@@ -748,12 +757,6 @@ var config_dialog = nil;
 
 # initialization
 setlistener("/sim/signals/fdm-initialized", func {
-	# delete two old entries in autosave.xml
-	props.globals.getNode("/sim/model/bo105/variant", 1).setAttribute("userarchive", 0);
-	props.globals.getNode("/sim/model/bo105", 1).setAttribute("userarchive", 0);
-	# and use new mechanism instead
-	aircraft.data.add("/sim/model/bo105/variant");
-
 	config_dialog = gui.Dialog.new("/sim/gui/dialogs/bo105/config/dialog",
 			"Aircraft/bo105/Dialogs/config.xml");
 
