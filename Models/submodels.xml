@@ -43,7 +43,6 @@
 	<MG>
 		<model>Aircraft/bo105/Models/tracer.xml</model>
 		<speed>2750</speed>
-		<delay>0.3</delay>
 		<cd>0.295</cd>
 		<weight>0.0215</weight>
 		<eda>0.00049</eda>
@@ -55,7 +54,7 @@
 		<trigger>sim/model/bo105/weapons/MG[0]/trigger</trigger>
 		<speed alias="../../MG/speed"/>
 		<repeat>true</repeat>
-		<delay alias="../../MG/delay"/>
+		<delay>0.3</delay>
 		<count>0</count><!-- set from bo105.nas -->
 		<x-offset>-7.40</x-offset>
 		<y-offset>-3.00</y-offset>
@@ -74,7 +73,7 @@
 		<trigger>sim/model/bo105/weapons/MG[1]/trigger</trigger>
 		<speed alias="../../MG/speed"/>
 		<repeat>true</repeat>
-		<delay alias="../../MG/delay"/>
+		<delay>0.31</delay>
 		<count>0</count><!-- set from bo105.nas -->
 		<x-offset>-7.40</x-offset>
 		<y-offset>3.00</y-offset>
