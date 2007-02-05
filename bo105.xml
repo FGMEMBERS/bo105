@@ -147,8 +147,6 @@
 
 <tank x="-2.47" y="+1.36" z=".68" capacity="75"/>
 <tank x="-2.47" y="-1.36" z=".68" capacity="75"/>
-<tank x="0" y="0" z="0" capacity="0"/>		<!-- work around bug in native_fdm.cxx:184 -->
-<tank x="0" y="0" z="0" capacity="0"/>
 
 <ballast x="-1.4" y="+0.0" z="0.0" mass="150"/>
 <ballast x="-2.5" y="-1.8" z="0.0" mass="200"/>

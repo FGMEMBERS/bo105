@@ -34,9 +34,8 @@ sort = func(l) {
 }
 
 
-# delete two old entries in autosave.xml
+# delete obsolete entry in autosave.xml
 props.globals.getNode("/sim/model/bo105/variant", 1).setAttribute("userarchive", 0);
-props.globals.getNode("/sim/model/bo105", 1).setAttribute("userarchive", 0);
 
 
 # config file entries ===============================================
@@ -199,6 +198,7 @@ Skid = {
 		m.compressionN = gearN.getNode("compression-norm", 1);
 		m.rollspeedN = gearN.getNode("rollspeed-ms", 1);
 		m.frictionN = gearN.getNode("ground-friction-factor", 1);
+		m.wowN = gearN.getNode("wow", 1);
 		m.volumeN = soundN.getNode("volume", 1);
 		m.pitchN = soundN.getNode("pitch", 1);
 
@@ -211,6 +211,7 @@ Skid = {
 		return m;
 	},
 	update : func {
+		me.wowN.getBoolValue() or return;
 		var rollspeed = abs(me.rollspeedN.getValue());
 		me.pitchN.setDoubleValue(rollspeed * 0.6);
 
