@@ -5,18 +5,18 @@ if (!contains(globals, "cprint")) {
 	globals.cprint = func {};
 }
 
-optarg = aircraft.optarg;
-makeNode = aircraft.makeNode;
+var optarg = aircraft.optarg;
+var makeNode = aircraft.makeNode;
 
-sin = func(a) { math.sin(a * math.pi / 180.0) }
-cos = func(a) { math.cos(a * math.pi / 180.0) }
-pow = func(v, w) { math.exp(math.ln(v) * w) }
-npow = func(v, w) { math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) }
-clamp = func(v, min = 0, max = 1) { v < min ? min : v > max ? max : v }
-normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
+var sin = func(a) { math.sin(a * math.pi / 180.0) }
+var cos = func(a) { math.cos(a * math.pi / 180.0) }
+var pow = func(v, w) { math.exp(math.ln(v) * w) }
+var npow = func(v, w) { math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) }
+var clamp = func(v, min = 0, max = 1) { v < min ? min : v > max ? max : v }
+var normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
 
 
-sort = func(l) {
+var sort = func(l) {
 	while (1) {
 		var n = 0;
 		for (var i = 0; i < size(l) - 1; i += 1) {
@@ -62,7 +62,7 @@ var visibility = props.globals.getNode("environment/visibility-m", 1);
 var sun_angle = props.globals.getNode("sim/time/sun-angle-rad", 1);
 var nav_lights = props.globals.getNode("sim/model/bo105/lighting/nav-lights", 1);
 
-nav_light_loop = func {
+var nav_light_loop = func {
 	if (nav_light_switch.getValue()) {
 		nav_lights.setValue(visibility.getValue() < 5000 or sun_angle.getValue() > 1.4);
 	} else {
@@ -76,7 +76,7 @@ settimer(nav_light_loop, 0);
 
 
 # doors =============================================================
-Doors = {
+var Doors = {
 	new : func {
 		var m = { parents : [Doors] };
 		m.active = 0;
@@ -131,7 +131,7 @@ var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
 # 2 sound loop
 # 3 shutdown sound in progress
 
-engines = func {
+var engines = func {
 	crashed and return;
 	var s = state.getValue();
 	if (arg[0] == 1) {
@@ -159,7 +159,7 @@ engines = func {
 var torque_val = 0;
 torque.setDoubleValue(0);
 
-update_torque = func(dt) {
+var update_torque = func(dt) {
 	var f = dt / (0.2 + dt);
 	torque_val = torque.getValue() * f + torque_val * (1 - f);
 	torque_pct.setDoubleValue(torque_val / 5300);
@@ -174,7 +174,7 @@ update_torque = func(dt) {
 var stall_val = 0;
 stall.setDoubleValue(0);
 
-update_stall = func(dt) {
+var update_stall = func(dt) {
 	var s = stall.getValue();
 	if (s < stall_val) {
 		var f = dt / (0.3 + dt);
@@ -189,7 +189,7 @@ update_stall = func(dt) {
 
 
 # skid slide sound
-Skid = {
+var Skid = {
 	new : func(n) {
 		var m = { parents : [Skid] };
 		var soundN = props.globals.getNode("sim/sound", 1).getChild("slide", n, 1);
@@ -231,7 +231,7 @@ for (var i = 0; i < 4; i += 1) {
 	append(skid, Skid.new(i));
 }
 
-update_slide = func {
+var update_slide = func {
 	forindex (var i; skid) {
 		skid[i].update();
 	}
@@ -241,7 +241,7 @@ update_slide = func {
 
 # crash handler =====================================================
 #var load = nil;
-crash = func {
+var crash = func {
 	if (arg[0]) {
 		# crash
 		setprop("sim/model/bo105/tail-angle", 35);
@@ -301,7 +301,7 @@ var blade3_pos = props.globals.getNode("rotors/main/blade[2]/position-deg", 1);
 var blade4_pos = props.globals.getNode("rotors/main/blade[3]/position-deg", 1);
 var rotorangle = 0;
 
-rotoranim_loop = func {
+var rotoranim_loop = func {
 	i = rotor_step.getValue();
 	if (i >= 0.0) {
 		blade1_pos.setValue(rotorangle);
@@ -313,7 +313,7 @@ rotoranim_loop = func {
 	}
 }
 
-init_rotoranim = func {
+var init_rotoranim = func {
 	if (rotor_step.getValue() >= 0.0) {
 		settimer(rotoranim_loop, 0.1);
 	}
@@ -322,7 +322,7 @@ init_rotoranim = func {
 
 
 # Red Cross emblem ==================================================
-determine_emblem = func {
+var determine_emblem = func {
 	# Use the appropriate internationally acknowleged protective Red Cross/Crescent
 	# symbol, depending on the starting airport. (http://www.ifrc.org/ADDRESS/directory.asp)
 
@@ -399,7 +399,7 @@ determine_emblem = func {
 
 
 
-Variant = {
+var Variant = {
 	new : func {
 		var m = { parents : [Variant] };
 		m.self = props.globals.getNode("sim/model/bo105", 1);
@@ -503,7 +503,7 @@ Variant = {
 #	<base-weight>		# remaining empty weight
 #	[, <submodel-factor>	# one reported submodel counts for how many items
 #	[, <weight-prop>]]);	# where to put the calculated weight
-Weapon = {
+var Weapon = {
 	new : func(prop, ndx, cap, dropw, basew, fac = 1, wprop = nil) {
 		m = { parents : [Weapon] };
 		m.node = makeNode(prop);
@@ -578,7 +578,7 @@ Weapon = {
 
 
 # "name", <ammo-desc>
-WeaponSystem = {
+var WeaponSystem = {
 	new : func(name, adesc) {
 		m = { parents : [WeaponSystem] };
 		m.name = name;
@@ -633,7 +633,7 @@ var weapons = nil;
 var MG = nil;
 var HOT = nil;
 
-init_weapons = func {
+var init_weapons = func {
 	MG = WeaponSystem.new("M134", "rounds (7.62 mm)");
 	# propellant: 2.98 g + bullet: 9.75 g  ->  0.0127 kg
 	# M134 minigun: 18.8 kg + M27 armament subsystem: ??  ->
@@ -663,7 +663,7 @@ init_weapons = func {
 
 
 # called from Dialogs/config.xml
-get_ammunition = func {
+var get_ammunition = func {
 	weapons != nil ? weapons.getammo() ~ " " ~ weapons.ammodesc() : "";
 }
 
@@ -684,7 +684,7 @@ setlistener("controls/armament/trigger", func {
 });
 
 
-reload = func {
+var reload = func {
 	if (weapons != nil) {
 		weapons.reload();
 	}
@@ -699,7 +699,7 @@ controls.flapsDown = func(v) {
 	if (!flap_mode) {
 		if (v < 0) {
 			flap_mode = 1;
-			dynamic_view.lookat(10, -12);
+			dynamic_view.lookat(10, -12, 0);
 		} elsif (v > 0) {
 			flap_mode = 2;
 			var p = "/sim/view/dynamic/enabled";
@@ -708,7 +708,7 @@ controls.flapsDown = func(v) {
 
 	} else {
 		if (flap_mode == 1) {
-			dynamic_view.lookat(nil, nil);
+			dynamic_view.lookat();
 		}
 		flap_mode = 0;
 	}
@@ -740,7 +740,7 @@ var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
 var adf_rotation = props.globals.getNode("/instrumentation/adf/rotation-deg", 1);
 var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indicated-heading-deg", 1);
 
-main_loop = func {
+var main_loop = func {
 	adf_rotation.setDoubleValue(hi_heading.getValue());
 
 	var dt = delta_time.getValue();
