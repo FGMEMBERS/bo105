@@ -132,7 +132,7 @@ var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
 # 3 shutdown sound in progress
 
 engines = func {
-	CRASHED and return;
+	crashed and return;
 	var s = state.getValue();
 	if (arg[0] == 1) {
 		if (s == 0) {
@@ -207,6 +207,7 @@ Skid = {
 		m.frictionN.setDoubleValue(0);
 		m.volumeN.setDoubleValue(0);
 		m.pitchN.setDoubleValue(0);
+		m.wowN.setBoolValue(1);
 		m.self = n;
 		return m;
 	},
@@ -216,7 +217,7 @@ Skid = {
 		me.pitchN.setDoubleValue(rollspeed * 0.6);
 
 		var s = normatan(20 * rollspeed);
-		var f = clamp((me.frictionN.getValue() - 0.85) * 6.6667);
+		var f = clamp((me.frictionN.getValue() - 0.5) * 2);
 		var c = clamp(me.compressionN.getValue() * 2);
 		me.volumeN.setDoubleValue(s * f * c * 2);
 		#if (!me.self) {
@@ -750,7 +751,7 @@ main_loop = func {
 }
 
 
-var CRASHED = 0;
+var crashed = 0;
 var variant = nil;
 var doors = nil;
 var config_dialog = nil;
@@ -775,20 +776,20 @@ setlistener("/sim/signals/fdm-initialized", func {
 		collective.setDoubleValue(1);
 		variant.scan();
 		dynamic_view.reset();
-		CRASHED = 0;
+		crashed = 0;
 	});
 
 	setlistener("sim/crashed", func {
 		cprint("31;1", "crashed ", cmdarg().getValue());
 		turbine_timer.stop();
 		if (cmdarg().getBoolValue()) {
-			crash(CRASHED = 1);
+			crash(crashed = 1);
 		}
 	});
 
 	setlistener("/sim/freeze/replay-state", func {
 		cprint("33;1", cmdarg().getValue() ? "replay" : "pause");
-		if (CRASHED) {
+		if (crashed) {
 			crash(!cmdarg().getBoolValue())
 		}
 	});
