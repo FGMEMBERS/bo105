@@ -699,7 +699,7 @@ controls.flapsDown = func(v) {
 	if (!flap_mode) {
 		if (v < 0) {
 			flap_mode = 1;
-			dynamic_view.lookat(10, -12, 0);
+			dynamic_view.lookat(10, -20, -1);
 		} elsif (v > 0) {
 			flap_mode = 2;
 			var p = "/sim/view/dynamic/enabled";
