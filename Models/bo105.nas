@@ -699,7 +699,14 @@ controls.flapsDown = func(v) {
 	if (!flap_mode) {
 		if (v < 0) {
 			flap_mode = 1;
-			dynamic_view.lookat(10, -20, -1);
+			dynamic_view.lookat(
+					5,     # heading left
+					-20,   # pitch up
+					0,     # roll right
+					0.2,   # right
+					0.6,   # up
+					0.85,  # back
+					55);   # field of view
 		} elsif (v > 0) {
 			flap_mode = 2;
 			var p = "/sim/view/dynamic/enabled";
@@ -708,7 +715,7 @@ controls.flapsDown = func(v) {
 
 	} else {
 		if (flap_mode == 1) {
-			dynamic_view.lookat();
+			dynamic_view.resume();
 		}
 		flap_mode = 0;
 	}
