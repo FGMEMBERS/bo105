@@ -694,10 +694,13 @@ var reload = func {
 
 # view management ===================================================
 
+var elapsedN = props.globals.getNode("/sim/time/elapsed-sec", 1);
 var flap_mode = 0;
+var down_time = 0;
 controls.flapsDown = func(v) {
 	if (!flap_mode) {
 		if (v < 0) {
+			down_time = elapsedN.getValue();
 			flap_mode = 1;
 			dynamic_view.lookat(
 					5,     # heading left
@@ -715,6 +718,9 @@ controls.flapsDown = func(v) {
 
 	} else {
 		if (flap_mode == 1) {
+			if (elapsedN.getValue() < down_time + 0.2) {
+				return;
+			}
 			dynamic_view.resume();
 		}
 		flap_mode = 0;
@@ -722,21 +728,22 @@ controls.flapsDown = func(v) {
 }
 
 
-# register function that may set me.heading_offset, me.pitch_offset, and me.roll_offset
-# and do other nice things in the ViewManager's main loop
+# register function that may set me.heading_offset, me.pitch_offset, me.roll_offset,
+# me.x_offset, me.y_offset, me.z_offset, and me.fov_offset
 #
 dynamic_view.register(func {
 	var lowspeed = 1 - normatan(me.speedN.getValue() / 50);
+	var r = sin(me.roll) * cos(me.pitch);
 
-	me.heading_offset =								# heading change due to
-		(me.roll < 0 ? -50 : -30) * npow(sin(me.roll) * cos(me.pitch), 2);	#    roll left/right
+	me.heading_offset =						# heading change due to
+		(me.roll < 0 ? -50 : -30) * r * abs(r);			#    roll left/right
 
-	me.pitch_offset =								# pitch change due to
-		(me.pitch < 0 ? -50 : -50) * sin(me.pitch) * lowspeed			#    pitch down/up
-		+ 15 * sin(me.roll) * sin(me.roll);					#    roll
+	me.pitch_offset =						# pitch change due to
+		(me.pitch < 0 ? -50 : -50) * sin(me.pitch) * lowspeed	#    pitch down/up
+		+ 15 * sin(me.roll) * sin(me.roll);			#    roll
 
-	me.roll_offset =								# roll change due to
-		-15 * sin(me.roll) * cos(me.pitch) * lowspeed;				#    roll
+	me.roll_offset =						# roll change due to
+		-15 * r * lowspeed;					#    roll
 });
 
 
@@ -782,7 +789,6 @@ setlistener("/sim/signals/fdm-initialized", func {
 		turbine_timer.stop();
 		collective.setDoubleValue(1);
 		variant.scan();
-		dynamic_view.reset();
 		crashed = 0;
 	});
 
