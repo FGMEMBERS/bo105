@@ -1,4 +1,3 @@
-# $Id$
 # Melchior FRANZ, < mfranz # aon : at >
 
 if (!contains(globals, "cprint")) {
@@ -709,7 +708,9 @@ controls.flapsDown = func(v) {
 					0.2,   # right
 					0.6,   # up
 					0.85,  # back
-					55);   # field of view
+					0.2,   # time
+					55,    # field of view
+			);
 		} elsif (v > 0) {
 			flap_mode = 2;
 			var p = "/sim/view/dynamic/enabled";
