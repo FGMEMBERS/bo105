@@ -10,6 +10,7 @@ Bo 105 simulation config.
 		<description>Eurocopter Bo105</description>
 		<author>Melchior Franz, Maik Justus (FDM)</author>
 		<status>beta</status>
+		<license>GPL v2</license>
 
 		<flight-model>yasim</flight-model>
 		<aero>bo105</aero>
@@ -201,7 +202,7 @@ Bo 105 simulation config.
 			</config>
 		</view>
 
-		<view n="6">
+		<view n="100">
 			<name>Belly View</name>
 			<type>lookfrom</type>
 			<internal archive="y">true</internal>
@@ -227,8 +228,6 @@ Bo 105 simulation config.
 				<default-field-of-view-deg>55</default-field-of-view-deg>
 			</config>
 		</view>
-
-		<number-views type="int" archive="y">7</number-views>
 
 		<hud>
 			<enable3d>false</enable3d>
@@ -291,10 +290,6 @@ Bo 105 simulation config.
 			<key>
 				<name>N</name>
 				<desc>toggle rotor brake</desc>
-			</key>
-			<key>
-				<name>Alt-v</name>
-				<desc>toggle automatic cockpit view adjustment</desc>
 			</key>
 			<key>
 				<name>y/Y</name>
