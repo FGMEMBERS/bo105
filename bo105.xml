@@ -16,7 +16,7 @@
   mincyclicail="-4.23" maxcyclicail="5.65"
   diameter="9.98" numblades="4" weightperblade="75" relbladecenter="0.5"
   dynamic="1" rpm="442" rellenflaphinge="0.18" delta3="0"
-  delta=".25"
+  delta=".125"
   pitch-a="10"
   pitch-b="15"
   flapmin="-15"
@@ -61,10 +61,12 @@
 </rotor>
 
 
-<rotor name="tail" x="-8.45" y="-0.031" z="1.5" nx="0.07" ny="-1" nz="-0.05" fx="1" fy="0" fz="0" ccw="1"
+<rotor name="tail" x="-8.45" y="0.18" z="1.5" nx="0.07" ny="-1" nz="-0.05" fx="1" fy="0" fz="0" ccw="1"
   maxcollective="20" mincollective="-10"
+  phi0="110"
   diameter="1.91" numblades="2" weightperblade="2" relbladecenter="0.7"
   dynamic="1" rpm="2219" rellenflaphinge="0.0" delta3="1" translift="0" delta="0.5"
+  flap0="-0.5"
   pitch-a="10"
   pitch-b="15"
   airfoil-lift-coefficient="6.4"
@@ -72,7 +74,7 @@
   airfoil-drag-coefficient1="0.10"
   notorque="0"
   taper="1"
-  chord="0.205"
+  chord="0.25"
   number-of-segments="5"
   number-of-parts="4"
   rel-len-blade-start="0.33"
