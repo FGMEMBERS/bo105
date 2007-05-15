@@ -648,10 +648,10 @@ var init_weapons = func {
 
 	setlistener("/sim/model/bo105/weapons/impact/HOT", func {
 		var node = props.globals.getNode(cmdarg().getValue(), 1);
-	#	geo.put_model("Models/Airport/radar.xml",
-	#			node.getNode("impact/longitude-deg").getValue(),
-	#			node.getNode("impact/latitude-deg").getValue(),
-	#			node.getNode("impact/elevation-m").getValue());
+		geo.put_model("Models/Airport/supacat_winch.ac",
+				node.getNode("impact/longitude-deg").getValue(),
+				node.getNode("impact/latitude-deg").getValue(),
+				node.getNode("impact/elevation-m").getValue());
 
 		fgcommand("play-audio-sample", props.Node.new({
 			path : getprop("/sim/fg-root") ~ "/Aircraft/bo105/Sounds",
