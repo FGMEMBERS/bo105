@@ -66,6 +66,7 @@
   phi0="110"
   diameter="1.91" numblades="2" weightperblade="2" relbladecenter="0.7"
   dynamic="1" rpm="2219" rellenflaphinge="0.0" delta3="1" translift="0" delta="0.5"
+  sharedflaphinge="1"
   flap0="-0.5"
   pitch-a="10"
   pitch-b="15"
