@@ -105,6 +105,7 @@
 		<weight>0.000001</weight>
 		<eda>0.000001</eda>
 		<life>10</life>
+		<impact>/sim/model/bo105/weapons/impact/HOT</impact>
 	</hot>
 
 	<submodel>
@@ -125,6 +126,8 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
 	</submodel>
 
 	<submodel>
@@ -145,6 +148,8 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
 	</submodel>
 
 	<submodel>
@@ -165,6 +170,8 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
 	</submodel>
 
 	<submodel>
@@ -185,6 +192,8 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
 	</submodel>
 
 	<submodel>
@@ -205,6 +214,8 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
 	</submodel>
 
 	<submodel>
@@ -225,5 +236,7 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<impact>true</impact>
+		<impact-reports alias="../../hot/impact"/>
 	</submodel>
 </PropertyList>

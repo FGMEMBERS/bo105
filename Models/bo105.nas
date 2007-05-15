@@ -15,24 +15,6 @@ var clamp = func(v, min = 0, max = 1) { v < min ? min : v > max ? max : v }
 var normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
 
 
-var sort = func(l) {
-	while (1) {
-		var n = 0;
-		for (var i = 0; i < size(l) - 1; i += 1) {
-			if (cmp(l[i], l[i + 1]) > 0) {
-				var t = l[i + 1];
-				l[i + 1] = l[i];
-				l[i] = t;
-				n += 1;
-			}
-		}
-		if (!n) {
-			return l;
-		}
-	}
-}
-
-
 # delete obsolete entry in autosave.xml
 props.globals.getNode("/sim/model/bo105/variant", 1).setAttribute("userarchive", 0);
 
@@ -415,7 +397,7 @@ var Variant = {
 		me.list = nil;
 		var dir = "Aircraft/bo105/Models/Variants";
 		foreach (var f; directory(getprop("/sim/fg-root") ~ "/" ~ dir)) {
-			if (substr(f, size(f) - 4) != ".xml") {
+			if (substr(f, -4) != ".xml") {
 				continue;
 			}
 			var tmp = me.self.getNode("tmp", 1);
@@ -442,18 +424,23 @@ var Variant = {
 		}
 		me.reset();
 	},
-	next : func {
-		me.index += 1;
-		if (me.index >= size(me.list)) {
-			me.index = 0;
+	set : func(i) {
+		var s = size(me.list);
+		while (i < 0) {
+			i += s;
 		}
+		while (i >= s) {
+			i -= s;
+		}
+		me.index = i;
+		me.reset();
+	},
+	next : func {
+		me.set(me.index + 1);
 		me.reset();
 	},
 	previous : func {
-		me.index -= 1;
-		if (me.index < 0) {
-			me.index = size(me.list) - 1;
-		}
+		me.set(me.index - 1);
 		me.reset();
 	},
 	load : func(file) {
@@ -658,6 +645,20 @@ var init_weapons = func {
 		settimer(func { wp.weightN.setValue(weight) }, 0.3);
 		me.select += 1;
 	}
+
+	setlistener("/sim/model/bo105/weapons/impact/HOT", func {
+		var node = props.globals.getNode(cmdarg().getValue(), 1);
+	#	geo.put_model("Models/Airport/radar.xml",
+	#			node.getNode("impact/longitude-deg").getValue(),
+	#			node.getNode("impact/latitude-deg").getValue(),
+	#			node.getNode("impact/elevation-m").getValue());
+
+		fgcommand("play-audio-sample", props.Node.new({
+			path : getprop("/sim/fg-root") ~ "/Aircraft/bo105/Sounds",
+			file : "HOT.wav",
+			volume : 0.2,
+		}));
+	});
 }
 
 
