@@ -651,7 +651,10 @@ var init_weapons = func {
 		geo.put_model("Models/Airport/supacat_winch.ac",
 				node.getNode("impact/longitude-deg").getValue(),
 				node.getNode("impact/latitude-deg").getValue(),
-				node.getNode("impact/elevation-m").getValue());
+				node.getNode("impact/elevation-m").getValue(),
+				node.getNode("impact/heading-deg").getValue(),
+				node.getNode("impact/pitch-deg").getValue(),
+				node.getNode("impact/roll-deg").getValue());
 
 		fgcommand("play-audio-sample", props.Node.new({
 			path : getprop("/sim/fg-root") ~ "/Aircraft/bo105/Sounds",
