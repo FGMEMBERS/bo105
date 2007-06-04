@@ -648,7 +648,7 @@ var init_weapons = func {
 
 	setlistener("/sim/model/bo105/weapons/impact/HOT", func {
 		var node = props.globals.getNode(cmdarg().getValue(), 1);
-		geo.put_model("Models/Airport/supacat_winch.ac",
+		geo.put_model("Aircraft/bo105/Models/hot.ac",
 				node.getNode("impact/longitude-deg").getValue(),
 				node.getNode("impact/latitude-deg").getValue(),
 				node.getNode("impact/elevation-m").getValue(),
@@ -662,6 +662,9 @@ var init_weapons = func {
 			volume : 0.2,
 		}));
 	});
+#	setlistener("/sim/model/bo105/weapons/impact/MG", func {
+#		print(int(10 * rand()));
+#	});
 }
 
 
