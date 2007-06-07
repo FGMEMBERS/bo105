@@ -662,9 +662,9 @@ var init_weapons = func {
 			volume : 0.2,
 		}));
 	});
-#	setlistener("/sim/model/bo105/weapons/impact/MG", func {
-#		print(int(10 * rand()));
-#	});
+	setlistener("/sim/model/bo105/weapons/impact/MG", func {
+		#print(int(10 * rand()));
+	});
 }
 
 
@@ -720,8 +720,7 @@ controls.flapsDown = func(v) {
 			);
 		} elsif (v > 0) {
 			flap_mode = 2;
-			var p = "/sim/view/dynamic/enabled";
-			setprop(p, !getprop(p));
+			aircraft.autotrim.start();
 		}
 
 	} else {
@@ -730,6 +729,8 @@ controls.flapsDown = func(v) {
 				return;
 			}
 			dynamic_view.resume();
+		} elsif (flap_mode == 2) {
+			aircraft.autotrim.stop();
 		}
 		flap_mode = 0;
 	}
