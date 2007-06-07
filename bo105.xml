@@ -47,11 +47,11 @@
   cyclic-factor="0.8"
   rotor-correction-factor="0.7"
 >
-  <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL" split="true"/>
+  <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL"/>
   <control-input axis="/controls/flight/aileron" control="CYCLICAIL"
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
-  <control-input axis="/controls/flight/elevator-trim" control="CYCLICELE" split="true"/>
+  <control-input axis="/controls/flight/elevator-trim" control="CYCLICELE"/>
   <control-input axis="/controls/flight/elevator" control="CYCLICELE"
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
@@ -86,6 +86,7 @@
   drag-factor-stall="8"
   rotor-correction-factor="0.9"
 >
+  <control-input axis="/controls/flight/rudder-trim" control="COLLECTIVE" invert="true"/>
   <control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
