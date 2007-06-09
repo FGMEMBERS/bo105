@@ -317,6 +317,10 @@ Bo 105 simulation config.
 	</sim>
 
 	<controls>
+		<armament>
+			<trigger type="bool">false</trigger>
+		</armament>
+
 		<engines>
 			<engine n="0">
 				<magnetos>0</magnetos>
