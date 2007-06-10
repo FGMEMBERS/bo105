@@ -409,7 +409,7 @@ var Variant = {
 			}
 			printlog("info", "       #", index, " -- ", tmp.getNode("desc", 1).getValue());
 			if (index == nil or index < 0) {
-				for (index = 1000; 693; index += 1) {
+				for (index = 1000; 1; index += 1) {
 					if (me.variantN.getChild("variant", index, 0) == nil) {
 						break;
 					}
@@ -618,6 +618,7 @@ var WeaponSystem = {
 var weapons = nil;
 var MG = nil;
 var HOT = nil;
+var TRIGGER = -1;
 
 var init_weapons = func {
 	MG = WeaponSystem.new("M134", "rounds (7.62 mm)");
@@ -640,6 +641,7 @@ var init_weapons = func {
 		}
 		wp = me.weapons[me.select];
 		wp.fire(1);
+		settimer(func { wp.fire(0) }, 1.5);
 		weight = wp.weightN.getValue();
 		wp.weightN.setValue(weight + 300);	# shake the bo
 		settimer(func { wp.weightN.setValue(weight) }, 0.3);
@@ -662,8 +664,25 @@ var init_weapons = func {
 			volume : 0.2,
 		}));
 	});
-	setlistener("/sim/model/bo105/weapons/impact/MG", func {
-		#print(int(10 * rand()));
+
+	#setlistener("/sim/model/bo105/weapons/impact/MG", func {
+	#	var node = props.globals.getNode(cmdarg().getValue(), 1);
+	#	geo.put_model("Models/Airport/ils.xml",
+	#			node.getNode("impact/longitude-deg").getValue(),
+	#			node.getNode("impact/latitude-deg").getValue(),
+	#			node.getNode("impact/elevation-m").getValue(),
+	#			node.getNode("impact/heading-deg").getValue(),
+	#			node.getNode("impact/pitch-deg").getValue(),
+	#			node.getNode("impact/roll-deg").getValue());
+	#});
+
+	setlistener("controls/armament/trigger", func {
+		if (weapons != nil) {
+			var t = cmdarg().getBoolValue();
+			if (t != TRIGGER) {
+				weapons.fire(TRIGGER = t);
+			}
+		}
 	});
 }
 
@@ -677,17 +696,6 @@ var get_ammunition = func {
 controls.applyBrakes = func(v) {
 	setprop("controls/armament/trigger", v);
 }
-
-
-var TRIGGER = -1;
-setlistener("controls/armament/trigger", func {
-	if (weapons != nil) {
-		var t = cmdarg().getBoolValue();
-		if (t != TRIGGER) {
-			weapons.fire(TRIGGER = t);
-		}
-	}
-});
 
 
 var reload = func {

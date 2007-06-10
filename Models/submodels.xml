@@ -46,6 +46,7 @@
 		<cd>0.295</cd>
 		<weight>0.0215</weight>
 		<eda>0.00049</eda>
+		<impact>/sim/model/bo105/weapons/impact/MG</impact>
 	</MG>
 
 	<submodel>
@@ -65,6 +66,9 @@
 		<weight alias="../../MG/weight"/>
 		<eda alias="../../eda"/>
 		<life>6</life>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../MG/impact"/>
 	</submodel>
 
 	<submodel>
@@ -84,6 +88,9 @@
 		<weight alias="../../MG/weight"/>
 		<eda alias="../../eda"/>
 		<life>6</life>
+		<collision>true</collision>
+		<impact>true</impact>
+		<impact-reports alias="../../MG/impact"/>
 	</submodel>
 
 <!--
@@ -126,6 +133,7 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
 		<impact>true</impact>
 		<impact-reports alias="../../hot/impact"/>
 	</submodel>
@@ -148,6 +156,7 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
 		<impact>true</impact>
 		<impact-reports alias="../../hot/impact"/>
 	</submodel>
@@ -170,6 +179,7 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
 		<impact>true</impact>
 		<impact-reports alias="../../hot/impact"/>
 	</submodel>
@@ -192,6 +202,7 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
 		<impact>true</impact>
 		<impact-reports alias="../../hot/impact"/>
 	</submodel>
@@ -214,6 +225,7 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
 		<impact>true</impact>
 		<impact-reports alias="../../hot/impact"/>
 	</submodel>
@@ -236,6 +248,7 @@
 		<eda alias="../../hot/eda"/>
 		<life alias="../../hot/life"/>
 		<aero-stabilised>true</aero-stabilised>
+		<collision>true</collision>
 		<impact>true</impact>
 		<impact-reports alias="../../hot/impact"/>
 	</submodel>
