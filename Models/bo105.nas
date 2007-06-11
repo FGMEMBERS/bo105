@@ -635,6 +635,7 @@ var init_weapons = func {
 	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[3]", 5, 1, 24, 20));
 	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[4]", 6, 1, 24, 20));
 	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[5]", 7, 1, 24, 20));
+
 	HOT.fire = func(trigger) {
 		if (!trigger or me.select >= size(me.weapons)) {
 			return;
@@ -684,17 +685,16 @@ var init_weapons = func {
 			}
 		}
 	});
+
+	controls.applyBrakes = func(v) {
+		setprop("controls/armament/trigger", v);
+	}
 }
 
 
 # called from Dialogs/config.xml
 var get_ammunition = func {
 	weapons != nil ? weapons.getammo() ~ " " ~ weapons.ammodesc() : "";
-}
-
-
-controls.applyBrakes = func(v) {
-	setprop("controls/armament/trigger", v);
 }
 
 
