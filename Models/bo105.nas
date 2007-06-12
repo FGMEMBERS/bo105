@@ -395,8 +395,8 @@ var Variant = {
 	scan : func {
 		me.variantN.removeChildren("variant");
 		me.list = nil;
-		var dir = "Aircraft/bo105/Models/Variants";
-		foreach (var f; directory(getprop("/sim/fg-root") ~ "/" ~ dir)) {
+		var dir = getprop("/sim/fg-root") ~ "/Aircraft/bo105/Models/Variants";
+		foreach (var f; directory(dir)) {
 			if (substr(f, -4) != ".xml") {
 				continue;
 			}
