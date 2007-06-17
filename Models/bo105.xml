@@ -1595,13 +1595,12 @@
 		<type>scale</type>
 		<object-name>strobe_halo_T</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
 		<x-factor>12</x-factor>
 		<y-factor>12</y-factor>
 		<z-factor>12</z-factor>
+		<x-offset>2</x-offset>
+		<y-offset>2</y-offset>
+		<z-offset>2</z-offset>
 	</animation>
 
 
@@ -1642,13 +1641,12 @@
 		<type>scale</type>
 		<object-name>strobe_halo_Bf</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
 		<x-factor>12</x-factor>
 		<y-factor>12</y-factor>
 		<z-factor>12</z-factor>
+		<x-offset>2</x-offset>
+		<y-offset>2</y-offset>
+		<z-offset>2</z-offset>
 	</animation>
 
 	<!-- billboard -->
@@ -1672,13 +1670,12 @@
 		<type>scale</type>
 		<object-name>strobe_halo_B</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
 		<x-factor>12</x-factor>
 		<y-factor>12</y-factor>
 		<z-factor>12</z-factor>
+		<x-offset>2</x-offset>
+		<y-offset>2</y-offset>
+		<z-offset>2</z-offset>
 	</animation>
 
 
@@ -1728,13 +1725,12 @@
 		<type>scale</type>
 		<object-name>beacon_halo_T</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
-		<x-factor>4</x-factor>
-		<y-factor>4</y-factor>
-		<z-factor>4</z-factor>
+		<x-factor>5</x-factor>
+		<y-factor>5</y-factor>
+		<z-factor>5</z-factor>
+		<x-offset>1</x-offset>
+		<y-offset>1</y-offset>
+		<z-offset>1</z-offset>
 	</animation>
 
 
@@ -1775,13 +1771,12 @@
 		<type>scale</type>
 		<object-name>beacon_halo_Bf</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
-		<x-factor>4</x-factor>
-		<y-factor>4</y-factor>
-		<z-factor>4</z-factor>
+		<x-factor>5</x-factor>
+		<y-factor>5</y-factor>
+		<z-factor>5</z-factor>
+		<x-offset>1</x-offset>
+		<y-offset>1</y-offset>
+		<z-offset>1</z-offset>
 	</animation>
 
 	<!-- billboard -->
@@ -1805,13 +1800,12 @@
 		<type>scale</type>
 		<object-name>beacon_halo_B</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
 		<x-factor>5</x-factor>
 		<y-factor>5</y-factor>
 		<z-factor>5</z-factor>
+		<x-offset>1</x-offset>
+		<y-offset>1</y-offset>
+		<z-offset>1</z-offset>
 	</animation>
 
 
@@ -1852,13 +1846,12 @@
 		<type>scale</type>
 		<object-name>nav_halo_Lf</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
-		<x-factor>1.3</x-factor>
-		<y-factor>1.3</y-factor>
-		<z-factor>1.3</z-factor>
+		<x-factor>2.3</x-factor>
+		<y-factor>2.3</y-factor>
+		<z-factor>2.3</z-factor>
+		<x-offset>1</x-offset>
+		<y-offset>1</y-offset>
+		<z-offset>1</z-offset>
 	</animation>
 
 	<!-- billboard -->
@@ -1882,13 +1875,12 @@
 		<type>scale</type>
 		<object-name>nav_halo_L</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
-		<x-factor>2</x-factor>
-		<y-factor>2</y-factor>
-		<z-factor>2</z-factor>
+		<x-factor>3</x-factor>
+		<y-factor>3</y-factor>
+		<z-factor>3</z-factor>
+		<x-offset>1</x-offset>
+		<y-offset>1</y-offset>
+		<z-offset>1</z-offset>
 	</animation>
 
 
@@ -1929,13 +1921,12 @@
 		<type>scale</type>
 		<object-name>nav_halo_Rf</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
-		<x-factor>1.3</x-factor>
-		<y-factor>1.3</y-factor>
-		<z-factor>1.3</z-factor>
+		<x-factor>2.3</x-factor>
+		<y-factor>2.3</y-factor>
+		<z-factor>2.3</z-factor>
+		<x-offset>1</x-offset>
+		<y-offset>1</y-offset>
+		<z-offset>1</z-offset>
 	</animation>
 
 	<!-- billboard -->
@@ -1959,13 +1950,12 @@
 		<type>scale</type>
 		<object-name>nav_halo_R</object-name>
 		<property>/sim/time/sun-angle-rad</property>
-		<offset>-1.4</offset>
-		<x-min>1</x-min>
-		<y-min>1</y-min>
-		<z-min>1</z-min>
-		<x-factor>2</x-factor>
-		<y-factor>2</y-factor>
-		<z-factor>2</z-factor>
+		<x-factor>3</x-factor>
+		<y-factor>3</y-factor>
+		<z-factor>3</z-factor>
+		<x-offset>1</x-offset>
+		<y-offset>1</y-offset>
+		<z-offset>1</z-offset>
 	</animation>
 
 
