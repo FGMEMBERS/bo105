@@ -652,8 +652,8 @@ var init_weapons = func {
 	setlistener("/sim/model/bo105/weapons/impact/HOT", func {
 		var node = props.globals.getNode(cmdarg().getValue(), 1);
 		geo.put_model("Aircraft/bo105/Models/hot.ac",
-				node.getNode("impact/longitude-deg").getValue(),
 				node.getNode("impact/latitude-deg").getValue(),
+				node.getNode("impact/longitude-deg").getValue(),
 				node.getNode("impact/elevation-m").getValue(),
 				node.getNode("impact/heading-deg").getValue(),
 				node.getNode("impact/pitch-deg").getValue(),
@@ -669,8 +669,8 @@ var init_weapons = func {
 	#setlistener("/sim/model/bo105/weapons/impact/MG", func {
 	#	var node = props.globals.getNode(cmdarg().getValue(), 1);
 	#	geo.put_model("Models/Airport/ils.xml",
-	#			node.getNode("impact/longitude-deg").getValue(),
 	#			node.getNode("impact/latitude-deg").getValue(),
+	#			node.getNode("impact/longitude-deg").getValue(),
 	#			node.getNode("impact/elevation-m").getValue(),
 	#			node.getNode("impact/heading-deg").getValue(),
 	#			node.getNode("impact/pitch-deg").getValue(),
