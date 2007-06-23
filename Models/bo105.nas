@@ -651,13 +651,18 @@ var init_weapons = func {
 
 	setlistener("/sim/model/bo105/weapons/impact/HOT", func {
 		var node = props.globals.getNode(cmdarg().getValue(), 1);
-		geo.put_model("Aircraft/bo105/Models/hot.ac",
+		var impact = geo.Coord.new().set_latlon(
 				node.getNode("impact/latitude-deg").getValue(),
 				node.getNode("impact/longitude-deg").getValue(),
-				node.getNode("impact/elevation-m").getValue(),
+				node.getNode("impact/elevation-m").getValue());
+
+		geo.put_model("Aircraft/bo105/Models/hot.ac", impact,
+		#geo.put_model("Models/fgfsdb/coolingtower.xml", impact,
 				node.getNode("impact/heading-deg").getValue(),
 				node.getNode("impact/pitch-deg").getValue(),
 				node.getNode("impact/roll-deg").getValue());
+		screen.log.write(sprintf("%.3f km",
+				geo.aircraft_position().distance_to(impact) / 1000), 1, 0.9, 0.9);
 
 		fgcommand("play-audio-sample", props.Node.new({
 			path : getprop("/sim/fg-root") ~ "/Aircraft/bo105/Sounds",
