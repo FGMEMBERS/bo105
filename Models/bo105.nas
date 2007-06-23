@@ -829,10 +829,6 @@ setlistener("/sim/signals/fdm-initialized", func {
 		}
 	});
 
-	setlistener("/sim/signals/click", func {
-		geo.put_model("Models/Fauna/cow.ac", geo.click_position(), 360 * rand());
-	});
-
 	# the attitude indicator needs pressure
 	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
 
