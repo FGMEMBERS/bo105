@@ -1556,7 +1556,7 @@
 		<object-name>strobe_off_T</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/lighting/strobe-top/state</property>
+				<property>sim/model/bo105/lighting/strobe-top/state</property>
 			</not>
 		</condition>
 	</animation>
@@ -1565,7 +1565,7 @@
 		<type>select</type>
 		<object-name>strobe_halo_T</object-name>
 		<condition>
-			<property>/sim/model/bo105/lighting/strobe-top/state</property>
+			<property>sim/model/bo105/lighting/strobe-top/state</property>
 		</condition>
 	</animation>
 
@@ -1614,7 +1614,7 @@
 		<object-name>strobe_off_B</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/lighting/strobe-bottom/state</property>
+				<property>sim/model/bo105/lighting/strobe-bottom/state</property>
 			</not>
 		</condition>
 	</animation>
@@ -1624,7 +1624,7 @@
 		<object-name>strobe_halo_Bf</object-name>
 		<object-name>strobe_halo_B</object-name>
 		<condition>
-			<property>/sim/model/bo105/lighting/strobe-bottom/state</property>
+			<property>sim/model/bo105/lighting/strobe-bottom/state</property>
 		</condition>
 	</animation>
 
@@ -1695,7 +1695,7 @@
 		<object-name>beacon_off_T</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/lighting/beacon-top/state</property>
+				<property>sim/model/bo105/lighting/beacon-top/state</property>
 			</not>
 		</condition>
 	</animation>
@@ -1704,7 +1704,7 @@
 		<type>select</type>
 		<object-name>beacon_halo_T</object-name>
 		<condition>
-			<property>/sim/model/bo105/lighting/beacon-top/state</property>
+			<property>sim/model/bo105/lighting/beacon-top/state</property>
 		</condition>
 	</animation>
 
@@ -1753,7 +1753,7 @@
 		<object-name>beacon_off_B</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/lighting/beacon-bottom/state</property>
+				<property>sim/model/bo105/lighting/beacon-bottom/state</property>
 			</not>
 		</condition>
 	</animation>
@@ -1763,7 +1763,7 @@
 		<object-name>beacon_halo_B</object-name>
 		<object-name>beacon_halo_Bf</object-name>
 		<condition>
-			<property>/sim/model/bo105/lighting/beacon-bottom/state</property>
+			<property>sim/model/bo105/lighting/beacon-bottom/state</property>
 		</condition>
 	</animation>
 
@@ -1834,7 +1834,7 @@
 		<object-name>nav_off_L</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/lighting/nav-lights</property>
+				<property>sim/model/bo105/lighting/nav-lights</property>
 			</not>
 		</condition>
 	</animation>
@@ -1844,7 +1844,7 @@
 		<object-name>nav_halo_L</object-name>
 		<object-name>nav_halo_Lf</object-name>
 		<condition>
-			<property>/sim/model/bo105/lighting/nav-lights</property>
+			<property>sim/model/bo105/lighting/nav-lights</property>
 		</condition>
 	</animation>
 
@@ -1915,7 +1915,7 @@
 		<object-name>nav_off_R</object-name>
 		<condition>
 			<not>
-				<property>/sim/model/bo105/lighting/nav-lights</property>
+				<property>sim/model/bo105/lighting/nav-lights</property>
 			</not>
 		</condition>
 	</animation>
@@ -1925,7 +1925,7 @@
 		<object-name>nav_halo_R</object-name>
 		<object-name>nav_halo_Rf</object-name>
 		<condition>
-			<property>/sim/model/bo105/lighting/nav-lights</property>
+			<property>sim/model/bo105/lighting/nav-lights</property>
 		</condition>
 	</animation>
 
@@ -2134,7 +2134,7 @@
 		<object-name>stick_grip_R</object-name>
 		<object-name>stick_ring_R</object-name>
 		<object-name>stick_button_R</object-name>
-		<property>/controls/flight/elevator</property>
+		<property>controls/flight/elevator</property>
 		<factor>8</factor>
 		<offset-deg>-2.5</offset-deg>
 		<center>
@@ -2155,7 +2155,7 @@
 		<object-name>stick_grip_R</object-name>
 		<object-name>stick_ring_R</object-name>
 		<object-name>stick_button_R</object-name>
-		<property>/controls/flight/aileron</property>
+		<property>controls/flight/aileron</property>
 		<factor>4.94</factor>
 		<offset>-0.71</offset>
 		<center>
@@ -2176,7 +2176,7 @@
 		<object-name>stick_grip_L</object-name>
 		<object-name>stick_ring_L</object-name>
 		<object-name>stick_button_L</object-name>
-		<property>/controls/flight/elevator</property>
+		<property>controls/flight/elevator</property>
 		<factor>8</factor>
 		<offset-deg>-2.5</offset-deg>
 		<center>
@@ -2197,7 +2197,7 @@
 		<object-name>stick_grip_L</object-name>
 		<object-name>stick_ring_L</object-name>
 		<object-name>stick_button_L</object-name>
-		<property>/controls/flight/aileron</property>
+		<property>controls/flight/aileron</property>
 		<factor>4.94</factor>
 		<offset>-0.71</offset>
 		<center>
@@ -2222,7 +2222,7 @@
 		<type>rotate</type>
 		<object-name>l_pedal_L</object-name>
 		<object-name>l_pedal_R</object-name>
-		<property>/controls/flight/rudder</property>
+		<property>controls/flight/rudder</property>
 		<factor>20</factor>
 		<offset>0</offset>
 		<center>
@@ -2241,7 +2241,7 @@
 		<type>rotate</type>
 		<object-name>r_pedal_L</object-name>
 		<object-name>r_pedal_R</object-name>
-		<property>/controls/flight/rudder</property>
+		<property>controls/flight/rudder</property>
 		<factor>20</factor>
 		<offset>0</offset>
 		<center>
@@ -2262,7 +2262,7 @@
 	<animation>
 		<type>material</type>
 		<object-name>emblem</object-name>
-		<property-base>/sim/model/bo105/material/emblem</property-base>
+		<property-base>sim/model/bo105/material/emblem</property-base>
 		<texture-prop>texture</texture-prop>
 		<transparency>
 			<alpha-prop>transparency/alpha</alpha-prop>
@@ -2275,12 +2275,12 @@
 		<object-name>glass_fixed</object-name>
 		<condition>
 			<equals>
-				<property>/sim/aircraft</property>
+				<property>sim/aircraft</property>
 				<value>bo105</value>
 			</equals>
 		</condition>
 		<global type="bool">true</global>
-		<property-base>/sim/model/bo105/material/glass</property-base>
+		<property-base>sim/model/bo105/material/glass</property-base>
 		<diffuse>
 			<red-prop>diffuse/red</red-prop>
 			<green-prop>diffuse/green</green-prop>
@@ -2317,7 +2317,7 @@
 			</equals>
 		</condition>
 		<global type="bool">true</global>
-		<property-base>/sim/model/bo105/material/fuselage</property-base>
+		<property-base>sim/model/bo105/material/fuselage</property-base>
 		<diffuse>
 			<red-prop>diffuse/red</red-prop>
 			<green-prop>diffuse/green</green-prop>
