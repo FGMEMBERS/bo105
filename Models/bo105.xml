@@ -28,9 +28,50 @@
 		</flapE>
 	</params>
 
+<!--== crash handling ==-->
+
 	<animation>
-		<type>select</type>
-		<object-name>bounding_box</object-name>
+		<type>rotate</type>
+		<object-name>tail</object-name>
+		<object-name>tailstab_L</object-name>
+		<object-name>tailstab_R</object-name>
+		<object-name>tailrotoraxis</object-name>
+		<object-name>antenna_L</object-name>
+		<object-name>antenna_R</object-name>
+		<object-name>beacon_sock_T</object-name>
+		<object-name>beacon_off_T</object-name>
+		<object-name>strobe_sock_T</object-name>
+		<object-name>strobe_off_T</object-name>
+		<object-name>tail_skid</object-name>
+		<object-name>tailrotor_blade1</object-name>
+		<object-name>tailrotor_blade2</object-name>
+		<property>sim/model/bo105/tail-angle</property>
+		<center>
+			<x-m>2.134</x-m>
+			<y-m>0</y-m>
+			<z-m>0.958</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>rotor_disc_T</object-name>
+		<property>sim/model/bo105/tail-angle</property>
+		<center>
+			<x-m>2.134</x-m>
+			<y-m>0</y-m>
+			<z-m>0.958</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
 	</animation>
 
 <!--== shadows ==-->
@@ -217,23 +258,6 @@
 	</animation>
 
 	<!-- tail rotor blades -->
-
-	<animation>
-		<type>rotate</type>
-		<object-name>tailrotor_blade1</object-name>
-		<object-name>tailrotor_blade2</object-name>
-		<property>sim/model/bo105/tail-angle</property>
-		<center>
-			<x-m>2.134</x-m>
-			<y-m>0</y-m>
-			<z-m>0.958</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</axis>
-	</animation>
 
 	<animation>
 		<type>material</type>
@@ -1016,7 +1040,7 @@
 				<property>sim/model/bo105/doors/door[0]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1032,7 +1056,7 @@
 				<property>sim/model/bo105/doors/door[0]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1049,7 +1073,7 @@
 				<property>sim/model/bo105/doors/door[1]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1065,7 +1089,7 @@
 				<property>sim/model/bo105/doors/door[1]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1082,7 +1106,7 @@
 				<property>sim/model/bo105/doors/door[2]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1098,7 +1122,7 @@
 				<property>sim/model/bo105/doors/door[2]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1115,7 +1139,7 @@
 				<property>sim/model/bo105/doors/door[3]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1131,7 +1155,7 @@
 				<property>sim/model/bo105/doors/door[3]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1148,7 +1172,7 @@
 				<property>sim/model/bo105/doors/door[4]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1165,7 +1189,7 @@
 				<property>sim/model/bo105/doors/door[5]/enabled</property>
 				<not>
 					<equals>
-						<property>/sim/aircraft</property>
+						<property>sim/aircraft</property>
 						<value>bo105</value>
 					</equals>
 				</not>
@@ -1999,31 +2023,6 @@
 		</offsets>
 	</model-->
 
-<!--== crash handling ==-->
-
-	<animation>
-		<type>rotate</type>
-		<object-name>tail</object-name>
-		<object-name>tailstab_L</object-name>
-		<object-name>tailstab_R</object-name>
-		<object-name>tailrotoraxis</object-name>
-		<object-name>antenna_L</object-name>
-		<object-name>antenna_R</object-name>
-		<object-name>beacon_sock_T</object-name>
-		<object-name>protector</object-name>
-		<property>sim/model/bo105/tail-angle</property>
-		<center>
-			<x-m>2.134</x-m>
-			<y-m>0</y-m>
-			<z-m>0.958</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</axis>
-	</animation>
-
 <!--== LOD ==-->
 
 	<animation>
@@ -2312,7 +2311,7 @@
 		<object-name>fuselage</object-name>
 		<condition>
 			<equals>
-				<property>/sim/aircraft</property>
+				<property>sim/aircraft</property>
 				<value>bo105</value>
 			</equals>
 		</condition>
@@ -2343,6 +2342,140 @@
 		</transparency>
 		<shininess-prop>shininess</shininess-prop>
 		<texture-prop>texture</texture-prop>
+	</animation>
+
+<!--== pilot ==-->
+
+	<animation>
+		<name>pilot</name>
+		<object-name>pilot_head</object-name>
+		<object-name>pilot_torso</object-name>
+		<object-name>pilot_arm_L</object-name>
+		<object-name>pilot_arm_R</object-name>
+		<object-name>pilot_hand_L</object-name>
+		<object-name>pilot_hand_R</object-name>
+		<object-name>pilot_leg_UL</object-name>
+		<object-name>pilot_leg_UR</object-name>
+		<object-name>pilot_leg_LL</object-name>
+		<object-name>pilot_leg_LR</object-name>
+		<object-name>pilot_shoe_L</object-name>
+		<object-name>pilot_shoe_R</object-name>
+		<object-name>pilot_helmet</object-name>
+	</animation>
+
+	<animation>
+		<name>copilot</name>
+		<object-name>copilot_head</object-name>
+		<object-name>copilot_torso</object-name>
+		<object-name>copilot_arm_L</object-name>
+		<object-name>copilot_arm_R</object-name>
+		<object-name>copilot_hand_L</object-name>
+		<object-name>copilot_hand_R</object-name>
+		<object-name>copilot_leg_UL</object-name>
+		<object-name>copilot_leg_UR</object-name>
+		<object-name>copilot_leg_LL</object-name>
+		<object-name>copilot_leg_LR</object-name>
+		<object-name>copilot_shoe_L</object-name>
+		<object-name>copilot_shoe_R</object-name>
+		<object-name>copilot_helmet</object-name>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>pilot</object-name>
+		<condition>
+			<property>sim/current-view/view-number</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>pilot</object-name>
+		<min-m>0</min-m>
+		<max-m>150</max-m>
+	</animation>
+
+	<animation>
+		<type>select</type>
+		<object-name>copilot</object-name>
+		<condition>
+			<property>sim/current-view/view-number</property>
+		</condition>
+	</animation>
+
+	<animation>
+		<type>range</type>
+		<object-name>copilot</object-name>
+		<min-m>0</min-m>
+		<max-m>150</max-m>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>hp_outside</object-name>
+		<condition>
+			<equals>
+				<property>sim/aircraft</property>
+				<value>bo105</value>
+			</equals>
+		</condition>
+		<global type="bool">true</global>
+		<property-base>sim/model/bo105/material/helmet</property-base>
+		<diffuse>
+			<red-prop>diffuse/red</red-prop>
+			<green-prop>diffuse/green</green-prop>
+			<blue-prop>diffuse/blue</blue-prop>
+		</diffuse>
+		<ambient>
+			<red-prop>ambient/red</red-prop>
+			<green-prop>ambient/green</green-prop>
+			<blue-prop>ambient/blue</blue-prop>
+		</ambient>
+		<specular>
+			<red-prop>specular/red</red-prop>
+			<green-prop>specular/green</green-prop>
+			<blue-prop>specular/blue</blue-prop>
+		</specular>
+		<emission>
+			<red-prop>emission/red</red-prop>
+			<green-prop>emission/green</green-prop>
+			<blue-prop>emission/blue</blue-prop>
+		</emission>
+		<shininess-prop>shininess</shininess-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>pilot_arm_L</object-name>
+		<condition>
+			<equals>
+				<property>sim/aircraft</property>
+				<value>bo105</value>
+			</equals>
+		</condition>
+		<global type="bool">true</global>
+		<property-base>sim/model/bo105/material/flightsuit</property-base>
+		<diffuse>
+			<red-prop>diffuse/red</red-prop>
+			<green-prop>diffuse/green</green-prop>
+			<blue-prop>diffuse/blue</blue-prop>
+		</diffuse>
+		<ambient>
+			<red-prop>ambient/red</red-prop>
+			<green-prop>ambient/green</green-prop>
+			<blue-prop>ambient/blue</blue-prop>
+		</ambient>
+		<specular>
+			<red-prop>specular/red</red-prop>
+			<green-prop>specular/green</green-prop>
+			<blue-prop>specular/blue</blue-prop>
+		</specular>
+		<emission>
+			<red-prop>emission/red</red-prop>
+			<green-prop>emission/green</green-prop>
+			<blue-prop>emission/blue</blue-prop>
+		</emission>
+		<shininess-prop>shininess</shininess-prop>
 	</animation>
 </PropertyList>
 
