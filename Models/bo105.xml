@@ -2446,7 +2446,7 @@
 
 	<animation>
 		<type>material</type>
-		<object-name>pilot_arm_L</object-name>
+		<object-name>pilot_torso</object-name>
 		<condition>
 			<equals>
 				<property>sim/aircraft</property>
