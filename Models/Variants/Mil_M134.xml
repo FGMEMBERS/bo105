@@ -2,6 +2,7 @@
 
 <PropertyList>
 	<desc type="string">Military with M134 Gatling style "Miniguns"</desc>
+	<id type="int">4</id>
 	<index type="int">50</index>
 
 	<emblem type="string">$MIL</emblem>

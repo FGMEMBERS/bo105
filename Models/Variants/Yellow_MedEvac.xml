@@ -2,6 +2,7 @@
 
 <PropertyList>
 	<desc type="string">Yellow MedEvac with Red Cross/Crescent/Crystal emblem</desc>
+	<id type="int">0</id>
 	<index type="int">10</index>
 
 	<emblem type="string">$MED</emblem>

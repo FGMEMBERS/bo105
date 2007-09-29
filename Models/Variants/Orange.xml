@@ -2,6 +2,7 @@
 
 <PropertyList>
 	<desc type="string">Orange civilian</desc>
+	<id type="int">2</id>
 	<index type="int">30</index>
 
 	<emblem type="string">empty.rgb</emblem>

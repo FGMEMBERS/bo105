@@ -2,6 +2,7 @@
 
 <PropertyList>
 	<desc type="string">Military anti-tank with HOT missiles</desc>
+	<id type="int">5</id>
 	<index type="int">60</index>
 
 	<emblem type="string">$MIL</emblem>
