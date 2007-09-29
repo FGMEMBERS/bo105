@@ -4,7 +4,6 @@ if (!contains(globals, "cprint")) {
 	globals.cprint = func {};
 }
 
-var optarg = aircraft.optarg;
 var makeNode = aircraft.makeNode;
 
 var sin = func(a) { math.sin(a * math.pi / 180.0) }
@@ -397,41 +396,40 @@ var Variant = {
 		me.list = nil;
 		var dir = getprop("/sim/fg-root") ~ "/Aircraft/bo105/Models/Variants";
 		foreach (var f; directory(dir)) {
-			if (substr(f, -4) != ".xml") {
+			if (substr(f, -4) != ".xml")
 				continue;
-			}
+
 			var tmp = me.self.getNode("tmp", 1);
 			printlog("info", "bo105: loading ", dir ~ "/" ~ f);
 			me.load(dir ~ "/" ~ f);
 			var index = tmp.getNode("index");
-			if (index != nil) {
+			if (index != nil)
 				index = index.getValue();
-			}
+
 			printlog("info", "       #", index, " -- ", tmp.getNode("desc", 1).getValue());
 			if (index == nil or index < 0) {
-				for (index = 1000; 1; index += 1) {
-					if (me.variantN.getChild("variant", index, 0) == nil) {
+				for (index = 1000; 1; index += 1)
+					if (me.variantN.getChild("variant", index, 0) == nil)
 						break;
-					}
-				}
+
 			}
 			props.copy(tmp, me.variantN.getChild("variant", index, 1));
 			tmp.removeChildren();
 		}
 		me.list = me.variantN.getChildren("variant");
-		if (me.index < 0 or me.index >= size(me.list)) {
+		if (me.index < 0 or me.index >= size(me.list))
 			me.index = 0;
-		}
+
 		me.reset();
 	},
 	set : func(i) {
 		var s = size(me.list);
-		while (i < 0) {
+		while (i < 0)
 			i += s;
-		}
-		while (i >= s) {
+
+		while (i >= s)
 			i -= s;
-		}
+
 		me.index = i;
 		me.reset();
 	},
@@ -449,13 +447,13 @@ var Variant = {
 	reset : func {
 		props.copy(me.list[me.index], me.self);
 		var emblem = me.self.getNode("emblem", 1).getValue();
-		if (emblem == "$MED") {
+		if (emblem == "$MED")
 			emblem = me.emblem_medevac;
-		} elsif (emblem == "$MIL") {
+		elsif (emblem == "$MIL")
 			emblem = me.emblem_military;
-		} elsif (emblem == "") {
+		elsif (emblem == "")
 			emblem = "empty.rgb";
-		}
+
 		me.self.getNode("material/emblem/texture", 1).setValue(emblem);
 
 		if (weapons != nil) {
@@ -463,16 +461,16 @@ var Variant = {
 			weapons = nil;
 		}
 
-		if (me.self.getNode("missiles", 1).getBoolValue()) {
+		if (me.self.getNode("missiles", 1).getBoolValue())
 			weapons = HOT;
-		} elsif (me.self.getNode("miniguns", 1).getBoolValue()) {
+		elsif (me.self.getNode("miniguns", 1).getBoolValue())
 			weapons = MG;
-		}
 
-		if (weapons != nil) {
+		if (weapons != nil)
 			weapons.enable();
-		}
+
 		me.self.getNode("variant", 1).setIntValue(me.index);
+		setprop("sim/model/variant", getprop("sim/model/bo105/id"));
 	},
 };
 
@@ -657,6 +655,7 @@ var init_weapons = func {
 				node.getNode("impact/elevation-m").getValue());
 
 		geo.put_model("Aircraft/bo105/Models/hot.ac", impact,
+		#geo.put_model("Aircraft/bo105/Models/fire.osg", impact,
 		#geo.put_model("Models/fgfsdb/coolingtower.xml", impact,
 				node.getNode("impact/heading-deg").getValue(),
 				node.getNode("impact/pitch-deg").getValue(),
