@@ -8,7 +8,7 @@
 		<load>
 			var variant = cmdarg().getNode("sim/model/variant");
 			if (variant == nil or (variant = variant.getValue()) == nil)
-				variant = 1;
+				variant = 2;
 
 			var dir = getprop("/sim/fg-root") ~ "/Aircraft/bo105/Models/Variants";
 			foreach (var file; directory(dir)) {
@@ -24,7 +24,7 @@
 				if (id == variant) {
 					printlog("info", "bo105: setting MP variant #", id);
 					props.copy(data, cmdarg().getNode("sim/model/bo105", 1));
-					return;
+					break;
 				}
 			}
 		</load>
