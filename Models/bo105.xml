@@ -4,6 +4,32 @@
 	<path>bo105.ac</path>
 	<dump>0</dump>
 
+	<nasal>
+		<load>
+			var variant = cmdarg().getNode("sim/model/variant");
+			if (variant == nil or (variant = variant.getValue()) == nil)
+				variant = 1;
+
+			var dir = getprop("/sim/fg-root") ~ "/Aircraft/bo105/Models/Variants";
+			foreach (var file; directory(dir)) {
+				if (substr(file, -4) != ".xml")
+					continue;
+
+				var data = props.Node.new({ filename : dir ~ "/" ~ file });
+				fgcommand("loadxml", data);
+				data = data.getNode("data");
+				var id = data.getNode("id", 1).getValue();
+				if (id == nil)
+					continue;
+				if (id == variant) {
+					printlog("info", "bo105: setting MP variant #", id);
+					props.copy(data, cmdarg().getNode("sim/model/bo105", 1));
+					break;
+				}
+			}
+		</load>
+	</nasal>
+
 	<offsets>
 		<x-m>2.5</x-m>
 		<z-m>-0.2</z-m>
@@ -2272,12 +2298,6 @@
 	<animation>
 		<type>material</type>
 		<object-name>glass_fixed</object-name>
-		<condition>
-			<equals>
-				<property>sim/aircraft</property>
-				<value>bo105</value>
-			</equals>
-		</condition>
 		<global type="bool">true</global>
 		<property-base>sim/model/bo105/material/glass</property-base>
 		<diffuse>
@@ -2309,12 +2329,6 @@
 	<animation>
 		<type>material</type>
 		<object-name>fuselage</object-name>
-		<condition>
-			<equals>
-				<property>sim/aircraft</property>
-				<value>bo105</value>
-			</equals>
-		</condition>
 		<global type="bool">true</global>
 		<property-base>sim/model/bo105/material/fuselage</property-base>
 		<diffuse>
@@ -2413,12 +2427,6 @@
 	<animation>
 		<type>material</type>
 		<object-name>hp_outside</object-name>
-		<condition>
-			<equals>
-				<property>sim/aircraft</property>
-				<value>bo105</value>
-			</equals>
-		</condition>
 		<global type="bool">true</global>
 		<property-base>sim/model/bo105/material/helmet</property-base>
 		<diffuse>
@@ -2447,12 +2455,6 @@
 	<animation>
 		<type>material</type>
 		<object-name>pilot_torso</object-name>
-		<condition>
-			<equals>
-				<property>sim/aircraft</property>
-				<value>bo105</value>
-			</equals>
-		</condition>
 		<global type="bool">true</global>
 		<property-base>sim/model/bo105/material/flightsuit</property-base>
 		<diffuse>
