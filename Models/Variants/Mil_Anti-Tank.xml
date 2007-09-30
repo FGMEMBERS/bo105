@@ -78,6 +78,16 @@
 			<shininess>25</shininess>
 		</glass>
 
+		<emblem>
+			<texture>empty.rgb</texture>
+
+			<transparency>
+				<alpha>1.0</alpha>
+			</transparency>
+
+			<threshold>0.1</threshold>
+		</emblem>
+
 		<helmet>
 			<diffuse>
 				<red>0.35</red>

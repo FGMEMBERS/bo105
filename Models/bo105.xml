@@ -23,7 +23,15 @@
 					continue;
 				if (id == variant) {
 					printlog("info", "bo105: setting MP variant #", id);
-					props.copy(data, cmdarg().getNode("sim/model/bo105", 1));
+					var dest = cmdarg().getNode("sim/model/bo105", 1);
+					props.copy(data, dest);
+
+					var e = dest.getNode("emblem", 1).getValue() or "../../../Models/Fauna/cow.rgb";
+					if (e == "$MED")
+						e = "Emblems/red-cross.rgb";
+					elsif (e == "$MIL")
+						e = "Emblems/oebh.rgb";
+					dest.getNode("material/emblem/texture", 1).setValue(e);
 					break;
 				}
 			}
