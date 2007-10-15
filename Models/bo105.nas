@@ -647,15 +647,14 @@ var init_weapons = func {
 		me.select += 1;
 	}
 
-	setlistener("/sim/model/bo105/weapons/impact/HOT", func {
-		var node = props.globals.getNode(cmdarg().getValue(), 1);
+	setlistener("/sim/model/bo105/weapons/impact/HOT", func(n) {
+		var node = props.globals.getNode(n.getValue(), 1);
 		var impact = geo.Coord.new().set_latlon(
 				node.getNode("impact/latitude-deg").getValue(),
 				node.getNode("impact/longitude-deg").getValue(),
 				node.getNode("impact/elevation-m").getValue());
 
 		geo.put_model("Aircraft/bo105/Models/hot.ac", impact,
-		#geo.put_model("Aircraft/bo105/Models/fire.osg", impact,
 		#geo.put_model("Models/fgfsdb/coolingtower.xml", impact,
 				node.getNode("impact/heading-deg").getValue(),
 				node.getNode("impact/pitch-deg").getValue(),
@@ -670,8 +669,8 @@ var init_weapons = func {
 		}));
 	});
 
-	#setlistener("/sim/model/bo105/weapons/impact/MG", func {
-	#	var node = props.globals.getNode(cmdarg().getValue(), 1);
+	#setlistener("/sim/model/bo105/weapons/impact/MG", func(n) {
+	#	var node = props.globals.getNode(n.getValue(), 1);
 	#	geo.put_model("Models/Airport/ils.xml",
 	#			node.getNode("impact/latitude-deg").getValue(),
 	#			node.getNode("impact/longitude-deg").getValue(),
@@ -681,12 +680,11 @@ var init_weapons = func {
 	#			node.getNode("impact/roll-deg").getValue());
 	#});
 
-	setlistener("controls/armament/trigger", func {
+	setlistener("controls/armament/trigger", func(n) {
 		if (weapons != nil) {
-			var t = cmdarg().getBoolValue();
-			if (t != TRIGGER) {
+			var t = n.getBoolValue();
+			if (t != TRIGGER)
 				weapons.fire(TRIGGER = t);
-			}
 		}
 	});
 
@@ -703,9 +701,8 @@ var get_ammunition = func {
 
 
 var reload = func {
-	if (weapons != nil) {
+	if (weapons != nil)
 		weapons.reload();
-	}
 }
 
 
@@ -804,8 +801,8 @@ setlistener("/sim/signals/fdm-initialized", func {
 	variant = Variant.new();
 	collective.setDoubleValue(1);
 
-	setlistener("/sim/signals/reinit", func {
-		cmdarg().getBoolValue() and return;
+	setlistener("/sim/signals/reinit", func(n) {
+		n.getBoolValue() and return;
 		cprint("32;1", "reinit");
 		turbine_timer.stop();
 		collective.setDoubleValue(1);
@@ -813,19 +810,17 @@ setlistener("/sim/signals/fdm-initialized", func {
 		crashed = 0;
 	});
 
-	setlistener("sim/crashed", func {
-		cprint("31;1", "crashed ", cmdarg().getValue());
+	setlistener("sim/crashed", func(n) {
+		cprint("31;1", "crashed ", n.getValue());
 		turbine_timer.stop();
-		if (cmdarg().getBoolValue()) {
+		if (n.getBoolValue())
 			crash(crashed = 1);
-		}
 	});
 
-	setlistener("/sim/freeze/replay-state", func {
-		cprint("33;1", cmdarg().getValue() ? "replay" : "pause");
-		if (crashed) {
-			crash(!cmdarg().getBoolValue())
-		}
+	setlistener("/sim/freeze/replay-state", func(n) {
+		cprint("33;1", n.getValue() ? "replay" : "pause");
+		if (crashed)
+			crash(!n.getBoolValue())
 	});
 
 	# the attitude indicator needs pressure
