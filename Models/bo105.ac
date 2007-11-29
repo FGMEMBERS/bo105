@@ -28,7 +28,7 @@ MATERIAL "shadow" rgb 0 0 0  amb 1 1 1  emis 0 0 0  spec 0 0 0  shi 0  trans 0
 MATERIAL "white_light_on" rgb 1 1 1  amb 1 1 1  emis 1 1 1  spec 0 0 0  shi 0  trans 0
 MATERIAL "tail_rotor" rgb 0.2 0.2 0.2  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.1 0.1 0.1  shi 72  trans 0
 OBJECT world
-kids 192
+kids 191
 OBJECT poly
 name "shadow_fuselage"
 texture "bo105-1.rgb"
@@ -31151,7 +31151,7 @@ refs 4
 kids 0
 OBJECT poly
 name "door_back_L"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 32
 -0.650739 -0.234112 0.769783
@@ -31747,7 +31747,7 @@ refs 4
 kids 0
 OBJECT poly
 name "door_back_R"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 32
 -0.650739 -0.234112 -0.769783
@@ -32343,7 +32343,7 @@ refs 4
 kids 0
 OBJECT poly
 name "door_front_L"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 33
 -1.371914 -0.22973 0.765823
@@ -32941,7 +32941,7 @@ refs 4
 kids 0
 OBJECT poly
 name "door_front_R"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 33
 -1.371914 -0.22973 -0.765823
@@ -35211,7 +35211,7 @@ refs 4
 kids 0
 OBJECT poly
 name "front_plate"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 25
 -2.685417 -0.284714 -2e-06
@@ -35355,7 +35355,7 @@ refs 4
 kids 0
 OBJECT poly
 name "fuselage"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 479
 -1.805942 0.975588 -0.031893
@@ -42759,7 +42759,7 @@ refs 4
 kids 0
 OBJECT poly
 name "gatling_1"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 124
 0.505174 -0.256951 0.886017
@@ -44365,7 +44365,7 @@ refs 3
 kids 0
 OBJECT poly
 name "hot"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 368
 0.16591 -0.001989 -1.117407
@@ -48318,42 +48318,42 @@ numvert 12
 -0.001958 1.252561 0.245908
 numsurf 6
 SURF 0x10
-mat 1
+mat 7
 refs 4
 6 0 0
 0 0 0
 1 0 0
 7 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 2 0 0
 8 0 0
 7 0 0
 1 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 3 0 0
 9 0 0
 8 0 0
 2 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 4 0 0
 10 0 0
 9 0 0
 3 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 5 0 0
 11 0 0
 10 0 0
 4 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 0 0 0
 6 0 0
@@ -48377,42 +48377,42 @@ numvert 12
 -0.0349 1.252571 0.247429
 numsurf 6
 SURF 0x10
-mat 1
+mat 7
 refs 4
 6 0 0
 0 0 0
 1 0 0
 7 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 2 0 0
 8 0 0
 7 0 0
 1 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 3 0 0
 9 0 0
 8 0 0
 2 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 4 0 0
 10 0 0
 9 0 0
 3 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 5 0 0
 11 0 0
 10 0 0
 4 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 0 0 0
 6 0 0
@@ -48436,42 +48436,42 @@ numvert 12
 0.030985 1.252576 0.245796
 numsurf 6
 SURF 0x10
-mat 1
+mat 7
 refs 4
 6 0 0
 0 0 0
 1 0 0
 7 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 2 0 0
 8 0 0
 7 0 0
 1 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 3 0 0
 9 0 0
 8 0 0
 2 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 4 0 0
 10 0 0
 9 0 0
 3 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 5 0 0
 11 0 0
 10 0 0
 4 0 0
 SURF 0x10
-mat 1
+mat 7
 refs 4
 0 0 0
 6 0 0
@@ -76031,7 +76031,7 @@ refs 2
 kids 0
 OBJECT poly
 name "rail_L"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 33
 -1.177371 0.928519 0.622645
@@ -76225,7 +76225,7 @@ refs 4
 kids 0
 OBJECT poly
 name "rail_R"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 33
 -1.177371 0.928519 -0.622645
@@ -76419,7 +76419,7 @@ refs 4
 kids 0
 OBJECT poly
 name "reardoor_L"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 33
 1.395618 0.200517 0.638185
@@ -76925,7 +76925,7 @@ refs 4
 kids 0
 OBJECT poly
 name "reardoor_R"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 30
 1.395618 0.200517 -0.638185
@@ -82318,7 +82318,7 @@ refs 4
 kids 0
 OBJECT poly
 name "skirt"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 56
 1.083352 -0.370804 -0.761209
@@ -93508,249 +93508,8 @@ refs 4
 35 0 0
 kids 0
 OBJECT poly
-name "swashplate_rotor.001"
-numvert 40
-0.040684 1.569424 -0.112807
-0.091636 1.569424 -0.077352
-0.118036 1.569424 -0.021171
-0.112807 1.569424 0.040683
-0.077352 1.569424 0.091636
-0.021171 1.569424 0.118035
--0.040683 1.569424 0.112807
--0.091636 1.569424 0.077352
--0.118035 1.569424 0.021171
--0.112807 1.569424 -0.040683
--0.077352 1.569424 -0.091636
--0.021171 1.569424 -0.118036
-0.040684 1.599424 -0.112807
-0.091636 1.599424 -0.077352
-0.118036 1.599424 -0.021171
-0.112807 1.599424 0.040683
-0.077352 1.599424 0.091636
-0.021171 1.599424 0.118035
--0.040683 1.599424 0.112807
--0.091636 1.599424 0.077352
--0.118035 1.599424 0.021171
--0.112807 1.599424 -0.040683
--0.077352 1.599424 -0.091636
--0.021171 1.599424 -0.118036
-0.125485 1.587418 0.110004
-0.146758 1.587418 0.079432
-0.125485 1.569418 0.110004
-0.146758 1.569418 0.079432
-0.110004 1.587418 -0.125485
-0.079432 1.587418 -0.146758
-0.110004 1.569418 -0.125485
-0.079432 1.569418 -0.146758
--0.125485 1.587418 -0.110004
--0.146758 1.587418 -0.079432
--0.125485 1.569418 -0.110004
--0.146758 1.569418 -0.079432
--0.110004 1.587418 0.125485
--0.079432 1.587418 0.146758
--0.110004 1.569418 0.125485
--0.079432 1.569418 0.146758
-numsurf 28
-SURF 0x10
-mat 7
-refs 4
-2 0 0
-1 0 0
-13 0 0
-14 0 0
-SURF 0x10
-mat 7
-refs 4
-3 0 0
-2 0 0
-14 0 0
-15 0 0
-SURF 0x10
-mat 7
-refs 4
-5 0 0
-4 0 0
-16 0 0
-17 0 0
-SURF 0x10
-mat 7
-refs 4
-6 0 0
-5 0 0
-17 0 0
-18 0 0
-SURF 0x10
-mat 7
-refs 4
-8 0 0
-7 0 0
-19 0 0
-20 0 0
-SURF 0x10
-mat 7
-refs 4
-9 0 0
-8 0 0
-20 0 0
-21 0 0
-SURF 0x10
-mat 7
-refs 4
-11 0 0
-10 0 0
-22 0 0
-23 0 0
-SURF 0x10
-mat 7
-refs 4
-0 0 0
-11 0 0
-23 0 0
-12 0 0
-SURF 0x10
-mat 7
-refs 4
-16 0 0
-4 0 0
-26 0 0
-24 0 0
-SURF 0x10
-mat 7
-refs 4
-15 0 0
-16 0 0
-24 0 0
-25 0 0
-SURF 0x10
-mat 7
-refs 4
-3 0 0
-15 0 0
-25 0 0
-27 0 0
-SURF 0x10
-mat 7
-refs 4
-4 0 0
-3 0 0
-27 0 0
-26 0 0
-SURF 0x10
-mat 7
-refs 4
-26 0 0
-27 0 0
-25 0 0
-24 0 0
-SURF 0x10
-mat 7
-refs 4
-13 0 0
-1 0 0
-30 0 0
-28 0 0
-SURF 0x10
-mat 7
-refs 4
-12 0 0
-13 0 0
-28 0 0
-29 0 0
-SURF 0x10
-mat 7
-refs 4
-0 0 0
-12 0 0
-29 0 0
-31 0 0
-SURF 0x10
-mat 7
-refs 4
-1 0 0
-0 0 0
-31 0 0
-30 0 0
-SURF 0x10
-mat 7
-refs 4
-30 0 0
-31 0 0
-29 0 0
-28 0 0
-SURF 0x10
-mat 7
-refs 4
-22 0 0
-10 0 0
-34 0 0
-32 0 0
-SURF 0x10
-mat 7
-refs 4
-21 0 0
-22 0 0
-32 0 0
-33 0 0
-SURF 0x10
-mat 7
-refs 4
-9 0 0
-21 0 0
-33 0 0
-35 0 0
-SURF 0x10
-mat 7
-refs 4
-10 0 0
-9 0 0
-35 0 0
-34 0 0
-SURF 0x10
-mat 7
-refs 4
-34 0 0
-35 0 0
-33 0 0
-32 0 0
-SURF 0x10
-mat 7
-refs 4
-19 0 0
-7 0 0
-38 0 0
-36 0 0
-SURF 0x10
-mat 7
-refs 4
-18 0 0
-19 0 0
-36 0 0
-37 0 0
-SURF 0x10
-mat 7
-refs 4
-6 0 0
-18 0 0
-37 0 0
-39 0 0
-SURF 0x10
-mat 7
-refs 4
-7 0 0
-6 0 0
-39 0 0
-38 0 0
-SURF 0x10
-mat 7
-refs 4
-38 0 0
-39 0 0
-37 0 0
-36 0 0
-kids 0
-OBJECT poly
 name "tail"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 82
 4.812596 1.032263 0.061448
@@ -94650,7 +94409,7 @@ refs 4
 kids 0
 OBJECT poly
 name "tailplate"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 20
 2.133997 0.903855 -0.053866
@@ -94925,7 +94684,7 @@ refs 4
 kids 0
 OBJECT poly
 name "tailstab_L"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 28
 4.684689 0.814817 0.134814
@@ -95103,7 +94862,7 @@ refs 4
 kids 0
 OBJECT poly
 name "tailstab_R"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 28
 4.683862 0.815216 -0.131196
@@ -96169,7 +95928,7 @@ refs 4
 kids 0
 OBJECT poly
 name "wire_cutter"
-texture "/home/m/grph/blender/bo105/livery.rgb"
+texture "livery.rgb"
 texrep 1.0 1.0
 numvert 47
 -2.829348 -0.541885 0.003957
@@ -111143,7 +110902,7 @@ numvert 40
 -0.105359 1.587418 0.129409
 -0.131437 1.569418 0.102818
 -0.105359 1.569418 0.129409
-numsurf 28
+numsurf 33
 SURF 0x10
 mat 7
 refs 4
@@ -111340,4 +111099,39 @@ refs 4
 39 0 0
 37 0 0
 36 0 0
+SURF 0x0
+mat 7
+refs 4
+2 0 0
+3 0 0
+4 0 0
+5 0 0
+SURF 0x0
+mat 7
+refs 4
+1 0 0
+2 0 0
+5 0 0
+6 0 0
+SURF 0x0
+mat 7
+refs 4
+0 0 0
+1 0 0
+6 0 0
+7 0 0
+SURF 0x0
+mat 7
+refs 4
+0 0 0
+7 0 0
+8 0 0
+11 0 0
+SURF 0x0
+mat 7
+refs 4
+8 0 0
+9 0 0
+10 0 0
+11 0 0
 kids 0
