@@ -47,7 +47,7 @@ Bo 105 simulation config.
 				<shadow type="bool">true</shadow>
 				<wiper type="bool">true</wiper>
 				<wire-cutter type="bool">true</wire-cutter>
-				<tail-angle type="int" archive="y">0</tail-angle>
+				<tail-angle-deg type="int" archive="y">0</tail-angle-deg>
 				<state type="int">0</state>
 				<rotor-step-deg type="float">-1.0</rotor-step-deg>
 
@@ -211,6 +211,7 @@ Bo 105 simulation config.
 
 		<view n="100">
 			<name>Belly View</name>
+			<enabled type="bool">false</enabled>
 			<type>lookfrom</type>
 			<internal archive="y">true</internal>
 			<config>

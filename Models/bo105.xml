@@ -6,9 +6,15 @@
 
 	<nasal>
 		<load>
+			print("LOAD ", cmdarg().getPath());
+
 			var variant = cmdarg().getNode("sim/model/variant");
-			if (variant == nil or (variant = variant.getValue()) == nil)
-				variant = 2;
+			if (variant == nil or (variant = variant.getValue()) == nil) {
+				variant = int(rand() * 5);
+				print("RANDOM=", variant);
+			} else {
+				print("VARIANT=", variant);
+			}
 
 			var dir = getprop("/sim/fg-root") ~ "/Aircraft/bo105/Models/Variants";
 			foreach (var file; directory(dir)) {
@@ -36,6 +42,8 @@
 				}
 			}
 		</load>
+
+		<unload>print("UNLOAD ", cmdarg().getPath())</unload>
 	</nasal>
 
 	<offsets>
@@ -79,7 +87,7 @@
 		<object-name>tail_skid</object-name>
 		<object-name>tailrotor_blade1</object-name>
 		<object-name>tailrotor_blade2</object-name>
-		<property>sim/model/bo105/tail-angle</property>
+		<property>sim/model/bo105/tail-angle-deg</property>
 		<center>
 			<x-m>2.134</x-m>
 			<y-m>0</y-m>
@@ -95,7 +103,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>rotor_disc_T</object-name>
-		<property>sim/model/bo105/tail-angle</property>
+		<property>sim/model/bo105/tail-angle-deg</property>
 		<center>
 			<x-m>2.134</x-m>
 			<y-m>0</y-m>
@@ -374,11 +382,19 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>rotorhead</object-name>
-		<object-name>bladelever1</object-name>
-		<object-name>bladelever2</object-name>
-		<object-name>bladelever3</object-name>
-		<object-name>bladelever4</object-name>
+		<object-name>star_hub</object-name>
+		<object-name>star_cap1</object-name>
+		<object-name>star_cap2</object-name>
+		<object-name>star_cap3</object-name>
+		<object-name>star_cap4</object-name>
+		<object-name>pitch_link1</object-name>
+		<object-name>pitch_link2</object-name>
+		<object-name>pitch_link3</object-name>
+		<object-name>pitch_link3</object-name>
+		<object-name>eye</object-name>
+		<object-name>rotoraxis</object-name>
+		<object-name>swashplate_rotor</object-name>
+		<object-name>swashplate_cap</object-name>
 		<offset-deg>-3</offset-deg>
 		<axis>
 			<x>0</x>
@@ -394,6 +410,18 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork1</object-name>
+		<object-name>blade_mounting_fork2</object-name>
+		<object-name>blade_mounting_fork3</object-name>
+		<object-name>blade_mounting_fork4</object-name>
+		<object-name>pitch_horn1</object-name>
+		<object-name>pitch_horn2</object-name>
+		<object-name>pitch_horn3</object-name>
+		<object-name>pitch_horn4</object-name>
+		<object-name>blade_fitting1</object-name>
+		<object-name>blade_fitting2</object-name>
+		<object-name>blade_fitting3</object-name>
+		<object-name>blade_fitting4</object-name>
 		<object-name>blade1</object-name>
 		<object-name>blade1a</object-name>
 		<object-name>blade1b</object-name>
@@ -418,6 +446,14 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
+		<object-name>absorber1</object-name>
+		<object-name>absorber2</object-name>
+		<object-name>absorber3</object-name>
+		<object-name>absorber4</object-name>
+		<object-name>pendulum1</object-name>
+		<object-name>pendulum2</object-name>
+		<object-name>pendulum3</object-name>
+		<object-name>pendulum4</object-name>
 		<offset-deg>-3</offset-deg>
 		<axis>
 			<x>0</x>
@@ -435,11 +471,19 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>rotorhead</object-name>
-		<object-name>bladelever1</object-name>
-		<object-name>bladelever2</object-name>
-		<object-name>bladelever3</object-name>
-		<object-name>bladelever4</object-name>
+		<object-name>star_hub</object-name>
+		<object-name>star_cap1</object-name>
+		<object-name>star_cap2</object-name>
+		<object-name>star_cap3</object-name>
+		<object-name>star_cap4</object-name>
+		<object-name>eye</object-name>
+		<object-name>rotoraxis</object-name>
+		<object-name>swashplate_rotor</object-name>
+		<object-name>swashplate_cap</object-name>
+		<object-name>pitch_link1</object-name>
+		<object-name>pitch_link2</object-name>
+		<object-name>pitch_link3</object-name>
+		<object-name>pitch_link4</object-name>
 		<property>rotors/main/blade[0]/position-deg</property>
 		<axis>
 			<x>0</x>
@@ -512,27 +556,21 @@
 
 	<!-- main rotor blades -->
 
-	<animation>
-		<type>material</type>
-		<object-name>blade1</object-name>
-		<global type="bool">true</global>
-		<transparency>
-			<alpha-prop>rotors/main/rpm</alpha-prop>
-			<factor>-0.0045</factor>
-			<offset>1</offset>
-		</transparency>
-	</animation>
-
 	<!-- blade 1 -->
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork1</object-name>
+		<object-name>pitch_horn1</object-name>
+		<object-name>blade_fitting1</object-name>
 		<object-name>blade1</object-name>
 		<object-name>blade1a</object-name>
 		<object-name>blade1b</object-name>
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
+		<object-name>absorber1</object-name>
+		<object-name>pendulum1</object-name>
 		<property>rotors/main/blade[0]/position-deg</property>
 		<offset-deg>0</offset-deg>
 		<axis>
@@ -544,17 +582,22 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork1</object-name>
+		<object-name>pitch_horn1</object-name>
+		<object-name>blade_fitting1</object-name>
 		<object-name>blade1</object-name>
 		<object-name>blade1a</object-name>
 		<object-name>blade1b</object-name>
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
+		<object-name>absorber1</object-name>
+		<object-name>pendulum1</object-name>
 		<property>rotors/main/blade[0]/incidence-deg</property>
 		<center>
-			<x-m>0.4</x-m>
+			<x-m>0</x-m>
 			<y-m>0</y-m>
-			<z-m>1.7</z-m>
+			<z-m>1.814282</z-m>
 		</center>
 		<axis>
 			<x>1</x>
@@ -573,9 +616,9 @@
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
-			<x-m>0.57097</x-m>
+			<x-m>1.007322</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -593,9 +636,9 @@
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
-			<x-m>1.42027</x-m>
+			<x-m>1.807322</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -612,9 +655,9 @@
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
-			<x-m>2.4008</x-m>
+			<x-m>2.607322</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -630,9 +673,9 @@
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
-			<x-m>3.2008</x-m>
+			<x-m>3.307322</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -647,9 +690,25 @@
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
-			<x-m>4.0512</x-m>
+			<x-m>4.007321</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>pendulum1</object-name>
+		<property>sim/model/bo105/absorber-angle-deg</property>
+		<center>
+			<x-m>0.745474</x-m>
+			<y-m>0</y-m>
+			<z-m>1.846635</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -662,12 +721,17 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork2</object-name>
+		<object-name>pitch_horn2</object-name>
+		<object-name>blade_fitting2</object-name>
 		<object-name>blade2</object-name>
 		<object-name>blade2a</object-name>
 		<object-name>blade2b</object-name>
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
+		<object-name>absorber2</object-name>
+		<object-name>pendulum2</object-name>
 		<property>rotors/main/blade[1]/position-deg</property>
 		<offset-deg>90</offset-deg>
 		<axis>
@@ -679,17 +743,22 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork2</object-name>
+		<object-name>pitch_horn2</object-name>
+		<object-name>blade_fitting2</object-name>
 		<object-name>blade2</object-name>
 		<object-name>blade2a</object-name>
 		<object-name>blade2b</object-name>
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
+		<object-name>absorber2</object-name>
+		<object-name>pendulum2</object-name>
 		<property>rotors/main/blade[1]/incidence-deg</property>
 		<center>
 			<x-m>0</x-m>
-			<y-m>0.04</y-m>
-			<z-m>1.7</z-m>
+			<y-m>0</y-m>
+			<z-m>1.814282</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -709,8 +778,8 @@
 		<factor alias="../../params/flapA/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>-0.57097</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>-1.007322</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>-1</x>
@@ -729,8 +798,8 @@
 		<factor alias="../../params/flapB/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>-1.42027</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>-1.807322</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>-1</x>
@@ -748,8 +817,8 @@
 		<factor alias="../../params/flapC/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>-2.4008</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>-2.607322</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>-1</x>
@@ -766,8 +835,8 @@
 		<factor alias="../../params/flapD/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>-3.2008</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>-3.307322</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>-1</x>
@@ -783,8 +852,24 @@
 		<factor alias="../../params/flapE/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>-4.0512</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>-4.007321</y-m>
+			<z-m>1.83294</z-m>
+		</center>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>pendulum2</object-name>
+		<property>sim/model/bo105/absorber-angle-deg</property>
+		<center>
+			<x-m>0</x-m>
+			<y-m>-0.745474</y-m>
+			<z-m>1.846635</z-m>
 		</center>
 		<axis>
 			<x>-1</x>
@@ -797,12 +882,17 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork3</object-name>
+		<object-name>pitch_horn3</object-name>
+		<object-name>blade_fitting3</object-name>
 		<object-name>blade3</object-name>
 		<object-name>blade3a</object-name>
 		<object-name>blade3b</object-name>
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
+		<object-name>absorber3</object-name>
+		<object-name>pendulum3</object-name>
 		<property>rotors/main/blade[2]/position-deg</property>
 		<offset-deg>180</offset-deg>
 		<axis>
@@ -814,17 +904,22 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork3</object-name>
+		<object-name>pitch_horn3</object-name>
+		<object-name>blade_fitting3</object-name>
 		<object-name>blade3</object-name>
 		<object-name>blade3a</object-name>
 		<object-name>blade3b</object-name>
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
+		<object-name>absorber3</object-name>
+		<object-name>pendulum3</object-name>
 		<property>rotors/main/blade[2]/incidence-deg</property>
 		<center>
-			<x-m>-0.4</x-m>
+			<x-m>0</x-m>
 			<y-m>0</y-m>
-			<z-m>1.7</z-m>
+			<z-m>1.814282</z-m>
 		</center>
 		<axis>
 			<x>-1</x>
@@ -843,9 +938,9 @@
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
-			<x-m>-0.57097</x-m>
+			<x-m>-1.007322</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -863,9 +958,9 @@
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
-			<x-m>-1.42027</x-m>
+			<x-m>-1.807322</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -882,9 +977,9 @@
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
-			<x-m>-2.4008</x-m>
+			<x-m>-2.607322</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -900,9 +995,9 @@
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
-			<x-m>-3.2008</x-m>
+			<x-m>-3.307322</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -917,9 +1012,25 @@
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
-			<x-m>-4.0512</x-m>
+			<x-m>-4.007321</x-m>
 			<y-m>0</y-m>
-			<z-m>1.90708</z-m>
+			<z-m>1.83294</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>pendulum3</object-name>
+		<property>sim/model/bo105/absorber-angle-deg</property>
+		<center>
+			<x-m>-0.745474</x-m>
+			<y-m>0</y-m>
+			<z-m>1.846635</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -932,12 +1043,17 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork4</object-name>
+		<object-name>pitch_horn4</object-name>
+		<object-name>blade_fitting4</object-name>
 		<object-name>blade4</object-name>
 		<object-name>blade4a</object-name>
 		<object-name>blade4b</object-name>
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
+		<object-name>absorber4</object-name>
+		<object-name>pendulum4</object-name>
 		<property>rotors/main/blade[3]/position-deg</property>
 		<offset-deg>270</offset-deg>
 		<axis>
@@ -949,17 +1065,22 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>blade_mounting_fork4</object-name>
+		<object-name>pitch_horn4</object-name>
+		<object-name>blade_fitting4</object-name>
 		<object-name>blade4</object-name>
 		<object-name>blade4a</object-name>
 		<object-name>blade4b</object-name>
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
+		<object-name>absorber4</object-name>
+		<object-name>pendulum4</object-name>
 		<property>rotors/main/blade[3]/incidence-deg</property>
 		<center>
 			<x-m>0</x-m>
-			<y-m>-0.04</y-m>
-			<z-m>1.7</z-m>
+			<y-m>0</y-m>
+			<z-m>1.814282</z-m>
 		</center>
 		<axis>
 			<x>0</x>
@@ -979,8 +1100,8 @@
 		<factor alias="../../params/flapA/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>0.57097</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>1.007322</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>1</x>
@@ -999,8 +1120,8 @@
 		<factor alias="../../params/flapB/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>1.42027</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>1.807322</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>1</x>
@@ -1018,8 +1139,8 @@
 		<factor alias="../../params/flapC/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>2.4008</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>2.607322</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>1</x>
@@ -1036,8 +1157,8 @@
 		<factor alias="../../params/flapD/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>3.2008</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>3.307322</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>1</x>
@@ -1053,14 +1174,54 @@
 		<factor alias="../../params/flapE/factor"/>
 		<center>
 			<x-m>0</x-m>
-			<y-m>4.0512</y-m>
-			<z-m>1.90708</z-m>
+			<y-m>4.007321</y-m>
+			<z-m>1.83294</z-m>
 		</center>
 		<axis>
 			<x>1</x>
 			<y>0</y>
 			<z>0</z>
 		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>pendulum4</object-name>
+		<property>sim/model/bo105/absorber-angle-deg</property>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0.745474</y-m>
+			<z-m>1.846635</z-m>
+		</center>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+<!--== rotor material ==-->
+
+	<animation>
+		<type>material</type>
+		<object-name>blade1</object-name>
+		<global type="bool">true</global>
+		<transparency>
+			<alpha-prop>rotors/main/rpm</alpha-prop>
+			<factor>-0.0045</factor>
+			<offset>1</offset>
+		</transparency>
+	</animation>
+
+	<animation>
+		<type>material</type>
+		<object-name>blade_fitting1</object-name>
+		<global type="bool">true</global>
+		<transparency>
+			<alpha-prop>rotors/main/rpm</alpha-prop>
+			<factor>-0.0045</factor>
+			<offset>1</offset>
+		</transparency>
 	</animation>
 
 <!--== doors ==-->

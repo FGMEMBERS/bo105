@@ -14,10 +14,6 @@ var clamp = func(v, min = 0, max = 1) { v < min ? min : v > max ? max : v }
 var normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
 
 
-# delete obsolete entry in autosave.xml
-props.globals.getNode("/sim/model/bo105/variant", 1).setAttribute("userarchive", 0);
-
-
 # config file entries ===============================================
 aircraft.data.add("/sim/model/bo105/variant");
 
@@ -147,6 +143,13 @@ var update_torque = func(dt) {
 
 
 
+# blade vibration absorber pendulum
+var pendulum = props.globals.getNode("/sim/model/bo105/absorber-angle-deg", 1);
+var update_absorber = func {
+	pendulum.setDoubleValue(90 * clamp(abs(rotor_rpm.getValue()) / 90));
+}
+
+
 
 # sound =============================================================
 
@@ -224,7 +227,7 @@ var update_slide = func {
 var crash = func {
 	if (arg[0]) {
 		# crash
-		setprop("sim/model/bo105/tail-angle", 35);
+		setprop("sim/model/bo105/tail-angle-deg", 35);
 		setprop("sim/model/bo105/shadow", 0);
 		setprop("sim/model/bo105/doors/door[0]/position-norm", 0.2);
 		setprop("sim/model/bo105/doors/door[1]/position-norm", 0.9);
@@ -253,7 +256,7 @@ var crash = func {
 
 	} else {
 		# uncrash (for replay)
-		setprop("sim/model/bo105/tail-angle", 0);
+		setprop("sim/model/bo105/tail-angle-deg", 0);
 		setprop("sim/model/bo105/shadow", 1);
 		doors.reset();
 		setprop("rotors/tail/rpm", 2219);
@@ -768,7 +771,7 @@ dynamic_view.register(func {
 
 
 # main() ============================================================
-var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
+var delta_time = props.globals.getNode("/sim/time/delta-sec", 1);
 var adf_rotation = props.globals.getNode("/instrumentation/adf/rotation-deg", 1);
 var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indicated-heading-deg", 1);
 
@@ -779,6 +782,7 @@ var main_loop = func {
 	update_torque(dt);
 	update_stall(dt);
 	update_slide();
+	update_absorber();
 	settimer(main_loop, 0);
 }
 
