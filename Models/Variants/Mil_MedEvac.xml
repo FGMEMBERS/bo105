@@ -72,10 +72,10 @@
 			</emission>
 
 			<transparency>
-				<alpha>0.2</alpha>
+				<alpha>0.6</alpha>
 			</transparency>
 
-			<shininess>25</shininess>
+			<shininess>60</shininess>
 		</glass>
 
 		<emblem>
