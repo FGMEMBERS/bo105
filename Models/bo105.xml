@@ -120,11 +120,11 @@
 
 	<animation>
 		<type>noshadow</type>
+		<object-name>glass_fixed</object-name>
 		<object-name>glass_back_L</object-name>
 		<object-name>glass_back_R</object-name>
 		<object-name>glass_front_L</object-name>
 		<object-name>glass_front_R</object-name>
-		<object-name>glass_fixed</object-name>
 		<object-name>strobe_halo_Bf</object-name>
 		<object-name>strobe_halo_B</object-name>
 		<object-name>beacon_halo_B</object-name>
@@ -1222,6 +1222,19 @@
 			<factor>-0.0045</factor>
 			<offset>1</offset>
 		</transparency>
+	</animation>
+
+	<animation>
+		<type>shader</type>
+		<shader>chrome</shader>
+		<texture>glass_shader.rgb</texture>
+		<object-name>windshield_L</object-name>
+		<object-name>windshield_R</object-name>
+		<object-name>glass_fixed</object-name>
+		<object-name>glass_back_L</object-name>
+		<object-name>glass_back_R</object-name>
+		<object-name>glass_front_L</object-name>
+		<object-name>glass_front_R</object-name>
 	</animation>
 
 <!--== doors ==-->
