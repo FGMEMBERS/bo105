@@ -10,25 +10,34 @@
 			var fg_root = getprop("/sim/fg-root");
 			var self = cmdarg();
 			var bo105 = self.getNode("sim/model/bo105", 1);
-			var L = [];
+			var variantN = self.getNode("sim/multiplay/generic/string[0]", 1);
+			var emblemN = self.getNode("sim/multiplay/generic/string[1]", 1);
+			var variant = nil;
+			var emblem = nil;
+			var loopid = 0;
 
-			append(L, setlistener(self.getNode("sim/multiplay/generic/string[0]", 1), func(n) {
-				n.getValue() != nil or return;
-				var variant = fg_root ~ "/Aircraft/bo105/Models/Variants/" ~ n.getValue() ~ ".xml";
-				fgcommand("loadxml", props.Node.new({ filename: variant, targetnode: bo105.getPath() }));
-			}, 1, 0));
-
-			append(L, setlistener(self.getNode("sim/multiplay/generic/string[1]", 1), func(n) {
-				n.getValue() != nil or return;
-				var emblem = "Emblems/" ~ n.getValue() ~ ".rgb";
-				bo105.getNode("material/emblem/texture", 1).setValue(emblem);
-			}, 1, 0));
+			var loop = func(id) {
+				id == loopid or return;
+				var v = variantN.getValue();
+				var e = emblemN.getValue();
+				if (v != nil and v != variant) {
+					variant = v;
+					v = fg_root ~ "/Aircraft/bo105/Models/Variants/" ~ variant ~ ".xml";
+					fgcommand("loadxml", props.Node.new({ filename: v, targetnode: bo105.getPath() }));
+				}
+				if (e != nil and e != emblem) {
+					emblem = e;
+					e = "Emblems/" ~ emblem ~ ".rgb";
+					bo105.getNode("material/emblem/texture", 1).setValue(e);
+				}
+				settimer(func { loop(id) }, 10);
+			}
+			loop(loopid);
 		</load>
 
 		<unload>
 			#print("UNLOAD ", cmdarg().getPath());
-			foreach (var l; L)
-				removelistener(l);
+			loopid += 1;
 		</unload>
 	</nasal>
 
