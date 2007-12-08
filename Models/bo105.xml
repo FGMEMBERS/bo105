@@ -6,44 +6,30 @@
 
 	<nasal>
 		<load>
-			print("LOAD ", cmdarg().getPath());
+			#print("LOAD ", cmdarg().getPath());
+			var fg_root = getprop("/sim/fg-root");
+			var self = cmdarg();
+			var bo105 = self.getNode("sim/model/bo105", 1);
+			var L = [];
 
-			var variant = cmdarg().getNode("sim/model/variant");
-			if (variant == nil or (variant = variant.getValue()) == nil) {
-				variant = int(rand() * 5);
-				print("RANDOM=", variant);
-			} else {
-				print("VARIANT=", variant);
-			}
+			append(L, setlistener(self.getNode("sim/multiplay/generic/string[0]", 1), func(n) {
+				n.getValue() != nil or return;
+				var variant = fg_root ~ "/Aircraft/bo105/Models/Variants/" ~ n.getValue() ~ ".xml";
+				fgcommand("loadxml", props.Node.new({ filename: variant, targetnode: bo105.getPath() }));
+			}, 1, 0));
 
-			var dir = getprop("/sim/fg-root") ~ "/Aircraft/bo105/Models/Variants";
-			foreach (var file; directory(dir)) {
-				if (substr(file, -4) != ".xml")
-					continue;
-
-				var data = props.Node.new({ filename : dir ~ "/" ~ file });
-				fgcommand("loadxml", data);
-				data = data.getNode("data");
-				var id = data.getNode("id", 1).getValue();
-				if (id == nil)
-					continue;
-				if (id == variant) {
-					printlog("info", "bo105: setting MP variant #", id);
-					var dest = cmdarg().getNode("sim/model/bo105", 1);
-					props.copy(data, dest);
-
-					var e = dest.getNode("emblem", 1).getValue() or "../../../Models/Fauna/cow.rgb";
-					if (e == "$MED")
-						e = "Emblems/red-cross.rgb";
-					elsif (e == "$MIL")
-						e = "Emblems/oebh.rgb";
-					dest.getNode("material/emblem/texture", 1).setValue(e);
-					break;
-				}
-			}
+			append(L, setlistener(self.getNode("sim/multiplay/generic/string[1]", 1), func(n) {
+				n.getValue() != nil or return;
+				var emblem = "Emblems/" ~ n.getValue() ~ ".rgb";
+				bo105.getNode("material/emblem/texture", 1).setValue(emblem);
+			}, 1, 0));
 		</load>
 
-		<unload>print("UNLOAD ", cmdarg().getPath())</unload>
+		<unload>
+			#print("UNLOAD ", cmdarg().getPath());
+			foreach (var l; L)
+				removelistener(l);
+		</unload>
 	</nasal>
 
 	<offsets>
@@ -69,6 +55,10 @@
 			<factor>0.4</factor>
 		</flapE>
 	</params>
+
+	<model>
+		<path>Models/Aircraft/marker.xml</path>
+	</model>
 
 <!--== crash handling ==-->
 
@@ -1597,7 +1587,7 @@
 		<name>COMP</name><!-- compass -->
 		<path>Aircraft/Instruments-3d/comp/comp.xml</path>
 		<offsets>
-			<x-m>-2.23</x-m>
+			<x-m>-2.169</x-m>
 			<y-m>0</y-m>
 			<z-m>0.70</z-m>
 		</offsets>
@@ -2511,6 +2501,8 @@
 	<animation>
 		<type>material</type>
 		<object-name>fuselage</object-name>
+		<object-name>door_stop_L</object-name>
+		<object-name>door_stop_R</object-name>
 		<global type="bool">true</global>
 		<property-base>sim/model/bo105/material/fuselage</property-base>
 		<diffuse>

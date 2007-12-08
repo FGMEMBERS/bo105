@@ -163,6 +163,14 @@ Bo 105 simulation config.
 			</bo105>
 		</model>
 
+		<multiplay>
+			<generic>
+				<string n="0"></string>
+				<string n="1"></string>
+				<int n="0">0</int>
+			</generic>
+		</multiplay>
+
 		<view n="0">
 			<internal archive="y">true</internal>
 			<config>

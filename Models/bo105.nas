@@ -405,6 +405,7 @@ var Variant = {
 			var tmp = me.self.getNode("tmp", 1);
 			printlog("info", "bo105: loading ", dir ~ "/" ~ f);
 			me.load(dir ~ "/" ~ f);
+			tmp.getNode("filename", 1).setValue(f);
 			var index = tmp.getNode("index");
 			if (index != nil)
 				index = index.getValue();
@@ -473,7 +474,17 @@ var Variant = {
 			weapons.enable();
 
 		me.self.getNode("variant", 1).setIntValue(me.index);
-		setprop("sim/model/variant", getprop("sim/model/bo105/id"));
+
+		# setup multiplayer properties
+		var filename = me.list[me.index].getNode("filename").getValue();
+		if (substr(filename, -4) == ".xml")
+			filename = substr(filename, 0, size(filename) - 4);
+		if (substr(emblem, 0, 8) == "Emblems/")
+			emblem = substr(emblem, 8);
+		if (substr(emblem, -4) == ".rgb")
+			emblem = substr(emblem, 0, size(emblem) - 4);
+		setprop("sim/multiplay/generic/string[0]", filename);
+		setprop("sim/multiplay/generic/string[1]", emblem);
 	},
 };
 
