@@ -6,7 +6,7 @@
 
 	<nasal>
 		<load>
-			#print("LOAD ", cmdarg().getPath());
+			print("LOAD bo105 ", cmdarg().getPath());
 			var fg_root = getprop("/sim/fg-root");
 			var self = cmdarg();
 			var bo105 = self.getNode("sim/model/bo105", 1);
@@ -36,7 +36,7 @@
 		</load>
 
 		<unload>
-			#print("UNLOAD ", cmdarg().getPath());
+			print("UNLOAD bo105 ", cmdarg().getPath());
 			loopid += 1;
 		</unload>
 	</nasal>
@@ -65,9 +65,9 @@
 		</flapE>
 	</params>
 
-	<model>
+	<!--model>
 		<path>Models/Aircraft/marker.xml</path>
-	</model>
+	</model-->
 
 <!--== crash handling ==-->
 
