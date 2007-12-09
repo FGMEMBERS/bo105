@@ -65,9 +65,9 @@
 		</flapE>
 	</params>
 
-	<!--model>
+	<model>
 		<path>Models/Aircraft/marker.xml</path>
-	</model-->
+	</model>
 
 <!--== crash handling ==-->
 
@@ -135,6 +135,7 @@
 	<animation>
 		<type>noshadow</type>
 		<object-name>emblem</object-name>
+		<nopreview/>
 	</animation>
 
 	<animation>
@@ -1242,6 +1243,7 @@
 		<type>select</type>
 		<object-name>door_front_R</object-name>
 		<object-name>door_front_Ri</object-name>
+		<object-name>door_grip_FR</object-name>
 		<condition>
 			<or>
 				<property>sim/model/bo105/doors/door[0]/enabled</property>
@@ -1275,6 +1277,7 @@
 		<type>select</type>
 		<object-name>door_front_L</object-name>
 		<object-name>door_front_Li</object-name>
+		<object-name>door_grip_FL</object-name>
 		<condition>
 			<or>
 				<property>sim/model/bo105/doors/door[1]/enabled</property>
@@ -1308,6 +1311,7 @@
 		<type>select</type>
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
+		<object-name>door_grip_BR</object-name>
 		<condition>
 			<or>
 				<property>sim/model/bo105/doors/door[2]/enabled</property>
@@ -1341,6 +1345,7 @@
 		<type>select</type>
 		<object-name>door_back_L</object-name>
 		<object-name>door_back_Li</object-name>
+		<object-name>door_grip_BL</object-name>
 		<condition>
 			<or>
 				<property>sim/model/bo105/doors/door[3]/enabled</property>
@@ -1408,6 +1413,7 @@
 		<type>rotate</type>
 		<object-name>door_front_R</object-name>
 		<object-name>door_front_Ri</object-name>
+		<object-name>door_grip_FR</object-name>
 		<object-name>glass_front_R</object-name>
 		<property>sim/model/bo105/doors/door[0]/position-norm</property>
 		<min-deg>-170</min-deg>
@@ -1428,6 +1434,7 @@
 		<type>rotate</type>
 		<object-name>door_front_L</object-name>
 		<object-name>door_front_Li</object-name>
+		<object-name>door_grip_FL</object-name>
 		<object-name>glass_front_L</object-name>
 		<property>sim/model/bo105/doors/door[1]/position-norm</property>
 		<max-deg>170</max-deg>
@@ -1448,6 +1455,7 @@
 		<type>translate</type>
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
+		<object-name>door_grip_BR</object-name>
 		<object-name>glass_back_R</object-name>
 		<property>sim/model/bo105/doors/door[2]/position-norm</property>
 		<interpolation>
@@ -1475,6 +1483,7 @@
 		<type>translate</type>
 		<object-name>door_back_R</object-name>
 		<object-name>door_back_Ri</object-name>
+		<object-name>door_grip_BR</object-name>
 		<object-name>glass_back_R</object-name>
 		<property>sim/model/bo105/doors/door[2]/position-norm</property>
 		<interpolation>
@@ -1502,6 +1511,7 @@
 		<type>translate</type>
 		<object-name>door_back_L</object-name>
 		<object-name>door_back_Li</object-name>
+		<object-name>door_grip_BL</object-name>
 		<object-name>glass_back_L</object-name>
 		<property>sim/model/bo105/doors/door[3]/position-norm</property>
 		<interpolation>
@@ -1529,6 +1539,7 @@
 		<type>translate</type>
 		<object-name>door_back_L</object-name>
 		<object-name>door_back_Li</object-name>
+		<object-name>door_grip_BL</object-name>
 		<object-name>glass_back_L</object-name>
 		<property>sim/model/bo105/doors/door[3]/position-norm</property>
 		<interpolation>
@@ -2266,6 +2277,7 @@
 	<animation>
 		<type>select</type>
 		<object-name>wire_cutter</object-name>
+		<nopreview/>
 		<condition>
 			<property>sim/model/bo105/wire-cutter</property>
 		</condition>
@@ -2276,6 +2288,7 @@
 		<object-name>gatling</object-name>
 		<object-name>barrel_L</object-name>
 		<object-name>barrel_R</object-name>
+		<nopreview/>
 		<condition>
 			<property>sim/model/bo105/miniguns</property>
 		</condition>
@@ -2284,6 +2297,7 @@
 	<animation>
 		<type>select</type>
 		<object-name>hot</object-name>
+		<nopreview/>
 		<condition>
 			<property>sim/model/bo105/missiles</property>
 		</condition>
@@ -2512,6 +2526,9 @@
 		<object-name>fuselage</object-name>
 		<object-name>door_stop_L</object-name>
 		<object-name>door_stop_R</object-name>
+		<object-name>funny_box</object-name>
+		<object-name>antenna_L</object-name>
+		<object-name>antenna_R</object-name>
 		<global type="bool">true</global>
 		<property-base>sim/model/bo105/material/fuselage</property-base>
 		<diffuse>
