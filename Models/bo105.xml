@@ -74,8 +74,6 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>tail</object-name>
-		<object-name>antenna_L</object-name>
-		<object-name>antenna_R</object-name>
 		<object-name>tailstab_L</object-name>
 		<object-name>tailstab_R</object-name>
 		<object-name>tailrotorshaft</object-name>
@@ -90,6 +88,7 @@
 		<object-name>tailsleevefix</object-name>
 		<object-name>tailsleeverot</object-name>
 		<object-name>tailrotorshaft</object-name>
+		<object-name>fake_axis</object-name>
 		<property>sim/model/bo105/tail-angle-deg</property>
 		<center>
 			<x-m>2.134</x-m>
@@ -282,6 +281,7 @@
 		<object-name>tailpitchlink_2</object-name>
 		<object-name>tailrotor_blade1</object-name>
 		<object-name>tailrotor_blade2</object-name>
+		<object-name>fake_axis</object-name>
 		<offset-deg>4.6</offset-deg>
 		<center>
 			<x-m>5.890</x-m>
@@ -365,6 +365,7 @@
 		<object-name>tailpitchlink_2</object-name>
 		<object-name>tailrotor_blade1</object-name>
 		<object-name>tailrotor_blade2</object-name>
+		<object-name>fake_axis</object-name>
 		<property>rotors/tail/blade[0]/position-deg</property>
 		<center>
 			<x-m>5.890</x-m>
@@ -2576,8 +2577,6 @@
 		<object-name>door_stop_L</object-name>
 		<object-name>door_stop_R</object-name>
 		<object-name>funny_box</object-name>
-		<object-name>antenna_L</object-name>
-		<object-name>antenna_R</object-name>
 		<global type="bool">true</global>
 		<property-base>sim/model/bo105/material/fuselage</property-base>
 		<diffuse>
