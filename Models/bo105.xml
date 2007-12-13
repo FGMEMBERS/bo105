@@ -30,7 +30,7 @@
 					e = "Emblems/" ~ emblem ~ ".rgb";
 					bo105.getNode("material/emblem/texture", 1).setValue(e);
 				}
-				settimer(func { loop(id) }, 10);
+				settimer(func { loop(id) }, 5.1);
 			}
 			loop(loopid);
 		</load>
@@ -74,9 +74,11 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>tail</object-name>
+		<object-name>antenna_L</object-name>
+		<object-name>antenna_R</object-name>
 		<object-name>tailstab_L</object-name>
 		<object-name>tailstab_R</object-name>
-		<object-name>tailrotoraxis</object-name>
+		<object-name>tailrotorshaft</object-name>
 		<object-name>antenna_L</object-name>
 		<object-name>antenna_R</object-name>
 		<object-name>beacon_sock_T</object-name>
@@ -84,8 +86,10 @@
 		<object-name>strobe_sock_T</object-name>
 		<object-name>strobe_off_T</object-name>
 		<object-name>tail_skid</object-name>
-		<object-name>tailrotor_blade1</object-name>
-		<object-name>tailrotor_blade2</object-name>
+		<object-name>tailrotorgearbox</object-name>
+		<object-name>tailsleevefix</object-name>
+		<object-name>tailsleeverot</object-name>
+		<object-name>tailrotorshaft</object-name>
 		<property>sim/model/bo105/tail-angle-deg</property>
 		<center>
 			<x-m>2.134</x-m>
@@ -101,7 +105,8 @@
 
 	<animation>
 		<type>rotate</type>
-		<object-name>rotor_disc_T</object-name>
+		<object-name>tailrotor_blade1</object-name>
+		<object-name>tailrotor_blade2</object-name>
 		<property>sim/model/bo105/tail-angle-deg</property>
 		<center>
 			<x-m>2.134</x-m>
@@ -267,6 +272,46 @@
 	<!-- tail rotor disc -->
 
 	<animation>
+		<type>rotate</type>
+		<name>tail_rotor_tilt</name>
+		<object-name>tailrotorgearbox</object-name>
+		<object-name>tailsleevefix</object-name>
+		<object-name>tailsleeverot</object-name>
+		<object-name>tailrotorshaft</object-name>
+		<object-name>tailpitchlink_1</object-name>
+		<object-name>tailpitchlink_2</object-name>
+		<object-name>tailrotor_blade1</object-name>
+		<object-name>tailrotor_blade2</object-name>
+		<offset-deg>4.6</offset-deg>
+		<center>
+			<x-m>5.890</x-m>
+			<y-m>0</y-m>
+			<z-m>1.910</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>rotor_disc_T</object-name>
+		<offset-deg>4.6</offset-deg>
+		<center>
+			<x-m>5.890</x-m>
+			<y-m>0</y-m>
+			<z-m>1.910</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
+
+	<animation>
 		<type>material</type>
 		<object-name>rotor_disc_T</object-name>
 		<transparency>
@@ -283,14 +328,14 @@
 		<object-name>rotor_disc_T</object-name>
 		<property>rotors/tail/blade[0]/position-deg</property>
 		<center>
-			<x-m>5.894</x-m>
-			<y-m>-0.001</y-m>
-			<z-m>1.860</z-m>
+			<x-m>5.890</x-m>
+			<y-m>-0.232</y-m>
+			<z-m>1.910</z-m>
 		</center>
 		<axis>
-			<x>-0.032</x>
-			<y>0.414</y>
-			<z>0.005</z>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
 		</axis>
 	</animation>
 
@@ -314,18 +359,22 @@
 
 	<animation>
 		<type>rotate</type>
+		<object-name>tailsleeverot</object-name>
+		<object-name>tailrotorshaft</object-name>
+		<object-name>tailpitchlink_1</object-name>
+		<object-name>tailpitchlink_2</object-name>
 		<object-name>tailrotor_blade1</object-name>
 		<object-name>tailrotor_blade2</object-name>
 		<property>rotors/tail/blade[0]/position-deg</property>
 		<center>
-			<x-m>5.894</x-m>
-			<y-m>-0.001</y-m>
-			<z-m>1.860</z-m>
+			<x-m>5.890</x-m>
+			<y-m>-0.232</y-m>
+			<z-m>1.910</z-m>
 		</center>
 		<axis>
-			<x>-0.032</x>
-			<y>0.414</y>
-			<z>0.005</z>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
 		</axis>
 	</animation>
 
@@ -334,14 +383,14 @@
 		<object-name>tailrotor_blade1</object-name>
 		<property>rotors/tail/blade[0]/incidence-deg</property>
 		<center>
-			<x-m>5.916</x-m>
-			<y-m>-0.348</y-m>
-			<z-m>1.860</z-m>
+			<x-m>5.890</x-m>
+			<y-m>-0.410</y-m>
+			<z-m>1.910</z-m>
 		</center>
 		<axis>
-			<x>-0.950</x>
-			<y>-0.071</y>
-			<z>-0.040</z>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
 		</axis>
 	</animation>
 
@@ -350,14 +399,14 @@
 		<object-name>tailrotor_blade2</object-name>
 		<property>rotors/tail/blade[1]/incidence-deg</property>
 		<center>
-			<x-m>5.916</x-m>
-			<y-m>-0.348</y-m>
-			<z-m>1.860</z-m>
+			<x-m>5.890</x-m>
+			<y-m>-0.410</y-m>
+			<z-m>1.910</z-m>
 		</center>
 		<axis>
-			<x>0.950</x>
-			<y>0.071</y>
-			<z>0.040</z>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
 		</axis>
 	</animation>
 
@@ -2562,6 +2611,7 @@
 
 	<animation>
 		<name>pilot</name>
+		<nopreview/>
 		<object-name>pilot_head</object-name>
 		<object-name>pilot_torso</object-name>
 		<object-name>pilot_arm_L</object-name>
@@ -2579,6 +2629,7 @@
 
 	<animation>
 		<name>copilot</name>
+		<nopreview/>
 		<object-name>copilot_head</object-name>
 		<object-name>copilot_torso</object-name>
 		<object-name>copilot_arm_L</object-name>
