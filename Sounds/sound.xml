@@ -2,6 +2,10 @@
 <!--
 	thanks to the SAR simulation (GPL) for the helicopter sounds,
 	and the Urban game (LGPL) for the weapon sounds
+
+	+x = aft
+	+y = left
+	+z = up
 -->
 
 <PropertyList>
@@ -24,7 +28,7 @@
 				</and>
 			</condition>
 			<volume>
-				<factor>0.25</factor>
+				<factor>0.20</factor>
 			</volume>
 		</engine>
 
@@ -45,7 +49,7 @@
 				</and>
 			</condition>
 			<volume>
-				<factor>0.25</factor>
+				<factor>0.20</factor>
 			</volume>
 		</engine>
 
@@ -66,7 +70,7 @@
 				</and>
 			</condition>
 			<volume>
-				<factor>0.25</factor>
+				<factor>0.20</factor>
 			</volume>
 		</engine>
 
@@ -155,6 +159,8 @@
 			<volume>
 				<factor>0.2</factor>
 			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
@@ -178,6 +184,8 @@
 			<volume>
 				<factor>0.2</factor>
 			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
@@ -201,6 +209,8 @@
 			<volume>
 				<factor>0.2</factor>
 			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
@@ -224,6 +234,8 @@
 			<volume>
 				<factor>0.4</factor>
 			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
@@ -247,6 +259,8 @@
 			<volume>
 				<factor>0.4</factor>
 			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
@@ -270,6 +284,8 @@
 			<volume>
 				<factor>0.4</factor>
 			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<!-- rotor -->
@@ -299,6 +315,8 @@
 				<offset>-0.2</offset>
 				<max>1.5</max>
 			</pitch>
+			<reference-dist>150</reference-dist>
+			<max-dist>500</max-dist>
 		</rotor>
 
 		<rotor>
@@ -327,6 +345,8 @@
 				<offset>0</offset>
 				<max>1.75</max>
 			</pitch>
+			<reference-dist>1000</reference-dist>
+			<max-dist>3000</max-dist>
 		</rotor>
 
 		<overspeed>
@@ -340,7 +360,7 @@
 				</greater-than>
 			</condition>
 			<volume>
-				<factor>0.9</factor>
+				<factor>1.0</factor>
 			</volume>
 			<pitch>
 				<factor>0.1</factor>
@@ -544,8 +564,8 @@
 				<factor>0.01</factor>
 				<offset>1.25</offset>
 			</pitch>
-			<reference-dist>10.0</reference-dist>
-			<max-dist>20.0</max-dist>
+			<reference-dist>3</reference-dist>
+			<max-dist>4</max-dist>
 		</wind>
 
 		<crash>
@@ -559,6 +579,8 @@
 			<pitch>
 				<factor>0.1</factor>
 			</pitch>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</crash>
 
 		<gun>
@@ -576,6 +598,8 @@
 				<y>-0.19</y>
 				<z>-0.2</z>
 			</position>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</gun>
 
 		<gun>
@@ -593,6 +617,8 @@
 				<y>-0.19</y>
 				<z>-0.2</z>
 			</position>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</gun>
 
 		<HOT>
@@ -605,6 +631,8 @@
 				<y>-0.25</y>
 				<z>0.13</z>
 			</position>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</HOT>
 
 		<HOT>
@@ -617,6 +645,8 @@
 				<y>-0.25</y>
 				<z>0.13</z>
 			</position>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</HOT>
 
 		<HOT>
@@ -629,6 +659,8 @@
 				<y>-0.07</y>
 				<z>0.13</z>
 			</position>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</HOT>
 
 		<HOT>
@@ -641,6 +673,8 @@
 				<y>-0.07</y>
 				<z>0.13</z>
 			</position>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</HOT>
 
 		<HOT>
@@ -653,6 +687,8 @@
 				<y>0.08</y>
 				<z>0.13</z>
 			</position>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</HOT>
 
 		<HOT>
@@ -665,6 +701,8 @@
 				<y>0.08</y>
 				<z>0.13</z>
 			</position>
+			<reference-dist>100</reference-dist>
+			<max-dist>500</max-dist>
 		</HOT>
 
 		<door>
@@ -685,6 +723,8 @@
 			<volume>
 				<factor>0.5</factor>
 			</volume>
+			<reference-dist>15</reference-dist>
+			<max-dist>50</max-dist>
 		</door>
 
 		<door>
@@ -705,6 +745,8 @@
 			<volume>
 				<factor>0.5</factor>
 			</volume>
+			<reference-dist>15</reference-dist>
+			<max-dist>50</max-dist>
 		</door>
 
 		<door>
@@ -725,6 +767,8 @@
 			<volume>
 				<factor>0.5</factor>
 			</volume>
+			<reference-dist>15</reference-dist>
+			<max-dist>50</max-dist>
 		</door>
 
 		<door>
@@ -745,6 +789,8 @@
 			<volume>
 				<factor>0.5</factor>
 			</volume>
+			<reference-dist>15</reference-dist>
+			<max-dist>50</max-dist>
 		</door>
 
 		<door>
@@ -765,6 +811,8 @@
 			<volume>
 				<factor>0.5</factor>
 			</volume>
+			<reference-dist>15</reference-dist>
+			<max-dist>50</max-dist>
 		</door>
 
 		<door>
@@ -785,6 +833,8 @@
 			<volume>
 				<factor>0.5</factor>
 			</volume>
+			<reference-dist>15</reference-dist>
+			<max-dist>50</max-dist>
 		</door>
 	</fx>
 </PropertyList>
