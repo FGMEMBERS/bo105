@@ -316,7 +316,7 @@
 				<max>1.5</max>
 			</pitch>
 			<reference-dist>150</reference-dist>
-			<max-dist>500</max-dist>
+			<max-dist>1000</max-dist>
 		</rotor>
 
 		<rotor>
@@ -358,6 +358,10 @@
 					<property>velocities/airspeed-kt</property>
 					<value>146</value>
 				</greater-than>
+				<equals>
+					<property>sim/current-view/view-number</property>
+					<value>0</value>
+				</equals>
 			</condition>
 			<volume>
 				<factor>1.0</factor>
