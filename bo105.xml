@@ -46,6 +46,7 @@
   drag-factor-stall="2.0"
   cyclic-factor="0.8"
   rotor-correction-factor="0.7"
+  downwashfactor="1.0"
 >
   <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL"/>
   <control-input axis="/controls/flight/aileron" control="CYCLICAIL"
@@ -85,6 +86,7 @@
   stall-change-over="5.5"
   drag-factor-stall="8"
   rotor-correction-factor="0.9"
+  downwashfactor="1.0"
 >
   <control-input axis="/controls/flight/rudder-trim" control="COLLECTIVE" invert="true"/>
   <control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
@@ -115,10 +117,10 @@
 <cockpit x="-1.88" y=".33" z="0.6"/>
 
 <fuselage ax="-.25" ay="0" az="-.07" bx="-4.05" by="0" bz="-.07"
-          width="1.92" taper="0.95" midpoint="0.5"/>
+          width="1.92" taper="0.95" midpoint="0.5" idrag="0"/>
 
 <fuselage ax="-4.05" ay="0" az="-.38" bx="-7.60" by="0" bz=".51"
-          width="0.47" taper="0.9" midpoint="0.05"/>
+          width="0.47" taper="0.9" midpoint="0.05" idrag="0.3"/>
 
 
 <vstab x="-7.55" y="0" z=".41" taper=".5" length="1.37" chord=".59" sweep="40">
@@ -133,7 +135,7 @@
   <stall aoa="16" width="4" peak="1.5"/>
 </vstab>
 
-<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="0.5" length="1.20" chord="0.36" sweep="0">
+<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="1.0" length="1.20" chord="0.36" sweep="0">
   <stall aoa="0" width="0" peak="1.5"/>
 </hstab>
 
