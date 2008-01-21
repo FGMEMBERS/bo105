@@ -349,7 +349,7 @@
 	<animation>
 		<type>material</type>
 		<object-name>tailrotor_blade1</object-name>
-		<global type="bool">true</global>
+		<object-name>tailrotor_blade2</object-name>
 		<transparency>
 			<alpha-prop>rotors/tail/rpm</alpha-prop>
 			<factor>-0.0015</factor>
@@ -1254,8 +1254,47 @@
 
 	<animation>
 		<type>material</type>
+		<object-name>absorber1</object-name>
+		<object-name>absorber2</object-name>
+		<object-name>absorber3</object-name>
+		<object-name>absorber4</object-name>
+		<object-name>pendulum1</object-name>
+		<object-name>pendulum2</object-name>
+		<object-name>pendulum3</object-name>
+		<object-name>pendulum4</object-name>
+		<transparency>
+			<alpha-prop>rotors/main/rpm</alpha-prop>
+			<factor>-0.0045</factor>
+			<offset>1</offset>
+		</transparency>
+	</animation>
+
+	<animation>
+		<type>material</type>
 		<object-name>blade1</object-name>
-		<global type="bool">true</global>
+		<object-name>blade1a</object-name>
+		<object-name>blade1b</object-name>
+		<object-name>blade1c</object-name>
+		<object-name>blade1d</object-name>
+		<object-name>blade1e</object-name>
+		<object-name>blade2</object-name>
+		<object-name>blade2a</object-name>
+		<object-name>blade2b</object-name>
+		<object-name>blade2c</object-name>
+		<object-name>blade2d</object-name>
+		<object-name>blade2e</object-name>
+		<object-name>blade3</object-name>
+		<object-name>blade3a</object-name>
+		<object-name>blade3b</object-name>
+		<object-name>blade3c</object-name>
+		<object-name>blade3d</object-name>
+		<object-name>blade3e</object-name>
+		<object-name>blade4</object-name>
+		<object-name>blade4a</object-name>
+		<object-name>blade4b</object-name>
+		<object-name>blade4c</object-name>
+		<object-name>blade4d</object-name>
+		<object-name>blade4e</object-name>
 		<transparency>
 			<alpha-prop>rotors/main/rpm</alpha-prop>
 			<factor>-0.0045</factor>
@@ -1266,7 +1305,9 @@
 	<animation>
 		<type>material</type>
 		<object-name>blade_fitting1</object-name>
-		<global type="bool">true</global>
+		<object-name>blade_fitting2</object-name>
+		<object-name>blade_fitting3</object-name>
+		<object-name>blade_fitting4</object-name>
 		<transparency>
 			<alpha-prop>rotors/main/rpm</alpha-prop>
 			<factor>-0.0045</factor>
@@ -2543,7 +2584,10 @@
 	<animation>
 		<type>material</type>
 		<object-name>glass_fixed</object-name>
-		<global type="bool">true</global>
+		<object-name>glass_front_L</object-name>
+		<object-name>glass_front_R</object-name>
+		<object-name>glass_back_L</object-name>
+		<object-name>glass_back_R</object-name>
 		<property-base>sim/model/bo105/material/glass</property-base>
 		<diffuse>
 			<red-prop>diffuse/red</red-prop>
@@ -2574,10 +2618,27 @@
 	<animation>
 		<type>material</type>
 		<object-name>fuselage</object-name>
+		<object-name>door_front_L</object-name>
+		<object-name>door_front_R</object-name>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_R</object-name>
 		<object-name>door_stop_L</object-name>
 		<object-name>door_stop_R</object-name>
+		<object-name>rail_L</object-name>
+		<object-name>rail_R</object-name>
+		<object-name>ear_L</object-name>
+		<object-name>ear_R</object-name>
 		<object-name>funny_box</object-name>
-		<global type="bool">true</global>
+		<object-name>wire_cutter</object-name>
+		<object-name>hot</object-name>
+		<object-name>gatling</object-name>
+		<object-name>reardoor_L</object-name>
+		<object-name>reardoor_R</object-name>
+		<object-name>tail</object-name>
+		<object-name>tailplate</object-name>
+		<object-name>tailstab_L</object-name>
+		<object-name>tailstab_R</object-name>
+		<object-name>skirt</object-name>
 		<property-base>sim/model/bo105/material/fuselage</property-base>
 		<diffuse>
 			<red-prop>diffuse/red</red-prop>
@@ -2682,8 +2743,12 @@
 
 	<animation>
 		<type>material</type>
+		<object-name>hp_cover</object-name>
 		<object-name>hp_outside</object-name>
-		<global type="bool">true</global>
+		<object-name>hp_inside</object-name>
+		<object-name>hc_cover</object-name>
+		<object-name>hc_outside</object-name>
+		<object-name>hc_inside</object-name>
 		<property-base>sim/model/bo105/material/helmet</property-base>
 		<diffuse>
 			<red-prop>diffuse/red</red-prop>
@@ -2711,7 +2776,19 @@
 	<animation>
 		<type>material</type>
 		<object-name>pilot_torso</object-name>
-		<global type="bool">true</global>
+		<object-name>pilot_arm_L</object-name>
+		<object-name>pilot_arm_R</object-name>
+		<object-name>pilot_leg_LL</object-name>
+		<object-name>pilot_leg_UL</object-name>
+		<object-name>pilot_leg_LR</object-name>
+		<object-name>pilot_leg_UR</object-name>
+		<object-name>copilot_torso</object-name>
+		<object-name>copilot_arm_L</object-name>
+		<object-name>copilot_arm_R</object-name>
+		<object-name>copilot_leg_LL</object-name>
+		<object-name>copilot_leg_UL</object-name>
+		<object-name>copilot_leg_LR</object-name>
+		<object-name>copilot_leg_UR</object-name>
 		<property-base>sim/model/bo105/material/flightsuit</property-base>
 		<diffuse>
 			<red-prop>diffuse/red</red-prop>
