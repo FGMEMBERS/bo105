@@ -51,6 +51,10 @@ Bo 105 simulation config.
 				<state type="int">0</state>
 				<rotor-step-deg type="float">-1.0</rotor-step-deg>
 
+				<particles>
+					<enabled type="bool">true</enabled>
+				</particles>
+
 				<material>
 					<glass>
 						<diffuse>
