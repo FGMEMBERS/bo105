@@ -1331,6 +1331,88 @@
 <!--== doors ==-->
 
 	<animation>
+		<type>pick</type>
+		<object-name>door_front_R</object-name>
+		<object-name>door_front_Ri</object-name>
+		<object-name>door_grip_FR</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>nasal</command>
+				<script>bo105.doors.list[0].toggle()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>door_front_L</object-name>
+		<object-name>door_front_Li</object-name>
+		<object-name>door_grip_FL</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>nasal</command>
+				<script>bo105.doors.list[1].toggle()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>door_back_R</object-name>
+		<object-name>door_back_Ri</object-name>
+		<object-name>door_grip_BR</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>nasal</command>
+				<script>bo105.doors.list[2].toggle()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>door_back_L</object-name>
+		<object-name>door_back_Li</object-name>
+		<object-name>door_grip_BL</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>nasal</command>
+				<script>bo105.doors.list[3].toggle()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>reardoor_R</object-name>
+		<object-name>reardoor_Ri</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>nasal</command>
+				<script>bo105.doors.list[4].toggle()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>reardoor_L</object-name>
+		<object-name>reardoor_Li</object-name>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>nasal</command>
+				<script>bo105.doors.list[5].toggle()</script>
+			</binding>
+		</action>
+	</animation>
+
+	<animation>
 		<type>select</type>
 		<object-name>door_front_R</object-name>
 		<object-name>door_front_Ri</object-name>
