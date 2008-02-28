@@ -78,8 +78,12 @@
 			<shininess>60</shininess>
 		</glass>
 
+		<rotor>
+			<texture>Textures/Rotor/orange.png</texture>
+		</rotor>
+
 		<emblem>
-			<texture>empty.rgb</texture>
+			<texture>Textures/empty.png</texture>
 
 			<transparency>
 				<alpha>1.0</alpha>

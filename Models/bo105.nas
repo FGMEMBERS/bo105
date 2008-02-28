@@ -306,17 +306,17 @@ var init_rotoranim = func {
 
 # Red Cross emblem ==================================================
 var determine_emblem = func {
-	# Use the appropriate internationally acknowleged protective Red Cross/Crescent
+	# Use the appropriate internationally acknowleged protective Red Cross/Crescent/Crystal
 	# symbol, depending on the starting airport. (http://www.ifrc.org/ADDRESS/directory.asp)
 
 	var C = 1;	# Red Cross
-	var L = 2;	# Rec Crescent (opening left)
+	var L = 2;	# Red Crescent (opening left)
 	var R = 3;	# Red Crescent (opening right)
 	var Y = 4;	# Red Crystal
 	var X = 5;	# StarOfLife
 
 	var emblem = [
-		["<none>",       "empty.rgb"],
+		["<none>",       "Textures/empty.png"],
 		["Red Cross",    "Emblems/red-cross.rgb"],
 		["Red Crescent", "Emblems/red-crescent-l.rgb"],
 		["Red Crescent", "Emblems/red-crescent-r.rgb"],
@@ -456,7 +456,7 @@ var Variant = {
 		elsif (emblem == "$MIL")
 			emblem = me.emblem_military;
 		elsif (emblem == "")
-			emblem = "empty.rgb";
+			emblem = "Textures/empty.png";
 
 		me.self.getNode("material/emblem/texture", 1).setValue(emblem);
 

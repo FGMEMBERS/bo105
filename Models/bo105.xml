@@ -2,7 +2,6 @@
 
 <PropertyList>
 	<path>bo105.ac</path>
-	<dump>0</dump>
 
 	<nasal>
 		<load>
@@ -49,16 +48,16 @@
 
 	<params>
 		<flapA>
-			<factor>0.2</factor>
+			<factor>0.4</factor>
 		</flapA>
 		<flapB>
-			<factor>0.3</factor>
+			<factor>0.4</factor>
 		</flapB>
 		<flapC>
-			<factor>0.26</factor>
+			<factor>0.4</factor>
 		</flapC>
 		<flapD>
-			<factor>0.37</factor>
+			<factor>0.4</factor>
 		</flapD>
 		<flapE>
 			<factor>0.4</factor>
@@ -68,6 +67,64 @@
 	<model>
 		<path>Models/Aircraft/marker.xml</path>
 	</model>
+
+<!--== object groups ==-->
+
+	<animation>
+		<name>main_rotor_disc</name>
+		<object-name>disc1</object-name>
+		<object-name>disc1a</object-name>
+		<object-name>disc1b</object-name>
+		<object-name>disc1c</object-name>
+		<object-name>disc1d</object-name>
+		<object-name>disc1e</object-name>
+		<object-name>disc2</object-name>
+		<object-name>disc2a</object-name>
+		<object-name>disc2b</object-name>
+		<object-name>disc2c</object-name>
+		<object-name>disc2d</object-name>
+		<object-name>disc2e</object-name>
+		<object-name>disc3</object-name>
+		<object-name>disc3a</object-name>
+		<object-name>disc3b</object-name>
+		<object-name>disc3c</object-name>
+		<object-name>disc3d</object-name>
+		<object-name>disc3e</object-name>
+		<object-name>disc4</object-name>
+		<object-name>disc4a</object-name>
+		<object-name>disc4b</object-name>
+		<object-name>disc4c</object-name>
+		<object-name>disc4d</object-name>
+		<object-name>disc4e</object-name>
+	</animation>
+
+	<animation>
+		<name>main_rotor_blades</name>
+		<object-name>blade1</object-name>
+		<object-name>blade1a</object-name>
+		<object-name>blade1b</object-name>
+		<object-name>blade1c</object-name>
+		<object-name>blade1d</object-name>
+		<object-name>blade1e</object-name>
+		<object-name>blade2</object-name>
+		<object-name>blade2a</object-name>
+		<object-name>blade2b</object-name>
+		<object-name>blade2c</object-name>
+		<object-name>blade2d</object-name>
+		<object-name>blade2e</object-name>
+		<object-name>blade3</object-name>
+		<object-name>blade3a</object-name>
+		<object-name>blade3b</object-name>
+		<object-name>blade3c</object-name>
+		<object-name>blade3d</object-name>
+		<object-name>blade3e</object-name>
+		<object-name>blade4</object-name>
+		<object-name>blade4a</object-name>
+		<object-name>blade4b</object-name>
+		<object-name>blade4c</object-name>
+		<object-name>blade4d</object-name>
+		<object-name>blade4e</object-name>
+	</animation>
 
 <!--== crash handling ==-->
 
@@ -313,6 +370,14 @@
 
 	<animation>
 		<type>material</type>
+		<object-name>main_rotor_blades</object-name>
+		<object-name>main_rotor_disc</object-name>
+		<object-name>rotor_disc_T</object-name>
+		<texture-prop>sim/model/bo105/material/rotor/texture</texture-prop>
+	</animation>
+
+	<animation>
+		<type>material</type>
 		<object-name>rotor_disc_T</object-name>
 		<transparency>
 			<alpha-prop>rotors/tail/rpm</alpha-prop>
@@ -415,19 +480,14 @@
 	<!-- main rotor tilt -->
 
 	<animation>
-		<type>rotate</type>
-		<object-name>rotor_disc_M</object-name>
-		<offset-deg>-3</offset-deg>
+		<type>translate</type>
+		<object-name>main_rotor_disc</object-name>
+		<offset-m>-0.05</offset-m>
 		<axis>
 			<x>0</x>
-			<y>1</y>
-			<z>0</z>
+			<y>0</y>
+			<z>1</z>
 		</axis>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>1.8</z-m>
-		</center>
 	</animation>
 
 	<animation>
@@ -504,6 +564,7 @@
 		<object-name>pendulum2</object-name>
 		<object-name>pendulum3</object-name>
 		<object-name>pendulum4</object-name>
+		<object-name>main_rotor_disc</object-name>
 		<offset-deg>-3</offset-deg>
 		<axis>
 			<x>0</x>
@@ -545,40 +606,8 @@
 	<!-- main rotor disc -->
 
 	<animation>
-		<type>rotate</type>
-		<object-name>rotor_disc_M</object-name>
-		<property>rotors/main/roll-deg</property>
-		<axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</axis>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>1.8</z-m>
-		</center>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>rotor_disc_M</object-name>
-		<property>rotors/main/yaw-deg</property>
-		<axis>
-			<x>0</x>
-			<y>-1</y>
-			<z>0</z>
-		</axis>
-		<center>
-			<x-m>0</x-m>
-			<y-m>0</y-m>
-			<z-m>1.8</z-m>
-		</center>
-	</animation>
-
-	<animation>
 		<type>material</type>
-		<object-name>rotor_disc_M</object-name>
+		<object-name>main_rotor_disc</object-name>
 		<transparency>
 			<alpha-prop>rotors/main/rpm</alpha-prop>
 			<factor>0.004</factor>
@@ -589,19 +618,8 @@
 	</animation>
 
 	<animation>
-		<type>rotate</type>
-		<object-name>rotor_disc_M</object-name>
-		<property>rotors/main/blade[0]/position-deg</property>
-		<axis>
-			<x>0</x>
-			<y>0</y>
-			<z>1</z>
-		</axis>
-	</animation>
-
-	<animation>
 		<type>noshadow</type>
-		<object-name>rotor_disc_M</object-name>
+		<object-name>main_rotor_disc</object-name>
 	</animation>
 
 	<!-- main rotor blades -->
@@ -621,6 +639,12 @@
 		<object-name>blade1e</object-name>
 		<object-name>absorber1</object-name>
 		<object-name>pendulum1</object-name>
+		<object-name>disc1</object-name>
+		<object-name>disc1a</object-name>
+		<object-name>disc1b</object-name>
+		<object-name>disc1c</object-name>
+		<object-name>disc1d</object-name>
+		<object-name>disc1e</object-name>
 		<property>rotors/main/blade[0]/position-deg</property>
 		<offset-deg>0</offset-deg>
 		<axis>
@@ -663,6 +687,11 @@
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
+		<object-name>disc1a</object-name>
+		<object-name>disc1b</object-name>
+		<object-name>disc1c</object-name>
+		<object-name>disc1d</object-name>
+		<object-name>disc1e</object-name>
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
@@ -683,6 +712,10 @@
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
+		<object-name>disc1b</object-name>
+		<object-name>disc1c</object-name>
+		<object-name>disc1d</object-name>
+		<object-name>disc1e</object-name>
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
@@ -702,6 +735,9 @@
 		<object-name>blade1c</object-name>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
+		<object-name>disc1c</object-name>
+		<object-name>disc1d</object-name>
+		<object-name>disc1e</object-name>
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
@@ -720,6 +756,8 @@
 		<type>rotate</type>
 		<object-name>blade1d</object-name>
 		<object-name>blade1e</object-name>
+		<object-name>disc1d</object-name>
+		<object-name>disc1e</object-name>
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
@@ -737,6 +775,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade1e</object-name>
+		<object-name>disc1e</object-name>
 		<property>rotors/main/blade[0]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
@@ -782,6 +821,12 @@
 		<object-name>blade2e</object-name>
 		<object-name>absorber2</object-name>
 		<object-name>pendulum2</object-name>
+		<object-name>disc2</object-name>
+		<object-name>disc2a</object-name>
+		<object-name>disc2b</object-name>
+		<object-name>disc2c</object-name>
+		<object-name>disc2d</object-name>
+		<object-name>disc2e</object-name>
 		<property>rotors/main/blade[1]/position-deg</property>
 		<offset-deg>90</offset-deg>
 		<axis>
@@ -824,6 +869,11 @@
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
+		<object-name>disc2a</object-name>
+		<object-name>disc2b</object-name>
+		<object-name>disc2c</object-name>
+		<object-name>disc2d</object-name>
+		<object-name>disc2e</object-name>
 		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
@@ -844,6 +894,10 @@
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
+		<object-name>disc2b</object-name>
+		<object-name>disc2c</object-name>
+		<object-name>disc2d</object-name>
+		<object-name>disc2e</object-name>
 		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
@@ -863,6 +917,9 @@
 		<object-name>blade2c</object-name>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
+		<object-name>disc2c</object-name>
+		<object-name>disc2d</object-name>
+		<object-name>disc2e</object-name>
 		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
@@ -881,6 +938,8 @@
 		<type>rotate</type>
 		<object-name>blade2d</object-name>
 		<object-name>blade2e</object-name>
+		<object-name>disc2d</object-name>
+		<object-name>disc2e</object-name>
 		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
@@ -898,6 +957,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade2e</object-name>
+		<object-name>disc2e</object-name>
 		<property>rotors/main/blade[1]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
@@ -943,6 +1003,12 @@
 		<object-name>blade3e</object-name>
 		<object-name>absorber3</object-name>
 		<object-name>pendulum3</object-name>
+		<object-name>disc3</object-name>
+		<object-name>disc3a</object-name>
+		<object-name>disc3b</object-name>
+		<object-name>disc3c</object-name>
+		<object-name>disc3d</object-name>
+		<object-name>disc3e</object-name>
 		<property>rotors/main/blade[2]/position-deg</property>
 		<offset-deg>180</offset-deg>
 		<axis>
@@ -985,6 +1051,11 @@
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
+		<object-name>disc3a</object-name>
+		<object-name>disc3b</object-name>
+		<object-name>disc3c</object-name>
+		<object-name>disc3d</object-name>
+		<object-name>disc3e</object-name>
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
@@ -1005,6 +1076,10 @@
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
+		<object-name>disc3b</object-name>
+		<object-name>disc3c</object-name>
+		<object-name>disc3d</object-name>
+		<object-name>disc3e</object-name>
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
@@ -1024,6 +1099,9 @@
 		<object-name>blade3c</object-name>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
+		<object-name>disc3c</object-name>
+		<object-name>disc3d</object-name>
+		<object-name>disc3e</object-name>
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
@@ -1042,6 +1120,8 @@
 		<type>rotate</type>
 		<object-name>blade3d</object-name>
 		<object-name>blade3e</object-name>
+		<object-name>disc3d</object-name>
+		<object-name>disc3e</object-name>
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
@@ -1059,6 +1139,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade3e</object-name>
+		<object-name>disc3e</object-name>
 		<property>rotors/main/blade[2]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>
@@ -1104,6 +1185,12 @@
 		<object-name>blade4e</object-name>
 		<object-name>absorber4</object-name>
 		<object-name>pendulum4</object-name>
+		<object-name>disc4</object-name>
+		<object-name>disc4a</object-name>
+		<object-name>disc4b</object-name>
+		<object-name>disc4c</object-name>
+		<object-name>disc4d</object-name>
+		<object-name>disc4e</object-name>
 		<property>rotors/main/blade[3]/position-deg</property>
 		<offset-deg>270</offset-deg>
 		<axis>
@@ -1146,6 +1233,11 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
+		<object-name>disc4a</object-name>
+		<object-name>disc4b</object-name>
+		<object-name>disc4c</object-name>
+		<object-name>disc4d</object-name>
+		<object-name>disc4e</object-name>
 		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapA/factor"/>
 		<center>
@@ -1166,6 +1258,10 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
+		<object-name>disc4b</object-name>
+		<object-name>disc4c</object-name>
+		<object-name>disc4d</object-name>
+		<object-name>disc4e</object-name>
 		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapB/factor"/>
 		<center>
@@ -1185,6 +1281,9 @@
 		<object-name>blade4c</object-name>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
+		<object-name>disc4c</object-name>
+		<object-name>disc4d</object-name>
+		<object-name>disc4e</object-name>
 		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapC/factor"/>
 		<center>
@@ -1203,6 +1302,8 @@
 		<type>rotate</type>
 		<object-name>blade4d</object-name>
 		<object-name>blade4e</object-name>
+		<object-name>disc4d</object-name>
+		<object-name>disc4e</object-name>
 		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapD/factor"/>
 		<center>
@@ -1220,6 +1321,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>blade4e</object-name>
+		<object-name>disc4e</object-name>
 		<property>rotors/main/blade[3]/flap-deg</property>
 		<factor alias="../../params/flapE/factor"/>
 		<center>

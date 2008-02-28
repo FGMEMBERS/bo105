@@ -5,7 +5,7 @@
 	<id type="int">2</id>
 	<index type="int">30</index>
 
-	<emblem type="string">empty.rgb</emblem>
+	<emblem type="string">Textures/empty.png</emblem>
 	<wiper type="bool">true</wiper>
 	<wire-cutter type="bool">false</wire-cutter>
 	<miniguns type="bool">false</miniguns>
@@ -78,8 +78,12 @@
 			<shininess>60</shininess>
 		</glass>
 
+		<rotor>
+			<texture>Textures/Rotor/white.png</texture>
+		</rotor>
+
 		<emblem>
-			<texture>empty.rgb</texture>
+			<texture>Textures/empty.png</texture>
 
 			<transparency>
 				<alpha>1.0</alpha>
