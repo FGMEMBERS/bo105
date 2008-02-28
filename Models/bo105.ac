@@ -107739,7 +107739,7 @@ refs 3
 kids 0
 OBJECT poly
 name "blade1"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 31
 1.007322 1.820374 0.217073
@@ -107991,7 +107991,7 @@ refs 3
 kids 0
 OBJECT poly
 name "blade1a"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 1.007322 1.820374 0.217072
@@ -108079,7 +108079,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade1b"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 1.807322 1.817563 0.217072
@@ -108167,7 +108167,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade1c"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 2.607322 1.817563 0.217072
@@ -108255,7 +108255,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade1d"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 3.307322 1.817562 0.217072
@@ -108343,7 +108343,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade1e"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 4.007322 1.817562 0.217072
@@ -108458,7 +108458,7 @@ refs 3
 kids 0
 OBJECT poly
 name "blade2"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 31
 -0.217073 1.820374 1.007322
@@ -108710,7 +108710,7 @@ refs 3
 kids 0
 OBJECT poly
 name "blade2a"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -0.217073 1.820374 1.007322
@@ -108798,7 +108798,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade2b"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -0.217073 1.817563 1.807322
@@ -108886,7 +108886,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade2c"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -0.217074 1.817563 2.607322
@@ -108974,7 +108974,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade2d"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -0.217075 1.817562 3.307322
@@ -109062,7 +109062,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade2e"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -0.217075 1.817562 4.007322
@@ -109177,7 +109177,7 @@ refs 3
 kids 0
 OBJECT poly
 name "blade3"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 31
 -1.007322 1.820374 -0.217073
@@ -109429,7 +109429,7 @@ refs 3
 kids 0
 OBJECT poly
 name "blade3a"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -1.007322 1.820374 -0.217073
@@ -109517,7 +109517,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade3b"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -1.807322 1.817563 -0.217073
@@ -109605,7 +109605,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade3c"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -2.607322 1.817563 -0.217073
@@ -109693,7 +109693,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade3d"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -3.307322 1.817562 -0.217074
@@ -109781,7 +109781,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade3e"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 -4.007322 1.817562 -0.217074
@@ -109896,7 +109896,7 @@ refs 3
 kids 0
 OBJECT poly
 name "blade4"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 31
 0.217073 1.820374 -1.007322
@@ -110148,7 +110148,7 @@ refs 3
 kids 0
 OBJECT poly
 name "blade4a"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 0.217072 1.820374 -1.007322
@@ -110236,7 +110236,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade4b"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 0.217072 1.817563 -1.807322
@@ -110324,7 +110324,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade4c"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 0.217073 1.817563 -2.607322
@@ -110412,7 +110412,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade4d"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 0.217073 1.817562 -3.307322
@@ -110500,7 +110500,7 @@ refs 4
 kids 0
 OBJECT poly
 name "blade4e"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 18
 0.217073 1.817562 -4.007322
@@ -113149,7 +113149,7 @@ refs 4
 kids 0
 OBJECT poly
 name "rotor_disc_T"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 34
 6.665422 2.500989 0.375337
@@ -117057,7 +117057,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc1"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 3
 1.007323 1.806637 0.437903
@@ -117073,7 +117073,7 @@ refs 3
 kids 0
 OBJECT poly
 name "disc1a"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 1.007323 1.806637 0.437903
@@ -117091,7 +117091,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc1b"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 1.807323 1.806637 0.785679
@@ -117109,7 +117109,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc1c"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 2.607322 1.806636 1.133455
@@ -117127,7 +117127,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc1d"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 3.307322 1.806636 1.437759
@@ -117145,7 +117145,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc1e"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 7
 4.007322 1.806636 -1.74263
@@ -117179,7 +117179,7 @@ refs 3
 kids 0
 OBJECT poly
 name "disc2"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 3
 -0.437903 1.806637 1.007322
@@ -117195,7 +117195,7 @@ refs 3
 kids 0
 OBJECT poly
 name "disc2a"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 -0.437903 1.806637 1.007322
@@ -117213,7 +117213,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc2b"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 -0.78568 1.806637 1.807322
@@ -117231,7 +117231,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc2c"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 -1.133456 1.806636 2.607321
@@ -117249,7 +117249,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc2d"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 -1.43776 1.806636 3.30732
@@ -117267,7 +117267,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc2e"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 7
 1.742629 1.806635 4.007322
@@ -117301,7 +117301,7 @@ refs 3
 kids 0
 OBJECT poly
 name "disc3"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 3
 -1.007322 1.806637 -0.437904
@@ -117317,7 +117317,7 @@ refs 3
 kids 0
 OBJECT poly
 name "disc3a"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 -1.007322 1.806637 -0.437904
@@ -117335,7 +117335,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc3b"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 -1.807321 1.806637 -0.78568
@@ -117353,7 +117353,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc3c"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 -2.60732 1.806636 -1.133456
@@ -117371,7 +117371,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc3d"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 -3.30732 1.806635 -1.43776
@@ -117389,7 +117389,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc3e"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 7
 -4.007321 1.806635 1.74263
@@ -117423,7 +117423,7 @@ refs 3
 kids 0
 OBJECT poly
 name "disc4"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 3
 0.437904 1.806637 -1.007323
@@ -117439,7 +117439,7 @@ refs 3
 kids 0
 OBJECT poly
 name "disc4a"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 0.437904 1.806637 -1.007323
@@ -117457,7 +117457,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc4b"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 0.78568 1.806637 -1.807322
@@ -117475,7 +117475,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc4c"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 1.133456 1.806636 -2.607321
@@ -117493,7 +117493,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc4d"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 4
 1.43776 1.806636 -3.307321
@@ -117511,7 +117511,7 @@ refs 4
 kids 0
 OBJECT poly
 name "disc4e"
-texture "rotor.png"
+texture "Textures/Rotor/black.png"
 texrep 1.0 1.0
 numvert 7
 -1.74263 1.806635 -4.007322
