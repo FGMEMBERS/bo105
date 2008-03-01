@@ -362,14 +362,15 @@ var determine_emblem = func {
 		["WM",	R, "Malaysia"],
 	];
 
-	var apt = getprop("/sim/presets/airport-id");
+	var apt = airportinfo().id;
 	var country = nil;
 	var maxlen = -1;
 
 	foreach (var entry; icao) {
-		if (substr(apt, 0, size(entry[0])) == entry[0]) {
-			if (size(entry[0]) > maxlen) {
-				maxlen = size(entry[0]);
+		var len = size(entry[0]);
+		if (substr(apt, 0, len) == entry[0]) {
+			if (len > maxlen) {
+				maxlen = len;
 				country = entry;
 			}
 		}
