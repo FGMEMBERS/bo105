@@ -14,8 +14,6 @@ var clamp = func(v, min = 0, max = 1) { v < min ? min : v > max ? max : v }
 var normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
 
 
-# config file entries ===============================================
-aircraft.data.add("/sim/model/bo105/variant");
 
 # timers ============================================================
 var turbine_timer = aircraft.timer.new("/sim/time/hobbs/turbines", 10);
@@ -317,11 +315,11 @@ var determine_emblem = func {
 
 	var emblem = [
 		["<none>",       "Textures/empty.png"],
-		["Red Cross",    "Emblems/red-cross.rgb"],
-		["Red Crescent", "Emblems/red-crescent-l.rgb"],
-		["Red Crescent", "Emblems/red-crescent-r.rgb"],
-		["Red Crystal",  "Emblems/red-crystal.rgb"],
-		["Star of Life", "Emblems/star-of-life.rgb"],
+		["Red Cross",    "Textures/Emblems/red-cross.png"],
+		["Red Crescent", "Textures/Emblems/red-crescent-l.png"],
+		["Red Crescent", "Textures/Emblems/red-crescent-r.png"],
+		["Red Crystal",  "Textures/Emblems/red-crystal.png"],
+		["Star of Life", "Textures/Emblems/star-of-life.png"],
 	];
 
 	var icao = [
@@ -379,115 +377,6 @@ var determine_emblem = func {
 	printlog("info", "bo105: ", apt ~ "/" ~ country[2] ~ " >> " ~ emblem[country[1]][0]);
 	return emblem[country[1]][1];
 }
-
-
-
-var Variant = {
-	new : func {
-		var m = { parents : [Variant] };
-		m.self = props.globals.getNode("sim/model/bo105", 1);
-		m.emblem_medevac = determine_emblem();
-		m.emblem_military = m.self.getNode("insignia", 1).getValue();
-		m.variantN = m.self.getNode("variants", 1);
-		m.list = [];
-		m.index = m.self.getNode("variant", 1).getValue();
-		m.scan();
-		return m;
-	},
-	scan : func {
-		me.variantN.removeChildren("variant");
-		me.list = nil;
-		var dir = getprop("/sim/fg-root") ~ "/Aircraft/bo105/Models/Variants";
-		foreach (var f; directory(dir)) {
-			if (substr(f, -4) != ".xml")
-				continue;
-
-			var tmp = me.self.getNode("tmp", 1);
-			printlog("info", "bo105: loading ", dir ~ "/" ~ f);
-			me.load(dir ~ "/" ~ f);
-			tmp.getNode("filename", 1).setValue(f);
-			var index = tmp.getNode("index");
-			if (index != nil)
-				index = index.getValue();
-
-			printlog("info", "       #", index, " -- ", tmp.getNode("desc", 1).getValue());
-			if (index == nil or index < 0) {
-				for (index = 1000; 1; index += 1)
-					if (me.variantN.getChild("variant", index, 0) == nil)
-						break;
-
-			}
-			props.copy(tmp, me.variantN.getChild("variant", index, 1));
-			tmp.removeChildren();
-		}
-		me.list = me.variantN.getChildren("variant");
-		if (me.index < 0 or me.index >= size(me.list))
-			me.index = 0;
-
-		me.reset();
-	},
-	set : func(i) {
-		var s = size(me.list);
-		while (i < 0)
-			i += s;
-
-		while (i >= s)
-			i -= s;
-
-		me.index = i;
-		me.reset();
-	},
-	next : func {
-		me.set(me.index + 1);
-		me.reset();
-	},
-	previous : func {
-		me.set(me.index - 1);
-		me.reset();
-	},
-	load : func(file) {
-		fgcommand("loadxml", props.Node.new({"filename": file, "targetnode": "sim/model/bo105/tmp"}));
-	},
-	reset : func {
-		props.copy(me.list[me.index], me.self);
-		var emblem = me.self.getNode("emblem", 1).getValue();
-		if (emblem == "$MED")
-			emblem = me.emblem_medevac;
-		elsif (emblem == "$MIL")
-			emblem = me.emblem_military;
-		elsif (emblem == "")
-			emblem = "Textures/empty.png";
-
-		me.self.getNode("material/emblem/texture", 1).setValue(emblem);
-
-		if (weapons != nil) {
-			weapons.disable();
-			weapons = nil;
-		}
-
-		if (me.self.getNode("missiles", 1).getBoolValue())
-			weapons = HOT;
-		elsif (me.self.getNode("miniguns", 1).getBoolValue())
-			weapons = MG;
-
-		if (weapons != nil)
-			weapons.enable();
-
-		me.self.getNode("variant", 1).setIntValue(me.index);
-
-		# setup multiplayer properties
-		var filename = me.list[me.index].getNode("filename").getValue();
-		if (substr(filename, -4) == ".xml")
-			filename = substr(filename, 0, size(filename) - 4);
-		if (substr(emblem, 0, 8) == "Emblems/")
-			emblem = substr(emblem, 8);
-		if (substr(emblem, -4) == ".rgb")
-			emblem = substr(emblem, 0, size(emblem) - 4);
-		setprop("sim/multiplay/generic/string[0]", filename);
-		setprop("sim/multiplay/generic/string[1]", emblem);
-	},
-};
-
 
 
 
@@ -799,21 +688,47 @@ var main_loop = func {
 
 
 var crashed = 0;
-var variant = nil;
-var doors = nil;
-var config_dialog = nil;
+var rc_emblem = determine_emblem();
+var doors = Doors.new();
+var config_dialog = gui.Dialog.new("/sim/gui/dialogs/bo105/config/dialog", "Aircraft/bo105/Dialogs/config.xml");
+
+
+setlistener("/sim/model/livery/file", func {
+	if (weapons != nil) {
+		weapons.disable();
+		weapons = nil;
+	}
+
+	if (getprop("/sim/model/bo105/missiles"))
+		weapons = HOT;
+	elsif (getprop("/sim/model/bo105/miniguns"))
+		weapons = MG;
+
+	if (weapons != nil)
+		weapons.enable();
+
+	var emblemN = props.globals.getNode("/sim/model/bo105/material/emblem/texture");
+	var emblem = emblemN.getValue();
+	if (emblem == "RED-CROSS")
+		emblemN.setValue(emblem = rc_emblem);
+	elsif (emblem == "INSIGNIA")
+		emblemN.setValue(emblem = getprop("/sim/model/bo105/insignia"));
+	if (substr(emblem, 0, 17) == "Textures/Emblems/")
+		emblem = substr(emblem, 17);
+	if (substr(emblem, -4) == ".png")
+		emblem = substr(emblem, 0, size(emblem) - 4);
+	setprop("sim/multiplay/generic/string[0]", emblem);
+});
+
+
+aircraft.livery.init("Aircraft/bo105/Models/Variants", "sim/model/bo105/name", "sim/model/bo105/index");
 
 
 # initialization
 setlistener("/sim/signals/fdm-initialized", func {
-	config_dialog = gui.Dialog.new("/sim/gui/dialogs/bo105/config/dialog",
-			"Aircraft/bo105/Dialogs/config.xml");
-
 	init_rotoranim();
 	init_weapons();
 
-	doors = Doors.new();
-	variant = Variant.new();
 	collective.setDoubleValue(1);
 
 	setlistener("/sim/signals/reinit", func(n) {
@@ -821,7 +736,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 		cprint("32;1", "reinit");
 		turbine_timer.stop();
 		collective.setDoubleValue(1);
-		variant.scan();
+		aircraft.livery.rescan();
 		crashed = 0;
 	});
 

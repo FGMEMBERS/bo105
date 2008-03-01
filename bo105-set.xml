@@ -39,11 +39,9 @@ Bo 105 simulation config.
 
 		<model>
 			<path archive="y">Aircraft/bo105/Models/bo105.xml</path>
-			<variant type="int">0</variant>
 			<bo105>
-				<variant type="int">0</variant>
-				<emblem type="string"><!-- country specific by default; see bo105.nas --></emblem>
-				<insignia type="string">Emblems/oebh.rgb</insignia>
+				<name type="string">Yellow MedEvac</name>
+				<insignia type="string">Textures/Emblems/oebh.png</insignia>
 				<shadow type="bool">true</shadow>
 				<wiper type="bool">true</wiper>
 				<wire-cutter type="bool">true</wire-cutter>
@@ -169,6 +167,10 @@ Bo 105 simulation config.
 					</door>
 				</doors>
 			</bo105>
+
+			<livery>
+				<file type="string"/>
+			</livery>
 		</model>
 
 		<multiplay>
@@ -292,6 +294,22 @@ Bo 105 simulation config.
 			<weight-lb>0</weight-lb>
 			<max-lb>800</max-lb>
 		</weight>
+
+		<menubar>
+			<default>
+				<menu n="100">
+					<label>BO-105CBS</label>
+					<item>
+						<label>Select Livery</label>
+						<binding>
+							<command>nasal</command>
+							<script>aircraft.livery.dialog.toggle()</script>
+						</binding>
+					</item>
+				</menu>
+			</default>
+		</menubar>
+
 
 		<help>
 			<title>Bo105</title>
@@ -418,7 +436,7 @@ Bo 105 simulation config.
 				<desc>Select previous variant</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.variant.previous()</script>
+					<script>aircraft.livery.previous()</script>
 				</binding>
 			</key>
 
@@ -462,7 +480,7 @@ Bo 105 simulation config.
 				<desc>Select next variant</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.variant.next()</script>
+					<script>aircraft.livery.next()</script>
 				</binding>
 			</key>
 

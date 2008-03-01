@@ -5,38 +5,21 @@
 
 	<nasal>
 		<load>
-			print("LOAD bo105 ", cmdarg().getPath());
-			var fg_root = getprop("/sim/fg-root");
+			#print("LOAD bo105 ", cmdarg().getPath());
 			var self = cmdarg();
-			var bo105 = self.getNode("sim/model/bo105", 1);
-			var variantN = self.getNode("sim/multiplay/generic/string[0]", 1);
-			var emblemN = self.getNode("sim/multiplay/generic/string[1]", 1);
-			var variant = nil;
-			var emblem = nil;
-			var loopid = 0;
+			var emblem_in = self.getNode("sim/multiplay/generic/string[0]", 1);
+			var emblem_out = self.getNode("sim/model/bo105/material/emblem/texture", 1);
 
-			var loop = func(id) {
-				id == loopid or return;
-				var v = variantN.getValue();
-				var e = emblemN.getValue();
-				if (v != nil and v != variant) {
-					variant = v;
-					v = fg_root ~ "/Aircraft/bo105/Models/Variants/" ~ variant ~ ".xml";
-					fgcommand("loadxml", props.Node.new({ filename: v, targetnode: bo105.getPath() }));
-				}
-				if (e != nil and e != emblem) {
-					emblem = e;
-					e = "Emblems/" ~ emblem ~ ".rgb";
-					bo105.getNode("material/emblem/texture", 1).setValue(e);
-				}
-				settimer(func { loop(id) }, 5.1);
-			}
-			loop(loopid);
+			var livery_update = aircraft.livery_update.new("Aircraft/bo105/Models/Variants", 10.3, func {
+				var e = emblem_in.getValue();
+				if (e != nil)
+					emblem_out.setValue("Textures/Emblems/" ~ e ~ ".png");
+			});
 		</load>
 
 		<unload>
-			print("UNLOAD bo105 ", cmdarg().getPath());
-			loopid += 1;
+			#print("UNLOAD bo105 ", cmdarg().getPath());
+			livery_update.stop();
 		</unload>
 	</nasal>
 
@@ -54,13 +37,13 @@
 			<factor>0.6</factor>
 		</flapB>
 		<flapC>
-			<factor>0.6</factor>
+			<factor>0.4</factor>
 		</flapC>
 		<flapD>
-			<factor>0.6</factor>
+			<factor>0.4</factor>
 		</flapD>
 		<flapE>
-			<factor>0.6</factor>
+			<factor>0.4</factor>
 		</flapE>
 	</params>
 
