@@ -96,8 +96,6 @@ var torque = props.globals.getNode("rotors/gear/total-torque", 1);
 var collective = props.globals.getNode("controls/engines/engine[0]/throttle");
 var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
-var stall = props.globals.getNode("rotors/main/stall", 1);
-var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
 
 
 # 0 off
@@ -152,6 +150,9 @@ var update_absorber = func {
 # sound =============================================================
 
 # stall sound
+var stall = props.globals.getNode("rotors/main/stall", 1);
+var stall_filtered = props.globals.getNode("rotors/main/stall-filtered", 1);
+
 var stall_val = 0;
 stall.setDoubleValue(0);
 
@@ -173,7 +174,7 @@ var update_stall = func(dt) {
 var Skid = {
 	new : func(n) {
 		var m = { parents : [Skid] };
-		var soundN = props.globals.getNode("sim/sound", 1).getChild("slide", n, 1);
+		var soundN = props.globals.getNode("sim/model/bo105/sound", 1).getChild("slide", n, 1);
 		var gearN = props.globals.getNode("gear", 1).getChild("gear", n, 1);
 
 		m.compressionN = gearN.getNode("compression-norm", 1);
@@ -193,29 +194,49 @@ var Skid = {
 		return m;
 	},
 	update : func {
-		me.wowN.getBoolValue() or return;
+		if (me.wowN.getValue() < 0.5)
+			return me.volumeN.setDoubleValue(0);
+
 		var rollspeed = abs(me.rollspeedN.getValue());
 		me.pitchN.setDoubleValue(rollspeed * 0.6);
 
 		var s = normatan(20 * rollspeed);
 		var f = clamp((me.frictionN.getValue() - 0.5) * 2);
 		var c = clamp(me.compressionN.getValue() * 2);
-		me.volumeN.setDoubleValue(s * f * c * 2);
+		var vol = s * f * c;
+		me.volumeN.setDoubleValue(vol > 0.1 ? vol : 0);
 		#if (!me.self) {
 		#	cprint("33;1", sprintf("S=%0.3f  F=%0.3f  C=%0.3f  >>  %0.3f", s, f, c, s * f * c));
 		#}
 	},
 };
 
-var skid = [];
+var skids = [];
 for (var i = 0; i < 4; i += 1) {
-	append(skid, Skid.new(i));
+	append(skids, Skid.new(i));
 }
 
 var update_slide = func {
-	forindex (var i; skid) {
-		skid[i].update();
+	foreach (var s; skids)
+		s.update();
+}
+
+var volume_factor = 1;
+setlistener("sim/current-view/view-number", func {
+	volume_factor = getprop("sim/current-view/internal");
+}, 1);
+
+
+var volume = props.globals.getNode("sim/model/bo105/sound/volume", 1);
+var update_volume = func {
+	var door_open = 0;
+	foreach (var d; doors.list) {
+		if (!d.enabledN.getValue() or d.positionN.getValue() > 0.001) {
+			door_open = 1;
+			break;
+		}
 	}
+	volume.setDoubleValue(1 - (0.8 - 0.6 * door_open) * volume_factor);
 }
 
 
@@ -683,6 +704,7 @@ var main_loop = func {
 	update_torque(dt);
 	update_stall(dt);
 	update_slide();
+	update_volume();
 	update_absorber();
 	settimer(main_loop, 0);
 }

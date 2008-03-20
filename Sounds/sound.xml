@@ -10,291 +10,141 @@
 
 <PropertyList>
 	<fx>
-		<!-- inside -->
 		<engine>
-			<name>turbine-start-inside</name>
+			<name>turbine-start</name>
 			<mode>once</mode>
 			<path>Sounds/turbine_start.wav</path>
 			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>1</value>
-					</equals>
-					<equals>
-						<property>sim/current-view/view-number</property>
-						<value>0</value>
-					</equals>
-				</and>
+				<equals>
+					<property>sim/model/bo105/state</property>
+					<value>1</value>
+				</equals>
 			</condition>
 			<volume>
-				<factor>0.20</factor>
+				<factor>0.03</factor>
 			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>5</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
-			<name>turbine-loop-inside</name>
+			<name>turbine-loop</name>
 			<mode>looped</mode>
 			<path>Sounds/turbine_loop.wav</path>
 			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>2</value>
-					</equals>
-					<equals>
-						<property>sim/current-view/view-number</property>
-						<value>0</value>
-					</equals>
-				</and>
+				<equals>
+					<property>sim/model/bo105/state</property>
+					<value>2</value>
+				</equals>
 			</condition>
 			<volume>
-				<factor>0.20</factor>
+				<factor>0.03</factor>
 			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>5</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
-			<name>turbine-shutdown-inside</name>
+			<name>turbine-shutdown</name>
 			<mode>once</mode>
 			<path>Sounds/turbine_shutdown.wav</path>
 			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>3</value>
-					</equals>
-					<equals>
-						<property>sim/current-view/view-number</property>
-						<value>0</value>
-					</equals>
-				</and>
+				<equals>
+					<property>sim/model/bo105/state</property>
+					<value>3</value>
+				</equals>
 			</condition>
 			<volume>
-				<factor>0.20</factor>
+				<factor>0.03</factor>
 			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>5</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
-			<name>exhaust-start-inside</name>
+			<name>exhaust-start</name>
 			<mode>once</mode>
 			<path>Sounds/exhaust_start.wav</path>
 			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>1</value>
-					</equals>
-					<equals>
-						<property>sim/current-view/view-number</property>
-						<value>0</value>
-					</equals>
-				</and>
+				<equals>
+					<property>sim/model/bo105/state</property>
+					<value>1</value>
+				</equals>
 			</condition>
 			<volume>
-				<factor>0.1</factor>
+				<factor>0.02</factor>
 			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>10</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
-			<name>exhaust-loop-inside</name>
+			<name>exhaust-loop</name>
 			<mode>looped</mode>
 			<path>Sounds/exhaust_loop.wav</path>
 			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>2</value>
-					</equals>
-					<equals>
-						<property>sim/current-view/view-number</property>
-						<value>0</value>
-					</equals>
-				</and>
+				<equals>
+					<property>sim/model/bo105/state</property>
+					<value>2</value>
+				</equals>
 			</condition>
 			<volume>
-				<factor>0.1</factor>
+				<factor>0.02</factor>
 			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>10</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
 		</engine>
 
 		<engine>
-			<name>exhaust-shutdown-inside</name>
+			<name>exhaust-shutdown</name>
 			<mode>once</mode>
 			<path>Sounds/exhaust_shutdown.wav</path>
 			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>3</value>
-					</equals>
-					<equals>
-						<property>sim/current-view/view-number</property>
-						<value>0</value>
-					</equals>
-				</and>
+				<equals>
+					<property>sim/model/bo105/state</property>
+					<value>3</value>
+				</equals>
 			</condition>
 			<volume>
-				<factor>0.1</factor>
+				<factor>0.02</factor>
 			</volume>
-		</engine>
-
-		<!-- outside -->
-		<engine>
-			<name>turbine-start-outside</name>
-			<mode>once</mode>
-			<path>Sounds/turbine_start.wav</path>
-			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>1</value>
-					</equals>
-					<not>
-						<equals>
-							<property>sim/current-view/view-number</property>
-							<value>0</value>
-						</equals>
-					</not>
-				</and>
-			</condition>
 			<volume>
-				<factor>0.2</factor>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>10</factor>
 			</volume>
 			<reference-dist>50</reference-dist>
 			<max-dist>200</max-dist>
 		</engine>
 
-		<engine>
-			<name>turbine-loop-outside</name>
-			<mode>looped</mode>
-			<path>Sounds/turbine_loop.wav</path>
-			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>2</value>
-					</equals>
-					<not>
-						<equals>
-							<property>sim/current-view/view-number</property>
-							<value>0</value>
-						</equals>
-					</not>
-				</and>
-			</condition>
-			<volume>
-				<factor>0.2</factor>
-			</volume>
-			<reference-dist>50</reference-dist>
-			<max-dist>200</max-dist>
-		</engine>
-
-		<engine>
-			<name>turbine-shutdown-outside</name>
-			<mode>once</mode>
-			<path>Sounds/turbine_shutdown.wav</path>
-			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>3</value>
-					</equals>
-					<not>
-						<equals>
-							<property>sim/current-view/view-number</property>
-							<value>0</value>
-						</equals>
-					</not>
-				</and>
-			</condition>
-			<volume>
-				<factor>0.2</factor>
-			</volume>
-			<reference-dist>50</reference-dist>
-			<max-dist>200</max-dist>
-		</engine>
-
-		<engine>
-			<name>exhaust-start-outside</name>
-			<mode>once</mode>
-			<path>Sounds/exhaust_start.wav</path>
-			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>1</value>
-					</equals>
-					<not>
-						<equals>
-							<property>sim/current-view/view-number</property>
-							<value>0</value>
-						</equals>
-					</not>
-				</and>
-			</condition>
-			<volume>
-				<factor>0.4</factor>
-			</volume>
-			<reference-dist>50</reference-dist>
-			<max-dist>200</max-dist>
-		</engine>
-
-		<engine>
-			<name>exhaust-loop-outside</name>
-			<mode>looped</mode>
-			<path>Sounds/exhaust_loop.wav</path>
-			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>2</value>
-					</equals>
-					<not>
-						<equals>
-							<property>sim/current-view/view-number</property>
-							<value>0</value>
-						</equals>
-					</not>
-				</and>
-			</condition>
-			<volume>
-				<factor>0.4</factor>
-			</volume>
-			<reference-dist>50</reference-dist>
-			<max-dist>200</max-dist>
-		</engine>
-
-		<engine>
-			<name>exhaust-shutdown-outside</name>
-			<mode>once</mode>
-			<path>Sounds/exhaust_shutdown.wav</path>
-			<condition>
-				<and>
-					<equals>
-						<property>sim/model/bo105/state</property>
-						<value>3</value>
-					</equals>
-					<not>
-						<equals>
-							<property>sim/current-view/view-number</property>
-							<value>0</value>
-						</equals>
-					</not>
-				</and>
-			</condition>
-			<volume>
-				<factor>0.4</factor>
-			</volume>
-			<reference-dist>50</reference-dist>
-			<max-dist>200</max-dist>
-		</engine>
-
-		<!-- rotor -->
 		<rotor>
-			<name>rotor</name>
+			<name>rotor-outside</name>
 			<mode>looped</mode>
-			<path>Sounds/rotor.wav</path>
+			<path>Aircraft/bo105/Sounds/rotor.wav</path>
 			<condition>
 				<and>
+					<not>
+						<property>sim/current-view/internal</property>
+					</not>
 					<greater-than>
 						<property>rotors/main/rpm</property>
 						<value>50</value>
@@ -306,16 +156,51 @@
 			</condition>
 			<volume>
 				<property>rotors/main/rpm</property>
-				<factor>0.01</factor>
-				<max>0.6</max>
+				<factor>0.002</factor>
 			</volume>
 			<pitch>
 				<property>rotors/main/rpm</property>
-				<factor>0.003</factor>
-				<offset>-0.2</offset>
+				<factor>0.002262</factor>
+				<offset>0</offset>
+				<min>0</min>
 				<max>1.5</max>
 			</pitch>
-			<reference-dist>150</reference-dist>
+			<reference-dist>100</reference-dist>
+			<max-dist>1000</max-dist>
+		</rotor>
+
+		<rotor>
+			<name>rotor-inside</name>
+			<mode>looped</mode>
+			<path>Sounds/rotor.wav</path>
+			<path>Aircraft/bo105/Sounds/rotor.wav</path>
+			<condition>
+				<and>
+					<property>sim/current-view/internal</property>
+					<greater-than>
+						<property>rotors/main/rpm</property>
+						<value>50</value>
+					</greater-than>
+					<not>
+						<property>sim/crashed</property>
+					</not>
+				</and>
+			</condition>
+			<volume>
+				<factor>0.2</factor>
+			</volume>
+			<volume>
+				<property>rotors/main/rpm</property>
+				<factor>0.002</factor>
+			</volume>
+			<pitch>
+				<property>rotors/main/rpm</property>
+				<factor>0.002262</factor>
+				<offset>0</offset>
+				<min>0</min>
+				<max>1.5</max>
+			</pitch>
+			<reference-dist>100</reference-dist>
 			<max-dist>1000</max-dist>
 		</rotor>
 
@@ -334,6 +219,10 @@
 					</not>
 				</and>
 			</condition>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>0.8</factor>
+			</volume>
 			<volume>
 				<property>rotors/main/stall-filtered</property>
 				<factor>75</factor>
@@ -459,7 +348,7 @@
 		</contact>
 
 		<slide>
-			<name>skid sliding</name>
+			<name>skid sliding1</name>
 			<mode>looped</mode>
 			<path>Sounds/rumble.wav</path>
 			<condition>
@@ -471,15 +360,19 @@
 				</and>
 			</condition>
 			<volume>
-				<property>sim/sound/slide[0]/volume</property>
+				<factor>0.5</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/slide[0]/volume</property>
+				<max>1</max>
 			</volume>
 			<pitch>
-				<property>sim/sound/slide[0]/pitch</property>
+				<property>sim/model/bo105/sound/slide[0]/pitch</property>
 			</pitch>
 		</slide>
 
 		<slide>
-			<name>skid sliding</name>
+			<name>skid sliding2</name>
 			<mode>looped</mode>
 			<path>Sounds/rumble.wav</path>
 			<condition>
@@ -491,15 +384,19 @@
 				</and>
 			</condition>
 			<volume>
-				<property>sim/sound/slide[1]/volume</property>
+				<factor>0.5</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/slide[1]/volume</property>
+				<max>1</max>
 			</volume>
 			<pitch>
-				<property>sim/sound/slide[1]/pitch</property>
+				<property>sim/model/bo105/sound/slide[1]/pitch</property>
 			</pitch>
 		</slide>
 
 		<slide>
-			<name>skid sliding</name>
+			<name>skid sliding3</name>
 			<mode>looped</mode>
 			<path>Sounds/rumble.wav</path>
 			<condition>
@@ -511,15 +408,19 @@
 				</and>
 			</condition>
 			<volume>
-				<property>sim/sound/slide[2]/volume</property>
+				<factor>0.5</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/slide[2]/volume</property>
+				<max>1</max>
 			</volume>
 			<pitch>
-				<property>sim/sound/slide[2]/pitch</property>
+				<property>sim/model/bo105/sound/slide[2]/pitch</property>
 			</pitch>
 		</slide>
 
 		<slide>
-			<name>skid sliding</name>
+			<name>skid sliding4</name>
 			<mode>looped</mode>
 			<path>Sounds/rumble.wav</path>
 			<condition>
@@ -531,10 +432,14 @@
 				</and>
 			</condition>
 			<volume>
-				<property>sim/sound/slide[3]/volume</property>
+				<factor>0.5</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/slide[3]/volume</property>
+				<max>1</max>
 			</volume>
 			<pitch>
-				<property>sim/sound/slide[3]/pitch</property>
+				<property>sim/model/bo105/sound/slide[3]/pitch</property>
 			</pitch>
 		</slide>
 
@@ -725,7 +630,7 @@
 				<z>-1.5</z>
 			</position>
 			<volume>
-				<factor>0.5</factor>
+				<factor>0.3</factor>
 			</volume>
 			<reference-dist>15</reference-dist>
 			<max-dist>50</max-dist>
@@ -747,7 +652,7 @@
 				<z>-1.5</z>
 			</position>
 			<volume>
-				<factor>0.5</factor>
+				<factor>0.3</factor>
 			</volume>
 			<reference-dist>15</reference-dist>
 			<max-dist>50</max-dist>
@@ -769,7 +674,7 @@
 				<z>-1.5</z>
 			</position>
 			<volume>
-				<factor>0.5</factor>
+				<factor>0.3</factor>
 			</volume>
 			<reference-dist>15</reference-dist>
 			<max-dist>50</max-dist>
@@ -791,7 +696,7 @@
 				<z>-1.5</z>
 			</position>
 			<volume>
-				<factor>0.5</factor>
+				<factor>0.3</factor>
 			</volume>
 			<reference-dist>15</reference-dist>
 			<max-dist>50</max-dist>
@@ -813,7 +718,7 @@
 				<z>-1.0</z>
 			</position>
 			<volume>
-				<factor>0.5</factor>
+				<factor>0.3</factor>
 			</volume>
 			<reference-dist>15</reference-dist>
 			<max-dist>50</max-dist>
@@ -835,7 +740,7 @@
 				<z>-1.0</z>
 			</position>
 			<volume>
-				<factor>0.5</factor>
+				<factor>0.3</factor>
 			</volume>
 			<reference-dist>15</reference-dist>
 			<max-dist>50</max-dist>
