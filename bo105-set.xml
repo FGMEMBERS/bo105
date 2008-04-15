@@ -191,7 +191,7 @@ Bo 105 simulation config.
 				<limits>
 					<enabled type="bool">true</enabled>
 					<left>
-						<heading-max-deg type="double">170</heading-max-deg>
+						<heading-max-deg type="double">160</heading-max-deg>
 						<x-offset-max-m type="double">0.30</x-offset-max-m>
 						<x-offset-threshold-deg type="double">65</x-offset-threshold-deg>
 					</left>
