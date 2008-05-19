@@ -1,17 +1,25 @@
 # Melchior FRANZ, < mfranz # aon : at >
 
-if (!contains(globals, "cprint")) {
-	globals.cprint = func {};
-}
+print("\x1b[35m
+ _____                                _              ____        _  ___  ____
+| ____|   _ _ __ ___   ___ ___  _ __ | |_ ___ _ __  | __ )  ___ / |/ _ \| ___|
+|  _|| | | | '__/ _ \ / __/ _ \| '_ \| __/ _ \ '__| |  _ \ / _ \| | | | |___ \
+| |__| |_| | | | (_) | (_| (_) | |_) | ||  __/ |    | |_) | (_) | | |_| |___) |
+|_____\__,_|_|  \___/ \___\___/| .__/ \__\___|_|    |____/ \___/|_|\___/|____/
+                               |_|
+\x1b[m");
 
-var makeNode = aircraft.makeNode;
 
-var sin = func(a) { math.sin(a * math.pi / 180.0) }
-var cos = func(a) { math.cos(a * math.pi / 180.0) }
-var pow = func(v, w) { math.exp(math.ln(v) * w) }
-var npow = func(v, w) { math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) }
-var clamp = func(v, min = 0, max = 1) { v < min ? min : v > max ? max : v }
-var normatan = func(x) { math.atan2(x, 1) * 2 / math.pi }
+if (!contains(globals, "cprint"))
+	var cprint = func nil;
+
+
+var sin = func(a) math.sin(a * math.pi / 180.0);
+var cos = func(a) math.cos(a * math.pi / 180.0);
+var pow = func(v, w) math.exp(math.ln(v) * w);
+var npow = func(v, w) math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1);
+var clamp = func(v, min = 0, max = 1) v < min ? min : v > max ? max : v;
+var normatan = func(x) math.atan2(x, 1) * 2 / math.pi;
 
 
 
@@ -37,15 +45,15 @@ var sun_angle = props.globals.getNode("sim/time/sun-angle-rad", 1);
 var nav_lights = props.globals.getNode("sim/model/bo105/lighting/nav-lights", 1);
 
 var nav_light_loop = func {
-	if (nav_light_switch.getValue()) {
+	if (nav_light_switch.getValue())
 		nav_lights.setValue(visibility.getValue() < 5000 or sun_angle.getValue() > 1.4);
-	} else {
+	else
 		nav_lights.setValue(0);
-	}
+
 	settimer(nav_light_loop, 3);
 }
 
-settimer(nav_light_loop, 0);
+nav_light_loop();
 
 
 
@@ -55,9 +63,8 @@ var Doors = {
 		var m = { parents : [Doors] };
 		m.active = 0;
 		m.list = [];
-		foreach (var d; props.globals.getNode("sim/model/bo105/doors").getChildren("door")) {
+		foreach (var d; props.globals.getNode("sim/model/bo105/doors").getChildren("door"))
 			append(m.list, aircraft.door.new(d, 2.5));
-		}
 		return m;
 	},
 	next : func {
@@ -68,20 +75,18 @@ var Doors = {
 	},
 	select : func(which) {
 		me.active = which;
-		if (me.active < 0) {
+		if (me.active < 0)
 			me.active = size(me.list) - 1;
-		} elsif (me.active >= size(me.list)) {
+		elsif (me.active >= size(me.list))
 			me.active = 0;
-		}
 		gui.popupTip("Selecting " ~ me.list[me.active].node.getNode("name").getValue());
 	},
 	toggle : func {
 		me.list[me.active].toggle();
 	},
 	reset : func {
-		foreach (var d; me.list) {
+		foreach (var d; me.list)
 			d.setpos(0);
-		}
 	},
 };
 
@@ -89,41 +94,164 @@ var Doors = {
 
 
 # engines/rotor =====================================================
-var state = props.globals.getNode("sim/model/bo105/state");
+var sstate = props.globals.getNode("sim/model/bo105/state");   # "sound state"
 var rotor = props.globals.getNode("controls/engines/engine/magnetos");
 var rotor_rpm = props.globals.getNode("rotors/main/rpm");
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
 var collective = props.globals.getNode("controls/engines/engine[0]/throttle");
 var turbine = props.globals.getNode("sim/model/bo105/turbine-rpm-pct", 1);
 var torque_pct = props.globals.getNode("sim/model/bo105/torque-pct", 1);
+var target_rel_rpm = props.globals.getNode("controls/rotor/reltarget", 1);
+var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 
+var Engine = {
+	new : func(base) {
+		var m = { parents: [Engine] };
+		m.base = props.globals.getNode(base, 1);
+		m.n2_pct = props.initNode(base ~ "n2-pct", 0);
+		return m;
+	},
+};
 
+var engine = [Engine.new("/engines/engine[0]/"), Engine.new("/engines/engine[1]/")];
+
+# sstate:
 # 0 off
 # 1 startup sound in progress
 # 2 sound loop
 # 3 shutdown sound in progress
 
-var engines = func {
-	crashed and return;
-	var s = state.getValue();
-	if (arg[0] == 1) {
-		if (s == 0) {
-			turbine_timer.start();
-			state.setValue(1);				# engines started
-			settimer(func { rotor.setValue(1) }, 3);
-			interpolate(turbine, 100, 25);
-			settimer(func { state.setValue(2) }, 10.5);	# -> engines running
-		}
-	} else {
-		if (s == 2) {
-			turbine_timer.stop();
-			rotor.setValue(0);				# engines stopped
-			state.setValue(3);
-			interpolate(turbine, 0, 18);
-			settimer(func { state.setValue(0) }, 25);	# -> engines off
-		}
+
+
+if (0) {
+	screen.property_display.format = "%.3g";
+	screen.property_display.add(
+		sstate,
+		rotor_rpm,
+		torque_pct,
+		target_rel_rpm,
+		max_rel_torque,
+		engine[0].n2_pct,
+		engine[1].n2_pct,
+	);
+}
+
+
+var startup = func {
+	if (procedure.stage < 0) {
+		procedure.step = 1;
+		procedure.next();
 	}
 }
+
+
+var shutdown = func {
+	if (procedure.stage > 0) {
+		procedure.step = -1;
+		procedure.next();
+	}
+}
+
+
+var procedure = {
+	stage : -999,
+	step : nil,
+	next : func(delay = 0) {
+		if (crashed)
+			return;
+		if (me.stage < 0 and me.step > 0 or me.stage > 0 and me.step < 0) {
+			interpolate(target_rel_rpm);
+			interpolate(engine[0].n2_pct);
+			interpolate(engine[1].n2_pct);
+			me.stage = 0;
+		}
+		settimer(func me.process(me.stage += me.step), delay);
+	},
+	process : func {
+		# startup
+		if (me.stage == 1) {
+			cprint("", "1: press start button #1 -> spool up turbine #1 to N1 8.6--15%");
+			turbine_timer.start();
+			sstate.setValue(1);			# turbine startup sound
+			interpolate(engine[0].n2_pct, 10, 4);
+			me.next(4);
+
+		} elsif (me.stage == 2) {
+			cprint("", "2: move power lever #1 forward -> fuel injection");
+			rotor.setValue(1);
+			interpolate(target_rel_rpm, 0.00001, 4);
+			max_rel_torque.setValue(0.01);
+			interpolate(engine[0].n2_pct, 21, 2);
+			me.next(2.5);
+
+		} elsif (me.stage == 3) {
+			cprint("", "3: turbine #1 ignition (wait for EGT stabilization)");
+			interpolate(target_rel_rpm, 0.05, 1);
+			interpolate(max_rel_torque, 0.05, 1);
+			interpolate(engine[0].n2_pct, 24, 1, 25, 1, 25.5, 1);
+			me.next(4.5);
+
+		} elsif (me.stage == 4) {
+			cprint("", "4: move power lever #1 to idle position -> engine #1 spools up to N1 63%");
+			sstate.setValue(2);
+			interpolate(target_rel_rpm, 0.2, 5);
+			interpolate(max_rel_torque, 0.2, 5);
+			interpolate(engine[0].n2_pct, 60, 5, 62, 1, 63, 1, 63.5, 1);
+			me.next(5);
+
+		} elsif (me.stage == 5) {
+			cprint("", "5: release start button #1\n");
+			interpolate(target_rel_rpm, 0.63, 6);
+			interpolate(max_rel_torque, 0.63, 6);
+			me.next(3);
+
+		} elsif (me.stage == 6) {
+			cprint("", "6: press start button #2 -> spool up turbine #2 to N1 8.6--15%");
+			interpolate(engine[1].n2_pct, 10, 4);
+			me.next(5);
+
+		} elsif (me.stage == 7) {
+			cprint("", "7: move power lever #2 forward -> fuel injection");
+			interpolate(engine[1].n2_pct, 21, 2);
+			me.next(2);
+
+		} elsif (me.stage == 8) {
+			cprint("", "8: turbine #2 ignition (wait for EGT stabilization)");
+			interpolate(engine[1].n2_pct, 24, 1, 25, 1, 25.5, 1);
+			me.next(5);
+
+		} elsif (me.stage == 9) {
+			cprint("", "9: move power lever #2 to idle position -> engine #2 spools up to N1 63%");
+			interpolate(engine[1].n2_pct, 60, 6, 62, 1, 63, 1);
+			me.next(8);
+
+		} elsif (me.stage == 10) {
+			cprint("", "10: release start button #2\n");
+			me.next(1);
+
+		} elsif (me.stage == 11) {
+			cprint("", "11: move both power levers forward -> turbines spool up to 100%");
+			target_rel_rpm.setValue(1);
+			max_rel_torque.setValue(1);
+			interpolate(engine[0].n2_pct, 100, 10);
+			interpolate(engine[1].n2_pct, 100, 10);
+
+		# shutdown
+		} elsif (me.stage == -1) {
+			cprint("", "-1: stop engines");
+			rotor.setValue(0);
+			sstate.setValue(3);
+			interpolate(engine[0].n2_pct, 0, 18);
+			interpolate(engine[1].n2_pct, 0, 18);
+			me.next(25);
+
+		} elsif (me.stage == -2) {
+			cprint("", "-2: engines shut down\n");
+			turbine_timer.stop();
+			sstate.setValue(0);
+		}
+	},
+};
 
 
 
@@ -212,9 +340,8 @@ var Skid = {
 };
 
 var skids = [];
-for (var i = 0; i < 4; i += 1) {
+for (var i = 0; i < 4; i += 1)
 	append(skids, Skid.new(i));
-}
 
 var update_slide = func {
 	foreach (var s; skids)
@@ -268,10 +395,11 @@ var crash = func {
 		beacon_switch.setValue(0);
 		nav_light_switch.setValue(0);
 		rotor.setValue(0);
-		turbine.setValue(0);
+		engine[0].n2_pct.setValue(0);
+		engine[1].n2_pct.setValue(0);
 		torque_pct.setValue(torque_val = 0);
 		stall_filtered.setValue(stall_val = 0);
-		state.setValue(0);
+		sstate.setValue(0);
 
 	} else {
 		# uncrash (for replay)
@@ -287,8 +415,9 @@ var crash = func {
 		strobe_switch.setValue(1);
 		beacon_switch.setValue(1);
 		rotor.setValue(1);
-		turbine.setValue(100);
-		state.setValue(2);
+		engine[0].n2_pct.setValue(100);
+		engine[1].n2_pct.setValue(100);
+		sstate.setValue(2);
 	}
 }
 
@@ -316,9 +445,8 @@ var rotoranim_loop = func {
 }
 
 var init_rotoranim = func {
-	if (rotor_step.getValue() >= 0.0) {
+	if (rotor_step.getValue() >= 0.0)
 		settimer(rotoranim_loop, 0.1);
-	}
 }
 
 
@@ -415,7 +543,7 @@ var determine_emblem = func {
 var Weapon = {
 	new : func(prop, ndx, cap, dropw, basew, fac = 1, wprop = nil) {
 		m = { parents : [Weapon] };
-		m.node = makeNode(prop);
+		m.node = aircraft.makeNode(prop);
 		m.enabledN = m.node.getNode("enabled", 1);
 		m.enabledN.setBoolValue(0);
 
@@ -433,11 +561,10 @@ var Weapon = {
 		m.baseweight = basew * 2.2046226;
 		m.ratio = fac;
 
-		if (wprop != nil) {
-			m.weightN = makeNode(wprop);
-		} else {
+		if (wprop != nil)
+			m.weightN = aircraft.makeNode(wprop);
+		else
 			m.weightN = m.node.getNode("weight-lb", 1);
-		}
 		return m;
 	},
 	enable : func {
@@ -473,15 +600,13 @@ var Weapon = {
 	},
 	fire : func(t) {
 		me.triggerN.setBoolValue(t);
-		if (t) {
+		if (t)
 			me._loop_();
-		}
 	},
 	_loop_  : func {
 		me.update();
-		if (me.triggerN.getBoolValue() and me.enabledN.getValue() and me.countN.getValue()) {
-			settimer(func { me._loop_() }, 1);
-		}
+		if (me.triggerN.getBoolValue() and me.enabledN.getValue() and me.countN.getValue())
+			settimer(func me._loop_(), 1);
 	},
 };
 
@@ -502,20 +627,17 @@ var WeaponSystem = {
 	},
 	reload : func {
 		me.select = 0;
-		foreach (w; me.weapons) {
+		foreach (w; me.weapons)
 			w.reload();
-		}
 	},
 	fire : func {
-		foreach (w; me.weapons) {
+		foreach (w; me.weapons)
 			w.fire(arg[0]);
-		}
 	},
 	getammo : func {
 		n = 0;
-		foreach (w; me.weapons) {
+		foreach (w; me.weapons)
 			n += w.getammo();
-		}
 		return n;
 	},
 	ammodesc : func {
@@ -523,9 +645,8 @@ var WeaponSystem = {
 	},
 	disable : func {
 		me.enabled = 0;
-		foreach (w; me.weapons) {
+		foreach (w; me.weapons)
 			w.enable(0);
-		}
 	},
 	enable : func {
 		me.select = 0;
@@ -560,15 +681,15 @@ var init_weapons = func {
 	HOT.add(Weapon.new("sim/model/bo105/weapons/HOT[5]", 7, 1, 24, 20));
 
 	HOT.fire = func(trigger) {
-		if (!trigger or me.select >= size(me.weapons)) {
+		if (!trigger or me.select >= size(me.weapons))
 			return;
-		}
+
 		wp = me.weapons[me.select];
 		wp.fire(1);
-		settimer(func { wp.fire(0) }, 1.5);
+		settimer(func wp.fire(0), 1.5);
 		weight = wp.weightN.getValue();
 		wp.weightN.setValue(weight + 300);	# shake the bo
-		settimer(func { wp.weightN.setValue(weight) }, 0.3);
+		settimer(func wp.weightN.setValue(weight), 0.3);
 		me.select += 1;
 	}
 
@@ -659,9 +780,9 @@ controls.flapsDown = func(v) {
 
 	} else {
 		if (flap_mode == 1) {
-			if (elapsedN.getValue() < down_time + 0.2) {
+			if (elapsedN.getValue() < down_time + 0.2)
 				return;
-			}
+
 			dynamic_view.resume();
 		} elsif (flap_mode == 2) {
 			aircraft.autotrim.stop();
@@ -749,6 +870,7 @@ aircraft.livery.init("Aircraft/bo105/Models/Variants", "sim/model/bo105/name", "
 
 # initialization
 setlistener("/sim/signals/fdm-initialized", func {
+	gui.menuEnable("autopilot", 0);
 	init_rotoranim();
 	init_weapons();
 

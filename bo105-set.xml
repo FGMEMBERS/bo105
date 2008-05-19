@@ -56,15 +56,15 @@ Bo 105 simulation config.
 				<material>
 					<glass>
 						<diffuse>
-							<red>0.2</red>
-							<green>0.2</green>
-							<blue>0.2</blue>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
 						</diffuse>
 
 						<ambient>
-							<red>0.2</red>
-							<green>0.2</green>
-							<blue>0.2</blue>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
 						</ambient>
 
 						<specular>
@@ -74,9 +74,9 @@ Bo 105 simulation config.
 						</specular>
 
 						<emission>
-							<red>0.0</red>
-							<green>0.0</green>
-							<blue>0.0</blue>
+							<red>0.6</red>
+							<green>0.6</green>
+							<blue>0.6</blue>
 						</emission>
 
 						<transparency>
@@ -175,9 +175,7 @@ Bo 105 simulation config.
 
 		<multiplay>
 			<generic>
-				<string n="0"></string>
-				<string n="1"></string>
-				<int n="0">0</int>
+				<string n="0"/> <!-- emblem basename -->
 			</generic>
 		</multiplay>
 
@@ -366,6 +364,11 @@ Bo 105 simulation config.
 	</sim>
 
 	<controls>
+		<rotor>
+			<reltarget type="double">1</reltarget>
+			<maxreltorque type="double">1</maxreltorque>
+		</rotor>
+
 		<armament>
 			<trigger type="bool">false</trigger>
 		</armament>
@@ -502,7 +505,7 @@ Bo 105 simulation config.
 				<desc>Shutdown Engines</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.engines(0)</script>
+					<script>bo105.shutdown()</script>
 				</binding>
 			</key>
 
@@ -511,7 +514,7 @@ Bo 105 simulation config.
 				<desc>Start Engines</desc>
 				<binding>
 					<command>nasal</command>
-					<script>bo105.engines(1)</script>
+					<script>bo105.startup()</script>
 				</binding>
 			</key>
 		</keyboard>

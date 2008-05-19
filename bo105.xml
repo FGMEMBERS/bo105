@@ -111,6 +111,12 @@
   <control-input axis="/controls/rotor/brake" control="ROTORBRAKE"
                  src0="0.0" src1="1.0"
                  dst0="0.0" dst1="1.0"/>
+  <control-input axis="/controls/rotor/reltarget" control="ROTORRELTARGET"
+                 src0="0.0" src1="2.0"
+                 dst0="0.0" dst1="2.0"/>
+  <control-input axis="/controls/rotor/maxreltorque" control="ROTORENGINEMAXRELTORQUE"
+                 src0="0.0" src1="2.0"
+                 dst0="0.0" dst1="2.0"/>
 </rotorgear>
 
 

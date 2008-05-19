@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-<path>tach.ac</path>
+	<path>tach.ac</path>
+
 	<animation>
 		<type>rotate</type>
 		<object-name>TurbineNeedle</object-name>
-		<property>sim/model/bo105/turbine-rpm-pct</property>
+		<property>engines/engine[0]/n2-pct</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>35</dep></entry>
 			<entry><ind>50</ind><dep>151</dep></entry>
@@ -16,6 +17,7 @@
 			<x>-1</x>
 		</axis>
 	</animation>
+
 	<animation>
 		<type>rotate</type>
 		<object-name>RotorNeedle</object-name>
