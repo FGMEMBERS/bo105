@@ -141,8 +141,8 @@
   <stall aoa="16" width="4" peak="1.5"/>
 </vstab>
 
-<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="1.0" length="1.20" chord="0.36" sweep="0">
-  <stall aoa="0" width="0" peak="1.5" incidence="5"/>
+<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="1.0" length="1.20" chord="0.36" sweep="0" incidence="5">
+  <stall aoa="0" width="0" peak="1.5"/>
 </hstab>
 
 <!-- left skid -->
