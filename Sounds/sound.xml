@@ -10,15 +10,132 @@
 
 <PropertyList>
 	<fx>
+		<starter>
+			<name>starter0_start</name>
+			<mode>once</mode>
+			<path>Aircraft/bo105/Sounds/starter_start.wav</path>
+			<condition>
+				<property>controls/engines/engine[0]/starter</property>
+			</condition>
+			<volume>
+				<factor>0.3</factor>
+			</volume>
+			<position>
+				<x>-0.88</x>
+				<y>0.40</y>
+				<z>0.5</z>
+			</position>
+			<reference-dist>5</reference-dist>
+			<max-dist>10</max-dist>
+		</starter>
+
+		<starter>
+			<name>starter0_loop</name>
+			<mode>looped</mode>
+			<path>Aircraft/bo105/Sounds/starter_loop.wav</path>
+			<condition>
+				<property>controls/engines/engine[0]/starter</property>
+			</condition>
+			<delay-sec>11.6</delay-sec>
+			<volume>
+				<factor>0.3</factor>
+			</volume>
+			<position>
+				<x>-0.88</x>
+				<y>0.40</y>
+				<z>0.5</z>
+			</position>
+			<reference-dist>5</reference-dist>
+			<max-dist>10</max-dist>
+		</starter>
+
+		<starter>
+			<name>starter0_stop</name>
+			<mode>once</mode>
+			<path>Aircraft/bo105/Sounds/starter_stop.wav</path>
+			<condition>
+				<not>
+					<property>controls/engines/engine[0]/starter</property>
+				</not>
+			</condition>
+			<volume>
+				<factor>0.3</factor>
+			</volume>
+			<position>
+				<x>-0.88</x>
+				<y>0.40</y>
+				<z>0.5</z>
+			</position>
+			<reference-dist>5</reference-dist>
+			<max-dist>10</max-dist>
+		</starter>
+
+		<starter>
+			<name>starter1_start</name>
+			<mode>once</mode>
+			<path>Aircraft/bo105/Sounds/starter_start.wav</path>
+			<condition>
+				<property>controls/engines/engine[1]/starter</property>
+			</condition>
+			<volume>
+				<factor>0.3</factor>
+			</volume>
+			<position>
+				<x>-0.88</x>
+				<y>-0.40</y>
+				<z>0.5</z>
+			</position>
+			<reference-dist>5</reference-dist>
+			<max-dist>10</max-dist>
+		</starter>
+
+		<starter>
+			<name>starter1_loop</name>
+			<mode>looped</mode>
+			<path>Aircraft/bo105/Sounds/starter_loop.wav</path>
+			<condition>
+				<property>controls/engines/engine[1]/starter</property>
+			</condition>
+			<delay-sec>11.6</delay-sec>
+			<volume>
+				<factor>0.3</factor>
+			</volume>
+			<position>
+				<x>-0.88</x>
+				<y>-0.40</y>
+				<z>0.5</z>
+			</position>
+			<reference-dist>5</reference-dist>
+			<max-dist>10</max-dist>
+		</starter>
+
+		<starter>
+			<name>starter1_stop</name>
+			<mode>once</mode>
+			<path>Aircraft/bo105/Sounds/starter_stop.wav</path>
+			<condition>
+				<not>
+					<property>controls/engines/engine[1]/starter</property>
+				</not>
+			</condition>
+			<volume>
+				<factor>0.3</factor>
+			</volume>
+			<position>
+				<x>-0.88</x>
+				<y>-0.40</y>
+				<z>0.5</z>
+			</position>
+			<reference-dist>5</reference-dist>
+			<max-dist>10</max-dist>
+		</starter>
+
 		<engine>
-			<name>turbine-start</name>
+			<name>turbine0-start</name>
 			<mode>once</mode>
 			<path>Sounds/turbine_start.wav</path>
 			<condition>
-				<equals>
-					<property>sim/model/bo105/state</property>
-					<value>1</value>
-				</equals>
+				<property>engines/engine[0]/running</property>
 			</condition>
 			<volume>
 				<factor>0.03</factor>
@@ -32,15 +149,13 @@
 		</engine>
 
 		<engine>
-			<name>turbine-loop</name>
+			<name>turbine0-loop</name>
 			<mode>looped</mode>
 			<path>Sounds/turbine_loop.wav</path>
 			<condition>
-				<equals>
-					<property>sim/model/bo105/state</property>
-					<value>2</value>
-				</equals>
+				<property>engines/engine[0]/running</property>
 			</condition>
+			<delay-sec>7.5</delay-sec>
 			<volume>
 				<factor>0.03</factor>
 			</volume>
@@ -53,14 +168,13 @@
 		</engine>
 
 		<engine>
-			<name>turbine-shutdown</name>
+			<name>turbine0-shutdown</name>
 			<mode>once</mode>
 			<path>Sounds/turbine_shutdown.wav</path>
 			<condition>
-				<equals>
-					<property>sim/model/bo105/state</property>
-					<value>3</value>
-				</equals>
+				<not>
+					<property>engines/engine[0]/running</property>
+				</not>
 			</condition>
 			<volume>
 				<factor>0.03</factor>
@@ -74,14 +188,68 @@
 		</engine>
 
 		<engine>
-			<name>exhaust-start</name>
+			<name>turbine1-start</name>
+			<mode>once</mode>
+			<path>Sounds/turbine_start.wav</path>
+			<condition>
+				<property>engines/engine[1]/running</property>
+			</condition>
+			<volume>
+				<factor>0.03</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>5</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
+		</engine>
+
+		<engine>
+			<name>turbine1-loop</name>
+			<mode>looped</mode>
+			<path>Sounds/turbine_loop.wav</path>
+			<condition>
+				<property>engines/engine[1]/running</property>
+			</condition>
+			<delay-sec>7.5</delay-sec>
+			<volume>
+				<factor>0.03</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>5</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
+		</engine>
+
+		<engine>
+			<name>turbine1-shutdown</name>
+			<mode>once</mode>
+			<path>Sounds/turbine_shutdown.wav</path>
+			<condition>
+				<not>
+					<property>engines/engine[1]/running</property>
+				</not>
+			</condition>
+			<volume>
+				<factor>0.03</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>5</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
+		</engine>
+
+		<engine>
+			<name>exhaust0-start</name>
 			<mode>once</mode>
 			<path>Sounds/exhaust_start.wav</path>
 			<condition>
-				<equals>
-					<property>sim/model/bo105/state</property>
-					<value>1</value>
-				</equals>
+				<property>engines/engine[0]/running</property>
 			</condition>
 			<volume>
 				<factor>0.02</factor>
@@ -95,14 +263,32 @@
 		</engine>
 
 		<engine>
-			<name>exhaust-loop</name>
+			<name>exhaust0-loop</name>
 			<mode>looped</mode>
 			<path>Sounds/exhaust_loop.wav</path>
 			<condition>
-				<equals>
-					<property>sim/model/bo105/state</property>
-					<value>2</value>
-				</equals>
+				<property>engines/engine[0]/running</property>
+			</condition>
+			<delay-sec>7.5</delay-sec>
+			<volume>
+				<factor>0.02</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>10</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
+		</engine>
+
+		<engine>
+			<name>exhaust0-shutdown</name>
+			<mode>once</mode>
+			<path>Sounds/exhaust_shutdown.wav</path>
+			<condition>
+				<not>
+					<property>engines/engine[0]/running</property>
+				</not>
 			</condition>
 			<volume>
 				<factor>0.02</factor>
@@ -116,14 +302,50 @@
 		</engine>
 
 		<engine>
-			<name>exhaust-shutdown</name>
+			<name>exhaust1-start</name>
+			<mode>once</mode>
+			<path>Sounds/exhaust_start.wav</path>
+			<condition>
+				<property>engines/engine[1]/running</property>
+			</condition>
+			<volume>
+				<factor>0.02</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>10</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
+		</engine>
+
+		<engine>
+			<name>exhaust1-loop</name>
+			<mode>looped</mode>
+			<path>Sounds/exhaust_loop.wav</path>
+			<condition>
+				<property>engines/engine[1]/running</property>
+			</condition>
+			<delay-sec>7.5</delay-sec>
+			<volume>
+				<factor>0.02</factor>
+			</volume>
+			<volume>
+				<property>sim/model/bo105/sound/volume</property>
+				<factor>10</factor>
+			</volume>
+			<reference-dist>50</reference-dist>
+			<max-dist>200</max-dist>
+		</engine>
+
+		<engine>
+			<name>exhaust1-shutdown</name>
 			<mode>once</mode>
 			<path>Sounds/exhaust_shutdown.wav</path>
 			<condition>
-				<equals>
-					<property>sim/model/bo105/state</property>
-					<value>3</value>
-				</equals>
+				<not>
+					<property>engines/engine[1]/running</property>
+				</not>
 			</condition>
 			<volume>
 				<factor>0.02</factor>
@@ -261,6 +483,28 @@
 			<reference-dist>1.0</reference-dist>
 			<max-dist>2.0</max-dist>
 		</overspeed>
+
+		<warning>
+			<name>650 Hz</name>
+			<mode>looped</mode>
+			<path>Aircraft/bo105/Sounds/warn650.wav</path>
+			<condition>
+				<property>sim/sound/warn650</property>
+			</condition>
+			<reference-dist>0.5</reference-dist>
+			<max-dist>1.0</max-dist>
+		</warning>
+
+		<warning>
+			<name>2600 Hz</name>
+			<mode>looped</mode>
+			<path>Aircraft/bo105/Sounds/warn2600.wav</path>
+			<condition>
+				<property>sim/sound/warn2600</property>
+			</condition>
+			<reference-dist>0.5</reference-dist>
+			<max-dist>1.0</max-dist>
+		</warning>
 
 		<contact>
 			<name>ground contact</name>
