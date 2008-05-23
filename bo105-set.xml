@@ -311,6 +311,20 @@ Bo 105 simulation config.
 				<menu n="100">
 					<label>BO-105CBS</label>
 					<item>
+						<label>Autostart</label>
+						<binding>
+							<command>nasal</command>
+							<script>bo105.startup()</script>
+						</binding>
+					</item>
+					<item>
+						<label>Autoshutdown</label>
+						<binding>
+							<command>nasal</command>
+							<script>bo105.shutdown()</script>
+						</binding>
+					</item>
+					<item>
 						<label>Select Livery</label>
 						<binding>
 							<command>nasal</command>
@@ -337,11 +351,15 @@ Bo 105 simulation config.
 				<desc>open/close selected door</desc>
 			</key>
 			<key>
-				<name>n</name>
+				<name>i</name>
+				<desc>toggle ignition switch</desc>
+			</key>
+			<key>
+				<name>o</name>
 				<desc>apply rotor brake</desc>
 			</key>
 			<key>
-				<name>N</name>
+				<name>O</name>
 				<desc>toggle rotor brake</desc>
 			</key>
 			<key>
@@ -360,13 +378,17 @@ Bo 105 simulation config.
 				<name>Tab</name>
 				<desc>open/close Bo105 config dialog</desc>
 			</key>
+			<key>
+				<name>MMB</name>
+				<desc>adjust power lever (middle mouse button)</desc>
+			</key>
 		</help>
 	</sim>
 
 	<controls>
 		<rotor>
-			<reltarget type="double">1</reltarget>
-			<maxreltorque type="double">1</maxreltorque>
+			<reltarget type="double">0</reltarget>
+			<maxreltorque type="double">0</maxreltorque>
 		</rotor>
 
 		<armament>
@@ -375,8 +397,18 @@ Bo 105 simulation config.
 
 		<engines>
 			<engine n="0">
-				<magnetos>0</magnetos>
+				<magnetos>1</magnetos>
+				<propeller-pitch alias="/controls/engines/power-trim"/>
+				<mixture alias="/controls/engines/power-balance"/>
 			</engine>
+			<engine n="1">
+				<magnetos>1</magnetos>
+				<propeller-pitch alias="/controls/engines/power-trim"/>
+				<mixture alias="/controls/engines/power-balance"/>
+				<throttle alias="/controls/engines/engine[0]/throttle"/>
+			</engine>
+			<power-trim type="double">0</power-trim>
+			<power-balance type="double">0</power-balance>
 		</engines>
 
 		<lighting>
@@ -435,8 +467,8 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
-			<key n="78">
-				<name>N</name>
+			<key n="79">
+				<name>O</name>
 				<desc>Toggle rotor brake</desc>
 				<binding>
 					<command>nasal</command>
@@ -465,8 +497,24 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
-			<key n="110">
-				<name>n</name>
+			<key n="105">
+				<name>i</name>
+				<desc>Toggle ignition switch</desc>
+				<binding>
+					<command>nasal</command>
+					<script>
+						foreach (var e; controls.engines) {
+							if (e.selected.getValue()) {
+								var i = e.controls.getNode("ignition", 1);
+								i.setValue(!i.getValue());
+							}
+						}
+					</script>
+				</binding>
+			</key>
+
+			<key n="111">
+				<name>o</name>
 				<desc>Apply rotor brake</desc>
 				<binding>
 					<command>nasal</command>
