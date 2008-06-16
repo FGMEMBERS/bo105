@@ -19,7 +19,7 @@
 			var targetnode = self.getPath();
 			fgcommand("loadxml", props.Node.new({ filename: filename, targetnode: targetnode, }));
 			var mat = self.getNode("sim/model/bo105/material", 1);
-			mat.getNode("fuselage/emblem/texture", 1).setValue("../../../Models/Fauna/cow.rgb");
+			mat.getNode("emblem/texture", 1).setValue("../../../Models/Fauna/cow.rgb");
 			#--end compat--
 
 			var emblem_in = self.getNode("sim/multiplay/generic/string[0]", 1);
