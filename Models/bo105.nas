@@ -104,6 +104,7 @@ var target_rel_rpm = props.globals.getNode("controls/rotor/reltarget", 1);
 var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 
 
+
 var Engine = {
 	new : func(n) {
 		var m = { parents: [Engine] };
@@ -238,6 +239,7 @@ var Engine = {
 };
 
 
+
 var engines = {
 	init : func {
 		me.engine = [Engine.new(0), Engine.new(1)];
@@ -326,39 +328,39 @@ if (devel) {
 
 
 
-# adjust power lever via vertical MMB drag
-var mouse = { savex: nil, savey: nil };
-setlistener("/sim/startup/xsize", func(n) mouse.centerx = int(n.getValue() / 2), 1);
-setlistener("/sim/startup/ysize", func(n) mouse.centery = int(n.getValue() / 2), 1);
-setlistener("/sim/mouse/hide-cursor", func(n) mouse.hide = n.getValue(), 1);
-setlistener("/devices/status/mice/mouse/x", func(n) mouse.x = n.getValue(), 1);
-setlistener("/devices/status/mice/mouse/y", func(n) mouse.y = n.getValue(), 1);
-setlistener("/devices/status/mice/mouse/mode", func(n) mouse.mode = n.getValue(), 1);
-setlistener("/devices/status/mice/mouse/button[1]", func(n) {
-	mouse.mmb = n.getValue();
-	if (mouse.mode)
-		return;
-	if (mouse.mmb) {
-		engines.adjust_power(0, 1);
-		mouse.savex = mouse.x;
-		mouse.savey = mouse.y;
-		gui.setCursor(mouse.centerx, mouse.centery, "none");
-	} else {
-		gui.setCursor(mouse.savex, mouse.savey, "pointer");
-	}
-}, 1);
+var mouse = {
+	init : func {
+		me.savex = nil;
+		me.savey = nil;
+		setlistener("/sim/startup/xsize", func(n) me.centerx = int(n.getValue() / 2), 1);
+		setlistener("/sim/startup/ysize", func(n) me.centery = int(n.getValue() / 2), 1);
+		setlistener("/devices/status/mice/mouse/x", func(n) me.x = n.getValue(), 1);
+		setlistener("/devices/status/mice/mouse/y", func(n) me.y = n.getValue(), 1);
+		setlistener("/devices/status/mice/mouse/mode", func(n) me.mode = n.getValue(), 1);
+		setlistener("/devices/status/mice/mouse/button[1]", func(n) {
+			me.mmb = n.getValue();
+			if (me.mode)
+				return;
+			if (me.mmb) {
+				engines.adjust_power(0, 1);
+				me.savex = me.x;
+				me.savey = me.y;
+				gui.setCursor(me.centerx, me.centery, "none");
+			} else {
+				gui.setCursor(me.savex, me.savey, "pointer");
+			}
+		}, 1);
+	},
+	update : func(dt) {
+		if (me.mode or !me.mmb)
+			return;
 
+		if (var dy = -me.y + me.centery)
+			engines.adjust_power(dy * dt * 0.075);
 
-
-mouse.update = func(dt) {
-	if (mouse.mode or !mouse.mmb)
-		return;
-
-	if (var dy = -mouse.y + mouse.centery) {
-		engines.adjust_power(dy * dt * 0.075);
-		gui.setCursor(mouse.centerx, mouse.centery);
-	}
-}
+		gui.setCursor(me.centerx, me.centery);
+	},
+};
 
 
 
@@ -368,6 +370,7 @@ var power = func(v) {
 	if (controls.engines[1].selected.getValue())
 		engines.engine[1].setpower(v);
 }
+
 
 
 var startup = func {
@@ -597,7 +600,6 @@ var update_volume = func {
 
 
 # crash handler =====================================================
-#var load = nil;
 var crash = func {
 	if (arg[0]) {
 		# crash
@@ -622,8 +624,8 @@ var crash = func {
 		strobe_switch.setValue(0);
 		beacon_switch.setValue(0);
 		nav_light_switch.setValue(0);
-		engines.engine[0].n2_pct.setValue(0);
-		engines.engine[1].n2_pct.setValue(0);
+		engines.engine[0].n2_pctN.setValue(0);
+		engines.engine[1].n2_pctN.setValue(0);
 		torque_pct.setValue(torque_val = 0);
 		stall_filtered.setValue(stall_val = 0);
 
@@ -1100,6 +1102,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 	init_rotoranim();
 	init_weapons();
 	engines.init();
+	mouse.init();
 
 	collective.setDoubleValue(1);
 
