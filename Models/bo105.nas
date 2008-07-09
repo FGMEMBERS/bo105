@@ -138,14 +138,14 @@ var Engine = {
 		return m;
 	},
 	reset : func {
+		me.magnetoN.setIntValue(1);
 		me.ignitionN.setBoolValue(0);
 		me.starterN.setBoolValue(0);
 		me.powerN.setDoubleValue(0);
-		me.magnetoN.setIntValue(1);
 		me.runningN.setBoolValue(me.running = 0);
 		me.starterLP.set(0);
-		me.n1LP.set(0);
-		me.n2LP.set(0);
+		me.n1LP.set(me.n1 = 0);
+		me.n2LP.set(me.n2 = 0);
 	},
 	update : func(dt, trim = 0) {
 		var starter = me.starterLP.filter(me.starterN.getValue() * 0.19);	# starter 15-20% N1max
@@ -157,6 +157,7 @@ var Engine = {
 		if (power > 1.12)
 			power = 1.12;							# overspeed restrictor
 
+		me.fuelflow = 0;
 		if (!me.running) {
 			if (me.n1 > 0.05 and power > 0.05 and me.ignitionN.getValue()) {
 				me.runningN.setBoolValue(me.running = 1);
@@ -166,7 +167,6 @@ var Engine = {
 		} elsif (power < 0.05) {
 			me.runningN.setBoolValue(me.running = 0);
 			me.timer.stop();
-			me.fuelflow = 0;
 
 		} else {
 			me.fuelflow = power;
@@ -245,6 +245,10 @@ var engines = {
 		me.engine = [Engine.new(0), Engine.new(1)];
 		me.trimN = props.initNode("/controls/engines/power-trim", 0);
 		me.balanceN = props.initNode("/controls/engines/power-balance", 0);
+	},
+	reset : func {
+		me.engine[0].reset();
+		me.engine[1].reset();
 	},
 	update : func(dt) {
 		# each starter button disables ignition switch of opposite engine
@@ -392,15 +396,23 @@ var shutdown = func {
 var procedure = {
 	stage : -999,
 	step : nil,
+	loopid : 0,
+	reset : func {
+		me.loopid += 1;
+		me.stage = -999;
+		step = nil;
+		engines.reset();
+	},
 	next : func(delay = 0) {
 		if (crashed)
 			return;
 		if (me.stage < 0 and me.step > 0 or me.stage > 0 and me.step < 0)
 			me.stage = 0;
 
-		settimer(func me.process(me.stage += me.step), delay);
+		settimer(func { me.stage += me.step; me.process(me.loopid) }, delay);
 	},
-	process : func {
+	process : func(id) {
+		id == me.loopid or return;
 		# startup
 		if (me.stage == 1) {
 			cprint("", "1: press start button #1 -> spool up turbine #1 to N1 8.6--15%");
@@ -1038,6 +1050,38 @@ dynamic_view.register(func {
 
 
 
+# livery/configuration ==============================================
+
+aircraft.livery.init("Aircraft/bo105/Models/Variants", "sim/model/bo105/name", "sim/model/bo105/index");
+
+var reconfigure = func {
+	if (weapons != nil) {
+		weapons.disable();
+		weapons = nil;
+	}
+
+	if (getprop("/sim/model/bo105/missiles"))
+		weapons = HOT;
+	elsif (getprop("/sim/model/bo105/miniguns"))
+		weapons = MG;
+
+	if (weapons != nil)
+		weapons.enable();
+
+	var emblemN = props.globals.getNode("/sim/model/bo105/material/emblem/texture");
+	var emblem = emblemN.getValue();
+	if (emblem == "RED-CROSS")
+		emblemN.setValue(emblem = rc_emblem);
+	elsif (emblem == "INSIGNIA")
+		emblemN.setValue(emblem = getprop("/sim/model/bo105/insignia"));
+	if (substr(emblem, 0, 17) == "Textures/Emblems/")
+		emblem = substr(emblem, 17);
+	if (substr(emblem, -4) == ".png")
+		emblem = substr(emblem, 0, size(emblem) - 4);
+	setprop("sim/multiplay/generic/string[0]", emblem);
+}
+
+
 
 # main() ============================================================
 var delta_time = props.globals.getNode("/sim/time/delta-sec", 1);
@@ -1065,50 +1109,21 @@ var doors = Doors.new();
 var config_dialog = gui.Dialog.new("/sim/gui/dialogs/bo105/config/dialog", "Aircraft/bo105/Dialogs/config.xml");
 
 
-setlistener("/sim/model/livery/file", func {
-	if (weapons != nil) {
-		weapons.disable();
-		weapons = nil;
-	}
-
-	if (getprop("/sim/model/bo105/missiles"))
-		weapons = HOT;
-	elsif (getprop("/sim/model/bo105/miniguns"))
-		weapons = MG;
-
-	if (weapons != nil)
-		weapons.enable();
-
-	var emblemN = props.globals.getNode("/sim/model/bo105/material/emblem/texture");
-	var emblem = emblemN.getValue();
-	if (emblem == "RED-CROSS")
-		emblemN.setValue(emblem = rc_emblem);
-	elsif (emblem == "INSIGNIA")
-		emblemN.setValue(emblem = getprop("/sim/model/bo105/insignia"));
-	if (substr(emblem, 0, 17) == "Textures/Emblems/")
-		emblem = substr(emblem, 17);
-	if (substr(emblem, -4) == ".png")
-		emblem = substr(emblem, 0, size(emblem) - 4);
-	setprop("sim/multiplay/generic/string[0]", emblem);
-});
-
-
-aircraft.livery.init("Aircraft/bo105/Models/Variants", "sim/model/bo105/name", "sim/model/bo105/index");
-
-
-# initialization
 setlistener("/sim/signals/fdm-initialized", func {
 	gui.menuEnable("autopilot", 0);
 	init_rotoranim();
-	init_weapons();
 	engines.init();
 	mouse.init();
+
+	init_weapons();
+	setlistener("/sim/model/livery/file", reconfigure, 1);
 
 	collective.setDoubleValue(1);
 
 	setlistener("/sim/signals/reinit", func(n) {
 		n.getBoolValue() and return;
 		cprint("32;1", "reinit");
+		procedure.reset();
 		collective.setDoubleValue(1);
 		aircraft.livery.rescan();
 		crashed = 0;
