@@ -3050,85 +3050,94 @@
 			<type>point</type>
 		</placer>
 
+		<condition>
+			<property>sim/model/bo105/particles/enabled</property>
+			<not>
+				<property>sim/paused</property>
+			</not>
+			<not>
+				<property>sim/crashed</property>
+			</not>
+			<less-than>
+				<property>position/altitude-agl-ft</property>
+				<value>80</value>
+			</less-than>
+			<greater-than>
+				<property>rotors/main/rpm</property>
+				<value>200</value>
+			</greater-than>
+		</condition>
+
 		<shooter>
 			<theta-min-deg>0</theta-min-deg>
 			<theta-max-deg>360</theta-max-deg>
 			<phi-min-deg>-0.1</phi-min-deg>
 			<phi-max-deg>0.1</phi-max-deg>
-			<speed>
+			<speed-mps>
 				<property>rotors/main/rpm</property>
 				<factor>0.1</factor>
-			</speed>
-			<rotspeed>
+			</speed-mps>
+			<rotation-speed>
 				<x-min-deg-sec>-5</x-min-deg-sec>
 				<y-min-deg-sec>-5</y-min-deg-sec>
 				<z-min-deg-sec>-5</z-min-deg-sec>
 				<x-max-deg-sec>5</x-max-deg-sec>
 				<y-max-deg-sec>5</y-max-deg-sec>
 				<z-max-deg-sec>5</z-max-deg-sec>
-			</rotspeed>
+			</rotation-speed>
 		</shooter>
 
 		<counter>
-			<pps>
+			<particles-per-sec>
 				<property>position/altitude-agl-ft</property>
 				<factor>-40</factor>
 				<offset-m>2000</offset-m>
-			</pps>
+			</particles-per-sec>
 
-			<condition>
-				<property>sim/model/bo105/particles/enabled</property>
-				<not>
-					<property>sim/crashed</property>
-				</not>
-				<less-than>
-					<property>position/altitude-agl-ft</property>
-					<value>100</value>
-				</less-than>
-				<greater-than>
-					<property>rotors/main/rpm</property>
-					<value>10</value>
-				</greater-than>
-			</condition>
 		</counter>
 
 		<align>billboard</align>
 
 		<particle>
-			<startcolor>
-				<red>
-					<value>0.6</value>
-				</red>
-				<green>
-					<value>0.6</value>
-				</green>
-				<blue>
-					<value>0.6</value>
-				</blue>
-				<alpha>
-					<value>0.04</value>
-				</alpha>
-			</startcolor>
-			<endcolor>
-				<red>
-					<value>0.6</value>
-				</red>
-				<green>
-					<value>0.6</value>
-				</green>
-				<blue>
-					<value>0.6</value>
-				</blue>
-				<alpha>
-					<value>0.04</value>
-				</alpha>
-			</endcolor>
-			<startsize>
-				<value>0.8</value>
-			</startsize>
-			<endsize>
-				<value>0.8</value>
-			</endsize>
+			<start>
+				<color>
+					<red>
+						<value>0.6</value>
+					</red>
+					<green>
+						<value>0.6</value>
+					</green>
+					<blue>
+						<value>0.6</value>
+					</blue>
+					<alpha>
+						<value>0.04</value>
+					</alpha>
+				</color>
+				<size>
+					<value>0.8</value>
+				</size>
+			</start>
+
+			<end>
+				<color>
+					<red>
+						<value>0.6</value>
+					</red>
+					<green>
+						<value>0.6</value>
+					</green>
+					<blue>
+						<value>0.6</value>
+					</blue>
+					<alpha>
+						<value>0.04</value>
+					</alpha>
+				</color>
+				<size>
+					<value>0.8</value>
+				</size>
+			</end>
 			<life-sec>
 				<value>0.25</value>
 			</life-sec>
@@ -3138,8 +3147,8 @@
 
 		<program>
 			<fluid>water</fluid>
-			<gravity>enabled</gravity>
-			<wind>disabled</wind>
+			<gravity>true</gravity>
+			<wind>false</wind>
 		</program>
 	</particlesystem>
 </PropertyList>
