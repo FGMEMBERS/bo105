@@ -5,7 +5,6 @@
 		<model>
 			<bo105>
 				<name type="string">Military (Anti-Tank)</name>
-				<index type="int">60</index>
 
 				<wiper type="bool">true</wiper>
 				<wire-cutter type="bool">true</wire-cutter>
@@ -49,15 +48,15 @@
 
 					<glass>
 						<diffuse>
-							<red>0.2</red>
-							<green>0.2</green>
-							<blue>0.2</blue>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
 						</diffuse>
 
 						<ambient>
-							<red>0.2</red>
-							<green>0.2</green>
-							<blue>0.2</blue>
+							<red>1.0</red>
+							<green>1.0</green>
+							<blue>1.0</blue>
 						</ambient>
 
 						<specular>
@@ -67,16 +66,16 @@
 						</specular>
 
 						<emission>
-							<red>0.0</red>
-							<green>0.0</green>
-							<blue>0.0</blue>
+							<red>0.6</red>
+							<green>0.6</green>
+							<blue>0.6</blue>
 						</emission>
 
 						<transparency>
-							<alpha>0.6</alpha>
+							<alpha>0.2</alpha>
 						</transparency>
 
-						<shininess>60</shininess>
+						<shininess>25</shininess>
 					</glass>
 
 					<rotor>

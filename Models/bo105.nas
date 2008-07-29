@@ -484,7 +484,7 @@ var procedure = {
 			me.next(40);
 
 		} elsif (me.stage == -2) {
-			cprint("", "-2: engines shut down\n");
+			cprint("", "-2: engines shut down");
 			engines.engine[0].powerN.setValue(0);
 			engines.engine[1].powerN.setValue(0);
 			me.next(40);
@@ -1052,7 +1052,7 @@ dynamic_view.register(func {
 
 # livery/configuration ==============================================
 
-aircraft.livery.init("Aircraft/bo105/Models/Variants", "sim/model/bo105/name", "sim/model/bo105/index");
+aircraft.livery.init("Aircraft/bo105/Models/Variants", "sim/model/bo105/name");
 
 var reconfigure = func {
 	if (weapons != nil) {
@@ -1144,7 +1144,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 	});
 
 	# the attitude indicator needs pressure
-	settimer(func { setprop("engines/engine/rpm", 3000) }, 8);
+	settimer(func setprop("engines/engine/rpm", 3000), 8);
 
 	main_loop();
 });
