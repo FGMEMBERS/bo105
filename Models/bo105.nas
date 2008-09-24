@@ -11,7 +11,7 @@ print("\x1b[35m
 
 
 if (!contains(globals, "cprint"))
-	var cprint = func nil;
+	var cprint = func { nil };
 
 var devel = getprop("devel") or 0;
 
