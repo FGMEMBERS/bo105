@@ -176,6 +176,12 @@ Bo 105 simulation config.
 		<multiplay>
 			<generic>
 				<string n="0"/> <!-- emblem basename -->
+				<float n="0" alias="/sim/model/bo105/doors/door[0]/position-norm"/>
+				<float n="1" alias="/sim/model/bo105/doors/door[1]/position-norm"/>
+				<float n="2" alias="/sim/model/bo105/doors/door[2]/position-norm"/>
+				<float n="3" alias="/sim/model/bo105/doors/door[3]/position-norm"/>
+				<float n="4" alias="/sim/model/bo105/doors/door[4]/position-norm"/>
+				<float n="5" alias="/sim/model/bo105/doors/door[5]/position-norm"/>
 			</generic>
 		</multiplay>
 
@@ -328,7 +334,7 @@ Bo 105 simulation config.
 						<label>Select Livery</label>
 						<binding>
 							<command>nasal</command>
-							<script>aircraft.livery.dialog.toggle()</script>
+							<script>aircraft.livery.dialog.open()</script>
 						</binding>
 					</item>
 				</menu>

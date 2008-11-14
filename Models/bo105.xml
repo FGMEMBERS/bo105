@@ -30,11 +30,21 @@
 				if (e != nil)
 					emblem_out.setValue("Textures/Emblems/" ~ e ~ ".png");
 			});
+
+			var aliases = [];
+			for (var i = 0; i &lt; 6; i += 1) {
+				var door = self.getNode("sim/model/bo105/doors/door[" ~ i ~ "]/position-norm", 1);
+				var generic = self.getNode("sim/multiplay/generic/float[" ~ i ~ "]", 1);
+				door.alias(generic);
+				append(aliases, door);
+			}
 		</load>
 
 		<unload>
 			#print("UNLOAD bo105 ", cmdarg().getPath());
 			livery_update.stop();
+			foreach (var a; aliases)
+				a.unalias();
 		</unload>
 	</nasal>
 
