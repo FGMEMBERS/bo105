@@ -1091,6 +1091,9 @@ var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indic
 var main_loop = func {
 	adf_rotation.setDoubleValue(hi_heading.getValue());
 
+	if (replay)
+		setprop("/position/gear-agl-m", getprop("/position/altitude-agl-ft") * 0.3 - 1.2);
+
 	var dt = delta_time.getValue();
 	update_torque(dt);
 	update_stall(dt);
@@ -1103,6 +1106,7 @@ var main_loop = func {
 }
 
 
+var replay = 0;
 var crashed = 0;
 var rc_emblem = determine_emblem();
 var doors = Doors.new();
@@ -1138,7 +1142,8 @@ setlistener("/sim/signals/fdm-initialized", func {
 	});
 
 	setlistener("/sim/freeze/replay-state", func(n) {
-		cprint("33;1", n.getValue() ? "replay" : "pause");
+		replay = n.getValue();
+		cprint("33;1", replay ? "replay" : "pause");
 		if (crashed)
 			crash(!n.getBoolValue())
 	});
