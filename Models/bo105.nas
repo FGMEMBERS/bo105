@@ -113,18 +113,18 @@ var Engine = {
 		m.airtempN = props.globals.getNode("/environment/temperature-degc");
 
 		# input
-		m.ignitionN = props.initNode(m.in.getNode("ignition", 1), 0, "BOOL");
-		m.starterN = props.initNode(m.in.getNode("starter", 1), 0, "BOOL");
-		m.powerN = props.initNode(m.in.getNode("power", 1), 0);
-		m.magnetoN = props.initNode(m.in.getNode("magnetos", 1), 1, "INT");
+		m.ignitionN = m.in.initNode("ignition", 0, "BOOL");
+		m.starterN = m.in.initNode("starter", 0, "BOOL");
+		m.powerN = m.in.initNode("power", 0);
+		m.magnetoN = m.in.initNode("magnetos", 1, "INT");
 
 		# output
-		m.runningN = props.initNode(m.out.getNode("running", 1), 0, "BOOL");
-		m.n1_pctN = props.initNode(m.out.getNode("n1-pct", 1), 0);
-		m.n2_pctN = props.initNode(m.out.getNode("n2-pct", 1), 0);
-		m.n1N = props.initNode(m.out.getNode("n1-rpm", 1), 0);
-		m.n2N = props.initNode(m.out.getNode("n2-rpm", 1), 0);
-		m.totN = props.initNode(m.out.getNode("tot-degc", 1), m.airtempN.getValue());
+		m.runningN = m.out.initNode("running", 0, "BOOL");
+		m.n1_pctN = m.out.initNode("n1-pct", 0);
+		m.n2_pctN = m.out.initNode("n2-pct", 0);
+		m.n1N = m.out.initNode("n1-rpm", 0);
+		m.n2N = m.out.initNode("n2-rpm", 0);
+		m.totN = m.out.initNode("tot-degc", m.airtempN.getValue());
 
 		m.starterLP = aircraft.lowpass.new(3);
 		m.n1LP = aircraft.lowpass.new(4);
@@ -243,8 +243,8 @@ var Engine = {
 var engines = {
 	init : func {
 		me.engine = [Engine.new(0), Engine.new(1)];
-		me.trimN = props.initNode("/controls/engines/power-trim", 0);
-		me.balanceN = props.initNode("/controls/engines/power-balance", 0);
+		me.trimN = props.globals.initNode("/controls/engines/power-trim", 0);
+		me.balanceN = props.globals.initNode("/controls/engines/power-balance", 0);
 	},
 	reset : func {
 		me.engine[0].reset();
@@ -1013,6 +1013,7 @@ controls.flapsDown = func(v) {
 			);
 		} elsif (v > 0) {
 			flap_mode = 2;
+			gui.popupTip("AUTOTRIM", 1e10);
 			aircraft.autotrim.start();
 		}
 
@@ -1024,6 +1025,7 @@ controls.flapsDown = func(v) {
 			dynamic_view.resume();
 		} elsif (flap_mode == 2) {
 			aircraft.autotrim.stop();
+			gui.popdown();
 		}
 		flap_mode = 0;
 	}
