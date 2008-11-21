@@ -334,12 +334,11 @@ if (devel) {
 
 var mouse = {
 	init : func {
+		me.x = me.y = nil;
 		me.savex = nil;
 		me.savey = nil;
 		setlistener("/sim/startup/xsize", func(n) me.centerx = int(n.getValue() / 2), 1);
 		setlistener("/sim/startup/ysize", func(n) me.centery = int(n.getValue() / 2), 1);
-		setlistener("/devices/status/mice/mouse/x", func(n) me.x = n.getValue(), 1);
-		setlistener("/devices/status/mice/mouse/y", func(n) me.y = n.getValue(), 1);
 		setlistener("/devices/status/mice/mouse/mode", func(n) me.mode = n.getValue(), 1);
 		setlistener("/devices/status/mice/mouse/button[1]", func(n) {
 			me.mmb = n.getValue();
@@ -354,13 +353,15 @@ var mouse = {
 				gui.setCursor(me.savex, me.savey, "pointer");
 			}
 		}, 1);
+		setlistener("/devices/status/mice/mouse/x", func(n) me.x = n.getValue(), 1);
+		setlistener("/devices/status/mice/mouse/y", func(n) me.update(me.y = n.getValue()), 1);
 	},
-	update : func(dt) {
+	update : func {
 		if (me.mode or !me.mmb)
 			return;
 
 		if (var dy = -me.y + me.centery)
-			engines.adjust_power(dy * dt * 0.075);
+			engines.adjust_power(dy * 0.0005);
 
 		gui.setCursor(me.centerx, me.centery);
 	},
@@ -1102,7 +1103,6 @@ var main_loop = func {
 	update_slide();
 	update_volume();
 	update_absorber();
-	mouse.update(dt);
 	engines.update(dt);
 	settimer(main_loop, 0);
 }
