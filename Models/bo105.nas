@@ -15,8 +15,8 @@ if (!contains(globals, "cprint"))
 
 var devel = getprop("devel") or 0;
 
-var sin = func(a) math.sin(a * math.pi / 180.0);
-var cos = func(a) math.cos(a * math.pi / 180.0);
+var sin = func(a) math.sin(a * D2R);
+var cos = func(a) math.cos(a * D2R);
 var pow = func(v, w) math.exp(math.ln(v) * w);
 var npow = func(v, w) v ? math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) : 0;
 var clamp = func(v, min = 0, max = 1) v < min ? min : v > max ? max : v;
@@ -30,18 +30,18 @@ var min = func(a, b) a < b ? a : b;
 aircraft.timer.new("/sim/time/hobbs/helicopter", nil).start();
 
 # strobes ===========================================================
-var strobe_switch = props.globals.getNode("controls/lighting/strobe", 1);
+var strobe_switch = props.globals.initNode("controls/lighting/strobe", 1, "BOOL");
 aircraft.light.new("sim/model/bo105/lighting/strobe-top", [0.05, 1.00], strobe_switch);
 aircraft.light.new("sim/model/bo105/lighting/strobe-bottom", [0.05, 1.03], strobe_switch);
 
 # beacons ===========================================================
-var beacon_switch = props.globals.getNode("controls/lighting/beacon", 1);
+var beacon_switch = props.globals.initNode("controls/lighting/beacon", 1, "BOOL");
 aircraft.light.new("sim/model/bo105/lighting/beacon-top", [0.62, 0.62], beacon_switch);
 aircraft.light.new("sim/model/bo105/lighting/beacon-bottom", [0.63, 0.63], beacon_switch);
 
 
 # nav lights ========================================================
-var nav_light_switch = props.globals.getNode("controls/lighting/nav-lights", 1);
+var nav_light_switch = props.globals.initNode("controls/lighting/nav-lights", 1, "BOOL");
 var visibility = props.globals.getNode("environment/visibility-m", 1);
 var sun_angle = props.globals.getNode("sim/time/sun-angle-rad", 1);
 var nav_lights = props.globals.getNode("sim/model/bo105/lighting/nav-lights", 1);
@@ -361,7 +361,7 @@ var mouse = {
 			return;
 
 		if (var dy = -me.y + me.centery)
-			engines.adjust_power(dy * 0.0005);
+			engines.adjust_power(dy * 0.005);
 
 		gui.setCursor(me.centerx, me.centery);
 	},
