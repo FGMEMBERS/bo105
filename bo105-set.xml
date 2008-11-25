@@ -560,6 +560,9 @@ Bo 105 simulation config.
 				<binding>
 					<command>nasal</command>
 					<script>bo105.shutdown()</script>
+					<condition>
+						<property>/sim/signals/fdm-initialized</property>
+					</condition>
 				</binding>
 			</key>
 
@@ -569,6 +572,9 @@ Bo 105 simulation config.
 				<binding>
 					<command>nasal</command>
 					<script>bo105.startup()</script>
+					<condition>
+						<property>/sim/signals/fdm-initialized</property>
+					</condition>
 				</binding>
 			</key>
 		</keyboard>
