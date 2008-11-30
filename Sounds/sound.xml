@@ -269,7 +269,7 @@
 			<condition>
 				<property>engines/engine[0]/running</property>
 			</condition>
-			<delay-sec>7.5</delay-sec>
+			<delay-sec>11.5</delay-sec>
 			<volume>
 				<factor>0.02</factor>
 			</volume>
@@ -326,7 +326,7 @@
 			<condition>
 				<property>engines/engine[1]/running</property>
 			</condition>
-			<delay-sec>7.5</delay-sec>
+			<delay-sec>11.5</delay-sec>
 			<volume>
 				<factor>0.02</factor>
 			</volume>
