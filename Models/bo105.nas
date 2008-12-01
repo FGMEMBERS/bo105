@@ -61,21 +61,21 @@ nav_light_loop();
 
 # doors =============================================================
 var Doors = {
-	new : func {
-		var m = { parents : [Doors] };
+	new: func {
+		var m = { parents: [Doors] };
 		m.active = 0;
 		m.list = [];
 		foreach (var d; props.globals.getNode("sim/model/bo105/doors").getChildren("door"))
 			append(m.list, aircraft.door.new(d, 2.5));
 		return m;
 	},
-	next : func {
+	next: func {
 		me.select(me.active + 1);
 	},
-	previous : func {
+	previous: func {
 		me.select(me.active - 1);
 	},
-	select : func(which) {
+	select: func(which) {
 		me.active = which;
 		if (me.active < 0)
 			me.active = size(me.list) - 1;
@@ -83,10 +83,10 @@ var Doors = {
 			me.active = 0;
 		gui.popupTip("Selecting " ~ me.list[me.active].node.getNode("name").getValue());
 	},
-	toggle : func {
+	toggle: func {
 		me.list[me.active].toggle();
 	},
-	reset : func {
+	reset: func {
 		foreach (var d; me.list)
 			d.setpos(0);
 	},
@@ -106,7 +106,7 @@ var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 
 
 var Engine = {
-	new : func(n) {
+	new: func(n) {
 		var m = { parents: [Engine] };
 		m.in = props.globals.getNode("controls/engines", 1).getChild("engine", n, 1);
 		m.out = props.globals.getNode("engines", 1).getChild("engine", n, 1);
@@ -137,7 +137,7 @@ var Engine = {
 		m.up = -1;
 		return m;
 	},
-	reset : func {
+	reset: func {
 		me.magnetoN.setIntValue(1);
 		me.ignitionN.setBoolValue(0);
 		me.starterN.setBoolValue(0);
@@ -147,7 +147,7 @@ var Engine = {
 		me.n1LP.set(me.n1 = 0);
 		me.n2LP.set(me.n2 = 0);
 	},
-	update : func(dt, trim = 0) {
+	update: func(dt, trim = 0) {
 		var starter = me.starterLP.filter(me.starterN.getValue() * 0.19);	# starter 15-20% N1max
 		me.powerN.setValue(me.power = clamp(me.powerN.getValue()));
 		var power = me.power * 0.97 + trim;					# 97% = N2% in flight position
@@ -202,12 +202,12 @@ var Engine = {
 		me.n1N.setDoubleValue(me.n1 * 50970);
 		me.n2N.setDoubleValue(me.n2 * 33290);
 	},
-	setpower : func(v) {
+	setpower: func(v) {
 		var target = (int((me.power + 0.15) * 3) + v) / 3;
 		var time = abs(me.power - target) * 4;
 		interpolate(me.powerN, target, time);
 	},
-	adjust_power : func(delta, mode = 0) {
+	adjust_power: func(delta, mode = 0) {
 		if (delta) {
 			var power = me.powerN.getValue();
 			if (me.power_min == nil) {
@@ -235,22 +235,23 @@ var Engine = {
 			me.power_min = me.power_max = nil;
 		}
 	},
-	pos : { cutoff: 0, idle: 0.63, flight: 1 },
+	pos: { cutoff: 0, idle: 0.63, flight: 1 },
 };
 
 
 
 var engines = {
-	init : func {
+	init: func {
 		me.engine = [Engine.new(0), Engine.new(1)];
-		me.trimN = props.globals.initNode("/controls/engines/power-trim", 0);
-		me.balanceN = props.globals.initNode("/controls/engines/power-balance", 0);
+		me.trimN = props.globals.initNode("/controls/engines/power-trim");
+		me.balanceN = props.globals.initNode("/controls/engines/power-balance");
+		me.commonrpmN = props.globals.initNode("/engines/engine/rpm");
 	},
-	reset : func {
+	reset: func {
 		me.engine[0].reset();
 		me.engine[1].reset();
 	},
-	update : func(dt) {
+	update: func(dt) {
 		# each starter button disables ignition switch of opposite engine
 		if (me.engine[0].starterN.getValue())
 			me.engine[1].ignitionN.setBoolValue(0);
@@ -268,6 +269,8 @@ var engines = {
 		target_rel_rpm.setValue(n2max);
 		max_rel_torque.setValue(n2max);
 
+		me.commonrpmN.setValue(n2max * 33290); # attitude indicator needs pressure
+
 		# Warning Box Type K-DW02/01
 		if (n2max > 0.67) { # 0.63?
 			setprop("sim/sound/warn2600", n2max > 1.08);
@@ -278,7 +281,7 @@ var engines = {
 			setprop("sim/sound/warn650", 0);
 		}
 	},
-	adjust_power : func(delta, mode = 0) {
+	adjust_power: func(delta, mode = 0) {
 		if (!delta) {
 			engines.engine[0].adjust_power(0, mode);
 			engines.engine[1].adjust_power(0, mode);
@@ -333,7 +336,7 @@ if (devel) {
 
 
 var mouse = {
-	init : func {
+	init: func {
 		me.x = me.y = nil;
 		me.savex = nil;
 		me.savey = nil;
@@ -356,7 +359,7 @@ var mouse = {
 		setlistener("/devices/status/mice/mouse/x", func(n) me.x = n.getValue(), 1);
 		setlistener("/devices/status/mice/mouse/y", func(n) me.update(me.y = n.getValue()), 1);
 	},
-	update : func {
+	update: func {
 		if (me.mode or !me.mmb)
 			return;
 
@@ -395,16 +398,16 @@ var shutdown = func {
 
 
 var procedure = {
-	stage : -999,
-	step : nil,
-	loopid : 0,
-	reset : func {
+	stage: -999,
+	step: nil,
+	loopid: 0,
+	reset: func {
 		me.loopid += 1;
 		me.stage = -999;
 		step = nil;
 		engines.reset();
 	},
-	next : func(delay = 0) {
+	next: func(delay = 0) {
 		if (crashed)
 			return;
 		if (me.stage < 0 and me.step > 0 or me.stage > 0 and me.step < 0)
@@ -412,7 +415,7 @@ var procedure = {
 
 		settimer(func { me.stage += me.step; me.process(me.loopid) }, delay);
 	},
-	process : func(id) {
+	process: func(id) {
 		id == me.loopid or return;
 		# startup
 		if (me.stage == 1) {
@@ -544,8 +547,8 @@ var update_stall = func(dt) {
 
 # skid slide sound
 var Skid = {
-	new : func(n) {
-		var m = { parents : [Skid] };
+	new: func(n) {
+		var m = { parents: [Skid] };
 		var soundN = props.globals.getNode("sim/model/bo105/sound", 1).getChild("slide", n, 1);
 		var gearN = props.globals.getNode("gear", 1).getChild("gear", n, 1);
 
@@ -565,7 +568,7 @@ var Skid = {
 		m.self = n;
 		return m;
 	},
-	update : func {
+	update: func {
 		if (me.wowN.getValue() < 0.5)
 			return me.volumeN.setDoubleValue(0);
 
@@ -780,8 +783,8 @@ var determine_emblem = func {
 #	[, <submodel-factor>	# one reported submodel counts for how many items
 #	[, <weight-prop>]]);	# where to put the calculated weight
 var Weapon = {
-	new : func(prop, ndx, cap, dropw, basew, fac = 1, wprop = nil) {
-		m = { parents : [Weapon] };
+	new: func(prop, ndx, cap, dropw, basew, fac = 1, wprop = nil) {
+		m = { parents: [Weapon] };
 		m.node = aircraft.makeNode(prop);
 		m.enabledN = m.node.getNode("enabled", 1);
 		m.enabledN.setBoolValue(0);
@@ -806,29 +809,29 @@ var Weapon = {
 			m.weightN = m.node.getNode("weight-lb", 1);
 		return m;
 	},
-	enable : func {
+	enable: func {
 		me.fire(0);
 		me.enabledN.setBoolValue(arg[0]);
 		me.update();
 		me;
 	},
-	setammo : func {
+	setammo: func {
 		me.sm_countN.setValue(arg[0] / me.ratio);
 		me.update();
 		me;
 	},
-	getammo : func {
+	getammo: func {
 		me.countN.getValue();
 	},
-	getweight : func {
+	getweight: func {
 		me.weightN.getValue();
 	},
-	reload : func {
+	reload: func {
 		me.fire(0);
 		me.setammo(me.capacity);
 		me;
 	},
-	update : func {
+	update: func {
 		if (me.enabledN.getValue()) {
 			me.countN.setValue(me.sm_countN.getValue() * me.ratio);
 			me.weightN.setValue(me.baseweight + me.countN.getValue() * me.dropweight);
@@ -837,12 +840,12 @@ var Weapon = {
 			me.weightN.setValue(0);
 		}
 	},
-	fire : func(t) {
+	fire: func(t) {
 		me.triggerN.setBoolValue(t);
 		if (t)
 			me._loop_();
 	},
-	_loop_  : func {
+	_loop_: func {
 		me.update();
 		if (me.triggerN.getBoolValue() and me.enabledN.getValue() and me.countN.getValue())
 			settimer(func me._loop_(), 1);
@@ -852,8 +855,8 @@ var Weapon = {
 
 # "name", <ammo-desc>
 var WeaponSystem = {
-	new : func(name, adesc) {
-		m = { parents : [WeaponSystem] };
+	new: func(name, adesc) {
+		m = { parents: [WeaponSystem] };
 		m.name = name;
 		m.ammunition_type = adesc;
 		m.weapons = [];
@@ -861,33 +864,33 @@ var WeaponSystem = {
 		m.select = 0;
 		return m;
 	},
-	add : func {
+	add: func {
 		append(me.weapons, arg[0]);
 	},
-	reload : func {
+	reload: func {
 		me.select = 0;
 		foreach (w; me.weapons)
 			w.reload();
 	},
-	fire : func {
+	fire: func {
 		foreach (w; me.weapons)
 			w.fire(arg[0]);
 	},
-	getammo : func {
+	getammo: func {
 		n = 0;
 		foreach (w; me.weapons)
 			n += w.getammo();
 		return n;
 	},
-	ammodesc : func {
+	ammodesc: func {
 		me.ammunition_type;
 	},
-	disable : func {
+	disable: func {
 		me.enabled = 0;
 		foreach (w; me.weapons)
 			w.enable(0);
 	},
-	enable : func {
+	enable: func {
 		me.select = 0;
 		foreach (w; me.weapons) {
 			w.enable(1);
@@ -1088,12 +1091,11 @@ var reconfigure = func {
 
 # main() ============================================================
 var delta_time = props.globals.getNode("/sim/time/delta-sec", 1);
-var adf_rotation = props.globals.getNode("/instrumentation/adf/rotation-deg", 1);
 var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indicated-heading-deg", 1);
+props.globals.getNode("/instrumentation/adf/rotation-deg", 1).alias(hi_heading);
+
 
 var main_loop = func {
-	adf_rotation.setDoubleValue(hi_heading.getValue());
-
 	if (replay)
 		setprop("/position/gear-agl-m", getprop("/position/altitude-agl-ft") * 0.3 - 1.2);
 
@@ -1149,9 +1151,6 @@ setlistener("/sim/signals/fdm-initialized", func {
 		if (crashed)
 			crash(!n.getBoolValue())
 	});
-
-	# the attitude indicator needs pressure
-	settimer(func setprop("engines/engine/rpm", 3000), 8);
 
 	main_loop();
 });
