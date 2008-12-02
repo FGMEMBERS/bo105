@@ -675,7 +675,7 @@ var blade4_pos = props.globals.getNode("rotors/main/blade[3]/position-deg", 1);
 var rotorangle = 0;
 
 var rotoranim_loop = func {
-	i = rotor_step.getValue();
+	var i = rotor_step.getValue();
 	if (i >= 0.0) {
 		blade1_pos.setValue(rotorangle);
 		blade2_pos.setValue(rotorangle + 90);
@@ -784,7 +784,7 @@ var determine_emblem = func {
 #	[, <weight-prop>]]);	# where to put the calculated weight
 var Weapon = {
 	new: func(prop, ndx, cap, dropw, basew, fac = 1, wprop = nil) {
-		m = { parents: [Weapon] };
+		var m = { parents: [Weapon] };
 		m.node = aircraft.makeNode(prop);
 		m.enabledN = m.node.getNode("enabled", 1);
 		m.enabledN.setBoolValue(0);
@@ -856,7 +856,7 @@ var Weapon = {
 # "name", <ammo-desc>
 var WeaponSystem = {
 	new: func(name, adesc) {
-		m = { parents: [WeaponSystem] };
+		var m = { parents: [WeaponSystem] };
 		m.name = name;
 		m.ammunition_type = adesc;
 		m.weapons = [];
@@ -877,7 +877,7 @@ var WeaponSystem = {
 			w.fire(arg[0]);
 	},
 	getammo: func {
-		n = 0;
+		var n = 0;
 		foreach (w; me.weapons)
 			n += w.getammo();
 		return n;
@@ -926,10 +926,10 @@ var init_weapons = func {
 		if (!trigger or me.select >= size(me.weapons))
 			return;
 
-		wp = me.weapons[me.select];
+		var wp = me.weapons[me.select];
 		wp.fire(1);
 		settimer(func wp.fire(0), 1.5);
-		weight = wp.weightN.getValue();
+		var weight = wp.weightN.getValue();
 		wp.weightN.setValue(weight + 300);	# shake the bo
 		settimer(func wp.weightN.setValue(weight), 0.3);
 		me.select += 1;
