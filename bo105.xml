@@ -157,8 +157,8 @@
 <gear x="-8.03" y="+0.00" z="+0.34" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
 
 
-<tank x="-2.47" y="+1.36" z=".68" capacity="75"/>
-<tank x="-2.47" y="-1.36" z=".68" capacity="75"/>
+<tank x="-2.47" y="0" z=".68" capacity="1022"/><!-- main tank in lb; 579 l  -> 6.682 lb/galUS density -->
+<!--tank x="0" y="0" z=".68" capacity="0"/--><!-- supply tank-->
 
 <ballast x="-1.4" y="+0.0" z="0.0" mass="150"/>
 <ballast x="-2.5" y="-1.8" z="0.0" mass="200"/>
