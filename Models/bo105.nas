@@ -94,6 +94,75 @@ var Doors = {
 
 
 
+# fuel ==============================================================
+
+var Tank = {
+	new: func(n) {
+		var m = { parents: [Tank] };
+		m.enabledL = setlistener(n.getNode("selected"), func(n) m.enabled = n.getValue(), 1);
+		m.capacity = n.getNode("capacity-gal_us");
+		m.densityN = n.initNode("density-ppg", 6.682);  #  ~0.8 kg/l -> lb/gal
+		m.level_galN = n.initNode("level-gal_us", m.capacity.getValue());
+		m.level_lbN = n.initNode("level-lbs", m.level_galN.getValue() * m.densityN.getValue());
+		return m;
+	},
+	consume: func(amount) {
+		var level = me.level_galN.getValue();
+		if (amount > level)
+			amount = level;
+		me.level_galN.setDoubleValue(level -= amount);
+		me.level_lbN.setDoubleValue(level * me.densityN.getValue());
+		return amount;
+	},
+};
+
+
+
+var FuelSystem = {
+	new: func {
+		var m = { parents: [FuelSystem] };
+		m.tanks = [];
+		foreach (var t; props.globals.getNode("/consumables/fuel").getChildren("tank"))
+			append(m.tanks, Tank.new(t));
+		var fuel = props.globals.getNode("/consumables/fuel");
+		m.total_lb = fuel.initNode("total-fuel-lbs");
+		m.total_norm = fuel.initNode("total-fuel-norm");
+		m.warntime = 0;
+		return m;
+	},
+	consume: func(amount) {
+		var tanks = [];
+		foreach (var t; me.tanks)
+			if (t.enabled)
+				append(tanks, t);
+		amount /= size(tanks);
+		var consumed = 0;
+		foreach (var t; tanks)
+			consumed += t.consume(amount);
+		return consumed;
+	},
+	level: func {
+		var available = 0;
+		foreach (var t; me.tanks)
+			available += t.level_galN.getValue() * t.enabled;
+
+		# low fuel warning
+		var time = elapsedN.getValue();
+		if (time > me.warntime and available * 6.682 * 0.45359237 < 60) { # 60 kg
+			screen.log.write("LOW FUEL WARNING", 1, 0, 0);
+			me.warntime = time + 60;
+		}
+		return available;
+	},
+};
+
+
+
+var fuel = nil;
+setlistener("sim/signals/fdm-initialized", func fuel = FuelSystem.new());
+
+
+
 # engines/rotor =====================================================
 var rotor_rpm = props.globals.getNode("rotors/main/rpm");
 var torque = props.globals.getNode("rotors/gear/total-torque", 1);
@@ -164,7 +233,7 @@ var Engine = {
 				me.timer.start();
 			}
 
-		} elsif (power < 0.05) {
+		} elsif (power < 0.05 or !fuel.level()) {
 			me.runningN.setBoolValue(me.running = 0);
 			me.timer.stop();
 
@@ -195,6 +264,9 @@ var Engine = {
 
 		var decay = (me.up > 0 ? 10 : me.n1 > 0.02 ? 0.01 : 0.001) * dt;
 		me.totN.setValue((me.totN.getValue() + decay * target) / (1 + decay));
+
+		# 150 kg/h for now (both turbines) -> 330.7 lb/h -> 49.5 gal/h -> 0.01375 gal/s
+		fuel.consume(0.006875 * me.fuelflow * delta_time.getValue());
 
 		# derived gauge values
 		me.n1_pctN.setDoubleValue(me.n1 * 100);
