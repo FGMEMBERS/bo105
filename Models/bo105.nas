@@ -14,13 +14,15 @@ if (!contains(globals, "cprint"))
 	var cprint = func { nil };
 
 var devel = getprop("devel") or 0;
+var quickstart = getprop("quickstart") or 0;
 
 var sin = func(a) math.sin(a * D2R);
 var cos = func(a) math.cos(a * D2R);
 var pow = func(v, w) math.exp(math.ln(v) * w);
 var npow = func(v, w) v ? math.exp(math.ln(abs(v)) * w) * (v < 0 ? -1 : 1) : 0;
 var clamp = func(v, min = 0, max = 1) v < min ? min : v > max ? max : v;
-var normatan = func(x) math.atan2(x, 1) * 2 / math.pi;
+var normatan = func(x, slope = 1) math.atan2(x, slope) * 2 / math.pi;
+var bell = func(x, spread = 2) pow(math.e, -(x * x) / spread);
 var max = func(a, b) a > b ? a : b;
 var min = func(a, b) a < b ? a : b;
 
@@ -96,70 +98,80 @@ var Doors = {
 
 # fuel ==============================================================
 
+var FUEL_DENSITY = getprop("/consumables/fuel/tank/density-ppg"); # pound per gallon  <-  (Flight Manual Section 9.2)
+var GAL2LB = FUEL_DENSITY;
+var LB2GAL = 1 / FUEL_DENSITY;
+var KG2LB = 2.2046226218;
+var LB2KG = 1 / KG2LB;
+var KG2GAL = KG2LB * LB2GAL;
+var GAL2KG = 1 / KG2GAL;
+
 var Tank = {
 	new: func(n) {
 		var m = { parents: [Tank] };
-		m.enabledL = setlistener(n.getNode("selected"), func(n) m.enabled = n.getValue(), 1);
-		m.capacity = n.getNode("capacity-gal_us");
-		m.densityN = n.initNode("density-ppg", 6.682);  #  ~0.8 kg/l -> lb/gal
-		m.level_galN = n.initNode("level-gal_us", m.capacity.getValue());
-		m.level_lbN = n.initNode("level-lbs", m.level_galN.getValue() * m.densityN.getValue());
+		m.capacity = n.getNode("capacity-gal_us").getValue();
+		m.level_galN = n.initNode("level-gal_us", m.capacity);
+		m.level_lbN = n.getNode("level-lbs");
+		m.consume(0);
 		return m;
 	},
 	consume: func(amount) {
-		var level = me.level_galN.getValue();
-		if (amount > level)
-			amount = level;
-		me.level_galN.setDoubleValue(level -= amount);
-		me.level_lbN.setDoubleValue(level * me.densityN.getValue());
+		me.level = me.level_galN.getValue();
+		if (amount > me.level)
+			amount = me.level;
+		me.level_galN.setDoubleValue(me.level -= amount);
+		me.level_lbN.setDoubleValue(me.level * GAL2LB);
 		return amount;
 	},
 };
 
 
 
-var FuelSystem = {
-	new: func {
-		var m = { parents: [FuelSystem] };
-		m.tanks = [];
-		foreach (var t; props.globals.getNode("/consumables/fuel").getChildren("tank"))
-			append(m.tanks, Tank.new(t));
+var fuel = {
+	init: func {
+		me.capacity = 0;
+		me.tanks = [];
+		foreach (var t; props.globals.getNode("/consumables/fuel").getChildren("tank")) {
+			append(me.tanks, var tank = Tank.new(t));
+			me.capacity += tank.capacity;
+		}
 		var fuel = props.globals.getNode("/consumables/fuel");
-		m.total_lb = fuel.initNode("total-fuel-lbs");
-		m.total_norm = fuel.initNode("total-fuel-norm");
-		m.warntime = 0;
-		return m;
+		me.total_galN = fuel.getNode("total-fuel-gals", 1);
+		me.total_lbN = fuel.getNode("total-fuel-lbs", 1);
+		me.total_normN = fuel.getNode("total-fuel-norm", 1);
+		me.warntime = 0;
+		me.update();
+	},
+	update: func {
+		me.level = 0;
+		foreach (var t; me.tanks)
+			me.level += t.level_galN.getValue();
+		me.total_galN.setValue(me.level);
+		me.total_lbN.setValue(me.level * GAL2LB);
+		me.total_normN.setValue(me.level / me.capacity);
+
+		# low fuel warning
+		var time = elapsedN.getValue();
+		if (time > me.warntime and me.level * GAL2KG < 60) { # supply tank  <-  POH "General Description" 0.28a
+			screen.log.write("LOW FUEL WARNING", 1, 0, 0);
+			me.warntime = time + 60;
+		}
 	},
 	consume: func(amount) {
 		var tanks = [];
 		foreach (var t; me.tanks)
-			if (t.enabled)
-				append(tanks, t);
+			append(tanks, t);
 		amount /= size(tanks);
 		var consumed = 0;
 		foreach (var t; tanks)
 			consumed += t.consume(amount);
 		return consumed;
 	},
-	level: func {
-		var available = 0;
-		foreach (var t; me.tanks)
-			available += t.level_galN.getValue() * t.enabled;
-
-		# low fuel warning
-		var time = elapsedN.getValue();
-		if (time > me.warntime and available * 6.682 * 0.45359237 < 60) { # 60 kg
-			screen.log.write("LOW FUEL WARNING", 1, 0, 0);
-			me.warntime = time + 60;
-		}
-		return available;
-	},
 };
 
 
 
-var fuel = nil;
-setlistener("sim/signals/fdm-initialized", func fuel = FuelSystem.new());
+setlistener("sim/signals/fdm-initialized", func fuel.init());
 
 
 
@@ -233,7 +245,7 @@ var Engine = {
 				me.timer.start();
 			}
 
-		} elsif (power < 0.05 or !fuel.level()) {
+		} elsif (power < 0.05 or !fuel.level) {
 			me.runningN.setBoolValue(me.running = 0);
 			me.timer.stop();
 
@@ -266,7 +278,7 @@ var Engine = {
 		me.totN.setValue((me.totN.getValue() + decay * target) / (1 + decay));
 
 		# 150 kg/h for now (both turbines) -> 330.7 lb/h -> 49.5 gal/h -> 0.01375 gal/s
-		fuel.consume(0.006875 * me.fuelflow * delta_time.getValue());
+		fuel.consume(0.006875 * me.fuelflow * dt);
 
 		# derived gauge values
 		me.n1_pctN.setDoubleValue(me.n1 * 100);
@@ -365,9 +377,19 @@ var engines = {
 			gui.popupTip(sprintf("power lever %d%%", 100 * max(p[0], p[1])));
 		}
 	},
+	quickstart: func { # development only
+		me.engine[0].n1LP.set(1);
+		me.engine[0].n2LP.set(1);
+		me.engine[1].n1LP.set(1);
+		me.engine[1].n2LP.set(1);
+		procedure.step = 1;
+		procedure.next();
+	},
 };
 
 
+
+var vert_speed_fpm = props.globals.initNode("/velocities/vertical-speed-fpm");
 
 if (devel) {
 	setlistener("/sim/signals/fdm-initialized", func {
@@ -382,6 +404,7 @@ if (devel) {
 				max_rel_torque,
 				"/controls/engines/power-trim",
 				"/controls/engines/power-balance",
+				"/consumables/fuel/total-fuel-gals",
 				"L",
 				engines.engine[0].runningN,
 				engines.engine[0].ignitionN,
@@ -400,6 +423,10 @@ if (devel) {
 				engines.engine[1].totN,
 				#engines.engine[1].n1N,
 				#engines.engine[1].n2N,
+				"X",
+				vert_speed_fpm,
+				"/velocities/vertical-speed-fps",
+				"/velocities/airspeed-kt",
 			);
 		}, 1);
 	});
@@ -485,7 +512,7 @@ var procedure = {
 		if (me.stage < 0 and me.step > 0 or me.stage > 0 and me.step < 0)
 			me.stage = 0;
 
-		settimer(func { me.stage += me.step; me.process(me.loopid) }, delay);
+		settimer(func { me.stage += me.step; me.process(me.loopid) }, delay * !quickstart);
 	},
 	process: func(id) {
 		id == me.loopid or return;
@@ -591,6 +618,41 @@ var pendulum = props.globals.getNode("/sim/model/bo105/absorber-angle-deg", 1);
 var update_absorber = func {
 	pendulum.setDoubleValue(90 * clamp(abs(rotor_rpm.getValue()) / 90));
 }
+
+
+
+var vibration = {
+	init: func {
+		me.lonN = props.globals.initNode("/rotors/main/vibration/longitudinal");
+		me.latN = props.globals.initNode("/rotors/main/vibration/lateral");
+		me.soundN = props.globals.initNode("/sim/sound/vibration");
+		me.airspeedN = props.globals.getNode("/velocities/airspeed-kt");
+		me.vertspeedN = props.globals.getNode("/velocities/vertical-speed-fps");
+		me.pitchN = props.globals.getNode("/orientation/pitch-deg");
+		me.intensityLP = aircraft.lowpass.new(1);
+		me.dir = 0;
+	},
+	update: func(dt) {
+		var airspeed = me.airspeedN.getValue();
+		if (airspeed > 120) {
+			# overspeed vibration
+			var frequency = 2500;
+			var intensity = 0.45 + 0.5 * normatan(airspeed - 170, 20);
+		} else {
+			# BVI (Blade Vortex Interaction)    8 deg, 65 kts max
+			var frequency = rotor_rpm.getValue() * 4 * 60;
+			var intensity = me.intensityLP.filter(0.5
+				* bell(airspeed - 70, 150)
+				* bell(me.vertspeedN.getValue() + 16, 80));
+		}
+
+		me.dir += dt * frequency;
+		me.lonN.setValue(math.cos(me.dir * D2R) * intensity);
+		me.latN.setValue(math.sin(me.dir * D2R) * intensity);
+		me.soundN.setValue(intensity * volume_factor);
+	},
+};
+
 
 
 
@@ -1164,12 +1226,14 @@ var reconfigure = func {
 # main() ============================================================
 var delta_time = props.globals.getNode("/sim/time/delta-sec", 1);
 var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indicated-heading-deg", 1);
+var vertspeed = props.globals.initNode("/velocities/vertical-speed-fps");
 props.globals.getNode("/instrumentation/adf/rotation-deg", 1).alias(hi_heading);
 
 
 var main_loop = func {
 	if (replay)
 		setprop("/position/gear-agl-m", getprop("/position/altitude-agl-ft") * 0.3 - 1.2);
+	vert_speed_fpm.setDoubleValue(vertspeed.getValue() / 60);
 
 	var dt = delta_time.getValue();
 	update_torque(dt);
@@ -1177,7 +1241,9 @@ var main_loop = func {
 	update_slide();
 	update_volume();
 	update_absorber();
+	fuel.update();
 	engines.update(dt);
+	vibration.update(dt);
 	settimer(main_loop, 0);
 }
 
@@ -1192,7 +1258,9 @@ var config_dialog = gui.Dialog.new("/sim/gui/dialogs/bo105/config/dialog", "Airc
 setlistener("/sim/signals/fdm-initialized", func {
 	gui.menuEnable("autopilot", 0);
 	init_rotoranim();
+	vibration.init();
 	engines.init();
+	fuel.init();
 	mouse.init();
 
 	init_weapons();
@@ -1225,6 +1293,8 @@ setlistener("/sim/signals/fdm-initialized", func {
 	});
 
 	main_loop();
+	if (devel and quickstart)
+		engines.quickstart();
 });
 
 
