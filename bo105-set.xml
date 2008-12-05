@@ -361,11 +361,19 @@ Bo 105 simulation config.
 				<desc>toggle ignition switch</desc>
 			</key>
 			<key>
-				<name>o</name>
+				<name>m/M</name>
+				<desc>shift engine balance to right/left engine</desc>
+			</key>
+			<key>
+				<name>n/N</name>
+				<desc>engine power adjustment up/down</desc>
+			</key>
+			<key>
+				<name>r</name>
 				<desc>apply rotor brake</desc>
 			</key>
 			<key>
-				<name>O</name>
+				<name>R</name>
 				<desc>toggle rotor brake</desc>
 			</key>
 			<key>
@@ -390,6 +398,23 @@ Bo 105 simulation config.
 			</key>
 		</help>
 	</sim>
+
+	<consumables>
+		<fuel>
+			<tank>
+				<name>Main</name>
+				<selected type="bool" write="n">1</selected>
+				<density-ppg type="double" write="n">6.682</density-ppg>
+			</tank>
+
+			<tank>
+				<name>Supply</name>
+				<selected type="bool" write="n">1</selected>
+				<capacity-gal_us type="double">1</capacity-gal_us>
+				<density-ppg type="double" write="n">6.682</density-ppg>
+			</tank>
+		</fuel>
+	</consumables>
 
 	<controls>
 		<rotor>
@@ -473,8 +498,8 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
-			<key n="79">
-				<name>O</name>
+			<key n="82">
+				<name>R</name>
 				<desc>Toggle rotor brake</desc>
 				<binding>
 					<command>nasal</command>
@@ -519,8 +544,8 @@ Bo 105 simulation config.
 				</binding>
 			</key>
 
-			<key n="111">
-				<name>o</name>
+			<key n="114">
+				<name>r</name>
 				<desc>Apply rotor brake</desc>
 				<binding>
 					<command>nasal</command>
