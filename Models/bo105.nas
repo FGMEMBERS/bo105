@@ -106,6 +106,8 @@ var LB2KG = 1 / KG2LB;
 var KG2GAL = KG2LB * LB2GAL;
 var GAL2KG = 1 / KG2GAL;
 
+
+
 var Tank = {
 	new: func(n) {
 		var m = { parents: [Tank] };
@@ -115,12 +117,18 @@ var Tank = {
 		m.consume(0);
 		return m;
 	},
-	consume: func(amount) {
-		me.level = me.level_galN.getValue();
-		if (amount > me.level)
-			amount = me.level;
-		me.level_galN.setDoubleValue(me.level -= amount);
-		me.level_lbN.setDoubleValue(me.level * GAL2LB);
+	level: func {
+		return me.level_galN.getValue();
+	},
+	consume: func(amount) { # neg. values for feeding
+		var level = me.level();
+		if (amount > level)
+			amount = level;
+		level -= amount;
+		if (level > me.capacity)
+			level = me.capacity;
+		me.level_galN.setDoubleValue(level);
+		me.level_lbN.setDoubleValue(level * GAL2LB);
 		return amount;
 	},
 };
@@ -129,23 +137,22 @@ var Tank = {
 
 var fuel = {
 	init: func {
-		me.capacity = 0;
-		me.tanks = [];
-		foreach (var t; props.globals.getNode("/consumables/fuel").getChildren("tank")) {
-			append(me.tanks, var tank = Tank.new(t));
-			me.capacity += tank.capacity;
-		}
 		var fuel = props.globals.getNode("/consumables/fuel");
 		me.total_galN = fuel.getNode("total-fuel-gals", 1);
 		me.total_lbN = fuel.getNode("total-fuel-lbs", 1);
 		me.total_normN = fuel.getNode("total-fuel-norm", 1);
+		me.main = Tank.new(fuel.getNode("tank[0]"));
+		me.supply = Tank.new(fuel.getNode("tank[1]"));
+		me.capacity = me.main.capacity + me.supply.capacity;
 		me.warntime = 0;
 		me.update();
 	},
 	update: func {
-		me.level = 0;
-		foreach (var t; me.tanks)
-			me.level += t.level_galN.getValue();
+		var supply_level = me.supply.level();
+		if (var crossfeed = me.supply.capacity - supply_level)
+			me.supply.consume(-me.main.consume(crossfeed));
+
+		me.level = me.main.level() + me.supply.level();
 		me.total_galN.setValue(me.level);
 		me.total_lbN.setValue(me.level * GAL2LB);
 		me.total_normN.setValue(me.level / me.capacity);
@@ -154,18 +161,11 @@ var fuel = {
 		var time = elapsedN.getValue();
 		if (time > me.warntime and me.level * GAL2KG < 60) { # supply tank  <-  POH "General Description" 0.28a
 			screen.log.write("LOW FUEL WARNING", 1, 0, 0);
-			me.warntime = time + 60;
+			me.warntime = time + screen.log.autoscroll * 2;
 		}
 	},
 	consume: func(amount) {
-		var tanks = [];
-		foreach (var t; me.tanks)
-			append(tanks, t);
-		amount /= size(tanks);
-		var consumed = 0;
-		foreach (var t; tanks)
-			consumed += t.consume(amount);
-		return consumed;
+		return me.main.consume(amount) or me.supply.consume(amount);
 	},
 };
 
@@ -427,6 +427,8 @@ if (devel) {
 				vert_speed_fpm,
 				"/velocities/vertical-speed-fps",
 				"/velocities/airspeed-kt",
+				"/position/altitude-ft",
+				"/position/altitude-agl-ft",
 			);
 		}, 1);
 	});
@@ -636,20 +638,22 @@ var vibration = {
 		var airspeed = me.airspeedN.getValue();
 		if (airspeed > 120) {
 			# overspeed vibration
-			var frequency = 2500;
+			var frequency = 2500 + 1000 * rand();
 			var intensity = 0.45 + 0.5 * normatan(airspeed - 170, 20);
+			var noise = intensity * 0.6;
 		} else {
 			# BVI (Blade Vortex Interaction)    8 deg, 65 kts max
 			var frequency = rotor_rpm.getValue() * 4 * 60;
 			var intensity = me.intensityLP.filter(0.5
 				* bell(airspeed - 70, 150)
 				* bell(me.vertspeedN.getValue() + 16, 80));
+			var noise = intensity * 0.9;
 		}
 
 		me.dir += dt * frequency;
 		me.lonN.setValue(math.cos(me.dir * D2R) * intensity);
 		me.latN.setValue(math.sin(me.dir * D2R) * intensity);
-		me.soundN.setValue(intensity * volume_factor);
+		me.soundN.setValue(noise * volume_factor);
 	},
 };
 
@@ -1233,7 +1237,7 @@ props.globals.getNode("/instrumentation/adf/rotation-deg", 1).alias(hi_heading);
 var main_loop = func {
 	if (replay)
 		setprop("/position/gear-agl-m", getprop("/position/altitude-agl-ft") * 0.3 - 1.2);
-	vert_speed_fpm.setDoubleValue(vertspeed.getValue() / 60);
+	vert_speed_fpm.setDoubleValue(vertspeed.getValue() * 60);
 
 	var dt = delta_time.getValue();
 	update_torque(dt);
