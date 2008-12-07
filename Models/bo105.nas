@@ -13,8 +13,8 @@ print("\x1b[35m
 if (!contains(globals, "cprint"))
 	var cprint = func { nil };
 
-var devel = getprop("devel") or 0;
-var quickstart = getprop("quickstart") or 0;
+var devel = !!getprop("devel");
+var quickstart = !!getprop("quickstart");
 
 var sin = func(a) math.sin(a * D2R);
 var cos = func(a) math.cos(a * D2R);
@@ -105,6 +105,8 @@ var KG2LB = 2.2046226218;
 var LB2KG = 1 / KG2LB;
 var KG2GAL = KG2LB * LB2GAL;
 var GAL2KG = 1 / KG2GAL;
+var GAL2L = 3.7854117840;
+var L2GAL = 1 / GAL2L;
 
 
 
@@ -138,6 +140,7 @@ var Tank = {
 var fuel = {
 	init: func {
 		var fuel = props.globals.getNode("/consumables/fuel");
+		me.pump_capacity = 6.6 * L2GAL / 60;  # ec135: 6.6 l/min
 		me.total_galN = fuel.getNode("total-fuel-gals", 1);
 		me.total_lbN = fuel.getNode("total-fuel-lbs", 1);
 		me.total_normN = fuel.getNode("total-fuel-norm", 1);
@@ -145,12 +148,12 @@ var fuel = {
 		me.supply = Tank.new(fuel.getNode("tank[1]"));
 		me.capacity = me.main.capacity + me.supply.capacity;
 		me.warntime = 0;
-		me.update();
+		me.update(0);
 	},
-	update: func {
-		var supply_level = me.supply.level();
-		if (var crossfeed = me.supply.capacity - supply_level)
-			me.supply.consume(-me.main.consume(crossfeed));
+	update: func(dt) {
+		# transfer pumps (feed supply from main)
+		if (me.supply.level() < me.supply.capacity)
+			me.supply.consume(-me.main.consume(2 * me.pump_capacity * dt));
 
 		me.level = me.main.level() + me.supply.level();
 		me.total_galN.setValue(me.level);
@@ -165,13 +168,9 @@ var fuel = {
 		}
 	},
 	consume: func(amount) {
-		return me.main.consume(amount) or me.supply.consume(amount);
+		return me.supply.consume(amount);
 	},
 };
-
-
-
-setlistener("sim/signals/fdm-initialized", func fuel.init());
 
 
 
@@ -1245,7 +1244,7 @@ var main_loop = func {
 	update_slide();
 	update_volume();
 	update_absorber();
-	fuel.update();
+	fuel.update(dt);
 	engines.update(dt);
 	vibration.update(dt);
 	settimer(main_loop, 0);
