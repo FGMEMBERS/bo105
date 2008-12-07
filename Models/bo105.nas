@@ -98,15 +98,12 @@ var Doors = {
 
 # fuel ==============================================================
 
-var FUEL_DENSITY = getprop("/consumables/fuel/tank/density-ppg"); # pound per gallon  <-  (Flight Manual Section 9.2)
+# density = 6.682 lb/gal [Flight Manual Section 9.2]
+var FUEL_DENSITY = getprop("/consumables/fuel/tank/density-ppg"); # pound per gallon
 var GAL2LB = FUEL_DENSITY;
 var LB2GAL = 1 / FUEL_DENSITY;
-var KG2LB = 2.2046226218;
-var LB2KG = 1 / KG2LB;
 var KG2GAL = KG2LB * LB2GAL;
 var GAL2KG = 1 / KG2GAL;
-var GAL2L = 3.7854117840;
-var L2GAL = 1 / GAL2L;
 
 
 
@@ -122,7 +119,7 @@ var Tank = {
 	level: func {
 		return me.level_galN.getValue();
 	},
-	consume: func(amount) { # neg. values for feeding
+	consume: func(amount) { # US gal (neg. values for feeding)
 		var level = me.level();
 		if (amount > level)
 			amount = level;
@@ -140,32 +137,41 @@ var Tank = {
 var fuel = {
 	init: func {
 		var fuel = props.globals.getNode("/consumables/fuel");
-		me.pump_capacity = 6.6 * L2GAL / 60;  # ec135: 6.6 l/min
+		me.pump_capacity = 6.6 * L2GAL / 60;  # from ec135: 6.6 l/min
 		me.total_galN = fuel.getNode("total-fuel-gals", 1);
 		me.total_lbN = fuel.getNode("total-fuel-lbs", 1);
 		me.total_normN = fuel.getNode("total-fuel-norm", 1);
 		me.main = Tank.new(fuel.getNode("tank[0]"));
 		me.supply = Tank.new(fuel.getNode("tank[1]"));
+
+		var switches = props.globals.getNode("/controls/switches");
+		me.transfer1N = switches.initNode("fuel/transfer-pump[0]", 1, "BOOL");
+		me.transfer2N = switches.initNode("fuel/transfer-pump[1]", 1, "BOOL");
+
 		me.capacity = me.main.capacity + me.supply.capacity;
 		me.warntime = 0;
 		me.update(0);
 	},
 	update: func(dt) {
 		# transfer pumps (feed supply from main)
+		var trans_flow = (me.transfer1N.getValue() + me.transfer2N.getValue()) * me.pump_capacity;
 		if (me.supply.level() < me.supply.capacity)
-			me.supply.consume(-me.main.consume(2 * me.pump_capacity * dt));
+			me.supply.consume(-me.main.consume(trans_flow * dt));
 
-		me.level = me.main.level() + me.supply.level();
-		me.total_galN.setValue(me.level);
-		me.total_lbN.setValue(me.level * GAL2LB);
-		me.total_normN.setValue(me.level / me.capacity);
-
-		# low fuel warning
+		# low fuel warning [POH "General Description" 0.28a]
 		var time = elapsedN.getValue();
-		if (time > me.warntime and me.level * GAL2KG < 60) { # supply tank  <-  POH "General Description" 0.28a
+		if (time > me.warntime and me.supply.level() * GAL2KG < 60) {
 			screen.log.write("LOW FUEL WARNING", 1, 0, 0);
 			me.warntime = time + screen.log.autoscroll * 2;
 		}
+
+		var level = me.main.level() + me.supply.level();
+		me.total_galN.setValue(level);
+		me.total_lbN.setValue(level * GAL2LB);
+		me.total_normN.setValue(level / me.capacity);
+	},
+	level: func {
+		return me.supply.level();
 	},
 	consume: func(amount) {
 		return me.supply.consume(amount);
@@ -244,7 +250,7 @@ var Engine = {
 				me.timer.start();
 			}
 
-		} elsif (power < 0.05 or !fuel.level) {
+		} elsif (power < 0.05 or !fuel.level()) {
 			me.runningN.setBoolValue(me.running = 0);
 			me.timer.stop();
 
@@ -391,6 +397,8 @@ var engines = {
 var vert_speed_fpm = props.globals.initNode("/velocities/vertical-speed-fpm");
 
 if (devel) {
+	setprop("/instrumentation/altimeter/setting-inhg", getprop("/environment/pressure-inhg"));
+
 	setlistener("/sim/signals/fdm-initialized", func {
 		settimer(func {
 			screen.property_display.x = 760;
@@ -423,11 +431,13 @@ if (devel) {
 				#engines.engine[1].n1N,
 				#engines.engine[1].n2N,
 				"X",
-				vert_speed_fpm,
-				"/velocities/vertical-speed-fps",
-				"/velocities/airspeed-kt",
+				"/sim/model/gross-weight-kg",
 				"/position/altitude-ft",
 				"/position/altitude-agl-ft",
+				"/instrumentation/altimeter/indicated-altitude-ft",
+				"/environment/temperature-degc",
+				vert_speed_fpm,
+				"/velocities/airspeed-kt",
 			);
 		}, 1);
 	});
@@ -638,8 +648,8 @@ var vibration = {
 		if (airspeed > 120) {
 			# overspeed vibration
 			var frequency = 2500 + 1000 * rand();
-			var intensity = 0.45 + 0.5 * normatan(airspeed - 170, 20);
-			var noise = intensity * 0.6;
+			var i = 0.45 + 0.5 * normatan(airspeed - 170, 20);
+			var (intensity, noise) = (i * 0.5, i * 0.6);
 		} else {
 			# BVI (Blade Vortex Interaction)    8 deg, 65 kts max
 			var frequency = rotor_rpm.getValue() * 4 * 60;
@@ -1230,6 +1240,8 @@ var reconfigure = func {
 var delta_time = props.globals.getNode("/sim/time/delta-sec", 1);
 var hi_heading = props.globals.getNode("/instrumentation/heading-indicator/indicated-heading-deg", 1);
 var vertspeed = props.globals.initNode("/velocities/vertical-speed-fps");
+var gross_weight_lb = props.globals.initNode("/yasim/gross-weight-lbs");
+var gross_weight_kg = props.globals.initNode("/sim/model/gross-weight-kg");
 props.globals.getNode("/instrumentation/adf/rotation-deg", 1).alias(hi_heading);
 
 
@@ -1237,6 +1249,8 @@ var main_loop = func {
 	if (replay)
 		setprop("/position/gear-agl-m", getprop("/position/altitude-agl-ft") * 0.3 - 1.2);
 	vert_speed_fpm.setDoubleValue(vertspeed.getValue() * 60);
+	gross_weight_kg.setDoubleValue(gross_weight_lb.getValue() * LB2KG);
+
 
 	var dt = delta_time.getValue();
 	update_torque(dt);
