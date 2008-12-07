@@ -46,7 +46,7 @@
   stall-change-over="5.5"
   drag-factor-stall="2.0"
   cyclic-factor="0.8"
-  rotor-correction-factor="0.7"
+  rotor-correction-factor="1.1"
   downwashfactor="1.0"
 >
   <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL"/>
@@ -63,7 +63,7 @@
 </rotor>
 
 
-<rotor name="tail" x="-8.45" y="0.18" z="1.5" nx="0.07" ny="-1" nz="-0.05" fx="1" fy="0" fz="0" ccw="1"
+<rotor name="tail" x="-8.65" y="0.18" z="1.5" nx="0.07" ny="-1" nz="-0.05" fx="1" fy="0" fz="0" ccw="1"
   maxcollective="20" mincollective="-10"
   phi0="110"
   diameter="1.91" numblades="2" weightperblade="2" relbladecenter="0.7"
@@ -105,8 +105,8 @@
   rotorgear-friction="1.4"
   engine-prop-factor="0.005"
   engine-accel-limit="4"
-  yasimdragfactor="19.5"
-  yasimliftfactor="245"
+  yasimdragfactor="53.5"
+  yasimliftfactor="130"
 >
   <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>
   <control-input axis="/controls/rotor/brake" control="ROTORBRAKE"
@@ -193,4 +193,5 @@
 <thruster x="-2.55" y="0.0" z="1.55" vx="0" vy="1" vz="0" thrust="4000">
   <control-input axis="/rotors/main/vibration/lateral" src0="-1" src1="1" dst0="-1" dst1="1" control="THROTTLE"/>
 </thruster>
+
 </airplane>

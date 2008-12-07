@@ -14,7 +14,7 @@ Bo 105 simulation config.
 
 		<flight-model>yasim</flight-model>
 		<aero>bo105</aero>
-		<fuel-fraction>0.3</fuel-fraction>
+		<fuel-fraction>1.0</fuel-fraction>
 
 		<startup>
 			<splash-texture>Aircraft/bo105/splash.rgb</splash-texture>
