@@ -1,3 +1,4 @@
+<!-- official RD + 0.53 m = yasim RD (reference datum) -->
 <airplane mass="2868">
 
 <approach speed="47" aoa="16">
@@ -10,7 +11,7 @@
 
 
 
-<rotor name="main" x="-2.55" y="0.0" z="1.55" nx="0.05" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="1"
+<rotor name="main" x="-2.75" y="0.0" z="1.55" nx="0.05" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="1"
   maxcollective="15.8" mincollective="0.2"
   mincyclicele="-4.7" maxcyclicele="10.5"
   mincyclicail="-4.23" maxcyclicail="5.65"
@@ -157,14 +158,14 @@
 <gear x="-8.03" y="+0.00" z="+0.34" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
 
 
-<tank x="-2.47" y="0" z=".68" capacity="1006"/> <!-- main tank:  580 l of which 570 l are usable (150.5 gal) @ 6.682 ppg -->
-<!--tank x="0" y="0" z=".68" capacity="0"/--><!-- supply tank-->
+<tank x="-2.69" y="0" z=".68" capacity="1006"/>  <!-- main:   580 l (570 l usable) @ 6.682 ppg (H3EU.pdf) -->
+<tank x="-1.74" y="0" z=".68" capacity="163.7"/> <!-- supply: 93 l (usable?) -->
 
-<ballast x="-1.4" y="+0.0" z="0.0" mass="150"/>
-<ballast x="-2.5" y="-1.8" z="0.0" mass="200"/>
-<ballast x="-1.5" y="+0.0" z="1.0" mass="600"/>
-<ballast x="-2.5" y="+1.8" z="0.0" mass="200"/>
-<ballast x="-3.0" y="+0.0" z="0.0" mass="150"/>
+<ballast x="-1.6" y="+0.0" z="0.0" mass="150"/>
+<ballast x="-2.7" y="-1.8" z="0.0" mass="200"/>
+<ballast x="-1.7" y="+0.0" z="1.0" mass="600"/>
+<ballast x="-2.7" y="+1.8" z="0.0" mass="200"/>
+<ballast x="-3.2" y="+0.0" z="0.0" mass="150"/>
 
 <ballast x="-5.0" y="+0.0" z="1.0" mass="300"/>
 

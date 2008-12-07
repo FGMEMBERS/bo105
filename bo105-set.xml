@@ -14,7 +14,7 @@ Bo 105 simulation config.
 
 		<flight-model>yasim</flight-model>
 		<aero>bo105</aero>
-		<fuel-fraction>0.8</fuel-fraction>
+		<fuel-fraction>0.3</fuel-fraction>
 
 		<startup>
 			<splash-texture>Aircraft/bo105/splash.rgb</splash-texture>
@@ -410,7 +410,6 @@ Bo 105 simulation config.
 			<tank>
 				<name>Supply</name>
 				<selected type="bool" write="n">1</selected>
-				<capacity-gal_us type="double">1</capacity-gal_us>
 				<density-ppg type="double" write="n">6.682</density-ppg>
 			</tank>
 		</fuel>
