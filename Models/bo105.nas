@@ -639,7 +639,6 @@ var vibration = {
 		me.soundN = props.globals.initNode("/sim/sound/vibration");
 		me.airspeedN = props.globals.getNode("/velocities/airspeed-kt");
 		me.vertspeedN = props.globals.getNode("/velocities/vertical-speed-fps");
-		me.pitchN = props.globals.getNode("/orientation/pitch-deg");
 		me.intensityLP = aircraft.lowpass.new(1);
 		me.dir = 0;
 	},
@@ -648,21 +647,22 @@ var vibration = {
 		if (airspeed > 120) {
 			# overspeed vibration
 			var frequency = 2500 + 1000 * rand();
-			var i = 0.45 + 0.5 * normatan(airspeed - 170, 20);
-			var (intensity, noise) = (i * 0.5, i * 0.6);
+			var v = 0.45 + 0.5 * normatan(airspeed - 170, 20);
+			var intensity = 2 * v;
+			var noise = v * internal;
 		} else {
-			# BVI (Blade Vortex Interaction)    8 deg, 65 kts max
+			# BVI (Blade Vortex Interaction)    8 deg, 65 kts max?
 			var frequency = rotor_rpm.getValue() * 4 * 60;
-			var intensity = me.intensityLP.filter(0.5
-				* bell(airspeed - 70, 150)
-				* bell(me.vertspeedN.getValue() + 16, 80));
-			var noise = intensity * 0.9;
+			var v = me.intensityLP.filter(bell(airspeed - 70, 150)
+					* bell(me.vertspeedN.getValue() + 16, 80));
+			var intensity = v * 0.3;
+			var noise = v * (1 - internal * 0.5);
 		}
 
 		me.dir += dt * frequency;
 		me.lonN.setValue(math.cos(me.dir * D2R) * intensity);
 		me.latN.setValue(math.sin(me.dir * D2R) * intensity);
-		me.soundN.setValue(noise * volume_factor);
+		me.soundN.setValue(noise);
 	},
 };
 
@@ -742,9 +742,9 @@ var update_slide = func {
 		s.update();
 }
 
-var volume_factor = 1;
+var internal = 1;
 setlistener("sim/current-view/view-number", func {
-	volume_factor = getprop("sim/current-view/internal");
+	internal = getprop("sim/current-view/internal");
 }, 1);
 
 
@@ -757,7 +757,7 @@ var update_volume = func {
 			break;
 		}
 	}
-	volume.setDoubleValue(1 - (0.8 - 0.6 * door_open) * volume_factor);
+	volume.setDoubleValue(1 - (0.8 - 0.6 * door_open) * internal);
 }
 
 
