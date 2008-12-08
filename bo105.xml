@@ -105,8 +105,8 @@
   rotorgear-friction="1.4"
   engine-prop-factor="0.005"
   engine-accel-limit="4"
-  yasimdragfactor="53.5"
-  yasimliftfactor="130"
+  yasimdragfactor="65"
+  yasimliftfactor="60"
 >
   <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>
   <control-input axis="/controls/rotor/brake" control="ROTORBRAKE"
