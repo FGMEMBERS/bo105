@@ -475,7 +475,7 @@
 			</volume>
 			<pitch>
 				<property>rotors/main/rpm</property>
-				<factor>9</factor>
+				<factor>24</factor>
 			</pitch>
 			<reference-dist>1000</reference-dist>
 			<max-dist>3000</max-dist>
