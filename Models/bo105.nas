@@ -646,9 +646,9 @@ var vibration = {
 		var airspeed = me.airspeedN.getValue();
 		if (airspeed > 120) {
 			# overspeed vibration
-			var frequency = 2000 + 1000 * rand();
-			var v = 0.45 + 0.5 * normatan(airspeed - 170, 20);
-			var intensity = 2 * v;
+			var frequency = 2000 + 500 * rand();
+			var v = 0.45 + 0.5 * normatan(airspeed - 185, 20);
+			var intensity = v;
 			var noise = v * internal;
 		} else {
 			# Blade Vortex Interaction (BVI)    8 deg, 65 kts max?
