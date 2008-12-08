@@ -144,17 +144,17 @@ var fuel = {
 		me.main = Tank.new(fuel.getNode("tank[0]"));
 		me.supply = Tank.new(fuel.getNode("tank[1]"));
 
-		var switches = props.globals.getNode("/controls/switches");
-		me.transfer1N = switches.initNode("fuel/transfer-pump[0]", 1, "BOOL");
-		me.transfer2N = switches.initNode("fuel/transfer-pump[1]", 1, "BOOL");
-
+		var sw = props.globals.getNode("/controls/switches");
+		setlistener(sw.initNode("fuel/transfer-pump[0]", 1, "BOOL"), func(n) me.trans1 = n.getValue(), 1);
+		setlistener(sw.initNode("fuel/transfer-pump[1]", 1, "BOOL"), func(n) me.trans2 = n.getValue(), 1);
+		setlistener("/sim/freeze/fuel", func(n) me.freeze = n.getBoolValue(), 1);
 		me.capacity = me.main.capacity + me.supply.capacity;
 		me.warntime = 0;
 		me.update(0);
 	},
 	update: func(dt) {
 		# transfer pumps (feed supply from main)
-		var trans_flow = (me.transfer1N.getValue() + me.transfer2N.getValue()) * me.pump_capacity;
+		var trans_flow = (me.trans1 + me.trans2) * me.pump_capacity;
 		if (me.supply.level() < me.supply.capacity)
 			me.supply.consume(-me.main.consume(trans_flow * dt));
 
@@ -174,7 +174,7 @@ var fuel = {
 		return me.supply.level();
 	},
 	consume: func(amount) {
-		return me.supply.consume(amount);
+		return me.supply.consume(!me.freeze * amount);
 	},
 };
 
@@ -646,16 +646,16 @@ var vibration = {
 		var airspeed = me.airspeedN.getValue();
 		if (airspeed > 120) {
 			# overspeed vibration
-			var frequency = 2500 + 1000 * rand();
+			var frequency = 2000 + 1000 * rand();
 			var v = 0.45 + 0.5 * normatan(airspeed - 170, 20);
 			var intensity = 2 * v;
 			var noise = v * internal;
 		} else {
-			# BVI (Blade Vortex Interaction)    8 deg, 65 kts max?
+			# Blade Vortex Interaction (BVI)    8 deg, 65 kts max?
 			var frequency = rotor_rpm.getValue() * 4 * 60;
 			var v = me.intensityLP.filter(bell(airspeed - 70, 150)
 					* bell(me.vertspeedN.getValue() + 16, 80));
-			var intensity = v * 0.3;
+			var intensity = v * 0.2;
 			var noise = v * (1 - internal * 0.5);
 		}
 
@@ -1115,17 +1115,19 @@ var init_weapons = func {
 	#			node.getNode("impact/roll-deg").getValue());
 	#});
 
-	setlistener("controls/armament/trigger", func(n) {
+	var triggerL = setlistener("controls/armament/trigger", func(n) {
 		if (weapons != nil) {
 			var t = n.getBoolValue();
+			if (!getprop("/sim/ai/enabled")) {
+				print("*** weapons work only with --prop:sim/ai/enabled=1 ***");
+				return removelistener(triggerL);
+			}
 			if (t != TRIGGER)
 				weapons.fire(TRIGGER = t);
 		}
 	});
 
-	controls.applyBrakes = func(v) {
-		setprop("controls/armament/trigger", v);
-	}
+	controls.applyBrakes = func(v) setprop("controls/armament/trigger", v);
 }
 
 
@@ -1291,6 +1293,7 @@ setlistener("/sim/signals/fdm-initialized", func {
 		procedure.reset();
 		collective.setDoubleValue(1);
 		aircraft.livery.rescan();
+		reconfigure();
 		crashed = 0;
 	});
 
