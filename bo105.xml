@@ -46,7 +46,7 @@
   stall-change-over="5.5"
   drag-factor-stall="2.0"
   cyclic-factor="0.8"
-  rotor-correction-factor="1.1"
+  rotor-correction-factor="1.0"
   downwashfactor="1.0"
 >
   <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL"/>
@@ -105,7 +105,7 @@
   rotorgear-friction="1.4"
   engine-prop-factor="0.005"
   engine-accel-limit="4"
-  yasimdragfactor="65"
+  yasimdragfactor="59.5"
   yasimliftfactor="60"
 >
   <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>
