@@ -101,7 +101,7 @@ var Doors = {
 # density = 6.682 lb/gal [Flight Manual Section 9.2]
 var FUEL_DENSITY = getprop("/consumables/fuel/tank/density-ppg"); # pound per gallon
 var GAL2LB = FUEL_DENSITY;
-var LB2GAL = 1 / FUEL_DENSITY;
+var LB2GAL = 1 / GAL2LB;
 var KG2GAL = KG2LB * LB2GAL;
 var GAL2KG = 1 / KG2GAL;
 
@@ -154,9 +154,11 @@ var fuel = {
 	},
 	update: func(dt) {
 		# transfer pumps (feed supply from main)
-		var trans_flow = (me.trans1 + me.trans2) * me.pump_capacity;
-		if (me.supply.level() < me.supply.capacity)
-			me.supply.consume(-me.main.consume(trans_flow * dt));
+		var free = me.supply.capacity - me.supply.level();
+		if (free > 0) {
+			var trans_flow = (me.trans1 + me.trans2) * me.pump_capacity;
+			me.supply.consume(-me.main.consume(min(trans_flow * dt, free)));
+		}
 
 		# low fuel warning [POH "General Description" 0.28a]
 		var time = elapsedN.getValue();
@@ -282,8 +284,8 @@ var Engine = {
 		var decay = (me.up > 0 ? 10 : me.n1 > 0.02 ? 0.01 : 0.001) * dt;
 		me.totN.setValue((me.totN.getValue() + decay * target) / (1 + decay));
 
-		# 150 kg/h for now (both turbines) -> 330.7 lb/h -> 49.5 gal/h -> 0.01375 gal/s
-		fuel.consume(0.006875 * me.fuelflow * dt);
+		# constant 150 kg/h for now (both turbines)
+		fuel.consume(75 * KG2LB * LB2GAL * me.fuelflow * dt / 3600);
 
 		# derived gauge values
 		me.n1_pctN.setDoubleValue(me.n1 * 100);
@@ -660,8 +662,8 @@ var vibration = {
 		}
 
 		me.dir += dt * frequency;
-		me.lonN.setValue(math.cos(me.dir * D2R) * intensity);
-		me.latN.setValue(math.sin(me.dir * D2R) * intensity);
+		me.lonN.setValue(cos(me.dir) * intensity);
+		me.latN.setValue(sin(me.dir) * intensity);
 		me.soundN.setValue(noise);
 	},
 };
