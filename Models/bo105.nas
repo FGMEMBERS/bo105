@@ -11,7 +11,7 @@ print("\x1b[35m
 
 
 if (!contains(globals, "cprint"))
-	var cprint = func { nil };
+	var cprint = func nil;
 
 var devel = !!getprop("devel");
 var quickstart = !!getprop("quickstart");
@@ -99,6 +99,7 @@ var Doors = {
 # fuel ==============================================================
 
 # density = 6.682 lb/gal [Flight Manual Section 9.2]
+# avtur/JET A-1/JP-8
 var FUEL_DENSITY = getprop("/consumables/fuel/tank/density-ppg"); # pound per gallon
 var GAL2LB = FUEL_DENSITY;
 var LB2GAL = 1 / GAL2LB;
@@ -137,7 +138,7 @@ var Tank = {
 var fuel = {
 	init: func {
 		var fuel = props.globals.getNode("/consumables/fuel");
-		me.pump_capacity = 6.6 * L2GAL / 60;  # from ec135: 6.6 l/min
+		me.pump_capacity = 6.6 * L2GAL / 60; # same pumps for transfer and supply; from ec135: 6.6 l/min
 		me.total_galN = fuel.getNode("total-fuel-gals", 1);
 		me.total_lbN = fuel.getNode("total-fuel-lbs", 1);
 		me.total_normN = fuel.getNode("total-fuel-norm", 1);
@@ -168,15 +169,15 @@ var fuel = {
 		}
 
 		var level = me.main.level() + me.supply.level();
-		me.total_galN.setValue(level);
-		me.total_lbN.setValue(level * GAL2LB);
-		me.total_normN.setValue(level / me.capacity);
+		me.total_galN.setDoubleValue(level);
+		me.total_lbN.setDoubleValue(level * GAL2LB);
+		me.total_normN.setDoubleValue(level / me.capacity);
 	},
 	level: func {
 		return me.supply.level();
 	},
 	consume: func(amount) {
-		return me.supply.consume(!me.freeze * amount);
+		return me.freeze ? 0 : me.supply.consume(amount);
 	},
 };
 
@@ -285,7 +286,7 @@ var Engine = {
 		me.totN.setValue((me.totN.getValue() + decay * target) / (1 + decay));
 
 		# constant 150 kg/h for now (both turbines)
-		fuel.consume(75 * KG2LB * LB2GAL * me.fuelflow * dt / 3600);
+		fuel.consume(75 * KG2GAL * me.fuelflow * dt / 3600);
 
 		# derived gauge values
 		me.n1_pctN.setDoubleValue(me.n1 * 100);
@@ -634,7 +635,7 @@ var update_absorber = func {
 
 
 
-var vibration = {
+var vibration = { # and noise ...
 	init: func {
 		me.lonN = props.globals.initNode("/rotors/main/vibration/longitudinal");
 		me.latN = props.globals.initNode("/rotors/main/vibration/lateral");
@@ -646,19 +647,29 @@ var vibration = {
 	},
 	update: func(dt) {
 		var airspeed = me.airspeedN.getValue();
-		if (airspeed > 120) {
-			# overspeed vibration
+		if (airspeed > 120) { # overspeed vibration
 			var frequency = 2000 + 500 * rand();
 			var v = 0.45 + 0.5 * normatan(airspeed - 185, 20);
 			var intensity = v;
 			var noise = v * internal;
-		} else {
-			# Blade Vortex Interaction (BVI)    8 deg, 65 kts max?
+
+		} elsif (airspeed > 40) { # Blade Vortex Interaction (BVI)    8 deg, 65 kts max?
 			var frequency = rotor_rpm.getValue() * 4 * 60;
-			var v = me.intensityLP.filter(bell(airspeed - 70, 150)
-					* bell(me.vertspeedN.getValue() + 16, 80));
+			var ias = bell(airspeed - 70, 150);
+			var vert = bell(me.vertspeedN.getValue() + 16, 200);
+			var v = me.intensityLP.filter(ias * vert);
 			var intensity = v * 0.2;
-			var noise = v * (1 - internal * 0.5);
+			var noise = v * (1 - internal * 0.4);
+
+		} else { # hover
+			var frequency = rotor_rpm.getValue() * 4 * 60;
+			var coll = bell(collective.getValue(), 0.5);
+			var ias = bell(airspeed, 250);
+			var vert = bell(me.vertspeedN.getValue() * 0.5, 200);
+			var rpm = bell(rotor_rpm.getValue() - 442, 150);
+			var v = me.intensityLP.filter(coll * ias * vert * rpm);
+			var intensity = v * 0.1;
+			var noise = v * (1 - internal * 0.4);
 		}
 
 		me.dir += dt * frequency;
