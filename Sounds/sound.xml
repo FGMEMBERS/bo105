@@ -463,7 +463,7 @@
 		<rotor>
 			<name>blade-vortex-interaction</name>
 			<mode>looped</mode>
-			<path>Aircraft/bo105/Sounds/blade-vortex.wav</path>
+			<path>Aircraft/bo105/Sounds/blade_vortex.wav</path>
 			<condition>
 				<greater-than>
 					<property>sim/sound/vibration</property>
@@ -475,7 +475,10 @@
 			</volume>
 			<pitch>
 				<property>rotors/main/rpm</property>
-				<factor>24</factor>
+				<factor>0.002262</factor>
+				<offset>0</offset>
+				<min>0</min>
+				<max>1.5</max>
 			</pitch>
 			<reference-dist>1000</reference-dist>
 			<max-dist>3000</max-dist>
