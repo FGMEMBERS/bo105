@@ -185,6 +185,12 @@ Bo 105 simulation config.
 			</generic>
 		</multiplay>
 
+		<rendering>
+			<camera-group>
+				<znear type="double">0.1</znear>
+			</camera-group>
+		</rendering>
+
 		<view n="0">
 			<internal archive="y">true</internal>
 			<config>
