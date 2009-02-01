@@ -736,7 +736,8 @@ var Skid = {
 		return m;
 	},
 	update: func {
-		if (me.wowN.getValue() < 0.5)
+		me.wow = me.wowN.getValue();
+		if (me.wow < 0.5)
 			return me.volumeN.setDoubleValue(0);
 
 		var rollspeed = abs(me.rollspeedN.getValue());
@@ -757,9 +758,14 @@ var skids = [];
 for (var i = 0; i < 4; i += 1)
 	append(skids, Skid.new(i));
 
+var antislide = props.globals.initNode("/gear/antislide");
 var update_slide = func {
-	foreach (var s; skids)
+	var wow = 0;
+	foreach (var s; skids) {
 		s.update();
+		wow += s.wow;
+	}
+	antislide.setDoubleValue(wow > 0 ? 1 - rotor_rpm.getValue() / 10 : 0);
 }
 
 var internal = 1;
