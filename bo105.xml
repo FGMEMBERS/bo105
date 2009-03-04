@@ -1,4 +1,8 @@
 <!-- official RD + 0.53 m = yasim RD (reference datum) -->
+
+<!-- FDM based also on information given in NASA-CR-3144; TR-1087-1-->
+
+
 <airplane mass="2868">
 
 <approach speed="47" aoa="16">
@@ -37,16 +41,16 @@
   rel-len-where-incidence-is-measured="0.7"
   rel-len-blade-start="0.076"
 
-  airfoil-lift-coefficient="3.85"
-  airfoil-drag-coefficient0="0.0075"
-  airfoil-drag-coefficient1="0.25"
+  airfoil-lift-coefficient="3.46"
+  airfoil-drag-coefficient0="0.0064"
+  airfoil-drag-coefficient1="0.20"
   incidence-stall-zero-speed="15"
   incidence-stall-half-sonic-speed="14.5"
   lift-factor-stall="0.18"
   stall-change-over="5.5"
   drag-factor-stall="2.0"
   cyclic-factor="0.8"
-  rotor-correction-factor="1.0"
+  rotor-correction-factor="0.85"
   downwashfactor="1.0"
 >
   <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL"/>
@@ -86,16 +90,13 @@
   lift-factor-stall="0.18"
   stall-change-over="5.5"
   drag-factor-stall="8"
-  rotor-correction-factor="0.9"
+  rotor-correction-factor="1.0"
   downwashfactor="1.0"
 >
   <control-input axis="/controls/flight/rudder-trim" control="COLLECTIVE" invert="true"/>
   <control-input axis="/controls/flight/rudder" control="COLLECTIVE" invert="true"
                  src0="-1.0" src1="1.0"
                  dst0="-1.0" dst1="1.0"/>
-  <control-input axis="/controls/engines/engine[0]/throttle" control="COLLECTIVE"
-                 src0="0.1" src1="1.0"
-                 dst0=".0007" dst1="-.00055"/>
 </rotor>
 
 
@@ -105,8 +106,8 @@
   rotorgear-friction="1.4"
   engine-prop-factor="0.005"
   engine-accel-limit="4"
-  yasimdragfactor="59.5"
-  yasimliftfactor="60"
+  yasimdragfactor="25.5"
+  yasimliftfactor="25"
 >
   <control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>
   <control-input axis="/controls/rotor/brake" control="ROTORBRAKE"
@@ -123,11 +124,11 @@
 
 <cockpit x="-1.88" y=".33" z="0.6"/>
 
-<fuselage ax="-.25" ay="0" az="-.07" bx="-4.05" by="0" bz="-.07"
+<fuselage ax="-.25" ay="0" az="-.07" bx="-4.05" by="0" bz="-.07" cx="5" 
           width="1.92" taper="0.95" midpoint="0.5" idrag="0"/>
 
-<fuselage ax="-4.05" ay="0" az="-.38" bx="-7.60" by="0" bz=".51"
-          width="0.47" taper="0.9" midpoint="0.05" idrag="0.3"/>
+<fuselage ax="-4.05" ay="0" az="-.38" bx="-7.60" by="0" bz=".51" cz="0.25" cx="2" 
+          width="0.47" taper="0.9" midpoint="0.05" idrag="0.0"/>
 
 
 <vstab x="-7.55" y="0" z=".41" taper=".5" length="1.37" chord=".59" sweep="40">
@@ -142,32 +143,33 @@
   <stall aoa="16" width="4" peak="1.5"/>
 </vstab>
 
-<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="1.0" length="1.20" chord="0.36" sweep="0" incidence="5">
+<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="2.0" length="1.20" chord="0.36" sweep="0" incidence="45">
   <stall aoa="0" width="0" peak="1.5"/>
 </hstab>
 
 <!-- left skid -->
 <gear x="-1.24" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
-<gear x="-3.52" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-3.52" y="+1.30" z="-1.195" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
 
 <!-- right skid -->
 <gear x="-1.24" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
-<gear x="-3.52" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-3.52" y="-1.30" z="-1.195" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
 
 <!-- tail skid -->
 <gear x="-8.03" y="+0.00" z="+0.34" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
 
 
-<tank x="-2.69" y="0" z=".68" capacity="1006"/>  <!-- main:   580 l (570 l usable) @ 6.682 ppg (H3EU.pdf) -->
+<tank x="-2.69" y="0" z=".68" capacity="1006"/> <!-- main:   580 l (570 l usable) @ 6.682 ppg (H3EU.pdf) -->
 <tank x="-1.74" y="0" z=".68" capacity="163.7"/> <!-- supply: 93 l (usable?) -->
 
-<ballast x="-1.6" y="+0.0" z="0.0" mass="150"/>
-<ballast x="-2.7" y="-1.8" z="0.0" mass="200"/>
-<ballast x="-1.7" y="+0.0" z="1.0" mass="600"/>
-<ballast x="-2.7" y="+1.8" z="0.0" mass="200"/>
-<ballast x="-3.2" y="+0.0" z="0.0" mass="150"/>
-
+<ballast x=" 1.15" y="+0.0" z="0.0" mass="150"/>
+<ballast x="-2.7" y="-1.9" z="1.95" mass="200"/>
+<ballast x="-2.7" y="+0.0" z="1.0" mass="600"/>
+<ballast x="-2.7" y="+1.9" z="-1.95" mass="200"/>
+<ballast x="-3.75" y="+0.0" z="0.0" mass="150"/>
 <ballast x="-5.0" y="+0.0" z="1.0" mass="300"/>
+<ballast x="-1.74" y="0" z=".68" mass="-182"/>
+<ballast x="-3.74" y="0" z=".68" mass="182"/>
 
 <weight x="-1.0" y=".33"  z="1" mass-prop="/sim/weight[0]/weight-lb"/>	<!-- pilot -->
 <weight x="-1.0" y="-.33" z="1" mass-prop="/sim/weight[1]/weight-lb"/>	<!-- co-pilot -->
