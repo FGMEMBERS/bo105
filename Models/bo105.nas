@@ -643,15 +643,16 @@ var vibration = { # and noise ...
 		me.airspeedN = props.globals.getNode("/velocities/airspeed-kt");
 		me.vertspeedN = props.globals.getNode("/velocities/vertical-speed-fps");
 
-		me.groundspeedN = props.globals.initNode("/velocities/groundspeed-kt");
-		me.speeddownN = props.globals.initNode("/velocities/speed-down-fps");
+		me.groundspeedN = props.globals.getNode("/velocities/groundspeed-kt");
+		me.speeddownN = props.globals.getNode("/velocities/speed-down-fps");
+		me.angleN = props.globals.initNode("/velocities/descent-angle-deg");
 		me.dir = 0;
 	},
 	update: func(dt) {
 		var airspeed = me.airspeedN.getValue();
 		if (airspeed > 120) { # overspeed vibration
 			var frequency = 2000 + 500 * rand();
-			var v = 0.49 + 0.5 * normatan(airspeed - 150, 10);
+			var v = 0.49 + 0.5 * normatan(airspeed - 160, 10);
 			var intensity = v;
 			var noise = v * internal;
 
@@ -659,12 +660,12 @@ var vibration = { # and noise ...
 			var frequency = rotor_rpm.getValue() * 4 * 60;
 			var down = me.speeddownN.getValue() * FT2M;
 			var level = me.groundspeedN.getValue() * NM2M / 3600;
-			var angle = math.atan2(down, level) * R2D;
+			me.angleN.setDoubleValue(var angle = math.atan2(down, level) * R2D);
 			var speed = math.sqrt(level * level + down * down) * MPS2KT;
 			angle = bell(angle - 9, 13);
 			speed = bell(speed - 65, 450);
 			var v = angle * speed;
-			var intensity = v * 0.15;
+			var intensity = v * 0.10;
 			var noise = v * (1 - internal * 0.4);
 
 		} else { # hover
@@ -675,7 +676,7 @@ var vibration = { # and noise ...
 			var vert = bell(me.vertspeedN.getValue() * 0.5, 400);
 			var rpm = 0.477 + 0.5 * normatan(rpm - 350, 30) * 1.025;
 			var v = coll * ias * vert * rpm;
-			var intensity = v * 0.12;
+			var intensity = v * 0.10;
 			var noise = v * (1 - internal * 0.4);
 		}
 
@@ -758,14 +759,14 @@ var skids = [];
 for (var i = 0; i < 4; i += 1)
 	append(skids, Skid.new(i));
 
-var antislide = props.globals.initNode("/gear/antislide");
+#var antislide = props.globals.initNode("/gear/antislide");
 var update_slide = func {
 	var wow = 0;
 	foreach (var s; skids) {
 		s.update();
 		wow += s.wow;
 	}
-	antislide.setDoubleValue(wow > 0 ? 1 - rotor_rpm.getValue() / 10 : 0);
+	#antislide.setDoubleValue(wow > 0 ? 1 - rotor_rpm.getValue() / 10 : 0);
 }
 
 var internal = 1;
@@ -1274,6 +1275,7 @@ props.globals.getNode("/instrumentation/adf/rotation-deg", 1).alias(hi_heading);
 
 
 var main_loop = func {
+	props.globals.removeChild("autopilot");
 	if (replay)
 		setprop("/position/gear-agl-m", getprop("/position/altitude-agl-ft") * 0.3 - 1.2);
 	vert_speed_fpm.setDoubleValue(vertspeed.getValue() * 60);
