@@ -31,7 +31,7 @@
   notorque="0"
   dragfactor="0.30"
   translift-ve="20"
-  translift-maxfactor="1.3"
+  translift-maxfactor="1.5"
   ground-effect-constant="0.1"
   twist="-8.5"
   taper="1"
@@ -50,7 +50,7 @@
   stall-change-over="5.5"
   drag-factor-stall="2.0"
   cyclic-factor="0.8"
-  rotor-correction-factor="0.85"
+  rotor-correction-factor="0.95"
   downwashfactor="1.0"
 >
   <control-input axis="/controls/flight/aileron-trim" control="CYCLICAIL"/>
@@ -159,16 +159,16 @@
 <gear x="-8.03" y="+0.00" z="+0.34" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
 
 
-<tank x="-2.69" y="0" z=".68" capacity="1006"/> <!-- main:   580 l (570 l usable) @ 6.682 ppg (H3EU.pdf) -->
-<tank x="-1.74" y="0" z=".68" capacity="163.7"/> <!-- supply: 93 l (usable?) -->
+<tank x="-2.69" y="0" z="-.5" capacity="1006"/> <!-- main:   580 l (570 l usable) @ 6.682 ppg (H3EU.pdf) -->
+<tank x="-1.74" y="0" z="-.5" capacity="163.7"/> <!-- supply: 93 l (usable?) -->
 
 <ballast x=" 1.15" y="+0.0" z="0.0" mass="150"/>
-<ballast x="-2.7" y="-1.9" z="1.95" mass="200"/>
+<ballast x="-2.7" y="-1.9" z="1.55" mass="200"/>
 <ballast x="-2.7" y="+0.0" z="1.0" mass="600"/>
-<ballast x="-2.7" y="+1.9" z="-1.95" mass="200"/>
+<ballast x="-2.7" y="+1.9" z="-1.55" mass="200"/>
 <ballast x="-3.75" y="+0.0" z="0.0" mass="150"/>
 <ballast x="-5.0" y="+0.0" z="1.0" mass="300"/>
-<ballast x="-1.74" y="0" z=".68" mass="-182"/>
+<ballast x="-1.74" y="0" z="-.5" mass="-182"/>
 <ballast x="-3.74" y="0" z=".68" mass="182"/>
 
 <weight x="-1.0" y=".33"  z="1" mass-prop="/sim/weight[0]/weight-lb"/>	<!-- pilot -->
