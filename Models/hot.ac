@@ -1,6 +1,6 @@
 AC3Db
-MATERIAL "floor" rgb 0.367449 0.304279 0.126012  amb 0.296593 0.296593 0.296593  emis 0 0 0  spec 0 0 0  shi 26  trans 0
-MATERIAL "mat" rgb 0.614126 0.612626 0.496028  amb 0.296593 0.296593 0.296593  emis 0 0 0  spec 0 0 0  shi 26  trans 0
+MATERIAL "floor" rgb 0.367449 0.304279 0.126012  amb 0.367449 0.304279 0.126012  emis 0 0 0  spec 0 0 0  shi 26  trans 0
+MATERIAL "mat" rgb 0.614126 0.612626 0.496028  amb 0.614126 0.612626 0.496028  emis 0 0 0  spec 0 0 0  shi 26  trans 0
 OBJECT world
 kids 3
 OBJECT poly
