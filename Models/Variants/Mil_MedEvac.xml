@@ -16,21 +16,21 @@
 						<texture type="string">livery.rgb</texture>
 
 						<diffuse>
-							<red>0.35</red>
-							<green>0.36</green>
-							<blue>0.31</blue>
+							<red>0.243</red>
+							<green>0.262</green>
+							<blue>0.268</blue>
 						</diffuse>
 
 						<ambient>
-							<red>0.35</red>
-							<green>0.36</green>
-							<blue>0.31</blue>
+							<red>0.163</red>
+							<green>0.169</green>
+							<blue>0.166</blue>
 						</ambient>
 
 						<specular>
-							<red>0.0</red>
-							<green>0.0</green>
-							<blue>0.0</blue>
+							<red>0.1</red>
+							<green>0.1</green>
+							<blue>0.1</blue>
 						</specular>
 
 						<emission>
@@ -43,7 +43,7 @@
 							<alpha>1.0</alpha>
 						</transparency>
 
-						<shininess>0</shininess>
+						<shininess>128</shininess>
 					</fuselage>
 
 					<glass>
@@ -94,21 +94,21 @@
 
 					<helmet>
 						<diffuse>
-							<red>0.35</red>
-							<green>0.36</green>
-							<blue>0.31</blue>
+							<red>0.243</red>
+							<green>0.262</green>
+							<blue>0.268</blue>
 						</diffuse>
 
 						<ambient>
-							<red>0.35</red>
-							<green>0.36</green>
-							<blue>0.31</blue>
+							<red>0.163</red>
+							<green>0.169</green>
+							<blue>0.166</blue>
 						</ambient>
 
 						<specular>
-							<red>0.0</red>
-							<green>0.0</green>
-							<blue>0.0</blue>
+							<red>0.1</red>
+							<green>0.1</green>
+							<blue>0.1</blue>
 						</specular>
 
 						<emission>
@@ -122,21 +122,21 @@
 
 					<flightsuit>
 						<diffuse>
-							<red>0.35</red>
-							<green>0.36</green>
-							<blue>0.31</blue>
+							<red>0.243</red>
+							<green>0.262</green>
+							<blue>0.268</blue>
 						</diffuse>
 
 						<ambient>
-							<red>0.35</red>
-							<green>0.36</green>
-							<blue>0.31</blue>
+							<red>0.163</red>
+							<green>0.169</green>
+							<blue>0.166</blue>
 						</ambient>
 
 						<specular>
-							<red>0.0</red>
-							<green>0.0</green>
-							<blue>0.0</blue>
+							<red>0.1</red>
+							<green>0.1</green>
+							<blue>0.1</blue>
 						</specular>
 
 						<emission>
