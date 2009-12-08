@@ -1,3 +1,6 @@
+<?xml version="1.0"?>
+
+<!-- offsets: x=2.5 y=0 z=-0.2 h=0 p=1.8 r=0 -->
 <!-- official RD + 0.53 m = yasim RD (reference datum) -->
 
 <!-- FDM based also on information given in NASA-CR-3144; TR-1087-1-->
@@ -127,8 +130,8 @@
 <fuselage ax="-.25" ay="0" az="-.07" bx="-4.05" by="0" bz="-.07" cx="5" 
           width="1.92" taper="0.95" midpoint="0.5" idrag="0"/>
 
-<fuselage ax="-4.05" ay="0" az="-.38" bx="-7.60" by="0" bz=".51" cz="0.25" cx="2" 
-          width="0.47" taper="0.9" midpoint="0.05" idrag="0.0"/>
+<fuselage ax="-4.05" ay="0" az="0.4" bx="-7.60" by="0" bz=".51" cz="0.25" cx="2" 
+          width="0.47" taper="0.9" midpoint="0" idrag="0.0"/>
 
 
 <vstab x="-7.55" y="0" z=".41" taper=".5" length="1.37" chord=".59" sweep="40">
@@ -143,7 +146,7 @@
   <stall aoa="16" width="4" peak="1.5"/>
 </vstab>
 
-<hstab x="-6.91" y="0.05" z="-0.44" taper="1.0" effectiveness="2.0" length="1.20" chord="0.36" sweep="0" incidence="45">
+<hstab x="-6.91" y="0.05" z="0.44" taper="1.0" effectiveness="2.0" length="1.20" chord="0.36" sweep="0" incidence="45">
   <stall aoa="0" width="0" peak="1.5"/>
 </hstab>
 
