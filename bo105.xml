@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- offsets: x=2.5 y=0 z=-0.2 h=0 p=1.8 r=0 -->
+<!-- offsets: x=2.695 y=0 z=-0.2 h=0 p=1.8 r=0 -->
 <!-- official RD + 0.53 m = yasim RD (reference datum) -->
 
 <!-- FDM based also on information given in NASA-CR-3144; TR-1087-1-->
@@ -125,7 +125,7 @@
 </rotorgear>
 
 
-<cockpit x="-1.88" y=".33" z="0.6"/>
+<cockpit x="-1.06" y="-0.4" z="0.65"/>
 
 <fuselage ax="-.25" ay="0" az="-.07" bx="-4.05" by="0" bz="-.07" cx="5" 
           width="1.92" taper="0.95" midpoint="0.5" idrag="0"/>
@@ -151,15 +151,15 @@
 </hstab>
 
 <!-- left skid -->
-<gear x="-1.24" y="+1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
-<gear x="-3.52" y="+1.30" z="-1.195" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-1.04" y="+1.20" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-3.32" y="+1.20" z="-1.18" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
 
 <!-- right skid -->
-<gear x="-1.24" y="-1.30" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
-<gear x="-3.52" y="-1.30" z="-1.195" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-1.04" y="-1.20" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-3.32" y="-1.20" z="-1.18" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
 
 <!-- tail skid -->
-<gear x="-8.03" y="+0.00" z="+0.34" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
+<gear x="-8.45" y="+0.00" z="-0.03" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
 
 
 <tank x="-2.69" y="0" z="-.5" capacity="1006"/> <!-- main:   580 l (570 l usable) @ 6.682 ppg (H3EU.pdf) -->
@@ -191,16 +191,12 @@
 <weight x="-2.63" y="-1.21" z="0.08"  size="0.18" mass-prop="/sim/model/bo105/weapons/HOT[4]/weight-lb"/><!--IR-->
 <weight x="-2.63" y="1.21"  z="0.08"  size="0.18" mass-prop="/sim/model/bo105/weapons/HOT[5]/weight-lb"/><!--IL-->
 
-<thruster x="-2.55" y="0.0" z="1.55" vx="1" vy="0" vz="0" thrust="4000">
+<thruster x="-2.75" y="0.0" z="1.55" vx="1" vy="0" vz="0" thrust="4000">
   <control-input axis="/rotors/main/vibration/longitudinal" src0="-1" src1="1" dst0="-1" dst1="1" control="THROTTLE"/>
 </thruster>
 
-<thruster x="-2.55" y="0.0" z="1.55" vx="0" vy="1" vz="0" thrust="4000">
+<thruster x="-2.75" y="0.0" z="1.55" vx="0" vy="1" vz="0" thrust="4000">
   <control-input axis="/rotors/main/vibration/lateral" src0="-1" src1="1" dst0="-1" dst1="1" control="THROTTLE"/>
-</thruster>
-
-<thruster x="-2.38" y="0" z="0" vx="0" vy="0" vz="1" thrust="2500">
-  <control-input axis="/gear/antislide" src0="0" src1="1" dst0="0" dst1="1" control="THROTTLE"/>
 </thruster>
 
 </airplane>

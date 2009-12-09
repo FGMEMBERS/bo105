@@ -759,15 +759,6 @@ var skids = [];
 for (var i = 0; i < 4; i += 1)
 	append(skids, Skid.new(i));
 
-#var antislide = props.globals.initNode("/gear/antislide");
-var update_slide = func {
-	var wow = 0;
-	foreach (var s; skids) {
-		s.update();
-		wow += s.wow;
-	}
-	#antislide.setDoubleValue(wow > 0 ? 1 - rotor_rpm.getValue() / 10 : 0);
-}
 
 var internal = 1;
 setlistener("sim/current-view/view-number", func {
@@ -1285,7 +1276,6 @@ var main_loop = func {
 	var dt = delta_time.getValue();
 	update_torque(dt);
 	update_stall(dt);
-	update_slide();
 	update_volume();
 	update_absorber();
 	fuel.update(dt);
