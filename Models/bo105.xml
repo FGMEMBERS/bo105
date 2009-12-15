@@ -56,19 +56,19 @@
 
 	<params>
 		<flapA>
-			<factor>0.6</factor>
+			<factor>0.5</factor>
 		</flapA>
 		<flapB>
-			<factor>0.5</factor>
+			<factor>0.4</factor>
 		</flapB>
 		<flapC>
-			<factor>0.4</factor>
+			<factor>0.3</factor>
 		</flapC>
 		<flapD>
-			<factor>0.4</factor>
+			<factor>0.3</factor>
 		</flapD>
 		<flapE>
-			<factor>0.3</factor>
+			<factor>0.2</factor>
 		</flapE>
 	</params>
 

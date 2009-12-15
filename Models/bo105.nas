@@ -1,4 +1,4 @@
-# Melchior FRANZ, < mfranz # aon : at >
+# (c) Melchior FRANZ  < mfranz # flightgear : org >
 
 print("\x1b[35m
  _____                                _              ____        _  ___  ____
