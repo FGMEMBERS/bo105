@@ -1,9 +1,4 @@
 <?xml version="1.0"?>
-<!--
-************************************************************************
-Bo 105 simulation config.
-************************************************************************
--->
 
 <PropertyList>
 	<sim>
@@ -17,8 +12,20 @@ Bo 105 simulation config.
 		<fuel-fraction>1.0</fuel-fraction>
 
 		<startup>
-			<splash-texture>Aircraft/bo105/splash.rgb</splash-texture>
+			<splash-texture>Aircraft/bo105/splash.png</splash-texture>
 		</startup>
+
+		<gui>
+			<style>
+				<colors>
+					<splash-font>
+						<red>0.25</red>
+						<green>0.28</green>
+						<blue>0.31</blue>
+					</splash-font>
+				</colors>
+			</style>
+		</gui>
 
 		<instrumentation>
 			<path>Aircraft/bo105/Instruments/instrumentation.xml</path>
