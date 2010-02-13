@@ -1228,7 +1228,7 @@ dynamic_view.register(func {
 });
 
 
-var adjust_aspect_ratio = func {
+var adjust_fov = func {
 	var w = getprop("/sim/startup/xsize");
 	var h = getprop("/sim/startup/ysize");
 	var ar = clamp(max(w, h) / min(w, h), 0, 2);
@@ -1237,8 +1237,8 @@ var adjust_aspect_ratio = func {
 	setprop("/sim/current-view/config/default-field-of-view-deg", fov);
 }
 
-setlistener("/sim/startup/xsize", adjust_aspect_ratio);
-setlistener("/sim/startup/ysize", adjust_aspect_ratio, 1);
+setlistener("/sim/startup/xsize", adjust_fov);
+setlistener("/sim/startup/ysize", adjust_fov, 1);
 
 
 # livery/configuration ==============================================
