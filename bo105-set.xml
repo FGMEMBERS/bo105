@@ -201,10 +201,10 @@
 		<view n="0">
 			<internal archive="y">true</internal>
 			<config>
-				<x-offset-m archive="y">0.34</x-offset-m><!--right-->
-				<y-offset-m archive="y">0.67</y-offset-m><!--up-->
-				<z-offset-m archive="y">1.0</z-offset-m><!--back-->
-				<pitch-offset-deg>-14</pitch-offset-deg>
+				<x-offset-m archive="y">0.40</x-offset-m><!--right-->
+				<y-offset-m archive="y">0.65</y-offset-m><!--up-->
+				<z-offset-m archive="y">1.2</z-offset-m><!--back-->
+				<pitch-offset-deg archive="y">-6</pitch-offset-deg>
 				<limits>
 					<enabled type="bool">true</enabled>
 					<left>
