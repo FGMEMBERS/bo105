@@ -444,12 +444,14 @@
 				<propeller-pitch alias="/controls/engines/power-trim"/>
 				<mixture alias="/controls/engines/power-balance"/>
 			</engine>
+
 			<engine n="1">
 				<magnetos>1</magnetos>
 				<propeller-pitch alias="/controls/engines/power-trim"/>
 				<mixture alias="/controls/engines/power-balance"/>
 				<throttle alias="/controls/engines/engine[0]/throttle"/>
 			</engine>
+
 			<power-trim type="double">0</power-trim>
 			<power-balance type="double">0</power-balance>
 		</engines>
@@ -619,7 +621,7 @@
 
 	<nasal>
 		<bo105>
-			<file>Aircraft/bo105/Models/bo105.nas</file>
+			<file>Aircraft/bo105/Nasal/bo105.nas</file>
 		</bo105>
 	</nasal>
 
