@@ -357,8 +357,9 @@ var engines = {
 		me.engine[1].update(dt, trim + balance);
 
 		# set rotor
-		var n2max = max(me.engine[0].n2, me.engine[1].n2);
-		target_rel_rpm.setValue(n2max);
+		var n2relrpm = max(me.engine[0].n2, me.engine[1].n2);
+		var n2max = (me.engine[0].n2 +  me.engine[1].n2) / 2;
+		target_rel_rpm.setValue(n2relrpm);
 		max_rel_torque.setValue(n2max);
 
 		me.commonrpmN.setValue(n2max * 33290); # attitude indicator needs pressure

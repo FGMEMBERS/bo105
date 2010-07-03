@@ -108,7 +108,7 @@
   max-power-rotor-brake="100"
   rotorgear-friction="1.4"
   engine-prop-factor="0.005"
-  engine-accel-limit="4"
+  engine-accel-limit="100"
   yasimdragfactor="25.5"
   yasimliftfactor="25"
 >
