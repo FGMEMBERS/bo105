@@ -402,7 +402,7 @@
 				<desc>fire machine guns/missiles</desc>
 			</key>
 			<key>
-				<name>Tab</name>
+				<name>=</name>
 				<desc>open/close Bo105 config dialog</desc>
 			</key>
 			<key>
@@ -481,8 +481,8 @@
 				</binding>
 			</key>
 
-			<key n="9">
-				<name>Ctrl-I</name>
+			<key n="61">
+				<name>=</name>
 				<desc>Show configuration dialog</desc>
 				<binding>
 					<command>nasal</command>
