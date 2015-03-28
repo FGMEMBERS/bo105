@@ -2,10 +2,28 @@
 
 <PropertyList>
 	<sim>
-		<description>Eurocopter Bo105</description>
-		<author>Melchior Franz, Maik Justus (FDM)</author>
-		<status>early-production</status>
+		<description>Eurocopter Bo105 CBS5</description>
+		<author>Melchior Franz (3d, nasal scripts, configs), Maik Justus (FDM)</author>
+		<status>beta</status>
+		<rating>
+		<FDM type="int">5</FDM>
+		<systems type="int">1</systems>
+		<cockpit type="int">2</cockpit>
+		<model type="int">3</model>
+		</rating>
 		<license>GPL v2</license>
+		
+		<tags>
+			<tag>mbb</tag>
+			<tag>eurocopter</tag>			
+			<tag>helicopter</tag>
+			<tag>2-engine</tag>
+			<tag>1970s</tag>
+			<tag>1980s</tag>
+			<tag>1990s</tag>
+			<tag>2000s</tag>
+			<tag>coldwar</tag>
+		</tags>
 
 		<flight-model>yasim</flight-model>
 		<aero>bo105</aero>
