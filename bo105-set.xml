@@ -2,7 +2,7 @@
 
 <PropertyList>
 	<sim>
-		<description>Eurocopter Bo105 CBS5</description>
+		<description>Eurocopter Bo105 CBS</description>
 		<author>Melchior Franz (3d, nasal scripts, configs), Maik Justus (FDM)</author>
 		<status>beta</status>
 		<rating>
