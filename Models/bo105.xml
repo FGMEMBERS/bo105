@@ -73,7 +73,7 @@
 	</params>
 
 	<model>
-		<path>Models/Aircraft/marker.xml</path>
+		<path>Aircraft/Generic/marker.xml</path>
 	</model>
 
 <!--== object groups ==-->
