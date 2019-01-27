@@ -19,7 +19,7 @@
 
 
 <rotor name="main" x="-2.75" y="0.0" z="1.55" nx="0.05" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="1"
-  maxcollective="15.8" mincollective="0.2"
+  maxcollective="15.8" mincollective="-0.2"
   mincyclicele="-4.7" maxcyclicele="10.5"
   mincyclicail="-4.23" maxcyclicail="5.65"
   diameter="9.98" numblades="4" weightperblade="75" relbladecenter="0.5"
