@@ -19,7 +19,7 @@
 
 
 <rotor name="main" x="-2.75" y="0.0" z="1.55" nx="0.05" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="1"
-  maxcollective="15.8" mincollective="0.2"
+  maxcollective="15.8" mincollective="-0.2"
   mincyclicele="-4.7" maxcyclicele="10.5"
   mincyclicail="-4.23" maxcyclicail="5.65"
   diameter="9.98" numblades="4" weightperblade="75" relbladecenter="0.5"
@@ -151,15 +151,15 @@
 </hstab>
 
 <!-- left skid -->
-<gear x="-1.04" y="+1.20" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-1.04" y="+1.20" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4" stiction="1"/>
 <gear x="-3.32" y="+1.20" z="-1.18" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
 
 <!-- right skid -->
-<gear x="-1.04" y="-1.20" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
-<gear x="-3.32" y="-1.20" z="-1.18" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4"/>
+<gear x="-1.04" y="-1.20" z="-1.22" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4" stiction="1"/>
+<gear x="-3.32" y="-1.20" z="-1.18" skid="1" compression="0.10" spring="0.8" sfric="0.5" dfric="0.4" stiction="1"/>
 
 <!-- tail skid -->
-<gear x="-8.45" y="+0.00" z="-0.03" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1"/>
+<gear x="-8.45" y="+0.00" z="-0.03" skid="1" compression="0.01" spring="0.1" sfric="1" dfric="1" stiction="1"/>
 
 
 <tank x="-2.69" y="0" z="-.5" capacity="1006"/> <!-- main:   580 l (570 l usable) @ 6.682 ppg (H3EU.pdf) -->
